@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Macmillan TVET EdVantage - Technical English & Vocational LMS</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            macmillan: {
+              navy: '#1e3a8a',
+              blue: '#2563eb',
+              red: '#e11d48',
+              teal: '#0d9488',
+              slate: '#0f172a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    .drag-over {
+      border: 2px dashed #2563eb !important;
+      background-color: #eff6ff !important;
+    }
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    @keyframes float-up {
+      0% { transform: translateY(0) scale(0.8); opacity: 1; }
+      100% { transform: translateY(-110px) scale(1.15); opacity: 0; }
+    }
+    .reaction-bubble {
+      animation: float-up 2.2s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased custom-scrollbar">
+
+  <!-- ========================================================
+       1. DEMO LOGIN PORTAL (100% ENGLISH - 4 ROLES SELECTOR)
+  ======================================================== -->
+  <div id="screen-login" class="min-h-screen flex flex-col justify-center items-center p-4 sm:p-6 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white relative overflow-hidden">
+    
+    <!-- Ambient Glow -->
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-rose-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-2xl w-full space-y-6 relative z-10 animate-in fade-in duration-300">
+      
+      <!-- Brand Header -->
+      <div class="text-center space-y-2">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-macmillan-navy to-macmillan-red shadow-lg shadow-blue-500/30 mb-2">
+          <span class="text-white font-black text-2xl">M</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center justify-center gap-2">
+          Macmillan <span class="text-teal-400">TVET EdVantage</span>
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-300 max-w-md mx-auto">
+          Technical English & Vocational Curriculum Delivery Platform
+        </p>
+      </div>
+
+      <!-- Main Login Container Card -->
+      <div class="bg-white/95 backdrop-blur-md rounded-2xl p-6 sm:p-8 text-slate-900 shadow-2xl border border-white/20 space-y-6">
+        
+        <div>
+          <h2 class="text-xs font-bold text-slate-500 uppercase tracking-wider text-center">
+            Select Your Role Level to Enter Live Demo
+          </h2>
+          <p class="text-xs text-slate-700 text-center mt-1 font-medium">Each level features strict permissions, workflow separation, and real-time cross-role sync.</p>
+        </div>
+
+        <!-- 4 Role Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          
+          <!-- Role 1: Student -->
+          <div onclick="selectLoginRole('student')" id="card-role-student" class="role-login-card p-4 rounded-xl border-2 border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/40 cursor-pointer transition flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h3 class="font-bold text-slate-900 text-sm">1. Student Portal</h3>
+                <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded">Learner</span>
+              </div>
+              <p class="text-[11px] text-slate-500 mt-1">Access scheduled lessons, expiring lecture links, vocabulary flashcards & auto-graded tests.</p>
+              <span class="text-[10px] text-emerald-700 font-semibold block mt-1">Student: Dang Hoang Minh (K21-AUTO)</span>
+            </div>
+          </div>
+
+          <!-- Role 2: Teacher / Instructor -->
+          <div onclick="selectLoginRole('teacher')" id="card-role-teacher" class="role-login-card p-4 rounded-xl border-2 border-macmillan-blue bg-blue-50/50 cursor-pointer transition flex items-start gap-3.5 shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-macmillan-navy flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="book-open" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h3 class="font-bold text-slate-900 text-sm">2. Instructor Portal</h3>
+                <span class="text-[10px] font-bold bg-blue-100 text-blue-800 px-1.5 py-0.2 rounded">Faculty</span>
+              </div>
+              <p class="text-[11px] text-slate-500 mt-1">Drag & Drop lesson builder, AI test generator, co-teaching, class gradebook & study time tracking.</p>
+              <span class="text-[10px] text-blue-700 font-semibold block mt-1">Lead Instructor: David Harrison, M.Sc.</span>
+            </div>
+          </div>
+
+          <!-- Role 3: Academic Director -->
+          <div onclick="selectLoginRole('director')" id="card-role-director" class="role-login-card p-4 rounded-xl border-2 border-slate-200 hover:border-amber-500 hover:bg-amber-50/40 cursor-pointer transition flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="shield-check" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h3 class="font-bold text-slate-900 text-sm">3. Academic Director</h3>
+                <span class="text-[10px] font-bold bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded">Dean / Head</span>
+              </div>
+              <p class="text-[11px] text-slate-500 mt-1">Master curriculum timeline, approve lesson plans to live schedule, vocational exam generator & radar.</p>
+              <span class="text-[10px] text-amber-700 font-semibold block mt-1">Academic Dean: Dr. Arthur Vance</span>
+            </div>
+          </div>
+
+          <!-- Role 4: Administrator -->
+          <div onclick="selectLoginRole('admin')" id="card-role-admin" class="role-login-card p-4 rounded-xl border-2 border-slate-200 hover:border-slate-500 hover:bg-slate-50 cursor-pointer transition flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-slate-200 text-slate-800 flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="settings" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h3 class="font-bold text-slate-900 text-sm">4. Institutional Admin</h3>
+                <span class="text-[10px] font-bold bg-slate-200 text-slate-800 px-1.5 py-0.2 rounded">System</span>
+              </div>
+              <p class="text-[11px] text-slate-500 mt-1">Macmillan license management (500 seats), institutional LTI 1.3 LMS sync & system audit trails.</p>
+              <span class="text-[10px] text-slate-700 font-semibold block mt-1">System Administrator</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-2">
+          <button onclick="doLogin()" id="btn-login-submit" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-macmillan-navy to-macmillan-blue hover:from-blue-900 hover:to-blue-700 text-white font-extrabold text-sm shadow-md transition flex items-center justify-center gap-2">
+            <span>Enter Platform as:</span>
+            <strong id="btn-selected-role-name" class="text-amber-300 underline underline-offset-2">Instructor Portal</strong>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Footer Info -->
+      <div class="text-center text-xs text-slate-400">
+        Macmillan Education • Technical & Vocational English for Automotive Engineering
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================
+       2. MAIN WORKSPACE (ROLE-SPECIFIC APPLICATION SHELL)
+  ======================================================== -->
+  <div id="screen-app" class="min-h-screen flex flex-col hidden">
+    
+    <!-- Top Header Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        
+        <!-- Left: Logo & Role Scope -->
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-macmillan-navy to-macmillan-red flex items-center justify-center text-white font-black text-lg shadow-sm">
+            M
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-extrabold text-slate-900 text-base">Macmillan</span>
+              <span class="bg-slate-900 text-teal-400 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">TVET Pro</span>
+              <span id="header-scope-badge" class="text-xs font-bold px-2.5 py-0.5 rounded-full border">
+                Instructor Portal
+              </span>
+            </div>
+            <p class="text-[10px] text-slate-500">Course: <strong>English for Automotive & Mechanical Engineering</strong></p>
+          </div>
+        </div>
+
+        <!-- Center: Dynamic Quick Stats / Context -->
+        <div class="hidden lg:flex items-center space-x-3 text-xs">
+          <div class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full flex items-center gap-1.5 font-medium border border-slate-200">
+            <i data-lucide="calendar" class="w-3.5 h-3.5 text-blue-600"></i>
+            <span>Semester: <strong>Spring 2026 (Week 8 / 15)</strong></span>
+          </div>
+          <div class="bg-teal-50 text-teal-800 px-3 py-1 rounded-full flex items-center gap-1.5 font-medium border border-teal-200">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-teal-600"></i>
+            <span>Live Lecture Session: <strong id="top-timer-display" class="font-mono">23:59:45</strong></span>
+          </div>
+        </div>
+
+        <!-- Right: Notification Bell, User Badge, Switch Role -->
+        <div class="flex items-center space-x-3">
+          
+          <!-- Unified Intelligent Notification Bell -->
+          <div class="relative">
+            <button onclick="toggleNotificationPopover()" class="p-2 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900 relative transition" title="System Notifications & Reminders">
+              <i data-lucide="bell" class="w-5 h-5"></i>
+              <span id="notif-badge" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-600 animate-ping"></span>
+              <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-600"></span>
+            </button>
+
+            <!-- Notification Popover Dropdown -->
+            <div id="notif-popover" class="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 space-y-3 hidden z-50 animate-in fade-in zoom-in-95 duration-150">
+              <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                  <span class="p-1 rounded bg-blue-100 text-blue-700"><i data-lucide="bell-ring" class="w-3.5 h-3.5"></i></span>
+                  <h4 class="font-bold text-slate-900 text-xs">Platform Activity Reminders</h4>
+                </div>
+                <span class="text-[10px] text-slate-500 font-semibold" id="notif-count-tag">3 New Updates</span>
+              </div>
+              <div id="notif-list-container" class="space-y-2 max-h-72 overflow-y-auto custom-scrollbar text-xs">
+                <!-- Rendered dynamically according to role -->
+              </div>
+              <div class="pt-2 border-t border-slate-100 text-center">
+                <button onclick="markAllNotificationsRead()" class="text-[11px] text-blue-600 hover:underline font-bold">
+                  Mark All as Read
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Info Profile -->
+          <div id="app-user-info" class="flex items-center space-x-2 text-right">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Switch Role / Logout -->
+          <button onclick="doLogout()" class="px-3 py-1.5 rounded-lg border border-slate-200 hover:border-rose-300 hover:bg-rose-50 text-slate-600 hover:text-rose-700 text-xs font-bold transition flex items-center gap-1.5" title="Switch role or logout">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Switch Role</span>
+          </button>
+
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Sub-bar: Real-time Timeline Status & Quick Walkthrough -->
+    <div class="bg-slate-100/90 border-b border-slate-200 px-4 sm:px-6 lg:px-8 py-2">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between text-xs text-slate-600 gap-2">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>Curriculum Status: <strong class="text-slate-800">15-Week Accredited TVET Syllabus Active</strong></span>
+          <span class="hidden md:inline text-slate-300">|</span>
+          <span class="hidden md:inline text-slate-500">Class: <strong>TVET-K21-AUTO (Automotive Engineering)</strong></span>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="toggleQuickTourModal()" class="text-blue-700 hover:underline font-bold flex items-center gap-1">
+            <i data-lucide="play-circle" class="w-3.5 h-3.5 text-amber-500"></i>
+            4-Step Walkthrough Guide
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN ROLE CONTENT VIEW CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      
+      <!-- ==============================================
+           LEVEL 1: STUDENT PORTAL (LEARNER VIEW)
+      ============================================== -->
+      <div id="view-student" class="space-y-6 hidden">
+        
+        <!-- Welcome Hero Banner -->
+        <div class="bg-gradient-to-r from-emerald-800 via-teal-900 to-slate-900 rounded-2xl p-6 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="space-y-1.5">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/20 text-[11px] font-bold">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              LIVE INTERACTIVE CLASSROOM OPEN
+            </div>
+            <h2 class="text-xl sm:text-2xl font-black">Unit 4: Internal Combustion Engine Diagnosis</h2>
+            <p class="text-xs text-slate-200">Instructor David Harrison has broadcasted the live lecture link. Expiring in 24 hours.</p>
+          </div>
+          <div class="flex items-center gap-2.5 shrink-0">
+            <button onclick="previewPresentationModal()" class="px-4 py-2.5 rounded-xl bg-white text-emerald-900 font-extrabold text-xs hover:bg-emerald-50 transition shadow flex items-center gap-1.5">
+              <i data-lucide="play" class="w-4 h-4 fill-emerald-900"></i> Join Live Lecture
+            </button>
+            <button onclick="openTakeTestModal('midterm')" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs transition shadow flex items-center gap-1.5">
+              <i data-lucide="edit-3" class="w-4 h-4"></i> Take Midterm Exam
+            </button>
+          </div>
+        </div>
+
+        <!-- Student Study & Learning Metrics Overview -->
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
+              <i data-lucide="clock" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-500 uppercase font-bold">Time Spent on Platform</span>
+              <h4 class="text-lg font-black text-slate-900">24h 15m</h4>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+              <i data-lucide="activity" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-500 uppercase font-bold">Engagement Rate</span>
+              <h4 class="text-lg font-black text-emerald-600">94.5%</h4>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold">
+              <i data-lucide="check-circle" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-500 uppercase font-bold">Completed Lessons</span>
+              <h4 class="text-lg font-black text-slate-900">3 / 5 Units</h4>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
+              <i data-lucide="award" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-500 uppercase font-bold">Current GPA Average</span>
+              <h4 class="text-lg font-black text-slate-900" id="student-gpa-stat">9.2 / 10</h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Logical Student Columns: Scheduled Lessons - Practice Area - Assessments -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Box 1: Scheduled Curriculum Lessons -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                <i data-lucide="book-open" class="w-4 h-4 text-emerald-600"></i>
+                1. Scheduled Course Units
+              </h3>
+              <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Macmillan Core</span>
+            </div>
+
+            <div class="space-y-3">
+              <!-- Active Unit 4 -->
+              <div onclick="previewPresentationModal()" class="p-3.5 rounded-xl border-2 border-emerald-400 bg-emerald-50/50 hover:bg-emerald-100/50 cursor-pointer transition space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded uppercase">Active Lecture</span>
+                  <span class="text-[11px] font-mono text-emerald-700 font-bold" id="student-timer-box">23:59:45</span>
+                </div>
+                <h4 class="font-bold text-slate-900 text-xs">Unit 4: Engine Diagnostics & Troubleshooting</h4>
+                <p class="text-[11px] text-slate-500">Four-stroke cycles, OBD-II DTC troubleshooting, VOM measurements & workshop safety SOP.</p>
+              </div>
+
+              <!-- Unit 3 Completed -->
+              <div class="p-3.5 rounded-xl border border-slate-200 bg-white space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">Completed</span>
+                  <span class="text-[11px] text-emerald-600 font-bold">100% Passed</span>
+                </div>
+                <h4 class="font-bold text-slate-800 text-xs">Unit 3: Braking System & ABS Electronics</h4>
+                <p class="text-[11px] text-slate-500">Hydraulic disc brakes, wheel speed sensors & ABS hydraulic actuator diagnosis.</p>
+              </div>
+
+              <!-- Unit 2 Completed -->
+              <div class="p-3.5 rounded-xl border border-slate-200 bg-white space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">Completed</span>
+                  <span class="text-[11px] text-emerald-600 font-bold">100% Passed</span>
+                </div>
+                <h4 class="font-bold text-slate-800 text-xs">Unit 2: Electrical Circuits & Wiring Schematics</h4>
+                <p class="text-[11px] text-slate-500">Automotive schematics reading, ground loop testing & relay circuit troubleshooting.</p>
+              </div>
+
+              <!-- Unit 5 Locked -->
+              <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50 opacity-60 space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold text-slate-400 bg-slate-200 px-1.5 py-0.5 rounded">Locked (Week 10)</span>
+                  <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i>
+                </div>
+                <h4 class="font-bold text-slate-700 text-xs">Unit 5: Automatic Transmission & Torque Converter</h4>
+                <p class="text-[11px] text-slate-400">Unlocks automatically upon Midterm Examination completion.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Box 2: Self-Study & Practice Area -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                <i data-lucide="layers" class="w-4 h-4 text-teal-600"></i>
+                2. Self-Study & Practice Center
+              </h3>
+              <span class="text-[10px] font-bold bg-teal-50 text-teal-700 px-2 py-0.5 rounded">Unlimited</span>
+            </div>
+
+            <div class="space-y-3">
+              <!-- Flashcards -->
+              <div class="p-3.5 rounded-xl border border-slate-200 hover:border-teal-500 transition space-y-2">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-slate-900 text-xs">Macmillan TVET Flashcards: 120 Key Terms</h4>
+                  <span class="text-[10px] font-bold bg-teal-100 text-teal-800 px-1.5 py-0.5 rounded">AI Audio</span>
+                </div>
+                <p class="text-[11px] text-slate-500">2-sided flip cards with authentic US/UK pronunciation and technical contextual definitions.</p>
+                <button onclick="openFlashcardModal()" class="w-full py-1.5 text-xs font-bold bg-teal-50 text-teal-700 hover:bg-teal-100 rounded-lg transition">
+                  Open Flashcard Trainer →
+                </button>
+              </div>
+
+              <!-- Case Study Simulator -->
+              <div class="p-3.5 rounded-xl border border-slate-200 hover:border-teal-500 transition space-y-2">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-slate-900 text-xs">Workshop Case Study Simulation</h4>
+                  <span class="text-[10px] font-bold bg-indigo-100 text-indigo-800 px-1.5 py-0.5 rounded">Practical</span>
+                </div>
+                <p class="text-[11px] text-slate-500">Live troubleshooting scenario: Customer reports engine hesitating at 40-60 km/h under load.</p>
+                <button onclick="previewPresentationModal()" class="w-full py-1.5 text-xs font-bold bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg transition">
+                  Review Diagnostic Steps →
+                </button>
+              </div>
+
+              <!-- AI Quick Quiz -->
+              <div class="p-3.5 rounded-xl border border-slate-200 hover:border-teal-500 transition space-y-2">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-slate-900 text-xs">5-Minute AI Drill: Schematics & Torque</h4>
+                  <span class="text-[10px] font-bold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">Auto-Generated</span>
+                </div>
+                <p class="text-[11px] text-slate-500">Randomized 5-question test drawn from the institutional question bank.</p>
+                <button onclick="openTakeTestModal('practice')" class="w-full py-1.5 text-xs font-bold bg-amber-50 text-amber-800 hover:bg-amber-100 rounded-lg transition">
+                  Start Practice Quiz →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Box 3: Formal Auto-Graded Assessments -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                <i data-lucide="award" class="w-4 h-4 text-rose-600"></i>
+                3. Formal Assessments & Radar
+              </h3>
+              <span class="text-[10px] font-bold bg-rose-50 text-rose-700 px-2 py-0.5 rounded">Auto-Graded</span>
+            </div>
+
+            <div class="space-y-3">
+              <!-- Unit Test Result -->
+              <div class="p-3 rounded-xl border border-slate-200 bg-white space-y-1">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-slate-900 text-xs">Unit 1-3 Progress Test</h4>
+                  <span class="text-xs font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">9.2 / 10 Points</span>
+                </div>
+                <p class="text-[11px] text-slate-500">Completed Oct 24. Standard technical terminology verified.</p>
+              </div>
+
+              <!-- Midterm Exam Box -->
+              <div class="p-3.5 rounded-xl border-2 border-rose-300 bg-rose-50/40 space-y-2">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-slate-900 text-xs">Midterm Vocational Examination</h4>
+                  <span id="student-midterm-status" class="text-[10px] font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded animate-pulse">Pending Submission</span>
+                </div>
+                <p class="text-[11px] text-slate-600">Technical vocabulary, schematic interpretation & OBD-II fault diagnostics.</p>
+                <button onclick="openTakeTestModal('midterm')" id="btn-take-midterm" class="w-full py-2 text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white rounded-lg shadow-sm transition flex items-center justify-center gap-1.5">
+                  <i data-lucide="edit" class="w-3.5 h-3.5"></i> Start Midterm Exam (15 Mins)
+                </button>
+              </div>
+
+              <!-- Final Exam Box -->
+              <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 opacity-70 space-y-1">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-slate-700 text-xs">Final Exit Examination</h4>
+                  <span class="text-[10px] font-bold text-slate-400 bg-slate-200 px-1.5 py-0.5 rounded">Week 15</span>
+                </div>
+                <p class="text-[11px] text-slate-500">Comprehensive oral defense + standardized Macmillan TVET exam.</p>
+              </div>
+            </div>
+
+            <!-- Individual Competency Radar Chart -->
+            <div class="pt-3 border-t border-slate-100">
+              <h5 class="text-xs font-bold text-slate-800 mb-2">Student Competency Skill Matrix:</h5>
+              <div class="h-44 w-full">
+                <canvas id="studentCompetencyMiniChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ==============================================
+           LEVEL 2: INSTRUCTOR PORTAL (FACULTY VIEW)
+      ============================================== -->
+      <div id="view-teacher" class="space-y-6 hidden">
+        
+        <!-- Teacher Tabs Navigation -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
+          <div class="flex items-center space-x-2">
+            <button onclick="setTeacherTab('designer')" id="ttab-designer" class="teacher-tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-macmillan-blue text-white shadow-sm flex items-center gap-1.5">
+              <i data-lucide="layout-template" class="w-4 h-4"></i>
+              1. Lesson Builder (Drag & Drop)
+            </button>
+            <button onclick="setTeacherTab('timeline')" id="ttab-timeline" class="teacher-tab-btn px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg flex items-center gap-1.5">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              2. Master Timeline (Day/Month/Semester/Year)
+            </button>
+            <button onclick="setTeacherTab('classes')" id="ttab-classes" class="teacher-tab-btn px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg flex items-center gap-1.5">
+              <i data-lucide="users" class="w-4 h-4"></i>
+              3. Classes & Co-Teaching
+            </button>
+            <button onclick="setTeacherTab('gradebook')" id="ttab-gradebook" class="teacher-tab-btn px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg flex items-center gap-1.5">
+              <i data-lucide="award" class="w-4 h-4"></i>
+              4. Gradebook & Study Time Tracker
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <!-- Test Generator Trigger -->
+            <button onclick="openExerciseGeneratorModal()" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-300"></i> Generate Topic Exam (AI)
+            </button>
+            <button onclick="openShareModal('Unit 4: Internal Combustion Engine Diagnosis')" class="px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+              <i data-lucide="share-2" class="w-3.5 h-3.5"></i> Expiring Lecture Link
+            </button>
+            <button onclick="submitLessonForApproval()" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i> Submit for Dean Approval
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT 1: DRAG & DROP DESIGNER -->
+        <div id="tcontent-designer" class="space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Left: Library of Blocks (4 cols) -->
+            <div class="lg:col-span-4 space-y-4">
+              <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm space-y-3">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                    <i data-lucide="box" class="w-4 h-4 text-macmillan-blue"></i>
+                    Curriculum Content Palette
+                  </h4>
+                  <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded">6 Blocks</span>
+                </div>
+                <p class="text-xs text-slate-500">Drag vocational content blocks directly into the lesson canvas:</p>
+
+                <div class="space-y-2.5">
+                  <div draggable="true" ondragstart="handleDragStart(event, 'theory')" class="p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-white hover:border-blue-500 cursor-grab active:cursor-grabbing transition text-xs space-y-1">
+                    <div class="flex items-center justify-between font-bold text-slate-800">
+                      <span>📖 Macmillan TVET Core Theory</span>
+                      <span class="text-[10px] text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded">Core Text</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">Four-stroke internal combustion cycle & technical English terms.</p>
+                  </div>
+
+                  <div draggable="true" ondragstart="handleDragStart(event, 'simulation')" class="p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-white hover:border-purple-500 cursor-grab active:cursor-grabbing transition text-xs space-y-1">
+                    <div class="flex items-center justify-between font-bold text-slate-800">
+                      <span>⚙️ 3D Canvas Engine Simulation</span>
+                      <span class="text-[10px] text-purple-700 bg-purple-50 px-1.5 py-0.5 rounded">Interactive Canvas</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">Reciprocating piston kinematics, valve timing & combustion color changes.</p>
+                  </div>
+
+                  <div draggable="true" ondragstart="handleDragStart(event, 'case_study')" class="p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-white hover:border-teal-500 cursor-grab active:cursor-grabbing transition text-xs space-y-1">
+                    <div class="flex items-center justify-between font-bold text-slate-800">
+                      <span>💼 Workshop Case Study</span>
+                      <span class="text-[10px] text-teal-700 bg-teal-50 px-1.5 py-0.5 rounded">Real Automotive</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">Vehicle stalling under acceleration: OBD-II DTC P0300 diagnostic workflow.</p>
+                  </div>
+
+                  <div draggable="true" ondragstart="handleDragStart(event, 'quiz')" class="p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-white hover:border-amber-500 cursor-grab active:cursor-grabbing transition text-xs space-y-1">
+                    <div class="flex items-center justify-between font-bold text-slate-800">
+                      <span>❓ Institutional AI Practice Quiz</span>
+                      <span class="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">Auto-Generated</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">5 multiple-choice questions on cylinder head torque wrench specifications.</p>
+                  </div>
+
+                  <div draggable="true" ondragstart="handleDragStart(event, 'checklist')" class="p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-white hover:border-emerald-500 cursor-grab active:cursor-grabbing transition text-xs space-y-1">
+                    <div class="flex items-center justify-between font-bold text-slate-800">
+                      <span>📋 Workshop SOP 5S Safety Checklist</span>
+                      <span class="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">Safety & PPE</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">Safety eyewear, steel-toe boots & emergency electrical cutoff checklist.</p>
+                  </div>
+                </div>
+
+                <div class="pt-2 border-t border-slate-200">
+                  <button onclick="openExerciseGeneratorModal()" class="w-full py-2 text-xs font-bold bg-slate-100 hover:bg-blue-50 text-macmillan-blue rounded-lg border border-slate-200 transition flex items-center justify-center gap-1.5">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Generate Topic Exam Questions
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Lesson Plan Canvas (8 cols) -->
+            <div class="lg:col-span-8 space-y-4">
+              <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h4 class="font-bold text-slate-900 text-sm">Active Lesson Delivery Canvas (Unit 4)</h4>
+                      <span id="lesson-status-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
+                        Pending Dean Approval
+                      </span>
+                    </div>
+                    <p class="text-xs text-slate-500">Drag to sequence live presentation modules broadcasted to student screens.</p>
+                  </div>
+                  <button onclick="previewPresentationModal()" class="px-3 py-1.5 text-xs font-bold bg-blue-50 text-macmillan-blue hover:bg-blue-100 rounded-lg border border-blue-200 flex items-center gap-1">
+                    <i data-lucide="play" class="w-3.5 h-3.5"></i> Launch Full Presentation
+                  </button>
+                </div>
+
+                <!-- Drop Target Container -->
+                <div id="drop-target-zone" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)" class="space-y-3 min-h-[360px] p-3 rounded-xl bg-slate-50 border-2 border-dashed border-slate-300">
+                  <!-- Rendered dynamically -->
+                </div>
+
+                <div class="flex items-center justify-between pt-2 border-t border-slate-100 text-xs text-slate-500">
+                  <span id="canvas-counter">Configured: <strong>4 modules</strong></span>
+                  <div class="space-x-3">
+                    <button onclick="clearCanvas()" class="hover:text-rose-600">Clear Canvas</button>
+                    <button onclick="restoreDefaultLesson()" class="text-macmillan-blue hover:underline">Reset to Default</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TAB CONTENT 2: TIMELINE -->
+        <div id="tcontent-timeline" class="space-y-4 hidden">
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">Master Syllabus & Approved Curriculum Schedule</h4>
+                <p class="text-xs text-slate-500">Approved by Academic Dean Dr. Arthur Vance. Automatically updates across platforms.</p>
+              </div>
+              <div class="flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs">
+                <button onclick="setTimelineView('day')" id="time-view-day" class="px-3 py-1 rounded font-semibold text-slate-600">Day</button>
+                <button onclick="setTimelineView('month')" id="time-view-month" class="px-3 py-1 rounded font-semibold text-slate-600">Month</button>
+                <button onclick="setTimelineView('quarter')" id="time-view-quarter" class="px-3 py-1 rounded font-bold bg-white text-blue-700 shadow-sm">Semester Roadmap</button>
+                <button onclick="setTimelineView('year')" id="time-view-year" class="px-3 py-1 rounded font-semibold text-slate-600">Academic Year</button>
+              </div>
+            </div>
+            <div id="timeline-display-container"></div>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT 3: CLASSES & CO-TEACHING -->
+        <div id="tcontent-classes" class="space-y-4 hidden">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
+              <div class="flex items-center justify-between">
+                <h4 class="font-bold text-slate-900 text-sm">Assigned Lead Classes</h4>
+                <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">1 Active Class</span>
+              </div>
+              <div class="p-4 rounded-xl border border-blue-200 bg-blue-50/50 space-y-2">
+                <span class="text-[10px] font-bold text-blue-700 uppercase">PRIMARY INSTRUCTOR</span>
+                <h5 class="font-bold text-slate-900 text-base">TVET-K21-AUTO (Automotive Engineering K21)</h5>
+                <p class="text-xs text-slate-600">Enrollment: 38 Students • Progress: Week 8 / 15 (55% Syllabus Covered)</p>
+                <button onclick="setTeacherTab('gradebook')" class="text-xs text-blue-700 font-bold hover:underline">Open Live Gradebook →</button>
+              </div>
+              <button onclick="openCreateClassModal()" class="w-full py-2.5 border-2 border-dashed border-slate-300 rounded-xl text-xs font-bold text-slate-600 hover:border-blue-500 hover:text-blue-700 transition">
+                + Propose New Class for Dean Approval
+              </button>
+            </div>
+
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
+              <div class="flex items-center justify-between">
+                <h4 class="font-bold text-slate-900 text-sm">Co-Teaching & Peer Observation Invitations</h4>
+                <span class="text-xs bg-teal-100 text-teal-800 font-bold px-2 py-0.5 rounded">2 Classes</span>
+              </div>
+              <div class="space-y-2.5">
+                <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 space-y-1 text-xs">
+                  <div class="flex justify-between font-bold text-slate-800">
+                    <span>TVET-MEC19A - Mechatronics & Robotics</span>
+                    <span class="text-teal-700 font-semibold text-[10px]">Co-Instructor</span>
+                  </div>
+                  <p class="text-slate-500">Lead Faculty: Michael Nguyen, M.Eng • Module: Tire Pressure Sensors (TPMS)</p>
+                </div>
+                <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 space-y-1 text-xs">
+                  <div class="flex justify-between font-bold text-slate-800">
+                    <span>TVET-ELE22 - Industrial Electrical Systems</span>
+                    <span class="text-purple-700 font-semibold text-[10px]">Peer QA Observer</span>
+                  </div>
+                  <p class="text-slate-500">Lead Faculty: Dr. Robert Vance • Topic: High Voltage Substation Lockout-Tagout</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT 4: GRADEBOOK & STUDY TIME TRACKER -->
+        <div id="tcontent-gradebook" class="space-y-4 hidden">
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">Class Gradebook & Learning Time Analytics (TVET-K21-AUTO)</h4>
+                <p class="text-xs text-slate-500">Real-time auto-grading sync, interactive engagement rate & total hours on platform.</p>
+              </div>
+              <button onclick="exportGradebookExcel()" class="px-3 py-1.5 text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg hover:bg-emerald-100 transition flex items-center gap-1">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i> Export Report (.CSV)
+              </button>
+            </div>
+            
+            <div class="overflow-x-auto border border-slate-200 rounded-lg">
+              <table class="w-full text-left text-xs text-slate-600">
+                <thead class="bg-slate-50 text-slate-700 uppercase font-semibold text-[11px] border-b border-slate-200">
+                  <tr>
+                    <th class="p-3">Student Name / ID</th>
+                    <th class="p-3">Time on Platform</th>
+                    <th class="p-3">Engagement Rate</th>
+                    <th class="p-3">Unit Test (20%)</th>
+                    <th class="p-3">Midterm Exam (30%)</th>
+                    <th class="p-3">Workshop Practical</th>
+                    <th class="p-3">Overall GPA</th>
+                  </tr>
+                </thead>
+                <tbody id="teacher-gradebook-body" class="divide-y divide-slate-100"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==============================================
+           LEVEL 3: ACADEMIC DIRECTOR PORTAL (DEAN VIEW)
+      ============================================== -->
+      <div id="view-director" class="space-y-6 hidden">
+        
+        <!-- Director Metrics Overview -->
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
+              <i data-lucide="check-check" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-500 uppercase font-bold">Pending Approval</span>
+              <h4 id="director-stat-pending" class="text-lg font-black text-slate-900">1 Lesson Plan</h4>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center font-bold">
+              <i data-lucide="calendar" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-500 uppercase font-bold">Master Timeline</span>
+              <h4 class="text-lg font-black text-slate-900">15 Weeks</h4>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-bold">
+              <i data-lucide="database" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-500 uppercase font-bold">Institutional Repository</span>
+              <h4 class="text-lg font-black text-slate-900">142 Items</h4>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center font-bold">
+              <i data-lucide="award" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-500 uppercase font-bold">Accreditation Pass Rate</span>
+              <h4 class="text-lg font-black text-slate-900">94.8%</h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- Master Curriculum Timeline & Approval Banner -->
+        <div class="bg-gradient-to-r from-blue-900 to-indigo-950 text-white rounded-2xl p-5 shadow-sm space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <span class="text-[10px] uppercase font-bold text-amber-400 bg-amber-950 px-2 py-0.5 rounded border border-amber-800">ACADEMIC DEAN GOVERNANCE</span>
+              <h3 class="text-base sm:text-lg font-black mt-1">Master Curriculum Timeline & Approval Engine</h3>
+              <p class="text-xs text-blue-200">Once lessons are approved either individually or by semester term, they automatically populate onto the master live timeline.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="bulkApproveSemesterTerm()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg shadow transition flex items-center gap-1.5">
+                <i data-lucide="check-check" class="w-4 h-4"></i> Bulk Approve Term Units
+              </button>
+              <button onclick="openExerciseGeneratorModal()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg shadow transition flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-4 h-4 text-amber-300"></i> Generate Standardized Exam
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Left: Lesson Approval Queue & Case Studies (7 cols) -->
+          <div class="lg:col-span-7 space-y-6">
+            
+            <!-- Approval Queue -->
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+              <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                    <i data-lucide="clipboard-check" class="w-4 h-4 text-amber-600"></i>
+                    Lesson Plan Review & Master Schedule Release
+                  </h4>
+                  <p class="text-xs text-slate-500">Review lesson structure submitted by faculty before releasing onto student schedules.</p>
+                </div>
+                <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded">Action Required</span>
+              </div>
+              <div id="approval-queue-container" class="space-y-3"></div>
+            </div>
+
+            <!-- Case Studies Repository -->
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+              <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                    <i data-lucide="upload-cloud" class="w-4 h-4 text-teal-600"></i>
+                    Institutional Case Studies & Timeline Allocation
+                  </h4>
+                  <p class="text-xs text-slate-500">Inject industry workshop case studies directly into designated curriculum weeks.</p>
+                </div>
+                <button onclick="openAddCaseStudyModal()" class="px-3 py-1.5 text-xs font-bold text-white bg-teal-600 hover:bg-teal-700 rounded-lg shadow-sm flex items-center gap-1">
+                  <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add Case Study
+                </button>
+              </div>
+              <div class="overflow-x-auto border border-slate-200 rounded-lg">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-slate-50 text-slate-700 font-semibold border-b border-slate-200">
+                    <tr>
+                      <th class="p-2.5">Case Study Title</th>
+                      <th class="p-2.5">Category</th>
+                      <th class="p-2.5">Scheduled Week</th>
+                      <th class="p-2.5 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="director-case-study-list" class="divide-y divide-slate-100"></tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Cohort Competency & Student Drilldown (5 cols) -->
+          <div class="lg:col-span-5 space-y-6">
+            
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+              <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                <i data-lucide="pie-chart" class="w-4 h-4 text-macmillan-blue"></i>
+                Cohort Competency TVET Skill Matrix
+              </h4>
+              <div class="h-64 w-full">
+                <canvas id="directorCohortRadarChart"></canvas>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
+              <div class="flex items-center justify-between">
+                <h4 class="font-bold text-slate-900 text-sm">Individual Student Inspection:</h4>
+                <select id="director-student-drilldown" onchange="updateDirectorStudentDrilldown(this.value)" class="text-xs border border-slate-200 rounded px-2 py-1 font-semibold text-slate-700">
+                  <option value="SV001">Dang Hoang Minh (K21-AUTO)</option>
+                  <option value="SV002">Nguyen Thanh Long (K21-AUTO)</option>
+                  <option value="SV003">Pham Quoc Thai (K21-AUTO)</option>
+                  <option value="SV004">Le Thi Thanh Van (K21-AUTO)</option>
+                </select>
+              </div>
+              <div id="director-student-detail-card" class="p-3.5 rounded-lg border border-slate-200 bg-slate-50 space-y-2"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ==============================================
+           LEVEL 4: INSTITUTIONAL ADMINISTRATOR (SYSTEM VIEW)
+      ============================================== -->
+      <div id="view-admin" class="space-y-6 hidden">
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm space-y-6">
+          
+          <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+            <div>
+              <h3 class="font-bold text-slate-900 text-base">Institutional Administration & Macmillan Digital Licensing</h3>
+              <p class="text-xs text-slate-500">Role-based access management, institutional LTI 1.3 LMS sync & audit verification.</p>
+            </div>
+            <button onclick="triggerSystemAudit()" class="px-3.5 py-2 text-xs font-bold text-white bg-slate-800 hover:bg-slate-900 rounded-lg shadow-sm flex items-center gap-1.5">
+              <i data-lucide="shield" class="w-4 h-4"></i> Run System Audit Verification
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+              <h4 class="font-bold text-slate-900 text-sm">Macmillan TVET License</h4>
+              <p class="text-xs text-slate-600">Active Seats: <strong>500 Concurrent Seats</strong></p>
+              <span class="text-[10px] text-emerald-700 font-bold bg-emerald-100 p-1.5 rounded block">Valid for: 328 Days Remaining</span>
+            </div>
+
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+              <h4 class="font-bold text-slate-900 text-sm">Institutional LMS Gateway</h4>
+              <p class="text-xs text-slate-600">Standard: <strong>LTI 1.3 / OneRoster Ready</strong></p>
+              <span class="text-[10px] text-teal-700 font-bold bg-teal-100 p-1.5 rounded block">Grade Sync Engine: Active</span>
+            </div>
+
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+              <h4 class="font-bold text-slate-900 text-sm">Automated Backup & Ledger</h4>
+              <p class="text-xs text-slate-600">Persistent student activity & competency records.</p>
+              <span class="text-[10px] text-purple-700 font-bold bg-purple-100 p-1.5 rounded block">Latest Sync: Just now</span>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm mb-3">System Audit Trail & Cross-Role Logins</h4>
+            <div class="overflow-x-auto border border-slate-200 rounded-lg">
+              <table class="w-full text-left text-xs text-slate-600">
+                <thead class="bg-slate-50 font-semibold text-slate-700 border-b border-slate-200">
+                  <tr>
+                    <th class="p-2.5">Timestamp</th>
+                    <th class="p-2.5">User Identity</th>
+                    <th class="p-2.5">Role Level</th>
+                    <th class="p-2.5">Action Executed</th>
+                    <th class="p-2.5">Verification</th>
+                  </tr>
+                </thead>
+                <tbody id="system-audit-log-body" class="divide-y divide-slate-100"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ========================================================
+       MODALS: SHARE EXPIRING LINK, LIVE PRESENTATION, FLASHCARD, EXAM GENERATOR, TEST
+  ======================================================== -->
+
+  <!-- MODAL: SHARE EXPIRING LECTURE LINK -->
+  <div id="modal-share" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+          <i data-lucide="link-2" class="w-4 h-4 text-teal-600"></i>
+          Expiring Live Presentation Link (Students)
+        </h3>
+        <button onclick="closeShareModal()" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Access Expiration Window:</label>
+          <select id="share-duration" onchange="refreshShareUrl()" class="w-full border border-slate-200 rounded-lg p-2 font-medium">
+            <option value="2h">2 Hours (Standard Class Lecture)</option>
+            <option value="24h" selected>24 Hours (Same Day Review)</option>
+            <option value="7d">7 Days (Weekly Self-Study Window)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Lecture PIN Code:</label>
+          <input type="text" id="share-pin-code" value="TVET-889" readonly class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2 font-mono font-bold text-center text-teal-700 tracking-wider">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Direct Lecture URL:</label>
+          <div class="flex gap-2">
+            <input type="text" id="generated-share-link" readonly value="https://macmillan-tvet.edu.vn/live/u4?pin=889&expires=24h" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2 font-mono text-[11px] select-all">
+            <button onclick="copyShareUrl()" class="px-3 py-2 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg shrink-0">
+              Copy URL
+            </button>
+          </div>
+          <p id="copy-status-msg" class="text-[11px] text-teal-600 font-semibold mt-1 hidden">✓ URL copied to clipboard!</p>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center gap-3">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://macmillan-tvet.edu.vn/live/u4" alt="QR" class="w-16 h-16 object-contain rounded bg-white p-1 border">
+          <div>
+            <h5 class="font-bold text-slate-800">Scan QR Code in Workshop</h5>
+            <p class="text-[11px] text-slate-500">Students in the automotive workshop scan using tablets or phones to follow slides live.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+        <button onclick="closeShareModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">Close</button>
+        <button onclick="simulateSendLinkToAllStudents()" class="px-4 py-2 text-xs font-bold bg-macmillan-blue text-white rounded-lg">
+          Broadcast to Entire Class
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: LIVE PRESENTATION PLAYER WITH 4-STROKE ENGINE CANVAS -->
+  <div id="modal-presentation" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-6 hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-5xl h-[88vh] flex flex-col text-white shadow-2xl overflow-hidden relative">
+      
+      <div id="presentation-reactions-container" class="absolute bottom-16 right-8 pointer-events-none z-30 flex flex-col items-end space-y-2"></div>
+
+      <!-- Presentation Top Bar -->
+      <div class="bg-slate-950 px-5 py-3 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <span class="w-3 h-3 rounded-full bg-rose-500 animate-pulse"></span>
+          <span class="text-xs font-bold uppercase text-rose-400 bg-rose-950/60 border border-rose-800/50 px-2 py-0.5 rounded">
+            LIVE PRESENTATION MODE
+          </span>
+          <span class="text-sm font-semibold text-slate-200">Unit 4: Internal Combustion Engine Diagnosis</span>
+        </div>
+        <div class="flex items-center space-x-3">
+          <span class="text-xs text-slate-400 hidden sm:inline">Active Students: <strong class="text-emerald-400">38 / 38 Connected</strong></span>
+          <button onclick="closePresentationModal()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs px-3 py-1.5 rounded-lg">
+            Exit Presentation
+          </button>
+        </div>
+      </div>
+
+      <!-- Slide Viewport -->
+      <div class="flex-1 p-6 flex flex-col justify-center items-center overflow-y-auto custom-scrollbar" id="slide-viewport"></div>
+
+      <!-- Presentation Bottom Bar -->
+      <div class="bg-slate-950 px-6 py-3 border-t border-slate-800 flex items-center justify-between text-xs">
+        <div class="flex items-center space-x-2">
+          <button onclick="prevSlide()" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-white font-semibold flex items-center gap-1">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i> Previous Slide
+          </button>
+          <button onclick="nextSlide()" class="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-500 text-white font-semibold flex items-center gap-1">
+            Next Slide <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <span id="slide-indicator" class="font-bold text-slate-300">Slide 1 / 4</span>
+          <div class="flex space-x-1" id="slide-dots"></div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="triggerStudentReaction('clap')" class="p-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm" title="Applaud">👏</button>
+          <button onclick="triggerStudentReaction('heart')" class="p-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm" title="Like">❤️</button>
+          <button onclick="triggerStudentReaction('hand')" class="p-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm" title="Raise Hand">✋</button>
+          <button onclick="triggerClassLivePoll()" class="px-3 py-1.5 rounded bg-teal-600 hover:bg-teal-500 text-white font-semibold flex items-center gap-1">
+            <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i> Launch Live Poll
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL: VOCATIONAL VOCABULARY FLASHCARDS (AI AUDIO SPEECH) -->
+  <div id="modal-flashcard" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4 flex flex-col items-center">
+      <div class="w-full flex items-center justify-between pb-3 border-b border-slate-200">
+        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+          <i data-lucide="layers" class="w-4 h-4 text-teal-600"></i>
+          Macmillan TVET Technical Vocabulary Trainer
+        </h3>
+        <button onclick="closeFlashcardModal()" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
+      </div>
+
+      <div class="w-full h-64 perspective-1000 cursor-pointer" onclick="flipFlashcard()">
+        <div id="flashcard-inner" class="relative w-full h-full text-center transition-transform duration-500 transform-style-3d bg-slate-50 rounded-2xl border-2 border-slate-200 shadow-md flex items-center justify-center p-6">
+          <div class="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-6 space-y-2">
+            <span class="text-[10px] font-bold text-teal-700 bg-teal-100 px-2 py-0.5 rounded">Technical English Term</span>
+            <h2 id="fc-term" class="text-xl font-black text-slate-900">Internal Combustion Engine</h2>
+            <p id="fc-ipa" class="text-xs text-slate-500 font-mono">/ɪnˈtɜː.nəl kəmˈbʌs.tʃən ˈen.dʒɪn/</p>
+            <button onclick="event.stopPropagation(); speakCurrentTerm();" class="mt-2 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold flex items-center gap-1">
+              <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> Play Audio Pronunciation
+            </button>
+            <span class="text-[10px] text-slate-400 pt-2 block">(Click card to flip definition)</span>
+          </div>
+
+          <div class="absolute inset-0 backface-hidden rotate-y-180 flex flex-col items-center justify-center p-6 space-y-2 bg-teal-900 text-white rounded-2xl">
+            <span class="text-[10px] font-bold text-teal-300 bg-teal-800 px-2 py-0.5 rounded">Vocational Definition</span>
+            <h3 id="fc-vn" class="text-lg font-black text-white">Heat Engine Mechanism</h3>
+            <p id="fc-def" class="text-xs text-slate-200 text-center leading-relaxed">A heat engine in which the combustion of a fuel occurs with an oxidizer in a combustion chamber that is an integral part of the working fluid flow circuit.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full flex items-center justify-between text-xs pt-1">
+        <button onclick="prevFlashcard()" class="px-3 py-1.5 rounded-lg border text-slate-600 font-semibold">Previous Card</button>
+        <span id="fc-counter" class="font-bold text-slate-500">1 / 5</span>
+        <button onclick="nextFlashcard()" class="px-3 py-1.5 rounded-lg bg-teal-600 text-white font-semibold">Next Card</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: AI EXAM & ASSESSMENT GENERATOR (INSTRUCTORS & DIRECTORS) -->
+  <div id="modal-exercise-gen" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+        <div class="flex items-center gap-2">
+          <span class="p-1 rounded bg-indigo-100 text-indigo-700"><i data-lucide="sparkles" class="w-4 h-4"></i></span>
+          <h3 class="font-bold text-slate-900 text-sm">TVET Exam & Assessment Generator</h3>
+        </div>
+        <button onclick="closeExerciseGeneratorModal()" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Macmillan Curriculum Topic / Unit:</label>
+          <input type="text" id="gen-topic" class="w-full border border-slate-200 rounded-lg p-2 font-medium" value="Oxygen Sensor (O2 Sensor) Diagnostics & Trouble Code P0135">
+        </div>
+        
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Assessment Level / Scope:</label>
+            <select id="gen-scope" class="w-full border border-slate-200 rounded-lg p-2">
+              <option value="Unit Progress Test">Unit Progress Test (20%)</option>
+              <option value="Midterm Examination" selected>Midterm Examination (30%)</option>
+              <option value="Final Exit Examination">Final Exit Examination (50%)</option>
+              <option value="Workshop Practice Quiz">Workshop Practice Quiz</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Cognitive Bloom Level:</label>
+            <select id="gen-bloom" class="w-full border border-slate-200 rounded-lg p-2">
+              <option value="Practical Application (Level 3)" selected>Practical Workshop Application</option>
+              <option value="Diagnostic Analysis (Level 4)">Fault Diagnostic Analysis</option>
+              <option value="Technical Comprehension (Level 2)">Technical Comprehension</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Question Question Format:</label>
+          <select id="gen-format" class="w-full border border-slate-200 rounded-lg p-2">
+            <option value="Electrical Schematics Interpretation">Electrical Schematics Interpretation</option>
+            <option value="Torque & Pressure Specification Completion">Torque & Pressure Specification Completion</option>
+            <option value="SOP Step Sequencing">SOP Step Sequencing & Safety Verification</option>
+          </select>
+        </div>
+
+        <div class="bg-indigo-50 border border-indigo-200 p-3 rounded-xl text-indigo-950 space-y-1">
+          <span class="font-bold block">Accreditation Mapping:</span>
+          <p class="text-[11px] text-indigo-700 leading-relaxed">
+            The generated assessment questions will automatically align with Macmillan TVET Module 2 learning outcomes and deploy onto the timeline.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+        <button onclick="closeExerciseGeneratorModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
+        <button onclick="executeGenerateExercise()" id="btn-run-gen" class="px-4 py-2 text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow flex items-center gap-1.5">
+          <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-300"></i>
+          Generate & Publish to Curriculum
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: MIDTERM TEST (AUTO-GRADED WITH INSTANT RUBRICS) -->
+  <div id="modal-test" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+        <div>
+          <span class="text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded uppercase">Macmillan TVET Assessment</span>
+          <h3 class="font-bold text-slate-900 text-sm mt-0.5">Midterm Exam: Automotive Diagnostics & Repair</h3>
+        </div>
+        <span class="text-sm font-mono font-bold text-rose-600" id="exam-timer">14:52</span>
+      </div>
+
+      <div class="flex-1 overflow-y-auto space-y-4 pr-1 text-xs">
+        <div class="p-3.5 rounded-lg border border-slate-200 bg-slate-50 space-y-2">
+          <span class="font-bold text-slate-800">Question 1: In a four-stroke internal combustion engine, which stroke has the intake valve open while the piston moves downward?</span>
+          <div class="space-y-1">
+            <label class="flex items-center gap-2 p-1.5 rounded bg-white border cursor-pointer">
+              <input type="radio" name="q1" value="A"> <span>A. Compression Stroke</span>
+            </label>
+            <label class="flex items-center gap-2 p-1.5 rounded bg-white border cursor-pointer">
+              <input type="radio" name="q1" value="B" checked> <span>B. Intake Stroke</span>
+            </label>
+            <label class="flex items-center gap-2 p-1.5 rounded bg-white border cursor-pointer">
+              <input type="radio" name="q1" value="C"> <span>C. Power Stroke</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-lg border border-slate-200 bg-slate-50 space-y-2">
+          <span class="font-bold text-slate-800">Question 2: An OBD-II scan tool indicates code P0300 (Random/Multiple Cylinder Misfire). What is the primary safety inspection step?</span>
+          <div class="space-y-1">
+            <label class="flex items-center gap-2 p-1.5 rounded bg-white border cursor-pointer">
+              <input type="radio" name="q2" value="A" checked> <span>A. Inspect ignition secondary voltage, spark plugs & fuel pressure rail.</span>
+            </label>
+            <label class="flex items-center gap-2 p-1.5 rounded bg-white border cursor-pointer">
+              <input type="radio" name="q2" value="B"> <span>B. Immediately replace the engine control unit (ECU) without testing.</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-lg border border-slate-200 bg-slate-50 space-y-2">
+          <span class="font-bold text-slate-800">Question 3: Which precision measuring tool must be used to tighten cylinder head bolts to workshop service manual specifications?</span>
+          <div class="space-y-1">
+            <label class="flex items-center gap-2 p-1.5 rounded bg-white border cursor-pointer">
+              <input type="radio" name="q3" value="A" checked> <span>A. Calibrated Torque Wrench with angle gauge</span>
+            </label>
+            <label class="flex items-center gap-2 p-1.5 rounded bg-white border cursor-pointer">
+              <input type="radio" name="q3" value="B"> <span>B. Pneumatic impact wrench at maximum air pressure</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+        <button onclick="closeTestModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
+        <button onclick="submitStudentTest()" class="px-4 py-2 text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg shadow">
+          Submit Exam (Instant Auto-Grading)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: QUICK PRESENTATION TOUR -->
+  <div id="modal-quick-tour" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+        <h3 class="font-bold text-slate-900 text-base">4-Step Demo Presentation Script</h3>
+        <button onclick="toggleQuickTourModal()" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
+      </div>
+
+      <div class="space-y-2.5 text-xs">
+        <div onclick="executeTourStep(1)" class="p-3 rounded-lg border hover:border-blue-500 hover:bg-blue-50 cursor-pointer space-y-1">
+          <span class="font-bold text-blue-800">Step 1: Instructor Drag & Drop Lesson + Submit for Dean Review</span>
+          <p class="text-slate-600">Assemble Unit 4 modules, generate a test question & click [Submit for Dean Approval].</p>
+        </div>
+
+        <div onclick="executeTourStep(2)" class="p-3 rounded-lg border hover:border-amber-500 hover:bg-amber-50 cursor-pointer space-y-1">
+          <span class="font-bold text-amber-800">Step 2: Academic Dean Approves Lesson → Master Timeline Updates</span>
+          <p class="text-slate-600">Dean approves unit or bulk approves term. Schedule updates live across the system.</p>
+        </div>
+
+        <div onclick="executeTourStep(3)" class="p-3 rounded-lg border hover:border-teal-500 hover:bg-teal-50 cursor-pointer space-y-1">
+          <span class="font-bold text-teal-800">Step 3: Expiring Link Broadcast + Interactive Engine Simulation</span>
+          <p class="text-slate-600">View lecture PIN & QR. Launch slide with real-time 4-stroke piston kinematics animation.</p>
+        </div>
+
+        <div onclick="executeTourStep(4)" class="p-3 rounded-lg border hover:border-emerald-500 hover:bg-emerald-50 cursor-pointer space-y-1">
+          <span class="font-bold text-emerald-800">Step 4: Student Exam Submission → Auto-Grading & Gradebook Sync</span>
+          <p class="text-slate-600">Student scores 10/10. Gradebook, study hours & radar charts instantly synchronize.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD CASE STUDY -->
+  <div id="modal-add-case" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-3">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <h4 class="font-bold text-slate-900 text-sm">Add Workshop Case Study</h4>
+        <button onclick="closeAddCaseStudyModal()" class="text-slate-400 font-bold">✕</button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold mb-1">Case Study Scenario Title:</label>
+          <input type="text" id="new-case-title" class="w-full border rounded-lg p-2" placeholder="e.g., Electric Power Steering EPS Failure Diagnosis on Hybrid Vehicle">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-bold mb-1">Category:</label>
+            <select id="new-case-type" class="w-full border rounded-lg p-2">
+              <option value="Workshop Case Study">Workshop Case Study</option>
+              <option value="Safety SOP Guideline">Safety SOP Guideline</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold mb-1">Curriculum Week:</label>
+            <select id="new-case-week" class="w-full border rounded-lg p-2">
+              <option value="Week 8">Week 8</option>
+              <option value="Week 9">Week 9</option>
+              <option value="Week 11">Week 11</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-100 text-xs">
+        <button onclick="closeAddCaseStudyModal()" class="px-3 py-1.5 border rounded-lg">Cancel</button>
+        <button onclick="saveNewCaseStudy()" class="px-3 py-1.5 bg-teal-600 text-white font-bold rounded-lg">Save & Schedule</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT STATE & LOGIC ENGINE ================= -->
+  <script>
+    /* ========================================================
+       APPLICATION STATE & PERSISTENCE (100% ENGLISH)
+    ======================================================== */
+    const ROLES_INFO = {
+      student: {
+        role: 'student',
+        name: 'Dang Hoang Minh',
+        title: 'Learner • Class TVET-K21-AUTO',
+        badge: 'Student Portal',
+        badgeClass: 'bg-emerald-100 text-emerald-800 border-emerald-200'
+      },
+      teacher: {
+        role: 'teacher',
+        name: 'David Harrison, M.Sc.',
+        title: 'Lead Instructor • Automotive Dept.',
+        badge: 'Instructor Portal',
+        badgeClass: 'bg-blue-100 text-blue-800 border-blue-200'
+      },
+      director: {
+        role: 'director',
+        name: 'Dr. Arthur Vance',
+        title: 'Academic Dean • Director of Studies',
+        badge: 'Academic Director Portal',
+        badgeClass: 'bg-amber-100 text-amber-800 border-amber-200'
+      },
+      admin: {
+        role: 'admin',
+        name: 'Institutional Administration',
+        title: 'System Administrator / Registrar',
+        badge: 'System Administrator',
+        badgeClass: 'bg-slate-200 text-slate-800 border-slate-300'
+      }
+    };
+
+    const DEFAULT_DATA = {
+      currentRole: null, // null = on login screen
+      selectedLoginRole: 'teacher',
+      teacherTab: 'designer',
+      timelineView: 'quarter',
+      lessonApprovalStatus: 'pending',
+
+      // Role-specific notification feeds
+      notifications: {
+        student: [
+          { id: 1, title: 'Lecture Live Now', time: '10 mins ago', desc: 'Unit 4 Engine Diagnostics lecture is now live with PIN: TVET-889.', unread: true },
+          { id: 2, title: 'Midterm Window Open', time: '1 hour ago', desc: 'Midterm Examination window is now active until Week 9 Friday.', unread: true },
+          { id: 3, title: 'Vocabulary Goal Reached', time: 'Yesterday', desc: 'You have mastered 45 of 120 technical automotive terms.', unread: false }
+        ],
+        teacher: [
+          { id: 1, title: 'Lesson Plan Review Needed', time: '15 mins ago', desc: 'Dean Vance requested you confirm the OBD-II diagnostic lab question.', unread: true },
+          { id: 2, title: 'Co-Teaching Invitation', time: '2 hours ago', desc: 'Michael Nguyen invited you to co-teach TPMS sensors on MEC19A.', unread: true },
+          { id: 3, title: 'New Student Submissions', time: 'Yesterday', desc: '38 students completed the Unit 3 ABS braking assessment.', unread: false }
+        ],
+        director: [
+          { id: 1, title: 'Unit 4 Pending Approval', time: 'Just now', desc: 'Instructor David Harrison submitted Unit 4 for timeline release.', unread: true },
+          { id: 2, title: 'Curriculum Milestone Due', time: '3 hours ago', desc: 'Week 8 Midterm accreditation checkpoint ready for review.', unread: true },
+          { id: 3, title: 'Accreditation Pass Rate: 94.8%', time: 'Yesterday', desc: 'Overall student competency benchmark surpasses TVET standard.', unread: false }
+        ],
+        admin: [
+          { id: 1, title: 'LMS Sync Completed', time: '5 mins ago', desc: 'OneRoster LTI 1.3 sync successfully reconciled 500 active student seats.', unread: true },
+          { id: 2, title: 'Security Audit Verified', time: '1 day ago', desc: 'All system audit trails cryptographically signed and stored.', unread: false }
+        ]
+      },
+
+      lessonPlanBlocks: [
+        {
+          id: 'blk-1',
+          type: 'theory',
+          title: '1. Core Theory: Four-Stroke Engine Cycle (Macmillan Core)',
+          desc: 'Intake, compression, power, and exhaust stroke thermodynamics and terminology.',
+          duration: '20 Mins',
+          tag: 'Macmillan Core'
+        },
+        {
+          id: 'blk-2',
+          type: 'simulation',
+          title: '2. Kinematics Canvas: Engine Animation & Common Rail Rail',
+          desc: 'Interactive reciprocating piston canvas, valve opening intervals & high-pressure chamber.',
+          duration: '15 Mins',
+          tag: 'Canvas Sim'
+        },
+        {
+          id: 'blk-3',
+          type: 'case_study',
+          title: '3. Workshop Case Study: Misfire DTC P0300 Diagnostic',
+          desc: '5-step technician workflow for random multiple cylinder misfire diagnosis.',
+          duration: '30 Mins',
+          tag: 'Workshop Real'
+        },
+        {
+          id: 'blk-4',
+          type: 'quiz',
+          title: '4. AI Practice Quiz: Torque Specs & Cylinder Head Bolts',
+          desc: '5 randomized questions evaluating torque wrench usage and spiral tightening sequences.',
+          duration: '15 Mins',
+          tag: 'Auto-Generated'
+        }
+      ],
+
+      // Student Gradebook with Study Time and Engagement Rate
+      students: [
+        { id: 'SV001', name: 'Dang Hoang Minh', timeOnPlatform: '24h 15m', engagementRate: '94.5%', unitScore: 9.2, midtermScore: 8.5, workshopScore: 'Distinction (A)', status: 'Excellent' },
+        { id: 'SV002', name: 'Nguyen Thanh Long', timeOnPlatform: '21h 40m', engagementRate: '88.0%', unitScore: 8.0, midtermScore: 8.0, workshopScore: 'Proficient (B+)', status: 'Good' },
+        { id: 'SV003', name: 'Pham Quoc Thai', timeOnPlatform: '16h 10m', engagementRate: '74.2%', unitScore: 7.5, midtermScore: 6.8, workshopScore: 'Competent (B)', status: 'Satisfactory' },
+        { id: 'SV004', name: 'Le Thi Thanh Van', timeOnPlatform: '26h 50m', engagementRate: '98.0%', unitScore: 9.8, midtermScore: 9.5, workshopScore: 'Distinction (A+)', status: 'Valedictorian' }
+      ],
+
+      flashcards: [
+        {
+          term: 'Internal Combustion Engine',
+          ipa: '/ɪnˈtɜː.nəl kəmˈbʌs.tʃən ˈen.dʒɪn/',
+          vn: 'Heat Engine Mechanism',
+          def: 'An engine in which fuel combustion takes place within the cylinder, producing expanding hot gas that drives the piston.'
+        },
+        {
+          term: 'Camshaft & Crankshaft',
+          ipa: '/ˈkæm.ʃɑːft ænd ˈkræŋk.ʃɑːft/',
+          vn: 'Valve & Rotational Kinematics',
+          def: 'The camshaft controls valve timing; the crankshaft converts reciprocating piston motion into continuous rotary mechanical output.'
+        },
+        {
+          term: 'Common Rail Direct Injection',
+          ipa: '/ˈkɒm.ən reɪl daɪˈrekt ɪnˈdʒek.ʃən/',
+          vn: 'Ultra-High Pressure Fuel Delivery',
+          def: 'Fuel injected at pressures reaching 2,000+ bar from a shared manifold, maximizing atomization and combustion efficiency.'
+        },
+        {
+          term: 'Torque Wrench',
+          ipa: '/tɔːk rentʃ/',
+          vn: 'Calibrated Fastener Tightening Tool',
+          def: 'A calibrated tool used to apply a specified torque to fasteners like cylinder head bolts to prevent block distortion.'
+        },
+        {
+          term: 'OBD-II Diagnostic Trouble Code',
+          ipa: '/oʊ-bi-di tuː daɪ.əɡˈnɒs.tɪk ˈtrʌb.əl koʊd/',
+          vn: 'Standardized On-Board Diagnostics',
+          def: 'A standardized code (e.g. P0300) stored by the engine control module to pinpoint malfunction areas.'
+        }
+      ],
+
+      caseStudies: [
+        { id: 'CS-01', title: 'Automatic Transmission Shudder at 40-60 km/h', type: 'Workshop Case Study', week: 'Week 8' },
+        { id: 'CS-02', title: 'High Voltage Isolation Leakage on EV / Hybrid Inverter', type: 'Workshop Case Study', week: 'Week 11' },
+        { id: 'CS-03', title: '3-Phase Workshop Lockout-Tagout Safety Procedure', type: 'Safety SOP Guideline', week: 'Week 9' }
+      ],
+
+      auditLogs: [
+        { time: '13:00:15', actor: 'David Harrison, M.Sc.', role: 'Instructor', action: 'Sequenced Unit 4 Lesson Plan & Submitted for Approval', status: 'Verified' },
+        { time: '12:45:22', actor: 'Dr. Arthur Vance', role: 'Academic Dean', action: 'Assigned EV Inverter Case Study to Curriculum Week 11', status: 'Approved' },
+        { time: '11:15:00', actor: 'TVET Assessment Engine', role: 'System', action: 'Generated 50 standardized torque test items', status: 'Verified' }
+      ]
+    };
+
+    let state = JSON.parse(localStorage.getItem('MACMILLAN_TVET_STATE_V3')) || DEFAULT_DATA;
+
+    function saveState() {
+      localStorage.setItem('MACMILLAN_TVET_STATE_V3', JSON.stringify(state));
+      renderUI();
+    }
+
+    /* ========================================================
+       LOGIN & LOGOUT PORTAL
+    ======================================================== */
+    function selectLoginRole(role) {
+      state.selectedLoginRole = role;
+      
+      document.querySelectorAll('.role-login-card').forEach(c => {
+        c.classList.remove('border-macmillan-blue', 'bg-blue-50/50', 'shadow-sm');
+        c.classList.add('border-slate-200');
+      });
+
+      const selectedCard = document.getElementById(`card-role-${role}`);
+      if (selectedCard) {
+        selectedCard.classList.add('border-macmillan-blue', 'bg-blue-50/50', 'shadow-sm');
+        selectedCard.classList.remove('border-slate-200');
+      }
+
+      const roleNames = {
+        student: 'Student Portal',
+        teacher: 'Instructor Portal',
+        director: 'Academic Director Portal',
+        admin: 'Institutional Administrator'
+      };
+      document.getElementById('btn-selected-role-name').innerText = roleNames[role];
+    }
+
+    function doLogin() {
+      state.currentRole = state.selectedLoginRole || 'teacher';
+      saveState();
+    }
+
+    function doLogout() {
+      state.currentRole = null;
+      saveState();
+    }
+
+    /* ========================================================
+       UNIFIED NOTIFICATION CENTER
+    ======================================================== */
+    function toggleNotificationPopover() {
+      const popover = document.getElementById('notif-popover');
+      popover.classList.toggle('hidden');
+      renderNotifications();
+      lucide.createIcons();
+    }
+
+    function renderNotifications() {
+      const container = document.getElementById('notif-list-container');
+      if (!container || !state.currentRole) return;
+
+      const feed = state.notifications[state.currentRole] || [];
+      const unreadCount = feed.filter(n => n.unread).length;
+
+      document.getElementById('notif-count-tag').innerText = `${unreadCount} New Update${unreadCount !== 1 ? 's' : ''}`;
+      
+      const badge = document.getElementById('notif-badge');
+      if (badge) {
+        badge.style.display = unreadCount > 0 ? 'block' : 'none';
+      }
+
+      if (feed.length === 0) {
+        container.innerHTML = `<div class="text-center text-slate-400 py-4 text-xs">No notifications.</div>`;
+        return;
+      }
+
+      container.innerHTML = feed.map(n => `
+        <div class="p-2.5 rounded-lg border ${n.unread ? 'border-blue-200 bg-blue-50/60' : 'border-slate-200 bg-white'} space-y-1">
+          <div class="flex items-center justify-between font-bold text-slate-900">
+            <span class="flex items-center gap-1.5">
+              ${n.unread ? '<span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>' : ''}
+              ${n.title}
+            </span>
+            <span class="text-[10px] text-slate-400 font-normal">${n.time}</span>
+          </div>
+          <p class="text-[11px] text-slate-600">${n.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    function markAllNotificationsRead() {
+      if (state.currentRole && state.notifications[state.currentRole]) {
+        state.notifications[state.currentRole].forEach(n => n.unread = false);
+        saveState();
+        renderNotifications();
+      }
+    }
+
+    /* ========================================================
+       TEACHER TABS & DRAG-DROP CANVAS
+    ======================================================== */
+    function setTeacherTab(tab) {
+      state.teacherTab = tab;
+      
+      document.querySelectorAll('.teacher-tab-btn').forEach(b => {
+        b.classList.remove('bg-macmillan-blue', 'text-white', 'shadow-sm', 'font-bold');
+        b.classList.add('text-slate-600', 'font-medium');
+      });
+
+      const activeBtn = document.getElementById(`ttab-${tab}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-macmillan-blue', 'text-white', 'shadow-sm', 'font-bold');
+        activeBtn.classList.remove('text-slate-600', 'font-medium');
+      }
+
+      document.getElementById('tcontent-designer').classList.add('hidden');
+      document.getElementById('tcontent-timeline').classList.add('hidden');
+      document.getElementById('tcontent-classes').classList.add('hidden');
+      document.getElementById('tcontent-gradebook').classList.add('hidden');
+
+      document.getElementById(`tcontent-${tab}`).classList.remove('hidden');
+
+      if (tab === 'timeline') renderTimeline();
+      if (tab === 'gradebook') renderGradebook();
+      lucide.createIcons();
+    }
+
+    let draggedType = null;
+    function handleDragStart(e, type) {
+      draggedType = type;
+      e.dataTransfer.setData('text/plain', type);
+    }
+    function handleDragOver(e) {
+      e.preventDefault();
+      document.getElementById('drop-target-zone').classList.add('drag-over');
+    }
+    function handleDragLeave(e) {
+      document.getElementById('drop-target-zone').classList.remove('drag-over');
+    }
+    function handleDrop(e) {
+      e.preventDefault();
+      document.getElementById('drop-target-zone').classList.remove('drag-over');
+      const type = e.dataTransfer.getData('text/plain') || draggedType;
+      if (!type) return;
+
+      const newId = 'blk-' + Date.now();
+      let newBlock = {
+        id: newId,
+        type: type,
+        title: `${state.lessonPlanBlocks.length + 1}. Additional TVET Module: ${type.toUpperCase()}`,
+        desc: 'Interactive vocational module sequenced into lesson.',
+        duration: '15 Mins',
+        tag: 'Curriculum'
+      };
+
+      if (type === 'theory') {
+        newBlock.title = `${state.lessonPlanBlocks.length + 1}. Electronic Fuel Injection (EFI) Closed-Loop Theory`;
+        newBlock.desc = 'Mass Air Flow (MAF) sensor output and stoichiometric air-fuel ratio Lambda 14.7:1.';
+        newBlock.tag = 'Macmillan Core';
+      } else if (type === 'simulation') {
+        newBlock.title = `${state.lessonPlanBlocks.length + 1}. DOHC Camshaft Timing Kinematics Simulation`;
+        newBlock.desc = 'Rotating crankshaft timing marks alignment and valve clearance verification.';
+        newBlock.tag = 'Canvas Sim';
+      }
+
+      state.lessonPlanBlocks.push(newBlock);
+      saveState();
+      alert(`Added [${newBlock.title}] to lesson delivery sequence!`);
+    }
+
+    function removeBlock(id) {
+      state.lessonPlanBlocks = state.lessonPlanBlocks.filter(b => b.id !== id);
+      saveState();
+    }
+    function moveBlock(idx, dir) {
+      if (dir === 'up' && idx > 0) {
+        const temp = state.lessonPlanBlocks[idx];
+        state.lessonPlanBlocks[idx] = state.lessonPlanBlocks[idx - 1];
+        state.lessonPlanBlocks[idx - 1] = temp;
+      } else if (dir === 'down' && idx < state.lessonPlanBlocks.length - 1) {
+        const temp = state.lessonPlanBlocks[idx];
+        state.lessonPlanBlocks[idx] = state.lessonPlanBlocks[idx + 1];
+        state.lessonPlanBlocks[idx + 1] = temp;
+      }
+      saveState();
+    }
+    function clearCanvas() {
+      if (confirm('Clear all modules from canvas?')) {
+        state.lessonPlanBlocks = [];
+        saveState();
+      }
+    }
+    function restoreDefaultLesson() {
+      state.lessonPlanBlocks = JSON.parse(JSON.stringify(DEFAULT_DATA.lessonPlanBlocks));
+      saveState();
+    }
+    function submitLessonForApproval() {
+      state.lessonApprovalStatus = 'pending';
+      logAuditAction('David Harrison, M.Sc.', 'Instructor', 'Submitted Unit 4 Lesson Plan for Dean Review');
+      
+      // Push notification to Academic Dean
+      state.notifications.director.unshift({
+        id: Date.now(),
+        title: 'New Unit 4 Submission',
+        time: 'Just now',
+        desc: 'Instructor David Harrison submitted Unit 4 for Master Timeline release.',
+        unread: true
+      });
+
+      saveState();
+      alert('Unit 4 lesson sequence successfully submitted to Academic Dean Dr. Arthur Vance for approval!');
+    }
+
+    function renderCanvasBlocks() {
+      const container = document.getElementById('drop-target-zone');
+      if (!container) return;
+
+      if (state.lessonPlanBlocks.length === 0) {
+        container.innerHTML = `<div class="h-48 flex items-center justify-center text-slate-400 text-xs">Canvas empty. Drag blocks from the left palette to build lesson!</div>`;
+        return;
+      }
+
+      container.innerHTML = state.lessonPlanBlocks.map((b, i) => `
+        <div class="p-3 rounded-lg border border-slate-200 bg-white shadow-sm flex items-center justify-between text-xs">
+          <div class="space-y-0.5">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-slate-800">${b.title}</span>
+              <span class="text-[10px] font-bold bg-blue-50 text-blue-700 px-1.5 py-0.2 rounded">${b.tag}</span>
+            </div>
+            <p class="text-[11px] text-slate-500">${b.desc}</p>
+          </div>
+          <div class="flex items-center space-x-1 pl-2 border-l border-slate-100">
+            <button onclick="moveBlock(${i}, 'up')" class="p-1 hover:bg-slate-100 rounded text-slate-500">▲</button>
+            <button onclick="moveBlock(${i}, 'down')" class="p-1 hover:bg-slate-100 rounded text-slate-500">▼</button>
+            <button onclick="removeBlock('${b.id}')" class="p-1 hover:bg-rose-50 rounded text-rose-500">✕</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('canvas-counter').innerHTML = `Configured: <strong>${state.lessonPlanBlocks.length} modules</strong>`;
+
+      const badge = document.getElementById('lesson-status-badge');
+      if (badge) {
+        if (state.lessonApprovalStatus === 'approved') {
+          badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800';
+          badge.innerText = 'APPROVED & LIVE ON TIMELINE';
+        } else {
+          badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800';
+          badge.innerText = 'PENDING DEAN APPROVAL';
+        }
+      }
+    }
+
+    /* ========================================================
+       MASTER TIMELINE RENDERING
+    ======================================================== */
+    function setTimelineView(v) {
+      state.timelineView = v;
+      ['day', 'month', 'quarter', 'year'].forEach(id => {
+        const btn = document.getElementById(`time-view-${id}`);
+        if (btn) {
+          btn.className = id === v ? 'px-3 py-1 rounded font-bold bg-white text-blue-700 shadow-sm' : 'px-3 py-1 rounded font-semibold text-slate-600';
+        }
+      });
+      renderTimeline();
+    }
+
+    function renderTimeline() {
+      const container = document.getElementById('timeline-display-container');
+      if (!container) return;
+
+      if (state.timelineView === 'quarter') {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+              <span class="font-bold text-slate-800 block">Weeks 1 - 5: Technical Fundamentals (Completed)</span>
+              <p class="text-slate-500">Workshop 5S safety, metrology, heat engine thermodynamics & Unit 1-3 progress tests.</p>
+              <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded">100% Accredited</span>
+            </div>
+            <div class="p-3.5 rounded-xl border-2 border-blue-500 bg-blue-50/40 space-y-2">
+              <span class="font-bold text-blue-800 block">Weeks 6 - 10: Advanced Diagnostics (Current Term)</span>
+              <p class="text-slate-600">Unit 4: Diagnostics, OBD-II DTC analysis & Midterm Vocational Examination (Week 9).</p>
+              <span class="text-[10px] font-bold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded">Active Teaching Window</span>
+            </div>
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+              <span class="font-bold text-slate-800 block">Weeks 11 - 15: EV Powertrains & Exit Defense</span>
+              <p class="text-slate-500">Electric Vehicle (EV) safety, inverter high voltage isolation & international exit test.</p>
+              <span class="text-[10px] font-bold text-slate-600 bg-slate-200 px-1.5 py-0.5 rounded">Scheduled Ahead</span>
+            </div>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `<div class="p-4 bg-slate-50 rounded-xl text-xs text-slate-600">Accredited 15-week TVET master schedule populated with approved instructor modules.</div>`;
+      }
+    }
+
+    /* ========================================================
+       GRADEBOOK & STUDY TIME TRACKER
+    ======================================================== */
+    function renderGradebook() {
+      const tbody = document.getElementById('teacher-gradebook-body');
+      if (!tbody) return;
+
+      tbody.innerHTML = state.students.map(s => {
+        let midterm = s.midtermScore !== null ? `${s.midtermScore} / 10` : '<span class="text-amber-600 font-bold">Pending</span>';
+        let total = s.midtermScore ? ((s.unitScore * 0.3) + (s.midtermScore * 0.4) + 2.5).toFixed(1) : '--';
+
+        return `
+          <tr class="hover:bg-slate-50">
+            <td class="p-3 font-bold text-slate-800">
+              ${s.name} <span class="text-[10px] text-slate-400 font-normal">(${s.id})</span>
+            </td>
+            <td class="p-3 font-medium text-slate-700 font-mono">${s.timeOnPlatform}</td>
+            <td class="p-3 font-bold text-emerald-600">${s.engagementRate}</td>
+            <td class="p-3 font-medium">${s.unitScore} / 10</td>
+            <td class="p-3 font-bold text-blue-700">${midterm}</td>
+            <td class="p-3"><span class="px-1.5 py-0.5 rounded text-[10px] bg-teal-50 text-teal-800">${s.workshopScore}</span></td>
+            <td class="p-3 font-black text-slate-900">${total} / 10</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function exportGradebookExcel() {
+      let csv = "Student ID,Student Name,Platform Time,Engagement Rate,Unit Test (20%),Midterm Exam (30%),Workshop Practical,Final GPA\n";
+      state.students.forEach(s => {
+        csv += `${s.id},${s.name},${s.timeOnPlatform},${s.engagementRate},${s.unitScore},${s.midtermScore || 'Pending'},${s.workshopScore},${s.status}\n`;
+      });
+      const link = document.createElement("a");
+      link.href = "data:text/csv;charset=utf-8," + encodeURI(csv);
+      link.download = "TVET_K21_AUTO_Gradebook_and_Engagement_Report.csv";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      alert('Gradebook & Study Time Report exported successfully!');
+    }
+
+    /* ========================================================
+       ACADEMIC DEAN APPROVAL & TIMELINE UPDATE WORKFLOW
+    ======================================================== */
+    function renderDirectorQueue() {
+      const container = document.getElementById('approval-queue-container');
+      if (!container) return;
+
+      if (state.lessonApprovalStatus === 'pending') {
+        container.innerHTML = `
+          <div class="p-4 rounded-xl border-2 border-amber-300 bg-amber-50/50 space-y-3 text-xs">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded">ACTION REQUIRED</span>
+                <h5 class="font-bold text-slate-900 text-sm mt-1">Unit 4: Internal Combustion Engine Diagnostics</h5>
+                <p class="text-slate-600">Submitted by: <strong>David Harrison, M.Sc.</strong> • 4 modules ready for release onto live student schedules.</p>
+              </div>
+            </div>
+            <div class="flex justify-end gap-2 pt-1">
+              <button onclick="approveLesson()" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow">
+                ✓ Approve Lesson & Release to Master Timeline
+              </button>
+            </div>
+          </div>
+        `;
+        document.getElementById('director-stat-pending').innerText = '1 Lesson Plan';
+      } else {
+        container.innerHTML = `
+          <div class="p-5 rounded-xl border border-emerald-200 bg-emerald-50/50 text-center text-xs space-y-1">
+            <span class="font-bold text-emerald-800">All Submitted Lesson Plans Approved!</span>
+            <p class="text-slate-500">Unit 4 is officially live on the Master Curriculum Schedule for all enrolled students.</p>
+            <button onclick="state.lessonApprovalStatus = 'pending'; saveState();" class="text-blue-600 underline text-[11px]">Revert to Pending Review (Demo Switch)</button>
+          </div>
+        `;
+        document.getElementById('director-stat-pending').innerText = '0 Lesson Plans';
+      }
+    }
+
+    function approveLesson() {
+      state.lessonApprovalStatus = 'approved';
+      logAuditAction('Dr. Arthur Vance', 'Academic Dean', 'Approved Unit 4 Lesson Plan to Master Timeline');
+      
+      // Add notification to student and teacher
+      state.notifications.student.unshift({
+        id: Date.now(),
+        title: 'New Unit 4 Released',
+        time: 'Just now',
+        desc: 'Dean Dr. Arthur Vance released Unit 4 onto your official course timeline.',
+        unread: true
+      });
+
+      state.notifications.teacher.unshift({
+        id: Date.now() + 1,
+        title: 'Unit 4 Approved by Dean',
+        time: 'Just now',
+        desc: 'Your Unit 4 curriculum sequence was approved and published to all students.',
+        unread: true
+      });
+
+      saveState();
+      confetti({ particleCount: 70, spread: 60 });
+      alert('APPROVED SUCCESSFULLY!\nUnit 4 has been released to the Master Curriculum Timeline across all student portals.');
+    }
+
+    function bulkApproveSemesterTerm() {
+      state.lessonApprovalStatus = 'approved';
+      logAuditAction('Dr. Arthur Vance', 'Academic Dean', 'Bulk Approved all Term Units (Weeks 1-10) to Timeline');
+      saveState();
+      confetti({ particleCount: 90, spread: 70 });
+      alert('SEMESTER TERM ACCREDITED!\nUnits 1 through 5 have been locked and published onto the Master Curriculum Timeline.');
+    }
+
+    function renderDirectorCaseStudies() {
+      const tbody = document.getElementById('director-case-study-list');
+      if (!tbody) return;
+
+      tbody.innerHTML = state.caseStudies.map((cs, i) => `
+        <tr class="hover:bg-slate-50">
+          <td class="p-2.5 font-bold text-slate-800">${cs.title}</td>
+          <td class="p-2.5"><span class="px-2 py-0.5 rounded text-[10px] bg-teal-50 text-teal-800">${cs.type}</span></td>
+          <td class="p-2.5 font-semibold text-blue-700">${cs.week}</td>
+          <td class="p-2.5 text-right"><button onclick="state.caseStudies.splice(${i}, 1); saveState();" class="text-rose-600">Remove</button></td>
+        </tr>
+      `).join('');
+    }
+
+    function updateDirectorStudentDrilldown(id) {
+      const s = state.students.find(x => x.id === id) || state.students[0];
+      const card = document.getElementById('director-student-detail-card');
+      if (!card) return;
+
+      card.innerHTML = `
+        <div class="flex justify-between items-center text-xs">
+          <div>
+            <h5 class="font-bold text-slate-900">${s.name} (${s.id})</h5>
+            <span class="text-slate-500">Study Time: <strong>${s.timeOnPlatform}</strong> • Engagement: <strong>${s.engagementRate}</strong></span>
+          </div>
+          <span class="font-black text-blue-700 text-sm">${s.midtermScore ? ((s.unitScore + s.midtermScore)/2).toFixed(1) : s.unitScore} / 10</span>
+        </div>
+      `;
+    }
+
+    function openAddCaseStudyModal() {
+      document.getElementById('modal-add-case').classList.remove('hidden');
+    }
+    function closeAddCaseStudyModal() {
+      document.getElementById('modal-add-case').classList.add('hidden');
+    }
+    function saveNewCaseStudy() {
+      const title = document.getElementById('new-case-title').value.trim();
+      const type = document.getElementById('new-case-type').value;
+      const week = document.getElementById('new-case-week').value;
+      if (!title) return alert('Please enter case study scenario title!');
+
+      state.caseStudies.unshift({ id: 'CS-' + Date.now(), title, type, week });
+      saveState();
+      closeAddCaseStudyModal();
+      alert('Workshop Case Study scheduled onto curriculum week!');
+    }
+
+    /* ========================================================
+       STUDENT AUTO-GRADED EXAM & FLASHCARDS
+    ======================================================== */
+    function openTakeTestModal(type) {
+      document.getElementById('modal-test').classList.remove('hidden');
+    }
+    function closeTestModal() {
+      document.getElementById('modal-test').classList.add('hidden');
+    }
+    function submitStudentTest() {
+      const minh = state.students.find(s => s.id === 'SV001');
+      if (minh) {
+        minh.midtermScore = 10.0;
+        minh.timeOnPlatform = '25h 05m';
+        minh.engagementRate = '98.5%';
+      }
+      
+      logAuditAction('Dang Hoang Minh', 'Student', 'Completed Midterm Exam - Score: 10/10 (Auto-Graded)');
+      
+      // Push notifications to Instructor
+      state.notifications.teacher.unshift({
+        id: Date.now(),
+        title: 'New Midterm Auto-Graded',
+        time: 'Just now',
+        desc: 'Dang Hoang Minh submitted Midterm Exam with 10/10 score.',
+        unread: true
+      });
+
+      saveState();
+      closeTestModal();
+      confetti({ particleCount: 100, spread: 70 });
+      alert('CONGRATULATIONS!\nYou have completed the Midterm Exam with score: 10.0 / 10 Points!\nYour scores and learning engagement have synced to the instructor gradebook.');
+      
+      const badge = document.getElementById('student-midterm-status');
+      if (badge) {
+        badge.className = 'text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded';
+        badge.innerText = 'Completed: 10.0 / 10 Points';
+      }
+      const btn = document.getElementById('btn-take-midterm');
+      if (btn) {
+        btn.className = 'w-full py-2 text-xs font-bold bg-slate-100 text-slate-500 rounded-lg cursor-not-allowed';
+        btn.innerText = '✓ Assessment Submitted & Graded';
+        btn.onclick = null;
+      }
+    }
+
+    let fcIdx = 0;
+    let fcFlipped = false;
+    function openFlashcardModal() {
+      fcIdx = 0;
+      fcFlipped = false;
+      document.getElementById('modal-flashcard').classList.remove('hidden');
+      renderFc();
+    }
+    function closeFlashcardModal() {
+      document.getElementById('modal-flashcard').classList.add('hidden');
+    }
+    function renderFc() {
+      const card = state.flashcards[fcIdx];
+      fcFlipped = false;
+      document.getElementById('flashcard-inner').classList.remove('rotate-y-180');
+      document.getElementById('fc-term').innerText = card.term;
+      document.getElementById('fc-ipa').innerText = card.ipa;
+      document.getElementById('fc-vn').innerText = card.vn;
+      document.getElementById('fc-def').innerText = card.def;
+      document.getElementById('fc-counter').innerText = `${fcIdx + 1} / ${state.flashcards.length}`;
+    }
+    function flipFlashcard() {
+      fcFlipped = !fcFlipped;
+      const inner = document.getElementById('flashcard-inner');
+      if (fcFlipped) inner.classList.add('rotate-y-180');
+      else inner.classList.remove('rotate-y-180');
+    }
+    function nextFlashcard() {
+      if (fcIdx < state.flashcards.length - 1) { fcIdx++; renderFc(); }
+    }
+    function prevFlashcard() {
+      if (fcIdx > 0) { fcIdx--; renderFc(); }
+    }
+    function speakCurrentTerm() {
+      const term = state.flashcards[fcIdx].term;
+      if ('speechSynthesis' in window) {
+        const u = new SpeechSynthesisUtterance(term);
+        u.lang = 'en-US';
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    /* ========================================================
+       EXPIRING SHARE LECTURE LINK
+    ======================================================== */
+    function openShareModal() {
+      document.getElementById('modal-share').classList.remove('hidden');
+    }
+    function closeShareModal() {
+      document.getElementById('modal-share').classList.add('hidden');
+    }
+    function refreshShareUrl() {
+      const dur = document.getElementById('share-duration').value;
+      document.getElementById('generated-share-link').value = `https://macmillan-tvet.edu.vn/live/u4?pin=889&expires=${dur}`;
+    }
+    function copyShareUrl() {
+      const el = document.getElementById('generated-share-link');
+      el.select();
+      navigator.clipboard.writeText(el.value);
+      const msg = document.getElementById('copy-status-msg');
+      msg.classList.remove('hidden');
+      setTimeout(() => msg.classList.add('hidden'), 2500);
+    }
+    function simulateSendLinkToAllStudents() {
+      closeShareModal();
+      alert('Expiring lecture link and PIN broadcasted to all 38 enrolled students!');
+    }
+
+    /* ========================================================
+       LIVE PRESENTATION & ENGINE KINEMATICS SIMULATOR
+    ======================================================== */
+    let curSlide = 0;
+    let engineAnimId = null;
+
+    const slides = [
+      {
+        title: 'FOUR-STROKE INTERNAL COMBUSTION PRINCIPLES',
+        category: 'Macmillan Technical Core',
+        content: `
+          <div class="max-w-2xl text-left space-y-4">
+            <h3 class="text-xl font-black text-white">Intake • Compression • Power • Exhaust</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              <strong>Stroke 1 - Intake:</strong> Piston travels downward from TDC to BDC, drawing in stoichiometric air-fuel mixture through the opened intake valve.<br><br>
+              <strong>Stroke 2 - Compression:</strong> Both valves seal tightly as the piston travels upward, compressing the charge to a 10.5:1 ratio.<br><br>
+              <strong>Stroke 3 - Power:</strong> Spark plug fires at the advance angle, rapidly expanding gas pressures driving the piston downward.<br><br>
+              <strong>Stroke 4 - Exhaust:</strong> Exhaust valve opens as the piston sweeps upward, venting combustion residuals into the exhaust manifold.
+            </p>
+          </div>
+        `
+      },
+      {
+        title: 'FOUR-STROKE ENGINE KINEMATICS (LIVE CANVAS SIMULATION)',
+        category: 'Interactive Simulator',
+        content: `
+          <div class="flex flex-col items-center space-y-2">
+            <div class="text-xs text-slate-300">
+              Active Stroke: <strong id="engine-stroke-name" class="text-amber-400 font-bold">Stroke 1: Intake Stroke</strong>
+            </div>
+            <canvas id="engineSimCanvas" width="440" height="250" class="rounded-xl border border-slate-700 bg-slate-950"></canvas>
+            <p class="text-[11px] text-slate-400 text-center">Observing valve timing coordination, reciprocating piston clearance & rotating crankshaft counterweight.</p>
+          </div>
+        `
+      },
+      {
+        title: 'WORKSHOP CASE STUDY: DTC P0300 DIAGNOSIS',
+        category: 'Real Automotive Scenario',
+        content: `
+          <div class="max-w-xl text-left space-y-3">
+            <h4 class="font-bold text-white text-sm">Complaint: Engine misfiring intermittently under highway load</h4>
+            <p class="text-xs text-slate-300">Diagnostic procedure: Verify fuel rail pressure (3.8 bar), test ignition primary coil pulse using an oscilloscope, and check oxygen sensor lambda trim.</p>
+          </div>
+        `
+      },
+      {
+        title: 'LIVE CLASSROOM INTERACTIVE POLL',
+        category: 'Student Engagement',
+        content: `
+          <div class="max-w-md text-center space-y-3">
+            <h4 class="font-bold text-white text-sm">Question: What is the correct sequence for tightening cylinder head bolts?</h4>
+            <div onclick="alert('Correct! Spiral sequence from center outward ensures even gasket sealing.')" class="p-3 rounded-lg bg-slate-800 hover:bg-emerald-900 border border-slate-700 cursor-pointer text-xs">
+              Tighten from the center outwards in a spiral pattern in progressive torque stages.
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    function previewPresentationModal() {
+      curSlide = 0;
+      document.getElementById('modal-presentation').classList.remove('hidden');
+      renderSlide();
+      lucide.createIcons();
+    }
+    function closePresentationModal() {
+      if (engineAnimId) cancelAnimationFrame(engineAnimId);
+      document.getElementById('modal-presentation').classList.add('hidden');
+    }
+    function renderSlide() {
+      if (engineAnimId) cancelAnimationFrame(engineAnimId);
+      const s = slides[curSlide];
+      document.getElementById('slide-viewport').innerHTML = `
+        <div class="text-center space-y-4 animate-in fade-in duration-200">
+          <span class="text-[11px] font-bold text-teal-400 uppercase tracking-wider">${s.category}</span>
+          <h2 class="text-xl font-black text-white">${s.title}</h2>
+          <div class="flex justify-center">${s.content}</div>
+        </div>
+      `;
+      document.getElementById('slide-indicator').innerText = `Slide ${curSlide + 1} / ${slides.length}`;
+      if (curSlide === 1) setTimeout(initEngineSim, 100);
+    }
+    function nextSlide() { if (curSlide < slides.length - 1) { curSlide++; renderSlide(); } }
+    function prevSlide() { if (curSlide > 0) { curSlide--; renderSlide(); } }
+    function triggerStudentReaction(t) {
+      const c = document.getElementById('presentation-reactions-container');
+      const b = document.createElement('div');
+      b.className = 'reaction-bubble bg-slate-800 text-white border border-slate-700 px-3 py-1 rounded-full text-xs font-bold';
+      b.innerHTML = t === 'clap' ? '👏 Long Nguyen: Excellent explanation!' : (t === 'heart' ? '❤️ Van Le liked slide' : '✋ Minh Dang raised hand to speak');
+      c.appendChild(b);
+      setTimeout(() => b.remove(), 2200);
+    }
+    function triggerClassLivePoll() { alert('Live Poll dispatched to all 38 active student screens!'); }
+
+    // Canvas Simulator Animation
+    let crankAngle = 0;
+    function initEngineSim() {
+      const canvas = document.getElementById('engineSimCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const cx = canvas.width / 2;
+        const cy = 180;
+        const r = 32;
+        const rod = 85;
+
+        crankAngle += 0.05;
+        if (crankAngle > Math.PI * 4) crankAngle = 0;
+
+        const pinX = cx + r * Math.cos(crankAngle);
+        const pinY = cy + r * Math.sin(crankAngle);
+        const pY = pinY - Math.sqrt(rod * rod - Math.pow(pinX - cx, 2));
+
+        const deg = (crankAngle * (180 / Math.PI)) % 720;
+        let stroke = 'Stroke 1: Intake (Fuel-Air Mix)';
+        let color = 'rgba(59, 130, 246, 0.3)';
+
+        if (deg >= 180 && deg < 360) { stroke = 'Stroke 2: Compression (10.5:1 Ratio)'; color = 'rgba(234, 179, 8, 0.4)'; }
+        else if (deg >= 360 && deg < 540) { stroke = 'Stroke 3: Power (Combustion Expansion)'; color = 'rgba(239, 68, 68, 0.6)'; }
+        else if (deg >= 540) { stroke = 'Stroke 4: Exhaust (Burned Gases Expelled)'; color = 'rgba(100, 116, 139, 0.4)'; }
+
+        const lbl = document.getElementById('engine-stroke-name');
+        if (lbl) lbl.innerText = stroke;
+
+        // Cylinder Chamber
+        ctx.fillStyle = color;
+        ctx.fillRect(cx - 40, 25, 80, pY - 25);
+        ctx.strokeStyle = '#64748b';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(cx - 40, 25, 80, 140);
+
+        // Piston Body
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(cx - 38, pY, 76, 30);
+
+        // Connecting Rod
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.moveTo(cx, pY + 15);
+        ctx.lineTo(pinX, pinY);
+        ctx.stroke();
+
+        // Crankshaft Counterweight
+        ctx.fillStyle = '#475569';
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.fill();
+
+        engineAnimId = requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    /* ========================================================
+       AI EXAM & ASSESSMENT GENERATOR
+    ======================================================== */
+    function openExerciseGeneratorModal() {
+      document.getElementById('modal-exercise-gen').classList.remove('hidden');
+    }
+    function closeExerciseGeneratorModal() {
+      document.getElementById('modal-exercise-gen').classList.add('hidden');
+    }
+    function executeGenerateExercise() {
+      const topic = document.getElementById('gen-topic').value;
+      const scope = document.getElementById('gen-scope').value;
+
+      state.lessonPlanBlocks.push({
+        id: 'blk-' + Date.now(),
+        type: 'quiz',
+        title: `${state.lessonPlanBlocks.length + 1}. Auto-Generated Assessment: ${topic}`,
+        desc: `Mapped to ${scope} • Includes technical schematic reading and torque calculation.`,
+        duration: '15 Mins',
+        tag: 'Standardized Exam'
+      });
+
+      logAuditAction(ROLES_INFO[state.currentRole].name, ROLES_INFO[state.currentRole].badge, `Generated & Published Assessment: ${topic}`);
+      saveState();
+      closeExerciseGeneratorModal();
+      alert(`Standardized Assessment on "${topic}" generated and deployed successfully!`);
+    }
+
+    /* ========================================================
+       WALKTHROUGH TOUR SCRIPT
+    ======================================================== */
+    function toggleQuickTourModal() {
+      document.getElementById('modal-quick-tour').classList.toggle('hidden');
+    }
+    function executeTourStep(s) {
+      toggleQuickTourModal();
+      if (s === 1) { state.currentRole = 'teacher'; setTeacherTab('designer'); saveState(); }
+      else if (s === 2) { state.currentRole = 'director'; saveState(); }
+      else if (s === 3) { state.currentRole = 'teacher'; saveState(); openShareModal(); }
+      else if (s === 4) { state.currentRole = 'student'; saveState(); openTakeTestModal(); }
+    }
+    function triggerSystemAudit() {
+      alert('Institutional Audit Engine verified: 100% data integrity across all 4 role portals.');
+    }
+    function logAuditAction(actor, role, action) {
+      state.auditLogs.unshift({
+        time: new Date().toTimeString().split(' ')[0],
+        actor, role, action, status: 'Verified'
+      });
+    }
+
+    /* ========================================================
+       RADAR & ENGAGEMENT CHARTS
+    ======================================================== */
+    let sChart = null;
+    let dChart = null;
+
+    function initCharts() {
+      const sCtx = document.getElementById('studentCompetencyMiniChart');
+      if (sCtx) {
+        if (sChart) sChart.destroy();
+        const score = state.students[0].midtermScore === 10 ? [95, 98, 90, 98, 92] : [85, 90, 80, 82, 85];
+        sChart = new Chart(sCtx, {
+          type: 'radar',
+          data: {
+            labels: ['Technical Core', 'Workshop Safety', 'Wiring Schematics', 'OBD Diagnostics', 'Vocational English'],
+            datasets: [{
+              data: score,
+              backgroundColor: 'rgba(37, 99, 235, 0.2)',
+              borderColor: '#2563eb',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { r: { min: 50, max: 100, ticks: { display: false } } },
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
+
+      const dCtx = document.getElementById('directorCohortRadarChart');
+      if (dCtx) {
+        if (dChart) dChart.destroy();
+        dChart = new Chart(dCtx, {
+          type: 'radar',
+          data: {
+            labels: ['TVET Theory', 'Workshop 5S Safety', 'Schematic Reading', 'OBD-II Fault Finding', 'Vocational English'],
+            datasets: [
+              { label: 'Cohort Class 2026', data: [92, 96, 84, 91, 88], backgroundColor: 'rgba(13, 148, 136, 0.25)', borderColor: '#0d9488', borderWidth: 2 },
+              { label: 'Macmillan TVET Benchmark', data: [80, 85, 80, 80, 75], borderColor: '#94a3b8', borderDash: [4, 4], fill: false, borderWidth: 1.5, pointRadius: 0 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { r: { min: 50, max: 100, ticks: { display: false } } },
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } }
+          }
+        });
+      }
+    }
+
+    /* ========================================================
+       MASTER UI RENDER DISPATCHER
+    ======================================================== */
+    function renderUI() {
+      const loginScreen = document.getElementById('screen-login');
+      const appScreen = document.getElementById('screen-app');
+
+      if (!state.currentRole) {
+        // Show Login Screen
+        loginScreen.classList.remove('hidden');
+        appScreen.classList.add('hidden');
+        selectLoginRole(state.selectedLoginRole || 'teacher');
+        lucide.createIcons();
+        return;
+      }
+
+      // Show Main Application
+      loginScreen.classList.add('hidden');
+      appScreen.classList.remove('hidden');
+
+      // Update User Scope Header
+      const uInfo = ROLES_INFO[state.currentRole];
+      document.getElementById('header-scope-badge').innerText = uInfo.badge;
+      document.getElementById('header-scope-badge').className = `text-xs font-bold px-2.5 py-0.5 rounded-full border ${uInfo.badgeClass}`;
+
+      document.getElementById('app-user-info').innerHTML = `
+        <div class="hidden sm:block">
+          <div class="text-xs font-bold text-slate-800 leading-tight">${uInfo.name}</div>
+          <div class="text-[10px] text-slate-500 leading-none">${uInfo.title}</div>
+        </div>
+      `;
+
+      // Hide all role containers
+      ['student', 'teacher', 'director', 'admin'].forEach(r => {
+        document.getElementById(`view-${r}`).classList.add('hidden');
+      });
+
+      // Show current role container
+      document.getElementById(`view-${state.currentRole}`).classList.remove('hidden');
+
+      // Render role components
+      renderCanvasBlocks();
+      renderDirectorQueue();
+      renderDirectorCaseStudies();
+      renderGradebook();
+      renderTimeline();
+      renderNotifications();
+      updateDirectorStudentDrilldown(document.getElementById('director-student-drilldown')?.value || 'SV001');
+
+      // System Audit Table
+      const auditTbody = document.getElementById('system-audit-log-body');
+      if (auditTbody) {
+        auditTbody.innerHTML = state.auditLogs.map(l => `
+          <tr class="hover:bg-slate-50">
+            <td class="p-2.5 font-mono text-slate-400">${l.time}</td>
+            <td class="p-2.5 font-bold text-slate-800">${l.actor}</td>
+            <td class="p-2.5 text-blue-700 font-semibold">${l.role}</td>
+            <td class="p-2.5">${l.action}</td>
+            <td class="p-2.5"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">${l.status}</span></td>
+          </tr>
+        `).join('');
+      }
+
+      setTimeout(initCharts, 40);
+      lucide.createIcons();
+    }
+
+    // Live countdown timer
+    setInterval(() => {
+      const d = document.getElementById('student-timer-box');
+      const topD = document.getElementById('top-timer-display');
+      if (d || topD) {
+        const now = new Date();
+        const timeStr = `23:${59 - now.getMinutes()}:${59 - now.getSeconds()}`;
+        if (d) d.innerText = timeStr;
+        if (topD) topD.innerText = timeStr;
+      }
+    }, 1000);
+
+    window.addEventListener('DOMContentLoaded', renderUI);
+  </script>
+</body>
+</html>

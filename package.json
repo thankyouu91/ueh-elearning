@@ -1,0 +1,13 @@
+{
+  "name": "ueh-learning",
+  "version": "1.0.0",
+  "private": true,
+  "description": "UEH University learning management and academic operations platform (demo)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["ueh", "lms", "elearning", "dashboard"],
+  "license": "UNLICENSED"
+}

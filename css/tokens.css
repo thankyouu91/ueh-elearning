@@ -1,0 +1,79 @@
+/* UEH University design tokens. Brand: teal #03606A, orange #D47033. */
+:root {
+  --font: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  --brand: #03606a;          /* UEH teal — the single accent */
+  --brand-hover: #024d55;
+  --brand-soft: #e3f1f2;
+  --brand-ink: #024a52;
+  --brand-2: #d47033;        /* UEH orange — logo, current-week marker, highlights only */
+  --brand-2-soft: #fbeee5;
+
+  --bg: #f7f5f0;          /* warm paper */
+  --surface: #ffffff;
+  --surface-2: #f3f1ec;
+  --surface-3: #e9e5dc;
+  --border: #e3dfd6;
+  --border-strong: #c9c3b6;
+  --text: #1a2326;
+  --text-2: #46545a;
+  --text-3: #7a868a;
+
+  --ok: #1e7f4f;   --ok-soft: #e4f4ea;
+  --warn: #a8590f; --warn-soft: #fdf0e1;
+  --danger: #b4282e; --danger-soft: #fbe7e8;
+  --info: #1f6aa5; --info-soft: #e5f0f9;
+  --neutral: #5d6b72; --neutral-soft: #eef1f2;
+
+  /* subject palette */
+  --s-ECO: #03606a; --s-ECO-soft: #e3f1f2;
+  --s-ACC: #5b4bb7; --s-ACC-soft: #ece9f8;
+  --s-FIN: #1f6aa5; --s-FIN-soft: #e5f0f9;
+  --s-MGT: #8a6a12; --s-MGT-soft: #f6efdc;
+  --s-MKT: #c35f22; --s-MKT-soft: #fbeee5;
+
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow: none;
+  --shadow-lg: 0 12px 32px rgba(19, 37, 43, .16);
+  --sidebar-w: 248px;
+  --topbar-h: 60px;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --brand: #3fb3bd;
+  --brand-hover: #5cc3cc;
+  --brand-soft: #0f3236;
+  --brand-ink: #8fd6dc;
+  --brand-2: #e98a4f;
+  --brand-2-soft: #3a2416;
+
+  --bg: #0c1416;
+  --surface: #121d20;
+  --surface-2: #18262a;
+  --surface-3: #203236;
+  --border: #23363b;
+  --border-strong: #31484e;
+  --text: #e3ecee;
+  --text-2: #9fb2b7;
+  --text-3: #6a8086;
+
+  --ok: #4cc286;   --ok-soft: #12301f;
+  --warn: #e6a253; --warn-soft: #36260f;
+  --danger: #ef7479; --danger-soft: #3a1618;
+  --info: #67aee6; --info-soft: #10283a;
+  --neutral: #9fb2b7; --neutral-soft: #1d2b2f;
+
+  --s-ECO: #4fc1ca; --s-ECO-soft: #0f3236;
+  --s-ACC: #a497ec; --s-ACC-soft: #25213f;
+  --s-FIN: #6fb3ea; --s-FIN-soft: #10283a;
+  --s-MGT: #d9b65a; --s-MGT-soft: #2f2812;
+  --s-MKT: #ee9a62; --s-MKT-soft: #3a2416;
+
+  --shadow: none;
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, .5);
+  color-scheme: dark;
+}
