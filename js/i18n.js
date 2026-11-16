@@ -491,3 +491,13 @@ Object.assign(VI, { 'Every week you teach in this class already has a lesson. Ch
   'Start from the unit template (reading, key words, activity, practice check)': 'Bắt đầu từ bài mẫu của unit (bài đọc, từ khóa, hoạt động, luyện tập)', 'Teaching week': 'Tuần dạy', 'Create draft': 'Tạo bản nháp',
   'Title (optional — defaults to the unit title)': 'Tên bài (không bắt buộc — mặc định là tên unit)', 'Leave blank to use the unit title': 'Để trống để dùng tên unit' });
 PATTERNS.unshift([/^(.+) \(free\)$/, '$1 (còn trống)'], [/^(.+) \(has a lesson\)$/, '$1 (đã có bài)'], [/^Unit is now (\S+) — the ready-made blocks were updated$/, 'Unit giờ là $1 — các khối mẫu đã được đổi theo']);
+
+// vocabulary trainer: the word, what kind of word, meaning, how to use it
+Object.assign(VI, { 'The word': 'Từ cần học', 'What kind of word': 'Đây là từ loại gì', 'Meaning': 'Nghĩa của từ', 'Use it in a sentence': 'Dùng trong câu',
+  'One step at a time: the word, what kind of word it is, what it means, how to use it': 'Học từng bước: mặt chữ, từ loại, nghĩa, rồi cách dùng trong câu',
+  'Show the next step': 'Xem bước tiếp theo', 'Previous word': 'Từ trước', 'Next word': 'Từ tiếp theo', 'All words': 'Tất cả từ', 'Listen': 'Nghe phát âm',
+  'English:': 'Tiếng Anh:', 'Words that go with it:': 'Các từ hay đi kèm:', 'Now write one sentence of your own with this word.': 'Bây giờ hãy tự viết một câu với từ này.',
+  'Not recorded yet': 'Chưa có dữ liệu', 'No key words recorded for this unit yet.': 'Unit này chưa có từ khóa nào.', 'Vocabulary trainer': 'Luyện từ vựng',
+  'noun': 'danh từ', 'verb': 'động từ', 'adjective': 'tính từ', 'adverb': 'trạng từ', 'noun phrase': 'cụm danh từ', 'phrase': 'cụm từ' });
+PATTERNS.unshift([/^Word (\d+) of (\d+)$/, 'Từ $1/$2'], [/^(\d+) business terms$/, '$1 thuật ngữ kinh doanh']);
+PATTERNS.unshift([/^(\d+) business words · learn each one in four steps$/, '$1 từ chuyên ngành · học mỗi từ theo bốn bước']);

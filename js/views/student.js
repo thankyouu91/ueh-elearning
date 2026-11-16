@@ -128,7 +128,8 @@ function blockBody(s, l, b) {
   const vocab = s.vocabulary.filter(v => v.unitId === l.unitId);
   switch (b.type) {
     case 'theory': return `<div class="prose"><p><strong>By the end of this lesson:</strong> ${esc(unit.summary)}</p>${vocab.length ? `<p><strong>Key words:</strong></p><ul>${vocab.map(v => `<li><strong>${esc(v.term)}</strong> — ${esc(v.def)}</li>`).join('')}</ul>` : ''}<p class="small muted">Read the unit text in your coursebook before class, then do the reading tasks in the workbook.</p></div>`;
-    case 'vocabulary': return `<div class="stack gap-2">${vocab.length ? vocab.map(v => `<div class="block-row"><div class="grow"><div style="font-weight:600">${esc(v.term)} <span class="muted" style="font-weight:400">· ${esc(v.vi)}</span></div><div class="small muted">${esc(v.def)}</div></div><button class="btn btn-ghost btn-sm btn-icon" data-action="speak" data-text="${esc(v.term)}" aria-label="Pronounce ${esc(v.term)}">${icon('volume-2')}</button></div>`).join('') : '<p class="small muted">No key terms recorded for this unit yet.</p>'}</div>`;
+    case 'vocabulary': return `<div class="stack gap-3">${vocab.length ? vocab.map(v => `<div class="voc-item"><div class="row gap-2"><strong>${esc(v.term)}</strong>${v.pos ? `<span class="chip voc-pos">${esc(v.pos)}</span>` : ''}<span class="muted">· ${esc(v.vi)}</span><span class="grow"></span><button class="btn btn-ghost btn-sm btn-icon" data-action="speak" data-text="${esc(v.term)}" aria-label="Pronounce ${esc(v.term)}">${icon('volume-2')}</button></div>
+      <div class="small muted mt-2">${esc(v.def)}</div>${v.family ? `<div class="small faint mt-2">${esc(v.family)}</div>` : ''}${v.example ? `<p class="voc-example small mt-2">${markTerm(v.example, v.term)}</p>` : ''}</div>`).join('') : '<p class="small muted">No key words recorded for this unit yet.</p>'}</div>`;
     case 'simulation': return `${marketSimHtml()}<p class="small muted mt-3">Move the sliders, then describe what you see in English. Useful language: “When demand rises, the price goes up.” “The price fell sharply.” “There is a shortage because…”. Say three sentences to a partner.</p>`;
     case 'calculation': return `<div class="prose">${unit.example ? `<div class="note note-info" style="font-size:14px">${icon('spell-check')}<div>${esc(unit.example)}</div></div><p class="mt-3">Now write two sentences of your own with this language about a business you know. Compare them with a classmate.</p>` : '<p>Do the language-focus exercises for this unit in the workbook.</p>'}</div>`;
     case 'case_study': {
@@ -278,22 +279,50 @@ function result(s, id, me) {
 }
 
 /* ---------------- vocabulary ---------------- */
-const fc = { unit: 'all', idx: 0, flipped: false, startedReal: Date.now() };
+const fc = { unit: 'all', idx: 0, step: 1, startedReal: Date.now() };
+/** How a word is learnt: see it, know what kind of word it is, know what it means, then use it. */
+const VOCAB_STEPS = [
+  ['The word', 'type'],
+  ['What kind of word', 'spell-check'],
+  ['Meaning', 'languages'],
+  ['Use it in a sentence', 'pen-line'],
+];
+/** Highlights the term inside its example sentence, whatever its case. */
+function markTerm(sentence, term) {
+  const t = esc(sentence); const needle = esc(term);
+  const i = t.toLowerCase().indexOf(needle.toLowerCase());
+  return i < 0 ? t : `${t.slice(0, i)}<b class="voc-hit">${t.slice(i, i + needle.length)}</b>${t.slice(i + needle.length)}`;
+}
 function vocabulary(s) {
   const list = s.vocabulary.filter(v => fc.unit === 'all' || S.unitById(s, v.unitId).subject === fc.unit);
   fc.idx = Math.min(fc.idx, list.length - 1);
   const v = list[fc.idx];
+  const unit = S.unitById(s, v.unitId);
+  const missing = '<span class="faint">Not recorded yet</span>';
+  const bodies = [
+    `<div class="voc-term">${esc(v.term)}</div><div class="small muted">${esc(unit.id)} · ${esc(unit.title)}</div>
+      <button class="btn btn-sm mt-3" data-action="speak" data-text="${esc(v.term)}">${icon('volume-2')} Listen</button>`,
+    v.pos ? `<span class="chip voc-pos">${esc(v.pos)}</span><div class="mt-2">${esc(v.family || '')}</div>` : missing,
+    `<div><strong>English:</strong> ${esc(v.def)}</div><div class="mt-2"><strong>Tiếng Việt:</strong> ${esc(v.vi)}</div>`,
+    v.example ? `<p class="voc-example">${markTerm(v.example, v.term)}</p>
+      ${v.collocations ? `<div class="small mt-3"><strong>Words that go with it:</strong> ${esc(v.collocations)}</div>` : ''}
+      <p class="small muted mt-3">Now write one sentence of your own with this word.</p>` : missing,
+  ];
+  const steps = VOCAB_STEPS.map(([label, ic], i) => {
+    const open = i < fc.step;
+    return `<li class="voc-step ${open ? 'open' : ''}"><span class="voc-num">${open ? icon(ic) : i + 1}</span>
+      <div class="grow"><div class="voc-label">${label}</div>${open ? `<div class="voc-body">${bodies[i]}</div>` : ''}</div></li>`;
+  }).join('');
+  const more = fc.step < VOCAB_STEPS.length;
   return {
     title: 'Vocabulary',
-    html: `<div class="page">${pageHead('Vocabulary trainer', `${s.vocabulary.length} business terms · English–Vietnamese with pronunciation`, `<select class="select select-sm" data-change="fc-unit"><option value="all">All subjects</option>${Object.entries(s.subjects).map(([k, v]) => `<option value="${k}" ${fc.unit === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select>`)}
-      <div class="grid"><div class="span-7">${card({ title: `Card ${fc.idx + 1} of ${list.length}`, subtitle: 'Click the card to flip it', body: `
-        <div class="flashcard ${fc.flipped ? 'flipped' : ''}" data-action="fc-flip" role="button" tabindex="0" aria-label="Flip card"><div class="flashcard-inner">
-          <div class="fc-face"><div class="fc-term">${esc(v.term)}</div><div class="small faint">${esc(S.unitById(s, v.unitId).title)}</div></div>
-          <div class="fc-face back"><div style="font-weight:700;font-size:18px">${esc(v.vi)}</div><p>${esc(v.def)}</p></div></div></div>
-        <div class="row between mt-4"><button class="btn" data-action="fc-move" data-d="-1" ${fc.idx === 0 ? 'disabled' : ''}>${icon('arrow-left')} Previous</button>
-          <button class="btn" data-action="speak" data-text="${esc(v.term)}">${icon('volume-2')} Pronounce</button>
-          <button class="btn btn-primary" data-action="fc-move" data-d="1" ${fc.idx >= list.length - 1 ? 'disabled' : ''}>Next ${icon('arrow-right')}</button></div>` })}</div>
-      <div class="span-5">${card({ title: 'All terms', flush: true, body: `<div class="list" style="max-height:420px;overflow-y:auto">${list.map((x, i) => `<button class="list-item" data-action="fc-go" data-i="${i}" style="${i === fc.idx ? 'background:var(--brand-soft)' : ''}"><div class="grow"><div class="title small">${esc(x.term)}</div><div class="meta truncate">${esc(x.def)}</div></div></button>`).join('')}</div>` })}</div></div></div>`,
+    html: `<div class="page">${pageHead('Vocabulary trainer', `${s.vocabulary.length} business words · learn each one in four steps`, `<select class="select select-sm" data-change="fc-unit"><option value="all">All subjects</option>${Object.entries(s.subjects).map(([k, v]) => `<option value="${k}" ${fc.unit === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select>`)}
+      <div class="grid"><div class="span-7">${card({ title: `Word ${fc.idx + 1} of ${list.length}`, subtitle: 'One step at a time: the word, what kind of word it is, what it means, how to use it', body: `
+        <ol class="voc-steps">${steps}</ol>
+        <div class="row between gap-2 mt-4"><button class="btn" data-action="fc-move" data-d="-1" ${fc.idx === 0 ? 'disabled' : ''}>${icon('arrow-left')} Previous word</button>
+          ${more ? `<button class="btn btn-primary" data-action="fc-step">${icon('chevron-down')} Show the next step</button>`
+            : `<button class="btn btn-primary" data-action="fc-move" data-d="1" ${fc.idx >= list.length - 1 ? 'disabled' : ''}>Next word ${icon('arrow-right')}</button>`}</div>` })}</div>
+      <div class="span-5">${card({ title: 'All words', flush: true, body: `<div class="list" style="max-height:520px;overflow-y:auto">${list.map((x, i) => `<button class="list-item" data-action="fc-go" data-i="${i}" style="${i === fc.idx ? 'background:var(--brand-soft)' : ''}"><div class="grow"><div class="title small">${esc(x.term)}${x.pos ? ` <span class="faint">${esc(x.pos)}</span>` : ''}</div><div class="meta truncate">${esc(x.vi)}</div></div></button>`).join('')}</div>` })}</div></div></div>`,
   };
 }
 
@@ -418,10 +447,10 @@ export const actions = {
     const ok = await confirmDialog({ title: 'Submit your answers?', body: missing ? `<div class="note note-warn">${icon('triangle-alert')}<div>${missing} question${missing > 1 ? 's are' : ' is'} unanswered and will be marked incorrect.</div></div>` : '<p>All questions answered. You cannot change answers after submitting.</p>', confirmLabel: 'Submit' });
     if (ok) submitExam();
   },
-  'fc-flip': () => { fc.flipped = !fc.flipped; document.querySelector('.flashcard')?.classList.toggle('flipped', fc.flipped); },
-  'fc-move': (el) => { fc.idx += Number(el.dataset.d); fc.flipped = false; logFlashcard(); rerender(); },
-  'fc-go': (el) => { fc.idx = Number(el.dataset.i); fc.flipped = false; rerender(); },
-  'fc-unit': (el) => { fc.unit = el.value; fc.idx = 0; fc.flipped = false; rerender(); },
+  'fc-step': () => { fc.step = Math.min(fc.step + 1, VOCAB_STEPS.length); rerender(); },
+  'fc-move': (el) => { fc.idx += Number(el.dataset.d); fc.step = 1; logFlashcard(); rerender(); },
+  'fc-go': (el) => { fc.idx = Number(el.dataset.i); fc.step = 1; rerender(); },
+  'fc-unit': (el) => { fc.unit = el.value; fc.idx = 0; fc.step = 1; rerender(); },
   'live-join': (form, data) => dispatch('LIVE_JOINED', { pin: data.get('pin') }),
   react: (el) => {
     const box = document.getElementById('reactions'); if (!box) return;

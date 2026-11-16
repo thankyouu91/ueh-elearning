@@ -222,12 +222,6 @@ a.list-item:hover, button.list-item:hover { background: var(--surface-2); }
 .sim-wrap canvas { max-width: 100%; height: auto; }
 .stroke-label { font-weight: 600; font-size: 14px; }
 
-.flashcard { perspective: 1200px; height: 240px; cursor: pointer; }
-.flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform .45s; transform-style: preserve-3d; }
-.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-.fc-face { position: absolute; inset: 0; backface-visibility: hidden; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; gap: 8px; }
-.fc-face.back { transform: rotateY(180deg); background: var(--brand-soft); }
-.fc-term { font-size: 22px; font-weight: 700; }
 
 .live-stage { background: #0f1b1e; color: #e3ecee; border-radius: var(--radius); min-height: 420px; padding: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 14px; position: relative; overflow: hidden; }
 .live-stage h2 { font-size: 26px; }
@@ -890,3 +884,18 @@ button.task { width: 100%; text-align: left; font: inherit; background: none; bo
 .chip.src-ueh { color: var(--brand); border-color: currentColor; background: var(--brand-soft); }
 .chip.skill-U { color: var(--s-ACC); }
 .mini-case p, .scenario-text { white-space: pre-line; } /* reading texts keep their line breaks (memo headers, lists) */
+
+/* ---------- vocabulary: one word, four steps (word → kind → meaning → use) ---------- */
+.voc-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.voc-step { display: flex; gap: 14px; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface-2); }
+.voc-step.open { background: var(--surface); border-color: var(--border-strong); }
+.voc-num { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-3); color: var(--text-3); font-weight: 700; font-size: 14px; }
+.voc-step.open .voc-num { background: var(--brand-soft); color: var(--brand); }
+.voc-label { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); }
+.voc-step.open .voc-label { color: var(--brand); }
+.voc-body { margin-top: 6px; line-height: 1.6; }
+.voc-term { font-family: var(--serif); font-size: 30px; font-weight: 600; line-height: 1.2; }
+.voc-pos { font-style: italic; color: var(--s-ACC); border-color: currentColor; background: transparent; }
+.voc-example { background: var(--brand-2-soft); border-left: 3px solid var(--brand-2); padding: 10px 14px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.voc-hit { color: var(--brand-2); }
+.voc-item { padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }

@@ -36,3 +36,6 @@ Checked in the browser, except recording with a real microphone.
 - A fifth skill tag, `U` (vocabulary & grammar), was added to `S.SKILLS`.
 - Content sources: `S.SOURCES`, `S.sourceOf`, `S.sourceCoverage`. Books, extracts and `material` blocks are `book`; everything else is `ueh`.
 - Open: real ESP coursebook titles and licence terms are not entered (the 15 library books are placeholders from the earlier subject design); coursebook exercises are not in the platform, only PDFs and page references; the student radar chart is still by context strand, not by skill.
+## Vocabulary method (2026-11-16)
+
+Each `VOCAB` row in `js/seed.js` is `[term, vi, def, unitId, pos, family, example, collocations]`. The student page `#/student/vocabulary` reveals one word in four steps — the word, what kind of word it is, its meaning in English and Vietnamese, then the word in a sentence with its collocations. The `vocabulary` lesson block shows the same four things in a list. The old flip card and its CSS are gone. State version 13.
