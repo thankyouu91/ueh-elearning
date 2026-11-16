@@ -75,7 +75,8 @@ function licensing(s) {
     html: `<div class="page">${pageHead('Licensing', esc(s.license.product))}
       <div class="grid"><div class="span-4">${kpi({ label: 'Seats in use', value: `${used}<small> / ${s.license.seats}</small>`, sub: `${s.license.seats - used} available`, iconName: 'key-round' })}</div>
       <div class="span-4">${kpi({ label: 'Valid until', value: S.fmtDate(s.license.expiresAt, { day: 'numeric', month: 'short', year: 'numeric' }), sub: `${Math.round((new Date(s.license.expiresAt) - S.now(s)) / 86400000)} days remaining`, iconName: 'calendar' })}</div>
-      <div class="span-4">${kpi({ label: 'Sections', value: String(s.sections.length), sub: s.sections.map(x => x.code).join(', '), iconName: 'school' })}</div></div></div>`,
+      <div class="span-4">${kpi({ label: 'Sections', value: String(s.sections.length), sub: s.sections.map(x => x.code).join(', '), iconName: 'school' })}</div></div>
+      ${card({ title: 'Coursebooks under this licence', subtitle: 'Licensed content is read-only and disappears for students when the licence ends. UEH material and student results stay.', flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th>Coursebook</th><th>Units</th><th>File</th><th>Valid until</th></tr></thead><tbody>${s.library.books.map(b => `<tr><td><strong>${esc(b.title)}</strong></td><td class="small">${b.unitIds.join(', ')}</td><td class="small">${b.file ? 'PDF uploaded' : '<span class="faint">Not uploaded</span>'}</td><td class="small">${S.fmtDate(s.license.expiresAt, { day: 'numeric', month: 'short', year: 'numeric' })}</td></tr>`).join('')}</tbody></table></div>` })}</div>`,
   };
 }
 

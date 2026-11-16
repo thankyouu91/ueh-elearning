@@ -296,6 +296,38 @@ export function studentTasks(s, studentId) {
   const order = { urgent: 0, soon: 1, catchup: 2, missed: 3, later: 4 };
   return tasks.sort((x, y) => order[x.level] - order[y.level] || new Date(x.due || x.opens || 0) - new Date(y.due || y.opens || 0));
 }
+/** Lecturers get the reduced "simple" interface unless they switch to the full one. */
+export const isSimple = (s, user = currentUser(s)) => user?.role === 'instructor' && s.ui.simple !== false;
+/** What a lecturer should do next, most urgent first. Same shape as studentTasks. */
+export function lecturerTasks(s, me) {
+  const secs = sectionsForUser(s, me); const tasks = [];
+  for (const sec of secs) {
+    const live = activeLiveFor(s, sec.id);
+    if (live && live.startedBy === me.id) tasks.push({ level: 'urgent', icon: 'radio', title: lessonById(s, live.lessonId).title, why: `${sec.code} · Live class is open`, href: '#/instructor/live', action: 'Open' });
+  }
+  for (const l of s.lessons.filter(l => l.authorId === me.id && l.status === 'changes_requested'))
+    tasks.push({ level: 'urgent', icon: 'message-square-warning', title: l.title, why: `${sectionById(s, l.sectionId)?.code || ''} · The Dean asked for changes`, href: `#/instructor/builder/${l.id}`, action: 'Fix' });
+  for (const sec of secs) {
+    const nw = s.clock.week + 1;
+    const unit = nw <= s.term.weeks ? unitForWeek(s, sec.id, nw) : null;
+    if (unit && teachesUnit(s, me.id, sec.id, unit.id)) {
+      const l = s.lessons.find(x => x.sectionId === sec.id && x.week === nw && x.status !== 'rejected');
+      if (!l) tasks.push({ level: 'soon', icon: 'layers', title: `Prepare the week ${nw} lesson`, why: `${sec.code} · ${unit.id} ${unit.title}`, href: `#/instructor/lessons?new=${sec.id}`, action: 'Prepare' });
+      else if (l.status === 'draft') tasks.push({ level: 'soon', icon: 'send', title: l.title, why: `${sec.code} · Week ${nw} draft not sent to the Dean yet`, href: `#/instructor/builder/${l.id}`, action: 'Continue' });
+    }
+  }
+  // one line for all marking: the queue runs across classes, oldest answer first
+  const toMark = pendingMarking(s, secs, me.id).length;
+  if (toMark) tasks.push({ level: toMark > 10 ? 'urgent' : 'soon', icon: 'pen-line', title: `Mark ${toMark} answers`, why: `${secs.filter(sec => pendingMarking(s, [sec], me.id).length).map(sec => sec.code).join(', ')} · Students are waiting for feedback`, href: '#/instructor/gradebook', act: 'wbl-mark-next', action: 'Mark' });
+  const reports = ungradedWorkshop(s, secs).length;
+  if (reports) tasks.push({ level: 'soon', icon: 'clipboard-pen', title: `Grade ${reports} case reports`, why: 'Marked with the rubric in the gradebook', href: '#/instructor/gradebook/all', action: 'Grade' });
+  for (const e of s.exams.filter(e => e.status === 'review' && e.coEditors.some(c => c.userId === me.id && !c.signedOff)))
+    tasks.push({ level: 'soon', icon: 'badge-check', title: e.title, why: 'Exam paper waiting for your sign-off', href: `#/instructor/studio/${e.id}`, action: 'Review' });
+  const risk = studentsInSections(s, secs).filter(u => atRisk(s, u.id).flag).length;
+  if (risk) tasks.push({ level: 'catchup', icon: 'user-x', title: `${risk} students need support`, why: 'Low grade, low activity or missed assessments', href: '#/instructor/classes', action: 'View' });
+  const order = { urgent: 0, soon: 1, catchup: 2, later: 3 };
+  return tasks.sort((a, b) => order[a.level] - order[b.level]);
+}
 export function ungradedWorkshop(s, sections) {
   const out = [];
   for (const sec of sections) for (const a of assessmentsForSection(s, sec.id).filter(a => a.type === 'workshop' && assessmentStatus(s, a) === 'closed'))
@@ -517,13 +549,25 @@ export function workbookProgress(s, studentId, unitIds) {
   return { total: ex.length, done, pct: ex.length ? Math.round((done / ex.length) * 100) : 0, accuracy: scored.length ? Math.round((scored.reduce((t, v) => t + v, 0) / scored.length) * 100) : null, pending: ans.filter(x => x.a?.status === 'submitted').length };
 }
 /* ---------- four language skills ---------- */
-export const SKILLS = { R: ['Reading', 'book-open'], L: ['Listening', 'headphones'], S: ['Speaking', 'mic'], W: ['Writing', 'pen-line'] };
+/** Where a piece of content comes from. Coursebook content is licensed and read-only; UEH content is written and approved in-house. */
+export const SOURCES = { book: ['Coursebook', 'book-marked'], ueh: ['UEH', 'landmark'] };
+export const sourceOf = (x) => x.source || (x.bookId || x.extractId || x.type === 'material' ? 'book' : 'ueh');
+/** Per unit: what each source provides. Used to see where the coursebook leaves gaps for UEH material to fill. */
+export function sourceCoverage(s, unitIds) {
+  return unitIds.map(id => {
+    const ex = s.exercises.filter(e => e.unitId === id && !e.caseId);
+    const skills = Object.fromEntries(Object.keys(SKILLS).map(k => [k, ex.filter(e => skillOf(e) === k).length]));
+    return { unit: unitById(s, id), books: s.library.books.filter(b => b.unitIds.includes(id)), extracts: s.library.extracts.filter(x => x.unitId === id).length,
+      exercises: ex.length, resources: s.resources.filter(r => r.unitId === id).length, skills, gaps: Object.keys(SKILLS).filter(k => !skills[k]) };
+  });
+}
+export const SKILLS = { R: ['Reading', 'book-open'], L: ['Listening', 'headphones'], S: ['Speaking', 'mic'], W: ['Writing', 'pen-line'], U: ['Vocabulary & grammar', 'spell-check'] };
 /** Explicit tag wins; otherwise: audio scenario = listening, recorded = speaking, written = writing, the rest = reading. */
 export const skillOf = (e) => e.skill || (e.scenario?.audio ? 'L' : e.speak ? 'S' : e.type === 'written' ? 'W' : 'R');
 /** Average score (%) per skill over the given students' answers to unit exercises; null when nothing scored yet. */
 export function skillProfile(s, studentIds, unitIds) {
   const ids = new Set(studentIds); const ex = new Map(s.exercises.filter(e => !e.caseId && unitIds.includes(e.unitId)).map(e => [e.id, e]));
-  const acc = { R: [0, 0], L: [0, 0], S: [0, 0], W: [0, 0] };
+  const acc = Object.fromEntries(Object.keys(SKILLS).map(k => [k, [0, 0]]));
   for (const a of s.workbookAnswers) {
     const e = ex.get(a.exerciseId); if (!e || !ids.has(a.studentId)) continue;
     const v = answerScore(e, a); if (v === null) continue;

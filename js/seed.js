@@ -27,125 +27,125 @@ export const SUBJECTS = {
 
 // [id, subject, title, summary, worked example?]
 const UNITS = [
-  ['E1', 'ECO', 'The Economic Problem & Economic Systems', 'Explain scarcity, opportunity cost and the production possibility frontier, and compare market, command and mixed economies.'],
-  ['E2', 'ECO', 'Demand, Supply & Market Equilibrium', 'Use demand and supply diagrams to explain how prices are set and how markets respond to shocks.'],
-  ['E3', 'ECO', 'Elasticity & Government Intervention', 'Calculate price elasticity of demand and analyse price ceilings, price floors and indirect taxes.', 'Price of bubble tea rises from 40,000 to 44,000 VND (+10%). Weekly cups sold fall from 1,000 to 850 (−15%). PED = −15% ÷ 10% = −1.5 → demand is price elastic, so total revenue falls (40m → 37.4m VND).'],
-  ['E4', 'ECO', 'Macroeconomics: GDP, Inflation & Unemployment', 'Measure national output, distinguish nominal and real values, and explain the costs of inflation and unemployment.', 'Nominal GDP grows 9% and inflation (GDP deflator) is 4%. Real GDP growth ≈ 9% − 4% = 5%.'],
-  ['E5', 'ECO', 'Money, Banking & Monetary Policy', 'Explain the functions of money, how commercial banks create credit, and how the central bank uses interest rates.'],
-  ['E6', 'ECO', 'International Trade & Exchange Rates', 'Apply comparative advantage and explain how exchange-rate movements affect exporters and importers.'],
-  ['E7', 'ECO', 'Market Structures & Competition', 'Compare perfect competition, monopolistic competition, oligopoly and monopoly.'],
-  ['E8', 'ECO', "Development Economics & Vietnam's Growth", 'Discuss indicators of development and the drivers of growth in emerging economies.'],
+  ['E1', 'ECO', 'The Economic Problem & Economic Systems', 'Can understand a short text about the choices people and businesses make with limited money and time, and can explain a simple choice and what was given up.'],
+  ['E2', 'ECO', 'Demand, Supply & Market Equilibrium', 'Can understand short news reports about prices and markets, and can describe price changes and their causes in a short spoken or written summary.'],
+  ['E3', 'ECO', 'Elasticity & Government Intervention', 'Can understand a short article about how customers react to price changes and price rules, and can describe causes and effects in a few connected sentences.', 'Language of cause and effect: use so, because, as a result and lead to. "The shop raised the price of bubble tea, so fewer students bought it." "The higher price led to a fall in weekly sales."'],
+  ['E4', 'ECO', 'Macroeconomics: GDP, Inflation & Unemployment', 'Can understand simple news items about growth, prices and jobs in Vietnam, and can report key figures and trends in a short talk or paragraph.', 'Numbers and percentages: use by for the size of a change and at for a level. "The economy grew by five per cent last year." "Inflation stayed at around four per cent."'],
+  ['E5', 'ECO', 'Money, Banking & Monetary Policy', 'Can understand a simple bank leaflet or news item about saving, loans and interest rates, and can ask and answer questions about bank services.'],
+  ['E6', 'ECO', 'International Trade & Exchange Rates', 'Can understand short texts about Vietnamese exports, imports and exchange rates, and can compare products and trading partners in simple sentences.'],
+  ['E7', 'ECO', 'Market Structures & Competition', 'Can understand a short description of companies competing in a market, and can compare competitors using comparative and superlative forms.'],
+  ['E8', 'ECO', "Development Economics & Vietnam's Growth", 'Can understand a short article about how life and work in Vietnam have changed, and can describe changes over time in a short presentation.'],
 
-  ['A1', 'ACC', 'Accounting Concepts & the Accounting Equation', 'Apply the accounting equation and the main accounting concepts to everyday business transactions.'],
-  ['A2', 'ACC', 'Double-Entry Recording & the Trial Balance', 'Record transactions with debits and credits, post them to the ledger and extract a trial balance.'],
-  ['A3', 'ACC', 'Preparing Financial Statements', 'Prepare an income statement and a statement of financial position, including depreciation.', 'Revenue 900m, cost of sales 540m → gross profit 360m. Operating expenses 210m (incl. depreciation 30m) → net profit 150m VND.'],
-  ['A4', 'ACC', 'Cost Accounting & Break-even Analysis', 'Classify fixed and variable costs and use contribution to calculate break-even output and margin of safety.', 'Fixed costs 60m VND/month; price 50,000; variable cost 30,000 → contribution 20,000/unit. Break-even = 60,000,000 ÷ 20,000 = 3,000 units.'],
-  ['A5', 'ACC', 'Auditing Fundamentals', 'Explain the purpose of an external audit, auditor independence, materiality and audit evidence.'],
-  ['A6', 'ACC', 'Taxation Basics: VAT & Corporate Income Tax', 'Calculate VAT payable and taxable profit for a small company.'],
-  ['A7', 'ACC', 'IFRS & Financial Reporting Standards', 'Explain why international standards matter and how they change reported figures.'],
+  ['A1', 'ACC', 'Accounting Concepts & the Accounting Equation', 'Can understand a simple description of what a small business owns and owes, and can describe everyday business transactions in clear sentences.'],
+  ['A2', 'ACC', 'Double-Entry Recording & the Trial Balance', 'Can follow simple spoken or written instructions for recording a transaction, and can explain the steps of a routine process in the correct order.'],
+  ['A3', 'ACC', 'Preparing Financial Statements', "Can find key information in a simple income statement or company summary, and can describe a company's results for the year in a short paragraph.", 'Past simple for reporting results: use made, increased, fell and rose with figures. "Revenue increased to 900 million VND last year." "The company made a net profit of 150 million VND."'],
+  ['A4', 'ACC', 'Cost Accounting & Break-even Analysis', "Can understand a short text about a small business's costs and prices, and can talk about possible results using first conditional sentences.", 'First conditional: if + present simple, will + verb. "If we sell 3,000 cups a month, we will cover our costs." "If the rent goes up, we will need to raise our prices."'],
+  ['A5', 'ACC', 'Auditing Fundamentals', 'Can understand a short email or notice about an audit visit, and can make polite requests for documents and information.'],
+  ['A6', 'ACC', 'Taxation Basics: VAT & Corporate Income Tax', 'Can understand simple notices and invoices that mention VAT and tax deadlines, and can explain rules and obligations using must and have to.'],
+  ['A7', 'ACC', 'IFRS & Financial Reporting Standards', 'Can understand a short text about why companies follow common reporting standards, and can give reasons and simple opinions in a discussion.'],
 
-  ['F1', 'FIN', 'Time Value of Money', 'Calculate future and present values with compound interest and discounting.', '100m VND invested at 10% for 3 years: FV = 100 × 1.10³ = 133.1m VND. PV of 133.1m in 3 years at 10% = 100m VND.'],
-  ['F2', 'FIN', 'Financial Ratio Analysis', 'Calculate and interpret liquidity, profitability and gearing ratios.', 'Current assets 450m, current liabilities 300m → current ratio 1.5. Net profit 150m on revenue 900m → net margin 16.7%.'],
-  ['F3', 'FIN', 'Budgeting & Working Capital Management', 'Prepare a cash budget and manage inventory, receivables and payables.'],
-  ['F4', 'FIN', 'Investment Appraisal: NPV, IRR & Payback', 'Evaluate investment projects with payback, net present value and internal rate of return.', 'Cost 300m; inflows 120m per year for 3 years; discount rate 10%. PV = 120 × 2.487 = 298.4m → NPV = −1.6m (reject). Payback = 2.5 years.'],
-  ['F5', 'FIN', 'Financial Markets & Institutions', 'Describe money and capital markets, the role of the central bank, and the link between bond prices and interest rates.'],
-  ['F6', 'FIN', 'Capital Structure & Cost of Capital', 'Calculate WACC and discuss the trade-off between debt and equity.'],
-  ['F7', 'FIN', 'Risk Management & Insurance', 'Identify business risks and choose to avoid, reduce, transfer or accept them.'],
+  ['F1', 'FIN', 'Time Value of Money', 'Can understand a simple text about saving and investing over time, and can talk about future plans and predictions for money.', 'Future forms: use will for predictions and be going to for plans. "In three years, your savings will be worth more." "I am going to put 100 million VND in a savings account."'],
+  ['F2', 'FIN', 'Financial Ratio Analysis', 'Can read a simple table of company figures and understand short comments on it, and can compare two companies or two years in speech or writing.', 'Comparatives: use adjective + -er or more + adjective + than, and not as ... as. "Company A is more profitable than Company B." "This year\'s profit is not as high as last year\'s."'],
+  ['F3', 'FIN', 'Budgeting & Working Capital Management', 'Can understand a simple monthly budget and short messages about payments, and can write a short polite email about an invoice or a late payment.'],
+  ['F4', 'FIN', 'Investment Appraisal: NPV, IRR & Payback', 'Can understand a short proposal for a business investment, and can make and respond to recommendations in a meeting.', 'Recommending and giving reasons: use should, recommend and suggest with because or as. "I recommend buying the new oven because it will pay for itself in three years." "We should not go ahead with the project, as the costs are too high."'],
+  ['F5', 'FIN', 'Financial Markets & Institutions', 'Can understand short financial news about banks, shares and the stock market, and can summarise the main point of a news item in one or two sentences.'],
+  ['F6', 'FIN', 'Capital Structure & Cost of Capital', 'Can understand a simple text about the ways a company can raise money, and can describe the advantages and disadvantages of each option.'],
+  ['F7', 'FIN', 'Risk Management & Insurance', 'Can understand simple notices and insurance information about business risks, and can give advice and warnings using should and might.'],
 
-  ['M1', 'MGT', 'Management Functions & Organisational Structure', 'Describe planning, organising, leading and controlling, and compare organisational structures.'],
-  ['M2', 'MGT', 'Entrepreneurship & New Venture Creation', 'Turn a business idea into a business plan, and choose a legal form and source of finance.'],
-  ['M3', 'MGT', 'Operations & Project Management', 'Apply lean principles, capacity utilisation and simple project-scheduling tools.'],
-  ['M4', 'MGT', 'Business Communication & Report Writing', 'Write clear emails, memos and short reports for business audiences.'],
-  ['M5', 'MGT', 'Human Resource Management', 'Explain recruitment, training, appraisal and motivation in organisations.'],
-  ['M6', 'MGT', 'Business Ethics & Corporate Governance', 'Analyse ethical dilemmas and the role of boards and stakeholders.'],
+  ['M1', 'MGT', 'Management Functions & Organisational Structure', "Can understand a description of a company's departments and job roles, and can describe responsibilities and who reports to whom."],
+  ['M2', 'MGT', 'Entrepreneurship & New Venture Creation', 'Can understand a short profile of a start-up and its founder, and can present a simple business idea in a short pitch.'],
+  ['M3', 'MGT', 'Operations & Project Management', 'Can follow a description of a production process or project schedule, and can describe stages and deadlines using sequencing words and the passive.'],
+  ['M4', 'MGT', 'Business Communication & Report Writing', 'Can understand routine business emails, memos and short reports, and can write a clear, polite email or short report in an appropriate style.'],
+  ['M5', 'MGT', 'Human Resource Management', 'Can understand job advertisements and simple staff notices, and can answer common job interview questions about skills and experience.'],
+  ['M6', 'MGT', 'Business Ethics & Corporate Governance', 'Can understand a short case about right and wrong behaviour at work, and can give and justify an opinion politely in a discussion.'],
 
-  ['K1', 'MKT', 'Marketing Concepts & the Marketing Mix', 'Apply segmentation, targeting, positioning and the 4Ps to a product.'],
-  ['K2', 'MKT', 'Consumer Behaviour', 'Explain the buying-decision process and the personal and social influences on consumers.'],
-  ['K3', 'MKT', 'Marketing Communication & Advertising', 'Plan an integrated campaign using advertising, PR, sales promotion and personal selling.'],
-  ['K4', 'MKT', 'Digital & Social Media Marketing', 'Use SEO, social media and paid ads, and read basic campaign metrics.', '50,000 impressions, 1,000 clicks, 40 orders. CTR = 1,000 ÷ 50,000 = 2%. Conversion rate = 40 ÷ 1,000 = 4%.'],
-  ['K5', 'MKT', 'Market Research & Data', 'Design a questionnaire, choose a sample and summarise survey results.'],
-  ['K6', 'MKT', 'Brand Management', 'Build brand identity and measure brand awareness and brand equity.'],
-  ['K7', 'MKT', 'Sales & Customer Relationship Management', 'Manage the sales pipeline and customer retention with CRM data.'],
+  ['K1', 'MKT', 'Marketing Concepts & the Marketing Mix', 'Can understand a short product description and a simple marketing plan, and can describe a product, its price and its target customers.'],
+  ['K2', 'MKT', 'Consumer Behaviour', 'Can understand short customer reviews and survey comments, and can describe shopping habits using adverbs of frequency.'],
+  ['K3', 'MKT', 'Marketing Communication & Advertising', 'Can understand advertisements and short promotional messages, and can write a simple, persuasive promotional text for a product.'],
+  ['K4', 'MKT', 'Digital & Social Media Marketing', "Can understand a short report on an online campaign's results, and can describe figures from a simple chart or table in speech or writing.", 'Describing figures: use a total of, the number of and per cent of. "The advert received a total of 50,000 views and 1,000 clicks." "Two per cent of viewers clicked on the advert."'],
+  ['K5', 'MKT', 'Market Research & Data', 'Can understand a simple questionnaire and a short summary of survey results, and can write clear survey questions and report what people said.'],
+  ['K6', 'MKT', 'Brand Management', "Can understand a short text about well-known Vietnamese brands, and can describe a brand's image and personality using a range of adjectives."],
+  ['K7', 'MKT', 'Sales & Customer Relationship Management', 'Can follow a simple sales conversation or customer call, and can deal politely with customer enquiries and complaints by phone or email.'],
 ];
 
 // [unitId, stem, options (first = correct), bloom]
 const Q = [
-  ['E1', 'Opportunity cost is best defined as…', ['The value of the next best alternative given up', 'The money price of a good', 'The total cost of production', 'A cost that cannot be recovered'], 'Remember'],
-  ['E1', 'A point inside the production possibility frontier (PPF) shows…', ['Unemployed or inefficiently used resources', 'Maximum efficiency', 'An unattainable level of output', 'Economic growth'], 'Understand'],
-  ['E1', 'Which system relies mainly on prices set by supply and demand?', ['Market economy', 'Command economy', 'Traditional economy', 'Centrally planned economy'], 'Remember'],
-  ['E2', 'If the price of coffee rises, the quantity of coffee demanded will…', ['Fall', 'Rise', 'Stay the same', 'Become zero'], 'Understand'],
-  ['E2', 'Consumer incomes rise. For a normal good this causes…', ['The demand curve to shift right', 'The demand curve to shift left', 'A movement along the supply curve', 'The supply curve to shift right'], 'Apply'],
-  ['E2', 'At the equilibrium price…', ['Quantity demanded equals quantity supplied', 'There is a surplus', 'There is a shortage', 'The government sets the price'], 'Remember'],
-  ['E3', 'A 10% price rise causes a 20% fall in quantity demanded. Demand is…', ['Price elastic (PED = −2)', 'Price inelastic', 'Unit elastic', 'Perfectly inelastic'], 'Apply'],
-  ['E3', 'A maximum price set below the equilibrium price creates…', ['A shortage', 'A surplus', 'No change in the market', 'Higher supply'], 'Analyze'],
-  ['E3', 'Governments often tax goods with inelastic demand because…', ['Tax revenue stays high as quantity falls only a little', 'Consumers stop buying them', 'Producers pay all of the tax', 'Prices fall after the tax'], 'Analyze'],
-  ['E4', 'GDP measures…', ['The total value of final goods and services produced in a country', 'Total government spending', 'Exports minus imports', 'The money supply'], 'Remember'],
-  ['E4', 'Inflation is…', ['A sustained rise in the general price level', 'A fall in national output', 'A rise in unemployment', 'An increase in exports'], 'Remember'],
-  ['E4', 'Nominal GDP grows 8% and inflation is 3%. Real GDP grows by about…', ['5%', '11%', '8%', '3%'], 'Apply'],
+  ['E1', 'In business English, "scarce" means…', ['Available only in small amounts', 'Very cheap to buy', 'Easy to find everywhere', 'Made in another country'], 'Remember'],
+  ['E1', 'Read: "Lan has 50,000 VND. She can buy lunch or a cinema ticket, but not both. She chooses lunch." What does Lan give up?', ['The cinema ticket', 'Her lunch', 'Her job', 'Both lunch and the cinema ticket'], 'Understand'],
+  ['E1', 'Choose the correct word form: "Vietnam has a fast-growing ____."', ['economy', 'economic', 'economical', 'economise'], 'Remember'],
+  ['E2', 'Read: "Coffee prices rose sharply in March because bad weather damaged the harvest." Why did prices rise?', ['There was less coffee to sell', 'More people wanted to drink coffee', 'The government raised taxes', 'Shops opened for longer hours'], 'Understand'],
+  ['E2', 'Complete the sentence: "Demand ____ ice cream usually increases in the hot season."', ['for', 'of', 'to', 'at'], 'Apply'],
+  ['E2', 'If there is a "shortage" of rice, there is…', ['Not enough rice for everyone who wants it', 'Too much rice in the shops', 'A lower price for rice', 'A new type of rice on sale'], 'Remember'],
+  ['E3', 'Complete the sentence: "The café raised its prices. ____, it lost some regular customers."', ['As a result', 'Because', 'Although', 'In order to'], 'Apply'],
+  ['E3', 'Read: "The city has set a maximum price for face masks. Shoppers are pleased, but many pharmacies say they have no masks left to sell." What is the writer showing?', ['The price rule has both good and bad effects', 'The price rule has solved every problem', 'Pharmacies are happy with the new rule', 'Shoppers are angry about the new price'], 'Analyze'],
+  ['E3', 'Weekly sales of bubble tea at one shop: Week 1 – 1,000 cups; Week 2 – 850 cups; Week 3 – 700 cups. Which sentence describes the figures correctly?', ['Sales fell steadily over the three weeks', 'Sales rose slightly in Week 2', 'Sales stayed the same for three weeks', 'Sales fell in Week 2 and then recovered in Week 3'], 'Analyze'],
+  ['E4', '"Unemployment" means…', ['The situation of people who want a job but do not have one', 'The money a company pays its workers', 'The number of people who work in factories', 'A rise in the prices of goods'], 'Remember'],
+  ['E4', 'Choose the correct word form: "Rising food prices are the main cause of ____ this year."', ['inflation', 'inflate', 'inflated', 'inflating'], 'Remember'],
+  ['E4', 'Complete the sentence: "Vietnam\'s economy grew ____ about six per cent last year."', ['by', 'in', 'with', 'for'], 'Apply'],
 
-  ['A1', 'The accounting equation is…', ['Assets = Liabilities + Equity', 'Assets = Revenue − Expenses', 'Equity = Assets + Liabilities', 'Liabilities = Assets + Equity'], 'Remember'],
-  ['A1', 'A business buys equipment for cash. The effect is…', ['One asset increases and another asset decreases', 'Assets and liabilities both increase', 'Equity decreases', 'Liabilities decrease'], 'Apply'],
-  ['A1', 'The going-concern concept assumes the business will…', ['Continue operating for the foreseeable future', 'Be sold next year', 'Always make a profit', 'Pay no taxes'], 'Understand'],
-  ['A2', 'In double-entry bookkeeping every transaction is recorded…', ['As a debit in one account and a credit in another', 'Only in the cash book', 'Twice in the same account', 'Only at the year end'], 'Remember'],
-  ['A2', 'An increase in an asset account is recorded as a…', ['Debit', 'Credit', 'Contra entry', 'Memo entry'], 'Remember'],
-  ['A2', 'A trial balance that balances proves that…', ['Total debits equal total credits', 'There are no errors at all', 'The business made a profit', 'All invoices were paid'], 'Understand'],
-  ['A3', 'Which statement shows financial position at a point in time?', ['Statement of financial position (balance sheet)', 'Income statement', 'Cash flow statement', 'Statement of changes in equity'], 'Remember'],
-  ['A3', 'Revenue 500, cost of sales 300, expenses 120. Net profit is…', ['80', '200', '380', '920'], 'Apply'],
-  ['A3', 'Depreciation is recorded in order to…', ['Spread the cost of a non-current asset over its useful life', 'Increase cash', 'Reduce liabilities', 'Value inventory'], 'Understand'],
-  ['A4', 'Fixed costs 20,000; price 50; variable cost 30 per unit. Break-even output is…', ['1,000 units', '400 units', '667 units', '2,500 units'], 'Apply'],
-  ['A4', 'Which is a variable cost for a bakery?', ['Flour', 'Rent', 'Insurance', "The manager's salary"], 'Understand'],
-  ['A4', 'Contribution per unit equals…', ['Selling price − variable cost per unit', 'Selling price − fixed cost', 'Total revenue − total cost', 'Fixed cost ÷ units sold'], 'Remember'],
-  ['A5', 'The main purpose of an external audit is to…', ['Give an opinion on whether the financial statements are fairly presented', 'Prepare the financial statements', 'Detect every fraud', 'Calculate the tax payable'], 'Understand'],
-  ['A5', 'Auditor independence means the auditor…', ['Has no interest that could bias their judgement', "Works in the client's finance team", "Sets the company's prices", 'Is paid a share of profits'], 'Understand'],
-  ['A5', 'Evidence obtained directly by the auditor is generally…', ['More reliable than evidence produced by the client', 'Less reliable than client evidence', 'Not acceptable', 'Only needed for small firms'], 'Analyze'],
+  ['A1', 'In accounting English, "liabilities" are…', ['Money that a business owes to others', 'Things that a business owns', 'Money that customers pay to a business', 'People who work for a business'], 'Remember'],
+  ['A1', 'Complete the sentence: "The shop ____ a loan from the bank to buy new equipment."', ['took out', 'made', 'did', 'gave up'], 'Apply'],
+  ['A1', 'Which sentence has the same meaning as "The company owns two delivery vans"?', ['Two delivery vans belong to the company', 'The company wants to buy two delivery vans', 'The company rents two delivery vans', 'Two delivery vans were sold by the company'], 'Understand'],
+  ['A2', 'To "record" a transaction means to…', ['Write it down in the accounts', 'Pay for it in cash', 'Cancel it', 'Discuss it with the customer'], 'Remember'],
+  ['A2', 'Choose the correct word form: "Please check every ____ in the cash book."', ['payment', 'pay', 'paid', 'payable'], 'Remember'],
+  ['A2', 'Read: "First, enter the date. Next, write the amount in the correct column. Finally, check that the two totals are equal." What should you do last?', ['Check that the totals match', 'Enter the date', 'Write the amount', 'Choose the correct column'], 'Understand'],
+  ['A3', '"Revenue" is…', ['The money a business receives from its sales', 'The money a business pays in rent', 'The money a business borrows from a bank', 'The money left after all costs are paid'], 'Remember'],
+  ['A3', 'Complete the sentence: "Last year the company ____ a net profit of 150 million VND."', ['made', 'did', 'won', 'built'], 'Apply'],
+  ['A3', 'Read: "Sales were strong in 2025, but higher rent and wages reduced the company\'s profit." What happened to profit?', ['It went down because costs increased', 'It went up because sales were strong', 'It stayed the same as the year before', 'It went down because sales were weak'], 'Understand'],
+  ['A4', 'Complete the sentence: "If we ____ 3,000 cups a month, we will cover all our costs."', ['sell', 'will sell', 'sold', 'selling'], 'Apply'],
+  ['A4', 'Read: "The bakery pays the same rent every month, but it spends more on flour when it bakes more bread." Which cost changes with the amount of bread?', ['Flour', 'Rent', 'Both rent and flour', 'Neither rent nor flour'], 'Understand'],
+  ['A4', 'When a business "breaks even", it…', ['Makes neither a profit nor a loss', 'Makes a large profit', 'Closes because of its debts', 'Sells more than its competitors'], 'Remember'],
+  ['A5', 'Read: "The auditors will visit our office on Monday. Please prepare all invoices and bank statements from last year." What should staff do?', ['Get documents ready before the visit', 'Visit the auditors on Monday', 'Send new invoices to customers', 'Open a new bank account'], 'Understand'],
+  ['A5', 'Which sentence has the same meaning as "The auditor is independent of the company"?', ['The auditor does not work for or depend on the company', 'The auditor is the owner of the company', 'The auditor works alone in the company office', 'The auditor is paid more than the company staff'], 'Understand'],
+  ['A5', 'Read: "Thank you for the documents. However, three invoices are still missing. Could you send them by Friday?" What is the main purpose of this email?', ['To ask for missing documents', 'To thank the company for a payment', 'To complain about the audit', 'To cancel a meeting on Friday'], 'Analyze'],
 
-  ['F1', 'Why is 1 million VND today worth more than 1 million VND in a year?', ['It can be invested to earn interest', 'Prices always fall', 'Banks charge fees', 'Money only loses value after a year'], 'Understand'],
-  ['F1', '100 million VND invested at 10% compound interest for 2 years grows to…', ['121 million VND', '120 million VND', '110 million VND', '200 million VND'], 'Apply'],
-  ['F1', 'The present value of a future cash flow falls when…', ['The discount rate rises', 'The discount rate falls', 'The cash flow rises', 'The time period shortens'], 'Analyze'],
-  ['F2', 'The current ratio is calculated as…', ['Current assets ÷ current liabilities', 'Total assets ÷ equity', 'Net profit ÷ revenue', 'Debt ÷ equity'], 'Remember'],
-  ['F2', 'A current ratio of 0.6 suggests…', ['Possible difficulty paying short-term debts', 'Very strong liquidity', 'High profitability', 'Low gearing'], 'Analyze'],
-  ['F2', 'Net profit margin measures…', ['Profit as a percentage of revenue', 'Cash in the bank', 'Debt relative to equity', 'Inventory turnover speed'], 'Understand'],
-  ['F3', 'Working capital is…', ['Current assets minus current liabilities', 'Total assets minus total liabilities', 'Cash minus inventory', 'Revenue minus expenses'], 'Remember'],
-  ['F3', 'A cash budget is mainly used to…', ['Forecast future cash shortages or surpluses', 'Record past transactions', 'Calculate depreciation', 'Value shares'], 'Understand'],
-  ['F3', 'Giving customers longer credit terms will usually…', ['Increase receivables and tie up cash', 'Increase cash immediately', 'Reduce sales', 'Reduce inventory'], 'Analyze'],
-  ['F4', 'Under the NPV rule a project should be accepted if…', ['NPV is positive', 'NPV is negative', 'Payback is longer than its life', 'IRR is below the cost of capital'], 'Understand'],
-  ['F4', 'A project costs 300 and returns 100 per year. Its payback period is…', ['3 years', '2 years', '4 years', '1 year'], 'Apply'],
-  ['F4', 'IRR is the discount rate at which…', ['NPV equals zero', 'NPV is maximised', 'Payback is shortest', 'Cash flows double'], 'Remember'],
-  ['F5', "The State Bank of Vietnam is the country's…", ['Central bank', 'Stock exchange', 'Largest commercial bank', 'Insurance regulator only'], 'Remember'],
-  ['F5', 'A primary market is where…', ['New securities are issued to investors', 'Existing shares are traded between investors', 'Only foreign currency is traded', 'Banks lend to each other overnight'], 'Understand'],
-  ['F5', 'Bond prices usually fall when market interest rates…', ['Rise', 'Fall', 'Stay constant', 'Are zero'], 'Analyze'],
+  ['F1', 'Read: "Minh put his money in a savings account. After one year, the bank added interest, so he had more money than before." Why did Minh\'s money grow?', ['The bank paid him interest', 'He put in more money every month', 'Prices fell during the year', 'He borrowed money from the bank'], 'Understand'],
+  ['F1', 'Complete the sentence: "If you save a little every month, your money ____ over time."', ['will grow', 'grew', 'growing', 'has grown'], 'Apply'],
+  ['F1', 'Read: "Many young people spend everything they earn. That is a mistake. Start saving now, even a small amount, and you will thank yourself later." What is the writer\'s purpose?', ['To advise readers to start saving early', 'To explain how banks set interest rates', 'To describe what young people buy', 'To advertise a new savings account'], 'Analyze'],
+  ['F2', 'A "profitable" company is one that…', ['Makes more money than it spends', 'Has a large number of employees', 'Sells its products abroad', 'Borrows a lot of money'], 'Remember'],
+  ['F2', 'Net profit last year: Company A – 150 million VND; Company B – 90 million VND; Company C – 150 million VND. Which sentence describes the figures correctly?', ['Company B made the lowest profit of the three', 'Company A made a higher profit than Company C', 'Company C made the lowest profit of the three', 'All three companies made the same profit'], 'Analyze'],
+  ['F2', 'Which sentence has the same meaning as "Sales this year are not as high as last year"?', ['Sales were higher last year', 'Sales are higher this year', 'Sales are the same in both years', 'Sales were very low last year'], 'Understand'],
+  ['F3', 'A "budget" is…', ['A plan showing how much money you expect to receive and spend', 'A list of people who owe you money', 'A bank account for a business', 'A bill sent to a customer'], 'Remember'],
+  ['F3', 'Read: "The shop expects to receive 80 million VND in June, but it must pay 95 million VND in bills." What problem does the shop have?', ['It will not have enough cash in June', 'It will have extra cash in June', 'It has no bills to pay in June', 'It has too many customers in June'], 'Understand'],
+  ['F3', 'Read: "We wrote to you on 3 May and 17 May about invoice 204. We have still not received payment. Please pay within seven days." What is the writer\'s attitude?', ['Firm, because the customer has not paid after two reminders', 'Friendly, because the customer always pays on time', 'Sorry, because the invoice had a mistake', 'Pleased, because the payment has arrived'], 'Analyze'],
+  ['F4', 'Read: "The new oven costs 300 million VND. The owner thinks it will bring in enough extra money to pay for itself in three years." What does the owner expect?', ['To earn back the cost of the oven in three years', 'To sell the oven after three years', 'To get the oven for free', 'To replace the oven every three years'], 'Understand'],
+  ['F4', 'In a meeting, you want to suggest buying a new machine. Which phrase is most appropriate?', ['"I would recommend investing in a new machine."', '"We buy a new machine, OK?"', '"I want you to buy a new machine now."', '"It is a new machine, I think so."'], 'Apply'],
+  ['F4', 'To "invest" money means to…', ['Put money into something in order to make more money later', 'Spend money on things you need today', 'Lend money to a friend for free', 'Keep money at home in a safe place'], 'Remember'],
+  ['F5', '"Shares" in a company are…', ['Small parts of a company that people can buy and own', 'Loans that a company gives to its staff', 'Products that a company sells abroad', 'Taxes that a company pays each year'], 'Remember'],
+  ['F5', 'Read: "The State Bank of Vietnam cut interest rates this week. Borrowing is now cheaper for businesses." What is the result of the decision?', ['Loans cost businesses less', 'Loans cost businesses more', 'Businesses cannot borrow money', 'Banks have closed some branches'], 'Understand'],
+  ['F5', 'Read: "The stock market fell again today. Investors are worried, and many are waiting before they buy." How do investors feel?', ['Nervous and careful', 'Excited and confident', 'Angry with the banks', 'Not interested in the news'], 'Analyze'],
 
-  ['M1', 'The four functions of management are…', ['Planning, organising, leading, controlling', 'Buying, selling, hiring, firing', 'Producing, pricing, promoting, placing', 'Saving, investing, borrowing, lending'], 'Remember'],
-  ['M1', 'A tall organisational structure has…', ['Many levels of hierarchy and narrow spans of control', 'Few levels and wide spans of control', 'No managers', 'Only one department'], 'Understand'],
-  ['M1', 'Comparing actual sales with targets is part of…', ['Controlling', 'Organising', 'Leading', 'Recruiting'], 'Apply'],
-  ['M2', 'A business plan is mainly used to…', ['Set goals and convince investors and lenders', 'Record daily transactions', 'Pay employees', 'Calculate tax'], 'Understand'],
-  ['M2', "A start-up's unique selling proposition (USP) is…", ['What makes its offer different from competitors', 'Its legal name', 'Its tax code', 'Its office location'], 'Understand'],
-  ['M2', 'Which source of finance do new small businesses use most often?', ["Owner's savings and family loans", 'Issuing bonds', 'Listing on the stock exchange', 'Many years of retained profit'], 'Apply'],
-  ['M3', 'Lean production aims to…', ['Reduce waste in every process', 'Increase inventory levels', 'Hire more staff', 'Raise prices'], 'Understand'],
-  ['M3', 'In project scheduling, the critical path is…', ["The sequence of tasks that sets the project's minimum duration", 'The cheapest set of tasks', 'Tasks that can be skipped', 'The project budget'], 'Understand'],
-  ['M3', 'Capacity utilisation of 80% means…', ['Output is 80% of the maximum possible output', 'Costs fell by 80%', '80% of staff are absent', 'Sales rose by 80%'], 'Apply'],
-  ['M4', 'An executive summary should be placed…', ['At the start of a report', 'At the end of the appendix', 'Only in emails', 'In the reference list'], 'Remember'],
-  ['M4', 'Which sentence is most appropriate in a formal business report?', ['"Revenue increased by 12% in Q3, driven by online sales."', '"Sales went up a lot, which is awesome."', '"We did great this time!!"', '"Numbers are better I think."'], 'Apply'],
-  ['M4', 'When writing to a customer about a delayed order, you should first…', ['Apologise and give the new delivery date', 'Blame the supplier', 'Ignore the delay', 'Offer no explanation'], 'Apply'],
+  ['M1', 'Choose the correct word form: "Ms Hoa is the ____ of the sales department."', ['manager', 'manage', 'managing', 'managed'], 'Remember'],
+  ['M1', 'Read: "Mr Tuan leads the marketing team. He reports to Ms Lan, the director." Who is Mr Tuan\'s boss?', ['Ms Lan', 'The marketing team', 'A director from another company', 'Mr Tuan has no boss'], 'Understand'],
+  ['M1', 'Complete the sentence: "Ms Hoa is responsible ____ training new staff."', ['for', 'of', 'to', 'with'], 'Apply'],
+  ['M2', 'Read: "Linh started an online shop selling handmade soap. In the first year she worked alone from home." What do we learn about Linh\'s business?', ['It began as a small one-person business', 'It began with a large team', 'It sold soap in a supermarket', 'It closed after the first year'], 'Understand'],
+  ['M2', 'Which sentence has the same meaning as "Our café is different from others because we roast our own coffee"?', ['Roasting our own coffee makes our café special', 'Our café is the same as other cafés', 'Other cafés roast coffee for us', 'We want to roast our own coffee in the future'], 'Understand'],
+  ['M2', 'You are starting a short pitch to investors. Which opening is most appropriate?', ['"Good morning. Today I would like to present our business idea."', '"Hey guys, give us some money."', '"That is all. Thank you for listening."', '"Sorry, I do not know much about this idea."'], 'Apply'],
+  ['M3', 'Read: "The bottles are filled, then labelled, and finally packed into boxes." What happens to the bottles straight after they are filled?', ['They are labelled', 'They are packed into boxes', 'They are washed', 'They are sent to shops'], 'Understand'],
+  ['M3', 'Read: "The website must be finished before the advertising campaign can start." Which statement is true?', ['The campaign starts after the website is ready', 'The campaign starts before the website is ready', 'The website and the campaign start on the same day', 'The campaign does not need the website'], 'Understand'],
+  ['M3', 'Complete the sentence: "The project is ____ schedule, so we need to work faster."', ['behind', 'after', 'late', 'below'], 'Apply'],
+  ['M4', 'In an email, an "attachment" is…', ['A file that is sent together with the email', 'The name of the person who sends the email', 'The first line of the email', 'A reply to an earlier email'], 'Remember'],
+  ['M4', 'Which sentence is most appropriate in a formal business report?', ['"Online sales increased by 12% in the third quarter."', '"Online sales went up a lot, which is awesome."', '"We did great with online sales!!"', '"Online sales are better, I guess."'], 'Apply'],
+  ['M4', 'Complete the email: "I am writing to ____ for the delay in delivering your order."', ['apologise', 'excuse', 'regret', 'sorry'], 'Apply'],
 
-  ['K1', 'The 4Ps of the marketing mix are…', ['Product, price, place, promotion', 'Plan, produce, pay, profit', 'People, process, power, policy', 'Price, profit, push, pull'], 'Remember'],
-  ['K1', 'Market segmentation means…', ['Dividing a market into groups with similar needs', 'Selling to everyone in the same way', 'Lowering prices', 'Exporting to new countries'], 'Understand'],
-  ['K1', 'A premium pricing strategy is most suitable when…', ['The product has strong brand value and quality', 'The product is identical to rivals', 'Customers are very price sensitive', 'The firm wants to clear old stock'], 'Analyze'],
-  ['K2', "Maslow's hierarchy suggests consumers satisfy … needs first.", ['Physiological', 'Self-actualisation', 'Esteem', 'Social'], 'Remember'],
-  ['K2', 'A reference group influences buying by…', ['Shaping attitudes through people the consumer identifies with', 'Setting the legal price', 'Reducing product quality', 'Controlling distribution'], 'Understand'],
-  ['K2', 'Post-purchase dissonance is…', ['Doubt a buyer feels after an important purchase', 'A discount given after purchase', 'A product recall', 'The delivery process'], 'Understand'],
-  ['K3', 'AIDA stands for…', ['Attention, Interest, Desire, Action', 'Advertise, Inform, Deliver, Adapt', 'Analyse, Implement, Design, Assess', 'Audience, Idea, Design, Advert'], 'Remember'],
-  ['K3', 'Which is an example of public relations (PR)?', ['A press release about a charity partnership', 'A 20% discount coupon', 'A paid TV advert', 'A sales call'], 'Apply'],
-  ['K3', 'Integrated marketing communications (IMC) means…', ['All channels deliver one consistent message', 'Using only one channel', 'Advertising only on TV', 'Each channel chooses its own message'], 'Understand'],
-  ['K4', 'Click-through rate (CTR) is calculated as…', ['Clicks ÷ impressions', 'Impressions ÷ clicks', 'Sales ÷ clicks', 'Cost ÷ sales'], 'Remember'],
-  ['K4', 'An ad has 50,000 impressions and 1,000 clicks. The CTR is…', ['2%', '5%', '0.5%', '20%'], 'Apply'],
-  ['K4', 'Search engine optimisation (SEO) aims to…', ["Improve a website's ranking in organic search results", 'Buy paid search ads', 'Send bulk emails', 'Design logos'], 'Understand'],
-  ['K5', 'Primary data is…', ['Collected first-hand for a specific purpose', 'Taken from published reports', 'Always free', 'Only numerical'], 'Remember'],
-  ['K5', 'Which survey question is biased?', ['"Don\'t you agree our new drink is delicious?"', '"How often do you buy bottled tea?"', '"Which coffee brands have you bought this month?"', '"How much do you usually spend on lunch?"'], 'Analyze'],
-  ['K5', 'A sample is…', ['A subset of the population being studied', 'The whole population', 'A free product', 'A type of advert'], 'Remember'],
-  ['K6', 'Brand equity refers to…', ['The extra value a brand name adds to a product', 'The legal cost of a trademark', 'The number of products a firm sells', "The company's share capital"], 'Understand'],
-  ['K6', 'Brand extension means…', ['Using an existing brand name for a new product category', 'Changing a logo', 'Lowering prices', 'Selling the brand'], 'Understand'],
-  ['K6', 'Which is the best measure of brand awareness?', ['Share of target customers who recognise the brand', 'Total factory output', 'Number of employees', 'Annual tax paid'], 'Apply'],
+  ['K1', 'A company\'s "target customers" are…', ['The people it most wants to sell to', 'The people who work in its shops', 'The companies that sell similar products', 'The people who deliver its products'], 'Remember'],
+  ['K1', 'Read: "This backpack is light, waterproof and has a pocket for a laptop. It is designed for university students." Who is the product for?', ['University students', 'Office managers', 'Young children', 'Professional athletes'], 'Understand'],
+  ['K1', 'Read: "Our tea is grown on a small farm in Da Lat and picked by hand. It is not the cheapest tea, but it is the best." What is the writer\'s purpose?', ['To show that the tea is worth a higher price', 'To say that the tea is very cheap', 'To explain how to grow tea at home', 'To complain about the price of tea'], 'Analyze'],
+  ['K2', 'Choose the correct word form: "Most ____ compare prices online before they buy."', ['consumers', 'consume', 'consumption', 'consuming'], 'Remember'],
+  ['K2', 'Read: "Mai bought the same phone as her classmates because they all said it was good." Why did Mai choose this phone?', ['Her friends influenced her', 'It was the cheapest phone', 'She saw an advert on TV', 'The shop gave her a discount'], 'Understand'],
+  ['K2', 'Which sentence has the same meaning as "I hardly ever shop in supermarkets"?', ['I almost never shop in supermarkets', 'I often shop in supermarkets', 'I always shop in supermarkets', 'I work hard in a supermarket'], 'Understand'],
+  ['K3', 'A "slogan" is…', ['A short, easy-to-remember phrase used in advertising', 'A long report about an advert', 'The price of a product in an advert', 'A person who appears in an advert'], 'Remember'],
+  ['K3', 'Complete the advert: "Don\'t ____ this special offer. It ends on Sunday!"', ['miss', 'lose', 'fail', 'drop'], 'Apply'],
+  ['K3', 'Read: "Come to our opening day this Saturday. The first 100 customers will receive a free gift." What do customers need to do to get a gift?', ['Arrive early on Saturday', 'Buy 100 products', 'Come on any day this week', 'Pay for a gift on Saturday'], 'Understand'],
+  ['K4', 'When you "click" on an online advert, you…', ['Press on it to open it', 'Share it with your friends', 'Hide it from your screen', 'Pay for the product in it'], 'Remember'],
+  ['K4', 'Complete the sentence: "The number of visitors to our website ____ from 1,000 to 5,000 last month."', ['increased', 'increase', 'increasing', 'is increased'], 'Apply'],
+  ['K4', 'Read: "Our video got 50,000 views, but only 40 people bought the product." What does the writer mean?', ['Many people watched, but few people bought', 'Most people who watched also bought', 'Nobody watched the video', 'The product sold out quickly'], 'Understand'],
+  ['K5', 'A "survey" is…', ['A set of questions asked to many people to collect information', 'A meeting between a manager and one customer', 'An advert shown on social media', 'A report on company profits'], 'Remember'],
+  ['K5', 'A survey of 100 students: 60 buy coffee every day, 30 buy it once a week, 10 never buy it. Which sentence describes the results correctly?', ['More than half of the students buy coffee every day', 'Most students never buy coffee', 'Half of the students buy coffee once a week', 'Only a few students buy coffee every day'], 'Analyze'],
+  ['K5', 'Choose the correct word form: "Thank you for your ____ to our questions."', ['answers', 'answering', 'answered', 'answerable'], 'Remember'],
+  ['K6', 'Read: "Customers trust this milk brand, so they buy it even when other brands are cheaper." What does this tell us?', ['Customers are loyal to the brand', 'The brand is the cheapest on the market', 'Customers do not know the brand', 'The brand is only sold online'], 'Understand'],
+  ['K6', 'Which sentence has the same meaning as "Almost everyone in Vietnam knows this brand"?', ['The brand is very well known in Vietnam', 'The brand is new in Vietnam', 'Few people in Vietnam have heard of the brand', 'The brand is not sold in Vietnam'], 'Understand'],
+  ['K6', 'Complete the sentence: "The company has a good ____ for quality and friendly service."', ['reputation', 'opinion', 'fame', 'popularity'], 'Apply'],
 ];
 
 // [term, Vietnamese, definition, unit]
@@ -212,10 +212,10 @@ const CURRICULA = {
 let blkSeq = 0;
 export function blocksForUnit(unit) {
   const b = (type, title, minutes) => ({ id: `B${++blkSeq}-${Math.random().toString(36).slice(2, 6)}`, type, title, minutes });
-  const list = [b('theory', `Core concepts: ${unit.title}`, 25), b('vocabulary', 'Key terms (EN–VI)', 10)];
-  if (['E2', 'E3'].includes(unit.id)) list.push(b('simulation', 'Market simulator: shifting demand & supply', 20));
-  else if (unit.example) list.push(b('calculation', 'Worked problem', 20));
-  else list.push(b('case_study', 'Case discussion', 25));
+  const list = [b('theory', `Reading: ${unit.title}`, 25), b('vocabulary', 'Key words (EN–VI)', 10)];
+  if (['E2', 'E3'].includes(unit.id)) list.push(b('simulation', 'Describe the chart: demand, supply and price', 20));
+  else if (unit.example) list.push(b('calculation', 'Language focus', 20));
+  else list.push(b('case_study', 'Speaking task', 25));
   list.push(b('quiz', 'Practice check', 10));
   return list;
 }
@@ -341,7 +341,7 @@ export function buildSeed() {
       if (status === 'published') { l.publishedAt = iso(at(w, 0, 7)); l.history.push({ at: l.publishedAt, by: 'system', action: 'Published to students' }); }
       if (status === 'changes_requested') {
         l.reviewedBy = deanOf[sec.programId];
-        l.reviewNote = 'Add a Vietnamese market example to the case discussion and a practice check on real GDP.';
+        l.reviewNote = 'Add a Vietnamese market example to the speaking task and a practice check on the key words.';
         l.history.push({ at: iso(at(CURRENT_WEEK - 1, 2, 10)), by: l.reviewedBy, action: 'Requested changes', note: l.reviewNote });
       }
       lessons.push(l);
@@ -349,7 +349,7 @@ export function buildSeed() {
   }
 
   /* assessments — one set per programme, built from its curriculum */
-  const rubric = ['Use of economic & business concepts', 'Analysis & calculation accuracy', 'Use of evidence & data', 'Written communication'];
+  const rubric = ['Task achievement & content', 'Organisation & coherence', 'Vocabulary range & accuracy', 'Grammar & mechanics'];
   const assessments = [];
   for (const p of programs) {
     const cur = p.versions[0].unitIds;
@@ -445,20 +445,20 @@ export function buildSeed() {
   ];
 
   const st = {
-    version: 10,
+    version: 12,
     clock: { week: CURRENT_WEEK, setAt: Date.now() },
     session: { userId: null },
     ui: { theme: 'light', orgFilter: null },
     term: { id: 'T1', title: 'AY 2026–27 · Term 1', startDate: TERM_START, weeks: TERM_WEEKS },
     course: {
-      id: 'C1', code: 'ECON-FDN', title: 'Economics Foundation · Year 1',
+      id: 'C1', code: 'ECON-FDN', title: 'English for Economics & Business · Level 1 (B1)',
       gradingScheme: { categories: [
         { key: 'quiz', label: 'Quizzes', weight: 0.15 }, { key: 'unit_test', label: 'Unit tests', weight: 0.15 },
         { key: 'workshop', label: 'Case reports', weight: 0.2 }, { key: 'midterm', label: 'Midterm', weight: 0.2 },
         { key: 'final', label: 'Final', weight: 0.3 } ], passMark: 5, scale: 10 },
     },
     subjects: SUBJECTS,
-    framework: { id: 'FW1', title: 'UEH Economics Foundation · Year 1', capacity: 16, unitIds: FRAMEWORK, requiredUnitIds: REQUIRED, minPerCoreSubject: 2, coreSubjects: ['ECO', 'ACC', 'FIN', 'MGT'] },
+    framework: { id: 'FW1', title: 'UEH English for Economics & Business · Level 1', capacity: 16, unitIds: FRAMEWORK, requiredUnitIds: REQUIRED, minPerCoreSubject: 2, coreSubjects: ['ECO', 'ACC', 'FIN', 'MGT'] },
     staffing: { hoursPerUnit: 3, maxHours: 48 },
     license: { seats: 2000, product: 'UEH Learning — campus licence', expiresAt: '2027-08-31T00:00:00' },
     orgUnits, programs, users, sections, units, lessons, assessments, questions, attempts, rubricGrades, activity,

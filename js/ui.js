@@ -19,10 +19,10 @@ export const badge = (key, label) => {
 };
 
 export const TYPE_META = {
-  theory: { label: 'Theory', icon: 'book-open' }, vocabulary: { label: 'Vocabulary', icon: 'languages' },
-  simulation: { label: 'Simulation', icon: 'chart-spline' }, case_study: { label: 'Case discussion', icon: 'messages-square' },
-  quiz: { label: 'Practice check', icon: 'list-checks' }, calculation: { label: 'Worked problem', icon: 'calculator' },
-  material: { label: 'Textbook extract', icon: 'book-marked' }, resource: { label: 'Library resource', icon: 'paperclip' },
+  theory: { label: 'Reading & input', icon: 'book-open' }, vocabulary: { label: 'Vocabulary', icon: 'languages' },
+  simulation: { label: 'Describe the chart', icon: 'chart-spline' }, case_study: { label: 'Speaking task', icon: 'messages-square' },
+  quiz: { label: 'Practice check', icon: 'list-checks' }, calculation: { label: 'Language focus', icon: 'spell-check' },
+  material: { label: 'Coursebook extract', icon: 'book-marked' }, resource: { label: 'Library resource', icon: 'paperclip' },
   page: { label: 'Page', icon: 'layout-panel-top' },
 };
 export const ASSESS_META = {

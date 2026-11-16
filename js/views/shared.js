@@ -19,6 +19,26 @@ export function startHere(s, me, steps) {
   </div></div>`;
 }
 
+/* ---------- "what to do now" list, colour-coded by urgency (students and lecturers) ---------- */
+/** tasks: [{ level, icon, title, why, href, action, pct?, due?, opens?, act?, section? }]; labels: level → kicker text. */
+export function taskList(s, tasks, labels, { title = 'What to do now', emptyTitle, emptyText } = {}) {
+  const active = tasks.filter(t => !['later', 'missed'].includes(t.level));
+  const urgent = tasks.filter(t => t.level === 'urgent').length;
+  const row = (t) => {
+    const tag = t.act ? `button type="button" data-action="${t.act}" data-section="${esc(t.section || '')}"` : `a href="${t.href}"`;
+    return `<${tag} class="task lv-${t.level}">
+      <span class="task-mark">${icon(t.icon)}</span>
+      <div class="grow"><div class="task-kicker">${labels[t.level]}</div><div class="title">${esc(t.title)}</div><div class="meta">${esc(t.why)}</div>${t.pct !== undefined ? `<div class="task-bar"><div class="progress"><span style="width:${t.pct}%"></span></div></div>` : ''}</div>
+      ${t.due ? `<span class="due-chip" title="Closes ${S.fmtDateTime(t.due)}" data-countdown="${t.due}">${S.countdown(s, t.due)}</span>` : t.opens ? `<span class="due-chip">Opens ${S.fmtDate(t.opens)}</span>` : ''}
+      <span class="btn btn-sm ${['urgent', 'soon'].includes(t.level) ? 'btn-primary' : ''}">${t.action} ${icon('arrow-right')}</span></${t.act ? 'button' : 'a'}>`;
+  };
+  const summary = active.length ? `<span class="task-count ${urgent ? 'is-urgent' : ''}">${active.length}</span>` : `<span class="task-count is-done">${icon('check')}</span>`;
+  const levels = Object.keys(labels).filter(l => l !== 'missed');
+  return `<section class="card tasks-card"><header class="card-head"><div class="row gap-3">${summary}<div><h3>${title}</h3><p class="muted">${active.length ? `${active.length} things to do${urgent ? ` · ${urgent} urgent` : ''}` : 'All caught up'}</p></div></div>
+      <div class="row gap-3 wrap small task-legend">${levels.map(l => `<span class="lv-${l}"><i></i>${labels[l]}</span>`).join('')}</div></header>
+    ${tasks.length ? `<div>${tasks.map(row).join('')}</div>` : `<div class="card-body">${empty('party-popper', emptyTitle, emptyText)}</div>`}</section>`;
+}
+
 /* ---------- notifications & account ---------- */
 export function notifPopover(s, user) {
   const list = S.notificationsFor(s, user.id).slice(0, 30);

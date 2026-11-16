@@ -152,7 +152,19 @@ const H = {
     if (l.status === 'template') l.updatedAt = S.now(s).toISOString();
     const allowed = ['title', 'summary', 'week', 'blocks'];
     for (const k of allowed) if (k in p.patch) l[k] = k === 'week' ? (Number(p.patch.week) || null) : p.patch[k];
-    if ('week' in p.patch && l.sectionId) { const u = l.week ? S.unitForWeek(s, l.sectionId, l.week) : null; l.unitId = u?.id || null; }
+    if ('week' in p.patch && l.sectionId) {
+      const old = l.unitId ? S.unitById(s, l.unitId) : null;
+      const u = l.week ? S.unitForWeek(s, l.sectionId, l.week) : null; l.unitId = u?.id || null;
+      // Moving to another unit: swap the untouched ready-made blocks, title and summary for the new unit's.
+      // Blocks the lecturer added or renamed are kept.
+      if (old && u && old.id !== u.id) {
+        const tpl = blocksForUnit(old);
+        const isTpl = (b) => tpl.some(t => t.type === b.type && t.title === b.title && t.minutes === b.minutes);
+        if (l.blocks.some(isTpl)) l.blocks = [...blocksForUnit(u), ...l.blocks.filter(b => !isTpl(b))];
+        if (l.title === old.title) l.title = u.title;
+        if (l.summary === old.summary) l.summary = u.summary;
+      }
+    }
     return {};
   },
   LESSON_DELETED(s, a, p) {

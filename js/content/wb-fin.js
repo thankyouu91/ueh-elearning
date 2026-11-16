@@ -1,283 +1,393 @@
-// Finance (F1–F5): extra workbook exercises and library resources.
-// Figures are illustrative teaching data, not official statistics.
-import { C, O, N, W, M, CASE } from './helpers.js';
+// ESP (English for Specific Purposes, CEFR B1) · Finance context: units F1–F5.
+// The finance topic is only the setting; every item tests English (reading, listening, speaking, writing, vocabulary & grammar).
+// No answer needs a calculation or theory: it is in the text/audio or it is a language point.
+import { C, O, M, READ, LISTEN, SPEAK, WRITE, USE } from './helpers.js';
 
 export const EXTRA = [
-  /* ---------------- F1 · Time Value of Money ---------------- */
-  M('F1', 'Simple interest', 'Interest that is earned only on the original amount invested, never on past interest, is called…',
-    ['Compound interest', 'Simple interest', 'Effective interest', 'Discounted interest'], 1,
-    'Simple interest is calculated on the principal only; compound interest also earns interest on interest.'),
-  M('F1', 'What raises future value?', 'Which change would increase the future value of a bank deposit, other things equal?',
-    ['A lower interest rate', 'A shorter deposit period', 'Leaving the money for more years', 'Withdrawing the interest each year'], 2,
-    'FV = PV × (1 + r)ⁿ, so a larger n (more years of compounding) raises FV. Withdrawing interest removes the compounding effect.'),
-  C('F1', 'FV or PV problem?', 'Is each question asking for a future value or a present value?', ['Future value problem', 'Present value problem'],
-    [['How much will 50 million VND in a term deposit be worth in 5 years?', 0],
-     ['How much must parents in Huế save today to have 300 million VND for university in 10 years?', 1],
-     ['What is a lottery prize of 1 billion VND paid in 3 years worth today?', 1],
-     ['What will a 20-million-VND gold savings plan grow to by 2030?', 0],
-     ['What is the most a café owner should pay today for a lease that saves 40 million VND next year?', 1],
-     ['How big will a retirement fund be after 25 years of compounding?', 0]],
-    'Future value moves money forward in time by compounding; present value brings a future amount back to today by discounting.'),
-  N('F1', 'Monthly compounding', 'A savings app in Hanoi offers 12% per year, compounded monthly (1% per month). How much will 50 million VND be worth after 1 year?', 56.34, 'million VND',
-    'FV = 50 × 1.01¹² = 50 × 1.12683 = 56.34. Monthly compounding gives more than 50 × 1.12 = 56.',
-    0.05),
-  M('F1', 'Rule of 72', 'Using the rule of 72, roughly how long does it take money to double at 8% compound interest per year?',
-    ['About 9 years', 'About 6 years', 'About 12.5 years', 'About 72 years'], 0,
-    'Years to double ≈ 72 ÷ interest rate = 72 ÷ 8 = 9 years (check: 1.08⁹ ≈ 2.0).'),
-  ...CASE('F1-mc1', 'Lan plans her savings',
-    'Nguyễn Thị Lan, 26, works as a marketing officer in Đà Nẵng and has saved 200 million VND. Her bank offers a 3-year term deposit at 6% per year, compounded annually. A second bank offers 6.2% per year simple interest for the same 3 years. Lan also has a longer goal: she wants 250 million VND in 4 years for the down payment on a small car. She asks you to compare the two deposit offers and to tell her how much she would need to put aside today for the car, assuming she can earn 6% compounded annually.',
-    [
-      N('F1', 'Compound offer', 'How much will Lan have after 3 years with the 6% compound deposit?', 238.2, 'million VND',
-        'FV = 200 × 1.06³ = 200 × 1.191016 = 238.20.', 0.05),
-      M('F1', 'Which deposit wins?', 'Which offer leaves Lan with more money after 3 years?',
-        ['The 6.2% simple-interest offer, because its rate is higher', 'Both give exactly the same amount', 'The 6% compound offer, by about 1 million VND', 'It cannot be compared without knowing inflation'], 2,
-        'Simple: 200 × (1 + 0.062 × 3) = 237.2. Compound: 238.2. Compounding beats the higher simple rate by about 1 million VND.'),
-      N('F1', 'Saving for the car', 'How much must Lan deposit today at 6% compounded annually to have 250 million VND in 4 years?', 198.02, 'million VND',
-        'PV = 250 ÷ 1.06⁴ = 250 ÷ 1.262477 = 198.02.', 0.05),
+  /* ---------------- F1 · Time value of money — language focus: first conditional ---------------- */
+  // F1 has 11 items here; be-b1.js supplies the other 6 (including speaking and writing).
+  ...USE([
+    C('F1', 'Vocabulary · Saving or borrowing?', "Sort the phrases: do they describe saving money or borrowing money?",
+      ['Saving', 'Borrowing'],
+      [['open a savings account', 0], ['earn interest', 0], ['make a deposit', 0], ['take out a loan', 1], ['pay interest to the bank', 1], ['repay in monthly instalments', 1], ['be in debt', 1]],
+      "Savers 'open an account', 'make a deposit' and 'earn' interest. Borrowers 'take out a loan', 'repay' it, 'pay' interest and are 'in debt'."),
+    M('F1', 'Vocabulary · Word in context', "Choose the best word: 'Hoa Mai Bank pays 6% ___ a year on a twelve-month deposit.'",
+      ['inflation', 'instalment', 'interest', 'income'], 2,
+      "'Interest' is the money a bank pays you for keeping your deposit there. We say 'pay 6% interest'."),
+    M('F1', 'Vocabulary · Collocation', "Choose the correct verb: 'Mr Tam wants to ___ a loan of 200 million VND to open a second cafe.'",
+      ['take out', 'earn', 'do', 'win'], 0,
+      "The collocation is 'take out a loan' (= borrow money from a bank). We do not 'do' or 'win' a loan."),
+    M('F1', 'Language focus · First conditional (1)', "Choose the correct form: 'If you ___ your money in the bank for five years, it will grow.'",
+      ['will keep', 'kept', 'keeping', 'keep'], 3,
+      "First conditional: if + present simple, will + verb. We do not use 'will' in the if-clause."),
+    M('F1', 'Language focus · First conditional (2)', "Choose the correct form: 'If prices rise next year, the cash in your drawer ___ less than today.'",
+      ['buy', 'will buy', 'bought', 'buying'], 1,
+      "The result clause of a first conditional uses will + verb: 'If prices rise, your cash will buy less.'"),
+    O('F1', 'Language focus · Sequencing a process', "Put the sentences in order to describe how a term deposit works.",
+      ['First, compare the interest rates at two or three banks and choose one.',
+        'Next, fill in the application form online or at a branch.',
+        'Then, make your first deposit of at least one million VND.',
+        'After that, the bank adds interest to your account every month.',
+        'Finally, when the term ends, you can withdraw your money or start a new term.'],
+      "Sequencing words show the order: First, Next, Then, After that, Finally. You must open the account before you can make a deposit or earn interest."),
+    M('F1', 'Describing data · Deposit rates', "Interest rate on twelve-month deposits at Hoa Mai Bank: January 5.0%, April 5.0%, July 5.5%, October 6.5%. Which sentence correctly describes the data?",
+      ['The rate fell steadily during the year.', 'The rate remained stable from January to April and then rose.', 'The rate rose sharply between January and April.', 'The rate reached its lowest point in October.'], 1,
+      "'Remained stable' = no change (5.0% and 5.0%). After April the numbers go up, so the rate 'rose'."),
+  ]),
+  ...READ('F1-r1', 'Reading · Small savings, big difference',
+    "Minh is a second-year student in Da Nang. He works at a bookshop every weekend and earns about three million VND a month. Last year he spent everything he earned. This year he has a new plan. On the first day of each month, he puts one million VND into a savings account at his bank. The account pays interest every month, and the interest is added to his balance. The next month, he earns interest on the bigger balance. Bankers call this compound interest.\n\nMinh's roommate, Quan, thinks saving is pointless. 'One million is nothing,' he says. 'Wait until you have a real salary.' Minh does not agree. 'The amount is small, but time is on my side,' he answers. 'If I start now, my money will have more years to grow. If I wait until I am thirty, I will lose all those years.' He also says the habit is important: the money leaves his account automatically, so he does not miss it.", [
+      M('F1', 'Main idea', "What is the main message of the article?",
+        ['Students should not work at weekends', 'Banks pay students more interest than other customers', 'It is better to wait for a real salary before saving', 'Starting to save early is useful, even with small amounts'], 3,
+        "Minh says: 'The amount is small, but time is on my side… If I start now, my money will have more years to grow.'"),
+      M('F1', 'Vocabulary in context', "In the first paragraph, 'balance' means…",
+        ['the total amount of money in the account', 'the money Minh earns at the bookshop', 'a fee that the bank charges each month', 'a plan for spending money'], 0,
+        "'The interest is added to his balance' — the balance is the money that is in the account at that moment."),
     ]),
-  N('F1', 'Present value of an annuity', 'A franchise contract will pay a Biên Hòa shop owner 30 million VND at the end of each year for 4 years. At a discount rate of 8%, what is the present value of these payments?', 99.36, 'million VND',
-    'Annuity factor = (1 − 1.08⁻⁴) ÷ 0.08 = 3.3121. PV = 30 × 3.3121 = 99.36.', 0.05),
-  M('F1', 'Perpetuity', 'A plot of land in Thủ Đức can be rented out for 12 million VND per year forever. At a discount rate of 10%, what is the present value of the rent?',
-    ['12 million VND', '13.2 million VND', '120 million VND', '1.2 billion VND'], 2,
-    'PV of a perpetuity = annual cash flow ÷ rate = 12 ÷ 0.10 = 120 million VND.'),
-  M('F1', 'Effective annual rate', 'A consumer-finance company quotes 12% per year, compounded monthly. What is the effective annual rate?',
-    ['12.00%', '12.36%', '12.68%', '13.00%'], 2,
-    'EAR = (1 + 0.12/12)¹² − 1 = 1.01¹² − 1 = 12.68%. 12.36% would be the result with half-yearly compounding.'),
-  N('F1', 'Implied growth rate', 'An investment in a Hội An homestay grew from 80 million VND to 100 million VND in 2 years. What annual compound rate of return does this represent?', 11.8, '%',
-    'r = (100 ÷ 80)^(1/2) − 1 = √1.25 − 1 = 0.1180 = 11.8% per year (not 25% ÷ 2 = 12.5%, which ignores compounding).', 0.05),
-  O('F1', 'Discounting uneven cash flows', 'Put the steps for finding the present value of a series of uneven future cash flows in the correct order.',
-    ['List each cash flow and the year it is received', 'Choose the discount rate (required return)', 'Calculate the discount factor 1 ÷ (1 + r)ⁿ for each year', 'Multiply each cash flow by its discount factor', 'Add the discounted values to get the total present value'],
-    'You must know the amount and timing first, then the rate, then discount each flow separately before adding them.'),
+  ...LISTEN('F1-l1', 'Listening · A phone call about a loan',
+    "Bank officer: Good morning, Song Xanh Bank, Hanh speaking. Customer: Hello, my name is Tuan. I run a small coffee shop in Bien Hoa, and I'd like to ask about a loan for a new coffee machine. Bank officer: Of course. How much would you like to borrow? Customer: About eighty million dong. Bank officer: For that amount, our interest rate is nine percent a year, and you can repay over twelve or twenty-four months. Customer: I see. Which is better? Bank officer: With twelve months, each monthly payment is higher, but you pay less interest in total. Customer: Then I prefer twelve months. What do I need to bring? Bank officer: Your ID card and your business licence. Can you come to our branch on Thursday morning? Customer: Yes, I'll come at nine.", [
+      M('F1', 'Listening for gist', "Why is Tuan calling the bank?",
+        ['To open a savings account', 'To complain about a monthly payment', 'To ask about borrowing money for equipment', 'To sell a coffee machine'], 2,
+        "He says: 'I'd like to ask about a loan for a new coffee machine.'"),
+      M('F1', 'Listening for the next action', "What will Tuan do on Thursday morning?",
+        ['Call the bank again', 'Visit the branch with his ID card and business licence', 'Send his documents by email', 'Make his first monthly payment'], 1,
+        "The officer asks him to bring his ID card and business licence and come to the branch; he answers 'Yes, I'll come at nine.'"),
+    ]),
 
-  /* ---------------- F2 · Financial Ratio Analysis ---------------- */
-  M('F2', 'Measuring returns', 'Which ratio shows how much operating profit a company earns on the long-term capital invested in it?',
-    ['Current ratio', 'Gearing', 'Return on capital employed (ROCE)', 'Inventory days'], 2,
-    'ROCE = operating profit ÷ (equity + long-term debt). It measures how efficiently capital is used to generate profit.'),
-  M('F2', 'Return on equity', 'Return on equity (ROE) is calculated as…',
-    ['Net profit ÷ shareholders’ equity', 'Revenue ÷ total assets', 'Debt ÷ equity', 'Operating profit ÷ revenue'], 0,
-    'ROE shows the profit earned for shareholders on each VND of equity they have invested.'),
-  C('F2', 'Good or bad trend?', 'A bank compares a Bình Dương furniture maker this year with last year. Is each change favourable or unfavourable for the company?', ['Favourable', 'Unfavourable'],
-    [['Net profit margin rises from 8% to 11%', 0], ['Receivable days rise from 35 to 52', 1], ['Gearing falls from 60% to 40%', 0],
-     ['Interest cover falls from 6 times to 2.5 times', 1], ['Quick ratio rises from 0.5 to 0.9', 0], ['Inventory days rise from 40 to 70', 1]],
-    'Higher margins, lower gearing and better liquidity are favourable; slower collection, more stock and weaker interest cover tie up cash or raise risk.'),
-  N('F2', 'ROCE', 'A logistics firm in Hải Phòng has operating profit of 900 million VND, equity of 3,000 million VND and long-term debt of 1,500 million VND. Calculate ROCE.', 20, '%',
-    'Capital employed = 3,000 + 1,500 = 4,500. ROCE = 900 ÷ 4,500 × 100 = 20%.', 0.05),
-  N('F2', 'Interest cover', 'A rice exporter in Cần Thơ reports operating profit of 1,200 million VND and interest expense of 240 million VND. Calculate interest cover.', 5, 'times',
-    'Interest cover = operating profit ÷ interest = 1,200 ÷ 240 = 5 times.', 0.01),
-  M('F2', 'Slower-paying customers', 'Receivable days at a garment wholesaler rise from 30 to 55 days. The most likely explanation is that…',
-    ['Customers are taking longer to pay', 'The company is paying suppliers faster', 'Sales have become more profitable', 'Inventory is selling more quickly'], 0,
-    'Receivable days = receivables ÷ revenue × 365. A rise means more sales are still unpaid, which ties up cash.'),
-  ...CASE('F2-mc1', 'Gỗ Đông Nam furniture',
-    'Gỗ Đông Nam makes wooden furniture in Bình Dương for export. For the latest year it reports revenue of 12,000 million VND and cost of sales of 7,800 million VND. At the year end it holds inventory of 1,600 million VND, trade receivables of 1,400 million VND and cash of 200 million VND. Current liabilities, mostly supplier invoices and a short-term bank loan, are 2,000 million VND. Large orders from a US retailer have been delayed, and the finance manager is preparing ratios before meeting the bank to renew the short-term loan.',
-    [
-      N('F2', 'Gross profit margin', 'Calculate the gross profit margin.', 35, '%',
-        'Gross profit = 12,000 − 7,800 = 4,200. Margin = 4,200 ÷ 12,000 × 100 = 35%.', 0.05),
-      N('F2', 'Quick ratio', 'Calculate the quick (acid-test) ratio.', 0.8, ': 1',
-        'Current assets = 1,600 + 1,400 + 200 = 3,200. Quick ratio = (3,200 − 1,600) ÷ 2,000 = 0.8.', 0.01),
-      M('F2', 'Reading the gap', 'The current ratio is 1.6 but the quick ratio is only 0.8. What should the bank conclude?',
-        ['The firm has too much cash', 'Liquidity depends heavily on selling inventory, which is risky while orders are delayed', 'The firm is highly profitable', 'The firm has no short-term debt'], 1,
-        'Half of current assets is inventory. Without selling furniture, liquid assets cover only 80% of short-term debts.'),
+  /* ---------------- F2 · Financial ratio analysis — language focus: comparatives and superlatives ---------------- */
+  ...USE([
+    C('F2', 'Vocabulary · Owns, owes or earns?', "Sort the words into three groups.",
+      ['Things a company owns (assets)', 'Money a company owes (liabilities)', 'Results for the year'],
+      [['cash in the bank', 0], ['machinery', 0], ['inventory', 0], ['a bank loan', 1], ['unpaid supplier invoices', 1], ['revenue', 2], ['net profit', 2]],
+      "'Own' = have (assets); 'owe' = must pay back (liabilities, debt). Revenue and profit describe the company's performance during the year."),
+    M('F2', 'Vocabulary · Word formation', "Choose the correct form: 'The cafe chain is very ___: it keeps 20 VND from every 100 VND of sales.'",
+      ['profit', 'profitable', 'profitably', 'profited'], 1,
+      "After 'is very' we need an adjective: profit (noun) → profitable (adjective)."),
+    M('F2', 'Vocabulary · Collocation', "Choose the correct verb: 'Tan Phu Foods ___ a profit of 2 billion VND last year.'",
+      ['did', 'gave', 'put', 'made'], 3,
+      "The collocation is 'make a profit' (and 'make a loss'). We do not say 'do a profit'."),
+    M('F2', 'Language focus · Comparatives', "Company A's profit margin is 12%. Company B's is 8%. Choose the correct sentence ending: 'Company A is ___ Company B.'",
+      ['more profitable than', 'profitabler than', 'the most profitable', 'as profitable as'], 0,
+      "Long adjectives form the comparative with 'more … than'. With only two companies we use the comparative, not the superlative."),
+    M('F2', 'Language focus · Superlatives', "Choose the correct form: 'Of the three firms, Mekong Retail has ___ debt.'",
+      ['the lower', 'more low', 'the lowest', 'lowest than'], 2,
+      "When we compare three or more things we use the superlative: the + adjective + -est → 'the lowest'."),
+    M('F2', 'Language focus · as … as', "Choose the correct form: 'Sales this quarter were not ___ we expected.'",
+      ['higher as', 'as high than', 'so higher than', 'as high as'], 3,
+      "The structure is 'not as + adjective + as'. 'Than' is used only after a comparative (higher than)."),
+    O('F2', 'Language focus · Order the email', "Put the sentences of this email in the correct order.",
+      ['Dear Mr Khoa, thank you for sending the financial statements of Sao Mai Garment.',
+        "I have compared this year's figures with last year's.",
+        'First, the profit margin improved from 6% to 9%.',
+        'However, debt is higher than last year because of the loan for the new factory.',
+        'Overall, I think the company is in good financial health.',
+        'Please call me if you would like to discuss the details. Best regards, Nhi'],
+      "An email goes from greeting and thanks, to purpose, to details ('First…', then the contrast 'However…'), to a conclusion ('Overall…') and a polite closing."),
+    M('F2', 'Describing data · Profit margin', "Net profit margin of Sao Mai Garment: 2022 6%, 2023 6%, 2024 9%, 2025 5%. Which sentence correctly describes the data?",
+      ['The margin rose steadily every year.', 'The margin peaked in 2023.', 'The margin remained stable in 2023, rose in 2024 and then fell sharply in 2025.', 'The margin fell slightly in 2024.'], 2,
+      "6% → 6% is 'remained stable', 6% → 9% is 'rose', and 9% → 5% is a big drop, so 'fell sharply'. The peak (highest point) is 2024."),
+  ]),
+  ...READ('F2-r1', 'Reading · Two coffee chains ask for a loan',
+    "To: Lending Committee, Song Xanh Bank\nFrom: Tran Gia Huy, Credit Analyst\nSubject: Loan requests from two coffee chains\n\nTwo coffee chains in Ho Chi Minh City have each asked us for a loan of 5 billion VND. I have studied their financial statements for last year.\n\nSaigon Sunrise is the larger company, with 40 shops and higher revenue. However, its profit margin is only 4%, and it already has large bank loans. Its current ratio is 0.8. This means its short-term debts are bigger than its cash and other short-term assets, so it may have trouble paying its bills on time.\n\nMoc Cafe has only 12 shops, but its figures are healthier. Its profit margin is 11%, it has almost no debt, and its current ratio is 1.6. The owners have also put most of last year's profit back into the business.\n\nIn my view, Moc Cafe is the safer customer. Saigon Sunrise is growing fast, but it depends too much on borrowed money. I recommend that we approve the loan to Moc Cafe and ask Saigon Sunrise for a new business plan before we decide.", [
+      M('F2', 'Writer\'s purpose', "Why did Huy write this report?",
+        ['To advertise two coffee chains to customers', 'To recommend what the bank should do about two loan requests', 'To explain how to open a coffee shop', 'To ask the two chains to open more shops'], 1,
+        "The last paragraph gives his recommendation: 'I recommend that we approve the loan to Moc Cafe and ask Saigon Sunrise for a new business plan.'"),
+      M('F2', 'Specific detail', "Which statement about Saigon Sunrise is true?",
+        ['It has fewer shops than Moc Cafe', 'It has almost no debt', 'Its current ratio is 1.6', 'It has higher revenue but a lower profit margin than Moc Cafe'], 3,
+        "'Saigon Sunrise is the larger company, with 40 shops and higher revenue. However, its profit margin is only 4%' (Moc Cafe: 11%)."),
+      M('F2', 'Vocabulary in context', "In the last paragraph, 'it depends too much on borrowed money' means the company…",
+        ['uses a lot of loans to run its business', 'lends a lot of money to other firms', 'keeps too much cash in the bank', 'pays its staff too much'], 0,
+        "'Borrowed money' = loans. The text says Saigon Sunrise 'already has large bank loans'."),
+      M('F2', 'Inference', "What can we infer about Saigon Sunrise's loan request?",
+        ['The bank has already approved it', 'The company has cancelled it', 'A final decision has not been made yet', 'The bank will never lend to this company'], 2,
+        "Huy wants to 'ask Saigon Sunrise for a new business plan before we decide', so the decision is still open."),
     ]),
-  M('F2', 'Gearing risk', 'A highly geared company is most at risk when…',
-    ['Interest rates rise and profits fall', 'Its share price rises', 'It pays a smaller dividend', 'Its inventory days fall'], 0,
-    'High gearing means large fixed interest payments; rising rates and falling profits squeeze interest cover.'),
-  O('F2', 'Ratio analysis process', 'Put the steps of a ratio analysis in the correct order.',
-    ['Collect the income statement and balance sheet', 'Calculate the key ratios', 'Compare with last year and with competitors', 'Identify the causes of the main changes', 'Make a recommendation'],
-    'Ratios only have meaning once they are compared and explained, and the explanation leads to the recommendation.'),
-  W('F2', 'Which chain to lend to?', 'Two bubble-tea chains in HCMC ask a bank for a loan. Chain A: net margin 12%, gearing 20%, interest cover 8 times. Chain B: net margin 18%, gearing 70%, interest cover 1.8 times. Which would you lend to, and why?',
-    'I would lend to Chain A. B is more profitable, but 70% gearing and interest cover of only 1.8 times mean a small fall in profit could leave it unable to pay interest, and new debt would raise the risk further. A earns a healthy 12% margin, has little debt and covers interest 8 times, so it can safely carry an extra loan.',
-    ['Clear choice (Chain A)', 'Uses gearing and interest cover to judge risk', 'Recognises B is more profitable but riskier'], 90),
+  ...LISTEN('F2-l1', 'Listening · Quarterly results meeting',
+    "OK everyone, let's look at last quarter's results for our three shops. First, the good news. The Nguyen Hue shop had the highest sales, one point two billion dong, and its profit margin went up from ten to thirteen percent. The Thao Dien shop was stable, almost the same as the quarter before. Now the bad news. The Go Vap shop is our weakest. Sales fell by fifteen percent, and costs are still too high, especially the rent. So, what do we do? I don't want to close Go Vap yet. I think the location is good, but the menu is wrong for students. Mai, could you prepare a cheaper menu and show it to us next Monday?", [
+      M('F2', 'Listening for gist', "What is the speaker mainly doing?",
+        ['Comparing the results of three shops', 'Announcing the opening of a new shop', 'Training new staff', 'Explaining a rent contract'], 0,
+        "She begins: 'let's look at last quarter's results for our three shops' and then describes each one."),
+      M('F2', 'Listening for specific information', "Which shop had the highest sales?",
+        ['Go Vap', 'Thao Dien', 'Nguyen Hue', 'All three were the same'], 2,
+        "'The Nguyen Hue shop had the highest sales, one point two billion dong.'"),
+      M('F2', 'Speaker\'s opinion', "What does the speaker think about the Go Vap shop?",
+        ['It should close immediately', 'It can improve if the menu changes', 'Its location is the problem', 'Its rent is too low'], 1,
+        "'I don't want to close Go Vap yet. I think the location is good, but the menu is wrong for students.'"),
+    ]),
+  ...SPEAK('F2', 'Speaking · Compare two companies',
+    "Talk for about 1 minute. Compare two coffee chains and say which one a bank should lend money to. Use this information — Saigon Sunrise: 40 shops, profit margin 4%, large bank loans. Moc Cafe: 12 shops, profit margin 11%, almost no debt. Cover: (1) size, (2) profit margin and debt, (3) your choice and one reason. Use comparatives (bigger, more profitable, safer).",
+    "Saigon Sunrise is bigger than Moc Cafe. It has forty shops, so its sales are higher. However, Moc Cafe is more profitable: its profit margin is eleven percent, and Saigon Sunrise's is only four percent. Moc Cafe also has almost no debt, so it is safer. Saigon Sunrise has large bank loans, which is a risk if sales fall. In my opinion, the bank should lend money to Moc Cafe, because it is the smaller company but the healthier one.",
+    "Content: compares size, profit margin and debt with correct comparatives, and gives a clear choice with a reason"),
+  ...WRITE('F2', 'Writing · Email: summary of results',
+    "You work in the accounts office of Binh An Furniture in Binh Duong. Write an email of about 100 words to the owner, Mr Phat, to summarise this year's results. Include: (1) sales rose from 8 billion to 10 billion VND, (2) the profit margin fell from 12% to 9% because wood prices increased, (3) one suggestion for next year.",
+    "Subject: Summary of this year's results\n\nDear Mr Phat,\n\nHere is a short summary of our results this year.\n\nFirst, the good news. Sales rose from 8 billion to 10 billion VND, mainly because of new orders from hotels. This is our highest revenue so far.\n\nHowever, our profit margin fell from 12% to 9%. The main reason is that wood prices increased, so our costs were higher than last year.\n\nTo improve the margin next year, I suggest that we compare prices from two other wood suppliers before we sign a new contract.\n\nPlease let me know if you would like more details.\n\nBest regards,\nNhi",
+    "Content: reports the rise in sales and the fall in profit margin with the reason, and makes one clear suggestion"),
 
-  /* ---------------- F3 · Budgeting & Working Capital Management ---------------- */
-  M('F3', 'Not a current asset', 'Which of the following is NOT a current asset?',
-    ['Inventory of fabric', 'Money owed by customers', 'Cash at the bank', 'A delivery van'], 3,
-    'A delivery van is used for several years, so it is a non-current asset.'),
-  C('F3', 'In the cash budget?', 'A Đà Lạt flower farm is preparing its March cash budget. Should each item be included?', ['Include in the cash budget', 'Leave out'],
-    [['Depreciation of greenhouses', 1], ['Monthly repayment of a bank loan', 0], ['Cash received from February customers', 0],
-     ['Credit sales made in March but collected in May', 1], ['Cash paid for a new irrigation pump', 0], ['A provision for doubtful debts', 1]],
-    'A cash budget records only actual cash in and out in the month. Depreciation and provisions are not cash, and the May collection belongs in May.'),
-  M('F3', 'Overtrading', 'Overtrading means a business…',
-    ['Grows sales too fast without enough working capital to support it', 'Sells more than its competitors', 'Holds too much cash', 'Trades shares too often'], 0,
-    'Rapid growth needs more inventory and receivables before cash comes in; without finance the firm can run out of cash while profitable.'),
-  N('F3', 'Payable days', 'A Vũng Tàu seafood processor has trade payables of 300 million VND and annual cost of sales of 3,650 million VND. Calculate payable days (use 365 days).', 30, 'days',
-    'Payable days = 300 ÷ 3,650 × 365 = 30 days.', 0.5),
-  N('F3', 'Inventory days', 'A phone accessories retailer holds inventory of 450 million VND; annual cost of sales is 2,190 million VND. Calculate inventory days (use 365 days).', 75, 'days',
-    'Inventory days = 450 ÷ 2,190 × 365 = 75 days.', 0.5),
-  M('F3', 'Factoring', 'A small exporter decides to factor its receivables. This means it…',
-    ['Sells its unpaid invoices to a finance company for cash now', 'Buys more inventory on credit', 'Offers customers longer credit terms', 'Issues new shares'], 0,
-    'Factoring turns receivables into immediate cash, in return for a fee or discount.'),
-  ...CASE('F3-mc1', 'May Hoa tailors before Tết',
-    'May Hoa is a tailoring shop in Hội An that sells áo dài to locals and tourists. It starts January with 50 million VND in the bank. Sales are forecast at 300 million VND in January, 450 million VND in February (Tết) and 200 million VND in March; December sales were 250 million VND. 40% of each month’s sales is paid in cash and 60% is collected the following month. Fabric purchases, paid in the month bought, are 260 million VND in January, 180 million VND in February and 120 million VND in March. Rent and wages are 80 million VND every month.',
-    [
-      N('F3', 'January receipts', 'Calculate total cash receipts in January.', 270, 'million VND',
-        '40% of January sales + 60% of December sales = 0.4 × 300 + 0.6 × 250 = 120 + 150 = 270.'),
-      N('F3', 'January closing cash', 'Calculate the closing cash balance at the end of January (use a minus sign for an overdraft).', -20, 'million VND',
-        'Payments = 260 + 80 = 340. Net cash flow = 270 − 340 = −70. Closing = 50 − 70 = −20.'),
-      M('F3', 'Fixing the January gap', 'February’s net cash flow is +100 million VND. What is the most sensible way to deal with January’s shortfall?',
-        ['Take a 5-year bank loan', 'Arrange a small short-term overdraft and repay it in February', 'Sell the sewing machines', 'Cancel the Tết fabric order'], 1,
-        'The gap is small and temporary; February receipts repay it. Long-term finance or cutting Tết stock would be costly overreactions.'),
+  /* ---------------- F3 · Budgeting & working capital — language focus: will / going to / time clauses ---------------- */
+  ...USE([
+    C('F3', 'Vocabulary · Cash in or cash out?', "Sort the items: is cash coming into the business or going out?",
+      ['Cash coming in', 'Cash going out'],
+      [['payments from customers', 0], ['cash sales in the shop', 0], ['a bank loan received', 0], ['rent', 1], ['staff wages', 1], ['payments to suppliers', 1], ['the electricity bill', 1]],
+      "Customers pay us (cash in). We pay suppliers, staff, the landlord and bills (cash out). A cash budget lists both."),
+    M('F3', 'Vocabulary · Word in context', "Choose the best word: 'The invoice was due on 1 March. It is now 20 March and the customer has not paid, so the payment is ___.'",
+      ['in advance', 'on time', 'overdue', 'overpaid'], 2,
+      "'Overdue' = not paid by the due date. 'In advance' means before the date; 'on time' means by the date."),
+    M('F3', 'Vocabulary · Collocation', "Choose the correct verb: 'Every November, the finance manager has to ___ a cash budget for the next six months.'",
+      ['prepare', 'earn', 'borrow', 'owe'], 0,
+      "We 'prepare' (or 'draw up') a budget. 'Earn', 'borrow' and 'owe' are used with money, not with a plan."),
+    M('F3', 'Language focus · will for forecasts', "Choose the correct form: 'Sales are always high before Tet, so I think we ___ a cash surplus in January.'",
+      ['had', 'have had', 'having', 'will have'], 3,
+      "After 'I think' we use will + verb to make a forecast about the future."),
+    M('F3', 'Language focus · going to for plans', "Choose the correct form: 'We have already decided: we ___ our supplier for 60-day payment terms.'",
+      ['will asking', 'are going to ask', 'going to ask', 'asks'], 1,
+      "For a plan that is already decided we use be + going to + verb: 'we are going to ask'."),
+    M('F3', 'Language focus · Time clauses', "Choose the correct form: 'As soon as the customer ___ the invoice, we will order more inventory.'",
+      ['will pay', 'paid', 'pays', 'is going to pay'], 2,
+      "After time words such as 'as soon as' and 'when', we use the present simple for the future, not 'will'."),
+    O('F3', 'Language focus · Describe a process', "Put the sentences in order to describe how the company collects payment.",
+      ['First, we deliver the goods to the customer.',
+        'Then, we send an invoice with 30-day payment terms.',
+        'If the payment has not arrived after 30 days, we send a polite reminder by email.',
+        'If there is still no payment a week after the reminder, we phone the customer.',
+        'Finally, we stop new deliveries until the overdue invoice is paid.'],
+      "Follow the sequencing words (First, Then, Finally) and the time references: the reminder comes 'after 30 days', the phone call 'a week after the reminder'."),
+    M('F3', 'Describing data · Cash balance', "Closing cash balance of Hoa Binh Stationery (million VND): October 120, November 115, December 40, January 150. Which sentence correctly describes the data?",
+      ['Cash fell slightly in November, dropped sharply in December and recovered in January.', 'Cash rose steadily from October to January.', 'Cash remained stable for the whole period.', 'Cash reached its highest level in December.'], 0,
+      "120 → 115 is a small change ('fell slightly'); 115 → 40 is a big one ('dropped sharply'); 'recovered' means it went up again."),
+  ]),
+  ...READ('F3-r1', 'Reading · Email: our cash plan for Tet',
+    "Subject: Cash plan for the Tet season\n\nDear shop managers,\n\nTet is only ten weeks away, and I am writing to explain our cash plan. As you know, December is our most difficult month. We have to buy a lot of inventory for Tet gift baskets, but most customers do not pay us until January. Last year we had a cash shortage in December and paid two suppliers late. I do not want this to happen again.\n\nThis year we are going to do three things. First, we will order inventory in two smaller deliveries, one in early December and one in early January, instead of one large order. Second, company customers who order more than 50 baskets must pay a 30% deposit when they order. Third, I have asked our main supplier, Thanh Long Foods, to give us 45 days to pay instead of 30, and they have agreed.\n\nPlease send me your sales forecast for December and January by Friday. I need your numbers to finish the cash budget.\n\nBest regards,\nLe Thi Kim Ngan\nFinance Manager, An Phu Gifts", [
+      M('F3', 'Writer\'s purpose', "What is the main purpose of the email?",
+        ['To thank managers for last year\'s sales', 'To announce higher prices for gift baskets', 'To explain the cash plan for Tet and ask for sales forecasts', 'To complain about a supplier'], 2,
+        "'I am writing to explain our cash plan' and, at the end, 'Please send me your sales forecast… by Friday.'"),
+      M('F3', 'Specific detail', "What must company customers with orders of more than 50 baskets do this year?",
+        ['Pay a 30% deposit when they order', 'Pay within 45 days', 'Collect their baskets in two deliveries', 'Send a sales forecast by Friday'], 0,
+        "'Company customers who order more than 50 baskets must pay a 30% deposit when they order.'"),
+      M('F3', 'Vocabulary in context', "In the first paragraph, 'a cash shortage' means…",
+        ['having more cash than the business needs', 'a discount for paying early', 'a loan from a supplier', 'not having enough cash to pay the bills'], 3,
+        "A 'shortage' is when there is not enough of something. The result was that the company 'paid two suppliers late'."),
+      M('F3', 'Inference', "What can we infer about Thanh Long Foods?",
+        ['It is going to stop supplying An Phu Gifts', 'It is willing to wait longer for its money to help An Phu Gifts', 'It buys gift baskets from An Phu Gifts', 'It asked An Phu Gifts for a 30% deposit'], 1,
+        "Ms Ngan asked for '45 days to pay instead of 30, and they have agreed' — the supplier accepted later payment."),
     ]),
-  N('F3', 'Receipts from credit sales', 'A Huế souvenir wholesaler collects 30% of sales in the month of sale, 50% the following month and 20% two months later. Sales are 400 million VND in January, 500 in February and 600 in March. Calculate cash receipts in March.', 510, 'million VND',
-    '0.3 × 600 + 0.5 × 500 + 0.2 × 400 = 180 + 250 + 80 = 510.'),
-  M('F3', 'Just-in-time', 'A just-in-time (JIT) inventory system mainly aims to…',
-    ['Hold large safety stocks', 'Receive materials only when they are needed, keeping inventory low', 'Buy in bulk to get discounts', 'Delay paying suppliers'], 1,
-    'JIT cuts inventory days and the cash tied up in stock, but depends on reliable suppliers.'),
-  M('F3', 'Using a surplus', 'A cash budget shows a surplus of 400 million VND for the next three months, after which the money is needed for new equipment. The best use is to…',
-    ['Buy shares in a volatile start-up', 'Lend it to staff interest-free', 'Place it in a 3-month bank term deposit', 'Leave it in a non-interest current account for a year'], 2,
-    'A short-term deposit earns interest while keeping the cash safe and available when the equipment must be paid for.'),
-  O('F3', 'Building a cash budget', 'Put the steps for preparing a monthly cash budget in the correct order.',
-    ['Forecast monthly sales', 'Work out when cash from those sales will be received', 'Forecast monthly cash payments', 'Calculate net cash flow for each month', 'Add the opening balance to find the closing balance', 'Carry the closing balance forward as next month’s opening balance'],
-    'Receipts depend on the sales forecast; the net flow plus the opening balance gives the closing balance, which links the months together.'),
+  ...LISTEN('F3-l1', 'Listening · Voicemail about an overdue invoice',
+    "Hello Mr Dung, this is Thao from the accounts department at Hoa Binh Stationery. I'm calling about invoice number four five two, for eighteen million dong. The payment was due on the fifteenth of October, so it is now three weeks overdue. I sent you an email reminder last week, but I haven't received a reply. I understand that things can be busy, and maybe the invoice was lost. I'm going to send you another copy by email this afternoon. Could you please make the payment by Friday, or call me back if there is a problem? My number is oh two eight, three five five, oh one nine eight. Thank you, and have a nice day.", [
+      M('F3', 'Listening for gist', "Why did Thao leave this message?",
+        ['To place a new order', 'To ask a customer to pay a late invoice', 'To apologise for a late delivery', 'To offer a discount'], 1,
+        "'I'm calling about invoice number four five two… it is now three weeks overdue.'"),
+      M('F3', 'Listening for specific information', "How much is the invoice for?",
+        ['8 million VND', '15 million VND', '45 million VND', '18 million VND'], 3,
+        "'Invoice number four five two, for eighteen million dong.' Fifteen is the date, not the amount."),
+      M('F3', 'Listening for the next action', "What is Thao going to do this afternoon?",
+        ['Email another copy of the invoice', 'Visit Mr Dung\'s office', 'Phone Mr Dung again', 'Stop all deliveries'], 0,
+        "'I'm going to send you another copy by email this afternoon.'"),
+    ]),
+  ...SPEAK('F3', 'Speaking · Explain a cash plan',
+    "Talk for about 1 minute. You own a small clothes shop in Can Tho. Explain your cash plan for the next three months to your business partner. Cover: (1) when you expect the highest sales, (2) your biggest payments, (3) one thing you are going to do to avoid a cash shortage. Use 'will' and 'going to'.",
+    "Our best months are December and January, because people buy new clothes before Tet. So I think sales will be high then, but February will be quiet. Our biggest payments are rent, staff wages and the supplier's invoice for the Tet collection, which we have to pay in December. To avoid a cash shortage, I'm going to ask the supplier for sixty-day payment terms. I'm also going to order less inventory in February, so we will keep more cash in the bank.",
+    "Content: says when sales will be highest, names the main payments and gives one clear action against a cash shortage, using will / going to"),
+  ...WRITE('F3', 'Writing · Polite payment reminder',
+    "You work in the accounts department of Hoa Binh Stationery. Write a polite reminder email of about 100 words to a customer, Ms Vy at Sen Viet Restaurant, whose payment is overdue. Include: (1) the invoice number and amount (No. 317, 12 million VND), (2) the due date (30 September), (3) what you would like her to do.",
+    "Subject: Reminder: invoice No. 317\n\nDear Ms Vy,\n\nI hope you are well. I am writing about invoice No. 317 for 12 million VND, for the paper products we delivered in September. The payment was due on 30 September, and according to our records it is now overdue.\n\nPerhaps the invoice was missed, so I have attached another copy to this email. Could you please make the payment by the end of this week? If you have already paid, please ignore this message. If there is any problem with the invoice, please call me and we will find a solution.\n\nThank you for your help.\n\nBest regards,\nThao\nHoa Binh Stationery",
+    "Content: gives the invoice number, amount and due date, says the payment is overdue and asks politely for a clear action"),
 
-  /* ---------------- F4 · Investment Appraisal ---------------- */
-  M('F4', 'Weakness of payback', 'The main weakness of the payback method is that it…',
-    ['Is hard to calculate', 'Ignores cash flows after the payback period', 'Always rejects good projects', 'Uses accounting profit instead of cash'], 1,
-    'Payback stops counting once the cost is recovered, so it ignores later cash flows (and, in its simple form, the time value of money).'),
-  C('F4', 'Relevant cash flows', 'A Đồng Nai shoe factory is appraising a new production line. Is each item a relevant cash flow for the decision?', ['Relevant', 'Not relevant'],
-    [['Extra sales revenue from the new line', 0], ['Market research already paid last month', 1], ['Wages of new workers hired for the line', 0],
-     ['Depreciation on the new machines', 1], ['Head-office rent that will not change', 1], ['Rent lost because spare factory space can no longer be let out', 0]],
-    'Only future, incremental cash flows count. Sunk costs, non-cash items and unchanged overheads are ignored; lost rent is an opportunity cost.'),
-  M('F4', 'Discount factor', 'What is the discount factor for year 2 at 10%?',
-    ['0.826', '0.909', '0.800', '1.210'], 0,
-    'Discount factor = 1 ÷ 1.10² = 1 ÷ 1.21 = 0.826. 0.909 is the year-1 factor.'),
-  N('F4', 'Present value of a receipt', 'A Bắc Ninh electronics supplier expects a 200 million VND cash inflow in year 3. At a 10% discount rate, what is its present value?', 150.26, 'million VND',
-    'PV = 200 ÷ 1.10³ = 200 ÷ 1.331 = 150.26.', 0.05),
-  N('F4', 'IRR of a one-year project', 'A trader in Lạng Sơn invests 500 million VND in stock today and will receive 560 million VND in exactly one year. What is the IRR?', 12, '%',
-    'At the IRR, 500 = 560 ÷ (1 + r), so 1 + r = 1.12 and r = 12%.', 0.05),
-  ...CASE('F4-mc1', 'Cold store in Cần Thơ',
-    'Mekong Fresh, a seafood exporter in Cần Thơ, is considering a new cold-storage warehouse costing 1,000 million VND. It would let the company store more pangasius and sell when prices are higher. The finance team forecasts net cash inflows of 300 million VND in year 1, 400 million VND in years 2 and 3, and 300 million VND in year 4, after which the equipment is worn out with no resale value. The company’s required rate of return is 12%. The board wants both a payback figure and an NPV before it decides.',
-    [
-      N('F4', 'Payback', 'Calculate the payback period in years (assume cash flows arrive evenly during each year).', 2.75, 'years',
-        'Cumulative: 300 after year 1, 700 after year 2. Remaining 300 ÷ 400 = 0.75 of year 3 → 2.75 years.', 0.01),
-      N('F4', 'NPV at 12%', 'Calculate the NPV at 12%.', 62.1, 'million VND',
-        'PV = 300/1.12 + 400/1.12² + 400/1.12³ + 300/1.12⁴ = 267.86 + 318.88 + 284.71 + 190.65 = 1,062.10. NPV = 1,062.10 − 1,000 = 62.10.', 0.5),
-      M('F4', 'What about IRR?', 'Based on your NPV, what can you say about the project’s IRR?',
-        ['It is below 12%', 'It is exactly 12%', 'It is above 12%', 'It cannot be estimated from the NPV'], 2,
-        'NPV is positive at 12%, so a higher rate is needed to bring NPV to zero: IRR > 12%, and the project should be accepted.'),
+  /* ---------------- F4 · Investment appraisal — language focus: conditionals for decisions, certainty and risk ---------------- */
+  ...USE([
+    C('F4', 'Vocabulary · Talking about a project', "Sort the words and phrases into three groups.",
+      ['Benefits of a project', 'Costs of a project', 'Decisions'],
+      [['extra sales', 0], ['lower electricity bills', 0], ['the price of the machine', 1], ['installation', 1], ['maintenance', 1], ['approve', 2], ['reject', 2]],
+      "A project brings benefits (extra sales, savings) and has costs (price, installation, maintenance). The board then 'approves' (says yes) or 'rejects' (says no) the proposal."),
+    M('F4', 'Vocabulary · Word in context', "Choose the best phrase: 'The new machine will pay for itself in three years. In other words, the ___ is three years.'",
+      ['interest rate', 'payback period', 'deadline', 'warranty'], 1,
+      "The 'payback period' is the time a project needs to 'pay back' its cost — the same idea as 'pay for itself'."),
+    M('F4', 'Vocabulary · Word formation', "Choose the correct form: 'Buying the delivery vans was a good ___ for the company.'",
+      ['invest', 'investor', 'invested', 'investment'], 3,
+      "After 'a good' we need a noun for the thing: invest (verb) → investment (noun). An 'investor' is a person."),
+    M('F4', 'Language focus · First conditional', "Choose the correct form (a real possibility): 'If the board approves the project, we ___ the machine in March.'",
+      ['will install', 'installed', 'would install', 'installing'], 0,
+      "First conditional for a real possibility: if + present simple, will + verb."),
+    M('F4', 'Language focus · Second conditional', "Choose the correct form: 'If we had more cash, we ___ both projects. Unfortunately, we can only choose one.'",
+      ['will approve', 'approve', 'would approve', 'approved'], 2,
+      "Second conditional for an unreal situation: if + past simple, would + verb. The second sentence shows they do not have the cash."),
+    M('F4', 'Language focus · Certainty and risk', "Choose the correct word: 'Electricity prices have risen every year for ten years, so they are ___ to rise again next year.'",
+      ['probably', 'likely', 'maybe', 'possible'], 1,
+      "The structure is 'be likely to + verb'. 'Probably' and 'maybe' are adverbs and cannot follow 'are … to rise'."),
+    O('F4', 'Language focus · Order the memo', "Put the parts of this memo in the correct order.",
+      ['To: Board of Directors. Subject: Proposal to buy a new printing machine.',
+        'I am writing to recommend that we replace our old printing machine.',
+        'The new machine costs 800 million VND and prints twice as fast as the old one.',
+        'As a result, we estimate extra cash inflows of 250 million VND a year.',
+        'The main risk is that demand might fall if a large customer leaves.',
+        'For these reasons, I ask the board to approve the investment at the next meeting.'],
+      "A proposal memo goes: heading → purpose ('I am writing to…') → facts → result ('As a result…') → risk → request ('For these reasons…')."),
+    M('F4', 'Describing data · Cash inflows', "Estimated cash inflows from the new machine (million VND): Year 1 150, Year 2 250, Year 3 250, Year 4 180. Which sentence correctly describes the data?",
+      ['Inflows are expected to fall every year.', 'Inflows are expected to peak in Year 4.', 'Inflows are expected to rise sharply in Year 3.', 'Inflows are expected to rise in Year 2, remain stable in Year 3 and fall in Year 4.'], 3,
+      "150 → 250 is a rise, 250 → 250 'remains stable', and 250 → 180 is a fall. 'Are expected to' is used because the numbers are estimates."),
+  ]),
+  ...READ('F4-r1', 'Reading · Petrol or electric? A decision for Tam Anh Express',
+    "Tam Anh Express, a delivery company in Hai Phong, has to make a big decision this month. Its ten petrol vans are old, and repair bills are rising. The managers are looking at two options.\n\nOption A is to buy ten new petrol vans for 6 billion VND. The price is lower, and the drivers already know the vehicles. Option B is to buy ten electric vans for 9 billion VND. They cost more to buy, but they are much cheaper to run. The finance team estimates that the company would save about 900 million VND a year on fuel and repairs.\n\nThe director, Ms Bui Thi Hong, likes Option B, but she is careful. 'The numbers look good on paper,' she says, 'but they are only estimates. If there are not enough charging stations, our vans might lose time every day.' The finance manager is more confident. He points out that two large customers have asked for greener deliveries, so electric vans could help the company win new contracts.\n\nThe board will make its decision on Friday.", [
+      M('F4', 'Main idea', "What is the article mainly about?",
+        ['A company choosing between two investment options', 'A company that has decided to close', 'A new law about electric vehicles', 'How to repair old delivery vans'], 0,
+        "'Tam Anh Express… has to make a big decision this month… The managers are looking at two options.'"),
+      M('F4', 'Specific detail', "According to the finance team, what is the advantage of the electric vans?",
+        ['They are cheaper to buy', 'The drivers already know them', 'They cost much less to run', 'They never need charging'], 2,
+        "'They cost more to buy, but they are much cheaper to run' — a saving of about 900 million VND a year on fuel and repairs."),
+      M('F4', 'Vocabulary in context', "In the third paragraph, 'estimates' are…",
+        ['final prices written in a contract', 'numbers that are calculated roughly and may not be exact', 'bills that have already been paid', 'rules made by the government'], 1,
+        "Ms Hong says the numbers 'look good on paper' but 'are only estimates' — they may be different in real life."),
+      M('F4', 'Inference', "What can we infer about Ms Hong?",
+        ['She has already rejected the electric vans', 'She thinks petrol vans are better for the environment', 'She does not trust the finance manager', 'She is interested in Option B but worried about a practical risk'], 3,
+        "She 'likes Option B, but she is careful', and she mentions the risk of not enough charging stations."),
     ]),
-  N('F4', 'NPV with an annuity', 'A delivery-van project costs 280 million VND and saves 80 million VND per year for 5 years. At 10% the 5-year annuity factor is 3.791. Calculate the NPV.', 23.28, 'million VND',
-    'PV = 80 × 3.791 = 303.28. NPV = 303.28 − 280 = 23.28 → accept.', 0.1),
-  M('F4', 'Accounting rate of return', 'Which appraisal method is based on accounting profit rather than cash flows?',
-    ['Net present value', 'Internal rate of return', 'Discounted payback', 'Accounting rate of return (ARR)'], 3,
-    'ARR = average annual profit ÷ investment. NPV, IRR and discounted payback all use cash flows.'),
-  M('F4', 'Choosing between two', 'A company can build only one of two projects. Project X has NPV 90 million VND and IRR 25%; Project Y has NPV 140 million VND and IRR 18%. Both exceed the 12% cost of capital. Which should it choose?',
-    ['Project X, because its IRR is higher', 'Project Y, because it adds more value to the company', 'Neither, because the methods disagree', 'Both, by splitting the budget'], 1,
-    'For mutually exclusive projects NPV is the better guide, because it measures the increase in wealth in VND.'),
-  O('F4', 'NPV appraisal steps', 'Put the steps of an NPV appraisal in the correct order.',
-    ['Estimate the initial investment', 'Forecast the annual net cash inflows', 'Choose the discount rate (cost of capital)', 'Discount each cash flow to present value', 'Subtract the investment from the total PV to get NPV', 'Accept the project if NPV is positive'],
-    'Cash flows and the rate are needed before discounting; the decision rule is applied last.'),
-  W('F4', 'Cash-strapped choice', 'A Nha Trang hotel group must choose one project. Project A: NPV 120 million VND, payback 4 years. Project B: NPV 80 million VND, payback 2 years. The group is short of cash. Which would you recommend, and why?',
-    'In principle A is better because it adds 40 million VND more value. However, the group is short of cash, so B’s 2-year payback returns money quickly and reduces the risk of a cash crisis, and near-term tourism cash flows are more certain. I would choose A only if financing is secure; otherwise B is the safer choice.',
-    ['Recognises A has the higher NPV', 'Links payback to liquidity and risk', 'Reaches a justified, conditional recommendation'], 90),
+  ...LISTEN('F4-l1', 'Listening · Meeting: new or second-hand machine?',
+    "Manager: Thanks for coming, everyone. We need to decide about the packaging machine today. Khanh, what did you find? Khanh: Well, there are two choices. A new machine from Japan costs nine hundred million dong. A second-hand one costs five hundred million. Manager: That's a big difference. Khanh: Yes, but the new one comes with a five-year warranty, and it uses less electricity. The second-hand one has no warranty at all. Manager: Hmm. If it breaks down in the busy season, we'll lose orders. Khanh: Exactly. Personally, I think the new machine is less risky, even though it's more expensive. Manager: I agree. But before we decide, please ask the supplier if we can pay in two instalments. Khanh: Sure, I'll call them this afternoon.", [
+      M('F4', 'Listening for gist', "What are the speakers discussing?",
+        ['How to repair a broken machine', 'When to hire new workers', 'Which packaging machine to buy', 'How to sell an old machine'], 2,
+        "'We need to decide about the packaging machine today… there are two choices.'"),
+      M('F4', 'Listening for specific information', "How much does the second-hand machine cost?",
+        ['500 million VND', '900 million VND', '5 million VND', '200 million VND'], 0,
+        "'A second-hand one costs five hundred million.' Nine hundred million is the price of the new one."),
+      M('F4', 'Speaker\'s opinion', "Why does Khanh prefer the new machine?",
+        ['It is cheaper', 'He thinks it is less risky', 'It is made in Vietnam', 'It can be delivered sooner'], 1,
+        "'Personally, I think the new machine is less risky, even though it's more expensive.'"),
+    ]),
+  ...SPEAK('F4', 'Speaking · Recommend an investment',
+    "Talk for about 1 minute. Your family's noodle shop in Hue wants to invest. Choose ONE option and recommend it: (A) new, faster kitchen equipment for 100 million VND, or (B) a delivery motorbike and an online ordering page for 60 million VND. Cover: (1) what the option brings, (2) one risk, (3) your final recommendation. Use 'if' at least once.",
+    "I would choose option B, the delivery motorbike and the online ordering page. It costs less than the new kitchen equipment, and it can bring in new customers who don't want to come to the shop. If we get twenty extra orders a day, the investment will pay for itself quickly. One risk is that online orders might be slow at first, so we will need to advertise. Overall, I recommend option B because the cost is lower and the risk is smaller.",
+    "Content: chooses one option, explains its benefit and one risk, and ends with a clear recommendation; uses an if-sentence correctly"),
+  ...WRITE('F4', 'Writing · Memo: recommend an option',
+    "You are the finance assistant at Tam Anh Express, a delivery company in Hai Phong. Write a memo of about 100 words to the director, Ms Hong, recommending which vans to buy: ten petrol vans (6 billion VND) or ten electric vans (9 billion VND, saving about 900 million VND a year on fuel and repairs). Include: (1) your recommendation, (2) two reasons, (3) one risk and how to reduce it.",
+    "To: Ms Hong, Director\nSubject: Recommendation on new vans\n\nI recommend that we buy the ten electric vans.\n\nFirst, although they cost 9 billion VND, they will save about 900 million VND a year on fuel and repairs. Second, our customers are asking for greener deliveries, so electric vans could help us win new contracts.\n\nThe main risk is charging. If there are not enough charging stations, drivers might lose time. To reduce this risk, we could install two chargers at our depot and charge the vans at night.\n\nIf the board agrees, I will ask the supplier for a final price this week.",
+    "Content: states one recommendation, supports it with two reasons, names one risk and suggests how to reduce it"),
 
-  /* ---------------- F5 · Financial Markets & Institutions ---------------- */
-  M('F5', 'The stock exchange', 'The Ho Chi Minh City Stock Exchange (HOSE) is mainly a place where…',
-    ['The government sets interest rates', 'Listed shares are bought and sold between investors', 'Households open savings accounts', 'Insurance claims are paid'], 1,
-    'HOSE is an organised secondary market where existing listed shares and other securities are traded.'),
-  M('F5', 'Money market instrument', 'Which of the following is traded in the money market?',
-    ['A 91-day treasury bill', 'A 10-year government bond', 'Ordinary shares', 'A 20-year mortgage'], 0,
-    'The money market deals in short-term funds (up to one year); the others are long-term capital-market instruments.'),
-  C('F5', 'Money or capital market?', 'Classify each instrument.', ['Money market', 'Capital market'],
-    [['A 91-day State Treasury bill', 0], ['An overnight loan between two commercial banks', 0], ['A 10-year government bond', 1],
-     ['New shares sold in an IPO on HOSE', 1], ['3-month commercial paper', 0], ['A 5-year corporate bond', 1]],
-    'Instruments with a maturity of up to one year belong to the money market; longer-term debt and shares belong to the capital market.'),
-  M('F5', 'Financial intermediation', 'Commercial banks such as those on every street in Hà Nội act as financial intermediaries by…',
-    ['Printing banknotes', 'Setting the policy interest rate', 'Channelling savings from depositors to borrowers', 'Listing companies on the stock exchange'], 2,
-    'Banks pool deposits and lend them to households and firms, earning the spread between lending and deposit rates.'),
-  M('F5', 'Fighting inflation', 'Inflation is rising above target. The State Bank of Vietnam is most likely to…',
-    ['Cut the refinancing rate', 'Raise its policy interest rates', 'Buy more government bonds', 'Lower banks’ reserve requirements'], 1,
-    'Higher policy rates make borrowing more expensive, slowing credit growth and spending, which reduces inflationary pressure.'),
-  M('F5', 'Shareholders vs bondholders', 'Compared with a bondholder, a shareholder…',
-    ['Receives a fixed coupon every year', 'Is repaid before lenders if the firm fails', 'Owns part of the company and receives dividends that are not guaranteed', 'Has a fixed maturity date'], 2,
-    'Shares are ownership with uncertain dividends; bonds are loans with fixed coupons and priority over shareholders.'),
-  N('F5', 'Dividend yield', 'A share listed on HOSE trades at 40,000 VND and paid a dividend of 2,000 VND per share last year. What is the dividend yield?', 5, '%',
-    'Dividend yield = 2,000 ÷ 40,000 × 100 = 5%.', 0.05),
-  ...CASE('F5-mc1', 'Bond or deposit for Mr Hùng?',
-    'Trần Văn Hùng, a retired teacher in Hà Nội, wants a safe income from his savings. His broker offers Vietnamese government bonds with a face value of 100,000 VND, a coupon of 5% paid once a year and 3 years left to maturity. Because new bonds now pay more, the old bonds trade at 97,000 VND each. Alternatively, his bank offers a 12-month term deposit at 5.5% per year. Mr Hùng is considering buying 5,000 bonds and asks you to explain the numbers.',
-    [
-      N('F5', 'Current yield', 'Calculate the current yield of the bond.', 5.15, '%',
-        'Coupon = 5% × 100,000 = 5,000 VND. Current yield = 5,000 ÷ 97,000 × 100 = 5.15%.', 0.05),
-      N('F5', 'Annual coupon income', 'If Mr Hùng buys 5,000 bonds, how much coupon income will he receive each year?', 25, 'million VND',
-        '5,000 bonds × 5,000 VND coupon = 25,000,000 VND = 25 million VND.', 0.01),
-      M('F5', 'Why below face value?', 'Why does the bond trade below its 100,000 VND face value?',
-        ['The government may not repay it', 'Its 5% coupon is lower than the return on newly issued bonds, so its price falls to give a competitive yield', 'Bonds always trade below face value', 'The coupon is paid only once a year'], 1,
-        'A fixed coupon below current market rates is less attractive, so the price drops until the overall yield matches the market.'),
+  /* ---------------- F5 · Financial markets & institutions — language focus: describing trends (tenses, prepositions) ---------------- */
+  ...USE([
+    C('F5', 'Vocabulary · The world of investing', "Sort the words into three groups.",
+      ['Ways to invest', 'People and organisations', 'Money an investor receives'],
+      [['shares', 0], ['bonds', 0], ['a term deposit', 0], ['a stockbroker', 1], ['the central bank', 1], ['a dividend', 2], ['interest', 2]],
+      "You can put money into shares, bonds or deposits. A stockbroker and the central bank are 'who'. A dividend (from shares) and interest (from bonds or deposits) are what the investor gets."),
+    M('F5', 'Vocabulary · Word in context', "Choose the best word: 'When a company makes a good profit, it may pay a ___ to its shareholders.'",
+      ['fine', 'loan', 'dividend', 'salary'], 2,
+      "A 'dividend' is the part of the profit paid to shareholders. A salary is paid to staff; a fine is a punishment."),
+    M('F5', 'Vocabulary · Collocation', "Choose the correct verb: 'Kim Long Steel plans to ___ new shares on the stock exchange to raise money for a factory.'",
+      ['issue', 'borrow', 'earn', 'owe'], 0,
+      "Companies 'issue' shares or bonds (= offer them for sale to investors). We borrow or owe money, not shares, in this sentence."),
+    M('F5', 'Language focus · Present perfect with since', "Choose the correct form: 'Interest rates ___ twice since January.'",
+      ['rise', 'are rising', 'rises', 'have risen'], 3,
+      "With 'since + a point in time' we use the present perfect: have + past participle (rise – rose – risen)."),
+    M('F5', 'Language focus · Past simple with a finished time', "Choose the correct form: 'The share price ___ sharply last Friday, after the company announced a loss.'",
+      ['has fallen', 'fell', 'falls', 'is falling'], 1,
+      "'Last Friday' is a finished time, so we use the past simple (fall – fell), not the present perfect."),
+    M('F5', 'Language focus · Prepositions with trends', "Choose the correct preposition: 'The share price rose ___ 40,000 VND to 46,000 VND.'",
+      ['by', 'at', 'from', 'in'], 2,
+      "We say 'rise from (the old number) to (the new number)'. 'By' shows the size of the change: 'rose by 6,000 VND'."),
+    O('F5', 'Language focus · Describe a process', "Put the sentences in order to describe how a person buys shares.",
+      ['First, the investor opens a trading account with a securities company.',
+        'Next, the investor transfers money into the account.',
+        'Then, the investor chooses a company and places an order to buy its shares.',
+        'After that, the stock exchange matches the order with a seller.',
+        "Finally, the shares appear in the investor's account, and the investor becomes a shareholder."],
+      "The sequencing words give the order: First, Next, Then, After that, Finally. An account must exist before money can be moved into it or an order placed."),
+    M('F5', 'Describing data · Share price', "Share price of Kim Long Steel (VND): Monday 30,000; Tuesday 30,200; Wednesday 24,000; Thursday 24,000. Which sentence correctly describes the data?",
+      ['The price fell slightly every day.', 'The price rose slightly on Tuesday, fell sharply on Wednesday and remained stable on Thursday.', 'The price rose sharply on Tuesday and then fell slightly.', 'The price remained stable from Monday to Wednesday.'], 1,
+      "30,000 → 30,200 is a small change ('rose slightly'); 30,200 → 24,000 is a big one ('fell sharply'); 24,000 → 24,000 'remained stable'."),
+  ]),
+  ...READ('F5-r1', 'Reading · Savings, bonds or shares?',
+    "Where should young people put their savings? Our reader Thanh Truc, 23, from Nha Trang, has saved 50 million VND and asked for advice. We spoke to Mr Vo Quoc Dat, a financial adviser in Ho Chi Minh City.\n\n'There are three common choices,' he says. 'The first is a bank deposit. It is the safest, and you know exactly how much interest you will receive, but the return is usually the lowest. The second is bonds. When you buy a bond, you lend money to a company or the government, and they pay you interest every year. Government bonds are very safe; company bonds pay more but carry more risk.\n\n'The third choice is shares. When you buy shares, you become one of the owners of the company. If the company does well, the share price may rise and you may receive a dividend. But prices on the stock exchange go up and down every day, and you can lose money.'\n\nHis advice to Truc is simple: 'Never invest money that you will need next month, and do not put everything in one place.'", [
+      M('F5', 'Main idea', "What is the article mainly about?",
+        ['How to open a bank account in Nha Trang', 'Why young people should not save money', 'The history of the stock exchange', 'Three ways to invest savings and their risks'], 3,
+        "Mr Dat says: 'There are three common choices' — a bank deposit, bonds and shares — and explains the risk of each."),
+      M('F5', 'Specific detail', "According to Mr Dat, what happens when you buy a bond?",
+        ['You lend money and receive interest every year', 'You become an owner of the company', 'You receive a dividend every month', 'You can never lose any money'], 0,
+        "'When you buy a bond, you lend money to a company or the government, and they pay you interest every year.'"),
+      M('F5', 'Vocabulary in context', "In the second paragraph, company bonds 'carry more risk'. This means…",
+        ['they are heavier to hold', 'there is a higher chance of losing money', 'they pay less interest', 'only banks can buy them'], 1,
+        "'Risk' is the chance that something bad happens. The contrast is with government bonds, which 'are very safe'."),
+      M('F5', 'Inference', "What would Mr Dat probably say to someone who wants to put all their savings into the shares of one company?",
+        ['It is the safest choice', 'It is fine if the money is needed next month', 'It is a bad idea, because the money should be spread out', 'It is the only way to receive interest'], 2,
+        "His advice is 'do not put everything in one place', and he warns that with shares 'you can lose money'."),
     ]),
-  N('F5', 'One-year bond price', 'A 1-year bond has a face value of 100,000 VND and pays a 6% coupon at maturity. If investors require 8%, what price will they pay today? Round to the nearest VND.', 98148, 'VND',
-    'Cash at maturity = 100,000 + 6,000 = 106,000. Price = 106,000 ÷ 1.08 = 98,148.', 1),
-  N('F5', 'Two-year bond price', 'A 2-year corporate bond has a face value of 1,000,000 VND and pays a 10% annual coupon. The market yield is 8%. Calculate its price. Round to the nearest VND.', 1035665, 'VND',
-    'Price = 100,000 ÷ 1.08 + 1,100,000 ÷ 1.08² = 92,593 + 943,073 = 1,035,665. It trades above face value because its coupon beats the 8% market yield.', 1),
-  O('F5', 'Buying shares on HOSE', 'Put the steps for a student buying shares on HOSE for the first time in the correct order.',
-    ['Open a securities trading account with a licensed broker', 'Deposit money into the trading account', 'Place a buy order with a price and quantity', 'The order is matched with a seller on the exchange', 'The shares settle into the account after the settlement period'],
-    'An account and funds are needed before an order can be placed; matching happens on the exchange and settlement follows.'),
-  W('F5', 'Rates and real estate', 'The State Bank of Vietnam raises its policy interest rate by 1 percentage point. Explain two ways this could affect a real-estate developer that plans to raise money for a new apartment project in HCMC.',
-    'First, bank loans become more expensive, so the developer’s interest costs rise and the project’s NPV falls. Second, bond investors will demand higher yields, so any new corporate bonds must offer a higher coupon, and existing bond prices fall. Higher mortgage rates may also cut demand from home buyers, reducing expected sales.',
-    ['Explains higher borrowing cost from banks', 'Links rates to bond yields / prices', 'Mentions an effect on buyers, demand or project value'], 90),
+  ...LISTEN('F5-l1', 'Listening · Evening market report',
+    "Good evening, and here is today's market report. It was a quiet morning on the Ho Chi Minh City stock exchange, but things changed after lunch. The main index closed at one thousand two hundred and fifty points, down twenty points from yesterday. Bank shares fell the most, after the central bank said it might raise interest rates next month. However, it wasn't all bad news. Shares in seafood exporters rose by about three percent, thanks to strong orders from Japan. Our guest analyst believes the market will stay nervous until the central bank makes its decision, so she advises small investors to wait and not to sell in a panic. We'll be back with more tomorrow at six.", [
+      M('F5', 'Listening for gist', "What kind of programme is this?",
+        ['An advertisement for a bank', 'A daily report on the stock market', 'A weather forecast', 'An interview with a seafood exporter'], 1,
+        "'Good evening, and here is today's market report.'"),
+      M('F5', 'Listening for specific information', "Which shares rose today?",
+        ['Bank shares', 'Steel shares', 'All shares', 'Shares in seafood exporters'], 3,
+        "'Shares in seafood exporters rose by about three percent.' Bank shares 'fell the most'."),
+      M('F5', 'Speaker\'s advice', "What does the analyst advise small investors to do?",
+        ['Wait and stay calm', 'Sell everything today', 'Buy bank shares immediately', 'Move their money to Japan'], 0,
+        "'She advises small investors to wait and not to sell in a panic.'"),
+    ]),
+  ...SPEAK('F5', 'Speaking · Deposit or shares?',
+    "Talk for about 1 minute. A friend has saved 30 million VND and asks you: 'Should I put it in a bank deposit or buy shares?' Cover: (1) one advantage of each choice, (2) one risk, (3) your advice.",
+    "If I were you, I would not put all the money in one place. A bank deposit is safe, and you know how much interest you will get, but the return is low. Shares can give a higher return, and some companies pay a dividend. However, share prices can fall sharply, so you might lose money. My advice is to keep twenty million in a deposit and invest ten million in shares of two or three large companies.",
+    "Content: gives one advantage of a deposit and of shares, names one risk and ends with clear advice"),
+  ...WRITE('F5', 'Writing · Email of advice',
+    "Your uncle Hai in Nha Trang wants to put all his savings into the shares of one company. Write him an email of about 100 words. Include: (1) what could go wrong, (2) one safer choice, (3) your suggestion. Be polite and friendly.",
+    "Subject: Your plan to buy shares\n\nDear Uncle Hai,\n\nThank you for telling me about your plan. I understand why you like this company, but I am a little worried. If you put all your savings into the shares of one company and the price falls sharply, you could lose a lot of money. Share prices go up and down every day.\n\nA bank deposit or government bonds would be safer, because you know how much interest you will receive. My suggestion is to keep most of your savings in the bank and invest only a small part in shares of several companies.\n\nPlease think about it.\n\nLove,\nTruc",
+    "Content: explains the risk of one company's shares, offers a safer choice and makes a polite, clear suggestion"),
 ];
 
 export const LIB = [
   ['R-FIN-C1', 'case_study', 'F4', 'Rooftop solar at a Long An packaging plant', 40,
-    'Phúc Thịnh Packaging makes cartons for food exporters in Long An province. Electricity is its second-largest cost, and the factory roof covers 6,000 square metres. A solar installer offers a rooftop system for 2,400 million VND. The finance team estimates that the panels will cut electricity bills by 650 million VND per year for 6 years. Cleaning and maintenance will cost 50 million VND per year. After 6 years the inverters must be replaced, and the board assumes no resale value. The company’s cost of capital is 10%.\n' +
-    'Two large customers have asked suppliers to show lower carbon emissions by 2028. The chief accountant, however, worries that electricity tariffs may change and that the company could instead use the money to buy a second printing machine.\n\n' +
-    '1. Calculate the net annual cash saving and the simple payback period.\n' +
-    '2. Calculate the NPV at 10% (6-year annuity factor 4.355). Should the project be accepted?\n' +
-    '3. Recalculate the NPV at 14% (annuity factor 3.889) and estimate the IRR.\n' +
-    '4. How would a 20% fall in the annual saving change your answer?\n' +
-    '5. Write a short recommendation to the board that includes at least two non-financial factors.'],
-  ['R-FIN-C2', 'case_study', 'F5', 'Sông Hàn Land’s corporate bond offer', 35,
-    'Sông Hàn Land, an invented property developer in Đà Nẵng, wants to raise 500 billion VND to build a riverside apartment block. Instead of borrowing from a bank, it plans to issue 3-year corporate bonds with a face value of 100 million VND each and an annual coupon of 10.5%. At the same time, 3-year government bonds yield about 3%, and 12-month bank deposits pay about 5.5%.\n' +
-    'A sales agent is calling small investors in Đà Nẵng, describing the bonds as “as safe as a bank deposit, but double the return”. The company has no credit rating, and its main asset is the land for the project. Its sales depend on mortgage rates, and the State Bank of Vietnam has recently raised policy rates.\n\n' +
-    '1. Calculate the extra yield (spread) the bond offers over the government bond and over a bank deposit.\n' +
-    '2. Explain why investors demand this spread. What risks does it reflect?\n' +
-    '3. If market rates for similar bonds rise to 12%, what happens to the price of the 10.5% bond? Explain.\n' +
-    '4. Is the sales agent’s description fair? Refer to the role of regulators and disclosure in protecting investors.\n' +
-    '5. Advise a retired investor with 300 million VND whether to buy the bonds.'],
-  ['R-FIN-G1', 'group_project', 'F2', 'Ratio health check of a HOSE-listed company', 180,
+    'Phúc Thịnh Packaging makes cartons for food exporters in Long An province. Electricity is its second-largest cost, and the factory roof is large and empty. A solar company has offered to install rooftop panels for 2.4 billion VND. The finance team estimates that the panels will cut the electricity bill by about 600 million VND a year, so the payback period is about four years. The panels should work for at least fifteen years.\n' +
+    'The director, Ms Loan, is positive. Two large customers have asked their suppliers to use more clean energy, and she believes the project will help the company keep these contracts. The chief accountant, Mr Vinh, is less sure. He says the savings are only an estimate, electricity prices might change, and the company could use the same money to buy a second printing machine. The board will discuss the proposal next week.\n\n' +
+    'Language tasks\n' +
+    '1. Find these five terms in the text and explain each one in a simple English sentence: cost, estimate, payback period, savings, proposal.\n' +
+    '2. Role-play the board meeting in groups of three (Ms Loan, Mr Vinh and a chairperson). Use these phrases: "In my opinion…", "I see your point, but…", "If we invest…, we will…", "What if…?", "So we agree that…".\n' +
+    '3. Write a recommendation email of about 120 words to the board: say yes or no to the project, give two reasons and mention one risk.\n' +
+    '4. Give a 2-minute spoken summary of the situation and your recommendation to another group. Do not read from your notes.'],
+  ['R-FIN-C2', 'case_study', 'F5', 'Sông Hàn Land’s bond offer', 35,
+    'Sông Hàn Land, an invented property developer in Đà Nẵng, wants to raise 500 billion VND to build a riverside apartment block. Instead of borrowing from a bank, it plans to issue three-year bonds that pay 10.5% interest a year. At the moment, a twelve-month bank deposit pays about 5.5%.\n' +
+    'A sales agent is phoning small investors and describing the bonds as “as safe as a bank deposit, but with double the return”. However, the company has no credit rating, and it can only repay investors if it sells the apartments. Interest rates on home loans have risen recently, so fewer people are buying apartments.\n' +
+    'Mrs Sáu, a retired teacher, has savings of 300 million VND. The agent has called her three times this week. She likes the high interest rate, but she does not understand the risks, so she has asked her niece, a finance student, for advice.\n\n' +
+    'Language tasks\n' +
+    '1. Find these five terms in the text and explain each one in a simple English sentence: issue, bond, return, credit rating, investor.\n' +
+    '2. Role-play the conversation between Mrs Sáu and her niece. Use these phrases: "Can you explain what … means?", "The problem is that…", "If I were you, I would…", "You might…", "It is safer to…".\n' +
+    '3. Write an email of about 120 words from the niece to Mrs Sáu: recommend what to do with her savings, give two reasons and suggest one safer choice.\n' +
+    '4. Give a 2-minute spoken summary of the offer and its risks to the class. Use at least three linking words (however, because, so).'],
+  ['R-FIN-G1', 'group_project', 'F2', 'Company health check: a presentation in English', 180,
     'Brief\n' +
-    'Choose one company listed on HOSE (for example in retail, dairy, steel or aviation). Download its last two audited annual reports and analyse its financial health as if your team were advising a bank credit committee.\n\n' +
+    'Choose one company listed on a Vietnamese stock exchange (for example in retail, dairy, steel or aviation). Look at its latest annual report and note five key figures that the report already gives for the last two years (for example revenue, net profit, total assets, total debt, number of shops or employees). You do not need to calculate anything new. Your job is to describe and compare the figures in clear English, as if you were explaining the company to a foreign visitor.\n\n' +
     'Deliverables\n' +
-    '- A spreadsheet with liquidity, profitability, efficiency and gearing ratios for two years\n' +
-    '- A comparison with one competitor in the same industry\n' +
-    '- A 1,500-word report with a clear lending recommendation\n' +
-    '- A 10-minute presentation with 8–10 slides\n\n' +
+    '- A 5-minute presentation in English with 5–6 slides\n' +
+    '- A one-page English report that compares the two years, using comparatives and the language of trends (rose, fell, remained stable, slightly, sharply)\n' +
+    '- A glossary of 15 financial terms from the report, each with a simple English definition and a Vietnamese translation\n\n' +
     'Team roles (4–5 students)\n' +
-    '- Data lead: extracts figures from the statements\n' +
-    '- Ratio analyst: builds and checks the spreadsheet\n' +
-    '- Industry researcher: collects competitor and sector data\n' +
-    '- Report editor: writes and edits the final report\n' +
-    '- Presenter (or shared): designs the slides and leads Q&A\n\n' +
+    '- Researcher: finds the annual report and the five key figures\n' +
+    '- Glossary keeper: collects the terms and writes the definitions\n' +
+    '- Report writer: drafts the one-page report\n' +
+    '- Language checker: checks grammar, vocabulary and pronunciation of key terms and numbers\n' +
+    '- Presenter (or shared): designs the slides and leads the Q&A\n\n' +
     'Timeline (3 weeks)\n' +
-    '- Week 1: choose the company, collect reports, agree the ratio list\n' +
-    '- Week 2: calculate ratios, compare with the competitor, draft findings\n' +
-    '- Week 3: finish the report, rehearse and present\n\n' +
+    '- Week 1: choose the company, collect the figures, start the glossary\n' +
+    '- Week 2: write the report and the slides; check the language together\n' +
+    '- Week 3: rehearse (time yourselves and practise saying the numbers), then present and answer questions\n\n' +
     'Assessment (100 points)\n' +
-    '- Accuracy of ratio calculations: 30\n' +
-    '- Interpretation and comparison: 30\n' +
-    '- Quality of recommendation: 20\n' +
-    '- Report and presentation: 15\n' +
-    '- Teamwork (peer review): 5'],
-  ['R-FIN-G2', 'group_project', 'F3', 'Cash budget for a family business', 180,
+    '- Content: 30\n' +
+    '- Language accuracy and vocabulary: 30\n' +
+    '- Delivery and pronunciation: 20\n' +
+    '- Teamwork and Q&A: 20'],
+  ['R-FIN-G2', 'group_project', 'F3', 'Cash plan for a family business: report in English', 180,
     'Brief\n' +
-    'Work with a small family business you can interview (for example a phở shop, a phone repair stall or a clothing shop on Shopee). Build a 6-month cash budget that covers Tết, identify the months with a cash shortfall and propose ways to manage working capital.\n\n' +
+    'Interview the owner of a small family business (for example a phở shop, a phone repair stall or an online clothing shop). You may do the interview in Vietnamese. Find out which months are busy and quiet, what the biggest payments are, and when customers and suppliers are paid. Then explain the business’s cash situation in English and suggest three simple ways to avoid a cash shortage around Tết.\n\n' +
     'Deliverables\n' +
-    '- Interview notes with the owner (sales pattern, credit terms, main costs)\n' +
-    '- A 6-month cash budget in a spreadsheet, with opening and closing balances\n' +
-    '- A one-page memo to the owner with three working-capital recommendations\n' +
-    '- A 7-minute class presentation\n\n' +
+    '- A 5-minute presentation in English with 5–6 slides\n' +
+    '- A one-page English memo to the owner with three suggestions, using will / going to and polite language of advice (we suggest…, you could…)\n' +
+    '- A glossary of 15 terms about cash and budgeting, each with a simple English definition and a Vietnamese translation\n\n' +
     'Team roles (4–5 students)\n' +
-    '- Interviewer: arranges and leads the owner interview\n' +
-    '- Sales forecaster: estimates monthly sales and receipts\n' +
-    '- Cost analyst: estimates purchases, wages, rent and other payments\n' +
-    '- Budget builder: builds and checks the spreadsheet\n' +
-    '- Memo writer: drafts recommendations and the presentation\n\n' +
+    '- Interviewer: arranges and leads the interview, takes notes\n' +
+    '- Glossary keeper: collects the terms and writes the definitions\n' +
+    '- Memo writer: drafts the one-page memo\n' +
+    '- Language checker: checks grammar, vocabulary and pronunciation of key terms and numbers\n' +
+    '- Presenter (or shared): designs the slides and leads the Q&A\n\n' +
     'Timeline (3 weeks)\n' +
-    '- Week 1: interview the owner and collect data\n' +
-    '- Week 2: build the cash budget and test a “bad Tết” scenario\n' +
-    '- Week 3: write the memo, share it with the owner, present in class\n\n' +
+    '- Week 1: prepare ten interview questions, interview the owner, start the glossary\n' +
+    '- Week 2: write the memo and the slides; check the language together\n' +
+    '- Week 3: rehearse (time yourselves and practise saying the numbers), then present and answer questions\n\n' +
     'Assessment (100 points)\n' +
-    '- Realism of data and assumptions: 25\n' +
-    '- Accuracy of the cash budget: 30\n' +
-    '- Quality of recommendations: 25\n' +
-    '- Memo and presentation: 15\n' +
-    '- Teamwork (peer review): 5'],
+    '- Content: 30\n' +
+    '- Language accuracy and vocabulary: 30\n' +
+    '- Delivery and pronunciation: 20\n' +
+    '- Teamwork and Q&A: 20'],
 ];

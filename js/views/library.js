@@ -15,12 +15,26 @@ export const RES_META = {
 };
 const TABS = [['books', 'Books'], ['extracts', 'Extracts'], ...S.RESOURCE_TYPES.map(t => [t, RES_META[t].plural])];
 const ui = { tab: 'books', subject: '', unit: '', q: '' };
+// Simple interface: three tabs instead of seven; each groups several kinds of material.
+const SIMPLE_TABS = [['books', 'Books', ['books']], ['cases', 'Cases & projects', ['case_study', 'group_project']], ['other', 'Other materials', ['extracts', 'activity', 'worksheet', 'practical']]];
 const rerender = () => window.dispatchEvent(new HashChangeEvent('hashchange'));
 const role = () => S.currentUser(getState()).role;
 const canEditLessons = () => ['instructor'].includes(role());
 
 const usedIn = (s, pred) => s.lessons.filter(l => l.blocks.some(pred)).length;
 const bookHasFile = (b) => !!b.file && hasFile(`book:${b.id}`);
+
+const srcChip = (k) => `<span class="chip src-${k}">${icon(S.SOURCES[k][1])} ${S.SOURCES[k][0]}</span>`;
+/** Two sources side by side: what the coursebooks cover in each unit and what UEH has written, with the skills still missing. */
+function sourcesCard(s) {
+  const units = [...new Set(s.programs.flatMap(p => S.activeVersion(p).unitIds))].filter(u => !ui.subject || S.unitById(s, u).subject === ui.subject);
+  const rows = S.sourceCoverage(s, units);
+  return `<details class="aid"><summary>${icon('git-compare')} Content sources by unit · coursebook and UEH</summary>${card({ subtitle: 'The UEH syllabus is the backbone. Coursebooks are licensed and read-only; UEH material is written by lecturers and approved by the Dean.', flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th>Unit</th><th>${srcChip('book')}</th><th>${srcChip('ueh')}</th><th>Skills still missing</th></tr></thead><tbody>
+    ${rows.map(r => `<tr><td><div class="row gap-2">${subjectChip(s, r.unit.subject)}<span><strong>${r.unit.id}</strong> ${esc(r.unit.title)}</span></div></td>
+      <td class="small">${r.books.length ? `${r.books.map(b => esc(b.title)).join(', ')}<div class="faint">${r.extracts} page extracts</div>` : '<span class="t-warn">No coursebook mapped</span>'}</td>
+      <td class="small">${r.exercises} exercises<div class="faint">${r.resources} library items</div></td>
+      <td>${r.gaps.length ? r.gaps.map(k => `<span class="chip t-warn">${S.SKILLS[k][0]}</span>`).join(' ') : badge('ok', 'All skills covered')}</td></tr>`).join('')}</tbody></table></div>` })}</details>`;
+}
 
 function filters(s) {
   return `<div class="row gap-2 wrap">
@@ -42,7 +56,7 @@ function booksGrid(s) {
   return `<div class="book-grid">${list.map(b => {
     const n = s.library.extracts.filter(x => x.bookId === b.id).length;
     return `<a class="book" href="${base}/${b.id}">${bookCover(s, b)}
-      <div class="book-meta"><div class="title">${esc(b.title)}</div>
+      <div class="book-meta"><div class="title">${esc(b.title)}</div><div class="mt-2">${srcChip('book')}</div>
         <div class="row gap-1 wrap mt-2">${b.unitIds.map(u => `<span class="chip">${u}</span>`).join('')}</div>
         <div class="small mt-2 ${bookHasFile(b) ? 't-ok' : 'faint'}">${bookHasFile(b) ? `${icon('file-check')} PDF · ${b.file.pages} pages` : b.file ? `${icon('cloud-off')} PDF on another device` : `${icon('upload')} No PDF yet`}${n ? ` · ${n} extract${n > 1 ? 's' : ''}` : ''}</div></div></a>`;
   }).join('')}</div>`;
@@ -62,20 +76,27 @@ function resourcesTable(s, type) {
   const list = s.resources.filter(r => r.type === type && (!ui.unit || r.unitId === ui.unit) && (!ui.subject || S.unitById(s, r.unitId)?.subject === ui.subject) && matchText(`${r.title} ${r.body}`));
   if (!list.length) return empty(RES_META[type].icon, `No ${RES_META[type].plural.toLowerCase()} match`);
   return `<div class="list">${list.map(r => `<div class="list-item"><span class="li-icon accent">${icon(RES_META[type].icon)}</span>
-    <div class="grow"><div class="title">${esc(r.title)}</div><div class="meta">${r.unitId ? `${subjectChip(s, S.unitById(s, r.unitId).subject)} ${r.unitId} · ` : ''}${r.minutes} min · by ${esc(S.userById(s, r.createdBy).name)} · used in ${usedIn(s, b => b.resourceId === r.id)} lesson(s)${r.file ? ` · ${icon('paperclip')} ${esc(r.file.name)}` : ''}</div></div>
+    <div class="grow"><div class="title">${esc(r.title)} ${srcChip(S.sourceOf(r))}</div><div class="meta">${r.unitId ? `${subjectChip(s, S.unitById(s, r.unitId).subject)} ${r.unitId} · ` : ''}${r.minutes} min · by ${esc(S.userById(s, r.createdBy).name)} · used in ${usedIn(s, b => b.resourceId === r.id)} lesson(s)${r.file ? ` · ${icon('paperclip')} ${esc(r.file.name)}` : ''}</div></div>
     <button class="btn btn-sm" data-action="lib-view-resource" data-id="${r.id}">View</button>${canEditLessons() ? `<button class="btn btn-sm btn-primary" data-action="lib-add-to-lesson" data-kind="resource" data-id="${r.id}">${icon('plus')} Lesson</button>` : ''}</div>`).join('')}</div>`;
 }
 
 export function libraryView(s) {
   const counts = { books: s.library.books.length, extracts: s.library.extracts.length, ...Object.fromEntries(S.RESOURCE_TYPES.map(t => [t, s.resources.filter(r => r.type === t).length])) };
-  const body = ui.tab === 'books' ? booksGrid(s) : ui.tab === 'extracts' ? extractsTable(s) : resourcesTable(s, ui.tab);
+  const simple = S.isSimple(s);
+  const kindBody = (k) => k === 'books' ? booksGrid(s) : k === 'extracts' ? extractsTable(s) : resourcesTable(s, k);
+  const label = (k) => k === 'extracts' ? 'Extracts' : RES_META[k].plural;
+  const group = simple ? SIMPLE_TABS.find(t => t[0] === ui.tab) || SIMPLE_TABS.find(t => t[2].includes(ui.tab)) || SIMPLE_TABS[0] : null;
+  const tab = simple ? group[0] : TABS.some(t => t[0] === ui.tab) ? ui.tab : 'books'; // a tab key from the other mode falls back
+  const body = !simple ? kindBody(tab) : group[2].length === 1 ? kindBody(group[2][0]) : group[2].filter(k => counts[k]).map(k => `<div class="nav-label" style="padding-left:22px">${label(k)} · ${counts[k]}</div>${kindBody(k)}`).join('') || empty('library', 'Nothing here yet');
+  const tabs = simple ? SIMPLE_TABS.map(([k, l, kinds]) => [k, l, kinds.reduce((t, x) => t + counts[x], 0)]) : TABS.map(([k, l]) => [k, l, counts[k]]);
   const canAddRes = role() !== 'admin';
   return {
     title: 'Library',
     html: `<div class="page">${pageHead('Library', `${esc(s.library.collection)} · research the books, extract units, and add materials to lessons`, `${canAddRes ? `<button class="btn" data-action="lib-new-resource">${icon('plus')} Case study / activity</button>` : ''}<button class="btn btn-primary" data-action="lib-new-book">${icon('upload')} Upload book</button>`)}
-      <div class="note note-info">${icon('route')}<div><strong>Workflow:</strong> Library → open a book and research → save page ranges as <em>extracts</em> → add extracts, case studies, activities, worksheets and practicals to lessons → arrange lessons in a <em>module plan</em> → finalise the module for a programme and its classes.</div></div>
-      ${card({ flush: true, body: `<div class="tabs" style="padding:0 12px">${TABS.map(([k, l]) => `<button class="${ui.tab === k ? 'active' : ''}" data-action="lib-tab" data-tab="${k}">${l} <span class="faint">${counts[k]}</span></button>`).join('')}</div>
-        <div class="card-body">${filters(s)}</div><div style="padding:0 0 4px">${ui.tab === 'books' ? `<div style="padding:0 18px 18px">${body}</div>` : body}</div>` })}
+      ${simple ? '' : `<div class="note note-info">${icon('route')}<div><strong>Workflow:</strong> Library → open a book and research → save page ranges as <em>extracts</em> → add extracts, case studies, activities, worksheets and practicals to lessons → arrange lessons in a <em>module plan</em> → finalise the module for a programme and its classes.</div></div>`}
+      ${sourcesCard(s)}
+      ${card({ flush: true, body: `<div class="tabs" style="padding:0 12px">${tabs.map(([k, l, n]) => `<button class="${tab === k ? 'active' : ''}" data-action="lib-tab" data-tab="${k}">${l} <span class="faint">${n}</span></button>`).join('')}</div>
+        <div class="card-body">${filters(s)}</div><div style="padding:0 0 4px">${tab === 'books' ? `<div style="padding:0 18px 18px">${body}</div>` : body}</div>` })}
     </div>`,
   };
 }

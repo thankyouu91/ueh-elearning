@@ -6,7 +6,7 @@ Status of the work, for continuing in another session or on another machine.
 
 `node server.js`, then open http://localhost:3000. Any static server also works.
 
-Demo data lives in browser `localStorage`; the key is in `js/config.js`. The state version is 10, set in `js/store.js` and `js/seed.js`. Bump the version whenever seed data changes, so browsers load the new seed.
+Demo data lives in browser `localStorage`; the key is in `js/config.js`. The state version is 12, set in `js/store.js` and `js/seed.js` (they must match, or every reload rebuilds the seed and signs the user out). Bump the version whenever seed data changes, so browsers load the new seed.
 
 ## Latest work: 4-skill layer
 
@@ -29,3 +29,10 @@ Checked in the browser, except recording with a real microphone.
 - The dashboard already scrolled about 28 px horizontally before this work.
 - Library resources (cases, projects, worksheets) do not have 4-skill tags yet.
 - The official UEH logo file is still missing (`assets/ueh-logo.png`, `logoSrc` in `js/config.js`).
+
+## ESP repositioning (2026-11-16)
+
+- The course is English for Specific Purposes (B1): the business subject is only the context. All 24 units were rewritten: 384 new items in `js/content/wb-*.js` (helpers `READ`, `LISTEN`, `SPEAK`, `WRITE`, `USE` in `helpers.js`) plus the 24 items of `be-b1.js`. `EXERCISES` in `js/seed-workbook.js` is now empty; the 8 full cases have language tasks.
+- A fifth skill tag, `U` (vocabulary & grammar), was added to `S.SKILLS`.
+- Content sources: `S.SOURCES`, `S.sourceOf`, `S.sourceCoverage`. Books, extracts and `material` blocks are `book`; everything else is `ueh`.
+- Open: real ESP coursebook titles and licence terms are not entered (the 15 library books are placeholders from the earlier subject design); coursebook exercises are not in the platform, only PDFs and page references; the student radar chart is still by context strand, not by skill.

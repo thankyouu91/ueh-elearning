@@ -97,7 +97,12 @@ function navFor(s, user) {
     assessments: user.role === 'student' ? S.upcomingForStudent(s, user.id).filter(x => x.st === 'open').length : 0,
     course: user.role === 'student' ? S.studentTasks(s, user.id).filter(t => t.icon === 'book-open').length : 0,
   };
-  return VIEWS[user.role].NAV.map(n => ({ ...n, count: counts[n.countKey] || 0 }));
+  const withCount = (n) => ({ ...n, count: counts[n.countKey] || 0 });
+  if (!S.isSimple(s, user)) return VIEWS[user.role].NAV.map(withCount);
+  // simple interface: four everyday pages, the rest folded under "More"
+  const main = instructor.SIMPLE_NAV.map(withCount);
+  const more = instructor.NAV.filter(n => !n.header && !main.some(m => m.page === n.page)).map(withCount);
+  return [...main, { more }];
 }
 
 function shell(s, user, route, view) {
@@ -110,12 +115,16 @@ function shell(s, user, route, view) {
     ? `<select class="select select-sm" data-change="set-org-filter" aria-label="Organisation filter">
          ${orgs.map(o => `<option value="${o.id}" ${(s.ui.orgFilter || user.orgId) === o.id ? 'selected' : ''}>${indent[o.type] || ''}${esc(o.name)}</option>`).join('')}</select>`
     : user.orgId ? `<span class="chip">${icon('building-2')} ${esc(S.orgById(s, user.orgId).name)}</span>` : `<span class="chip" title="${secs.map(x => esc(x.code)).join(', ')}">${icon('users')} ${secs.length > 2 ? `${secs.length} classes` : secs.map(x => esc(x.code)).join(', ')}</span>`;
-  return `<div class="app">
+  const simple = S.isSimple(s, user);
+  const navLink = (n) => `<a href="#/${user.role}/${n.page}" class="${route.page === n.page || (n.also || []).includes(route.page) ? 'active' : ''}">${icon(n.icon)}<span>${n.label}</span>${n.count ? `<span class="count">${n.count}</span>` : ''}</a>`;
+  const help = simple && instructor.HELP[route.page];
+  return `<div class="app ${simple ? 'simple' : ''}">
     <aside class="sidebar" aria-label="Main navigation">
       <a class="brand" href="#/${user.role}/dashboard" aria-label="${esc(BRAND.product)} home">${logoMark()}<div class="brand-text"><b>Learning</b><span>${esc(ROLE_LABEL[user.role]).toUpperCase()}</span></div></a>
       <nav class="nav">
-        ${nav.map(n => n.header ? `<div class="nav-label">${n.header}</div>` : `<a href="#/${user.role}/${n.page}" class="${route.page === n.page || (n.also || []).includes(route.page) ? 'active' : ''}">${icon(n.icon)}<span>${n.label}</span>${n.count ? `<span class="count">${n.count}</span>` : ''}</a>`).join('')}
+        ${nav.map(n => n.header ? `<div class="nav-label">${n.header}</div>` : n.more ? `<details class="nav-more" ${n.more.some(m => route.page === m.page || (m.also || []).includes(route.page)) ? 'open' : ''}><summary>${icon('ellipsis')}<span>More</span>${icon('chevron-down', 'ic-xs')}</summary>${n.more.map(navLink).join('')}</details>` : navLink(n)).join('')}
       </nav>
+      ${user.role === 'instructor' ? `<button class="btn btn-ghost btn-sm nav-mode" data-action="toggle-simple">${icon(simple ? 'layout-grid' : 'square')} ${simple ? 'Full interface' : 'Simple interface'}</button>` : ''}
       <details class="sidebar-foot demo-tools" ${s.ui.demoOpen ? 'open' : ''}>
         <summary data-action="toggle-demo">${icon('flask-conical')}<span>Demo controls</span>${icon('chevron-up', 'ic-xs')}</summary>
         <div class="demo-week">${esc(s.term.title)} · week ${s.clock.week} of ${s.term.weeks}</div>
@@ -140,7 +149,7 @@ function shell(s, user, route, view) {
           ${popover === 'user' ? userMenu(s, user) : ''}
         </div>
       </header>
-      <main class="content" id="content">${view.html}</main>
+      <main class="content" id="content">${help ? `<details class="page-help"><summary>${icon('circle-help')} What is this page for?</summary><p>${esc(help)}</p></details>` : ''}${view.html}</main>
     </div>
   </div>`;
 }
@@ -191,6 +200,8 @@ export function render() {
 
 /* ---------------- global listeners ---------------- */
 document.addEventListener('click', (e) => {
+  // drop-down menus built with <details class="menu-d"> close when the click lands outside them
+  document.querySelectorAll('details.menu-d[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; });
   const el = e.target.closest('[data-action]');
   if (el) {
     const fn = allActions()[el.dataset.action];

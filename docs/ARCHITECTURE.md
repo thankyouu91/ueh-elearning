@@ -95,3 +95,13 @@ Printable documents live at `#/print/{exam|workbook|case}/{id}` with `?ed=lectur
 - **Page block** (`type: 'page'`, `layout: tiles[]`): a lesson block edited like a case study (`js/views/bento.js`, route `#/instructor/pageedit/{lessonId}~{blockId}`). Tiles: text (light markup: `#`, `##`, `**bold**`, `*italic*`, `-` and `1.` lists), image (IndexedDB, this browser only), audio, data table, quick check (multiple choice stored on the tile, practice only).
 - **Slides:** `slidesOf(lesson)` — one slide per block, a page gives one slide per row of tiles (4 columns). Used by the preview presenter and the live session.
 - **Teaching aids** (`js/selectors.js`): `lessonQuality` (6-point reviewer checklist), `weakSpots` (items a class gets < 60 % right), `itemFlags` (too easy/hard, unused distractors, negative or "all of the above" wording), `examMinutes` (working time by Bloom level), `autoFillPicks` (bank questions that close blueprint gaps).
+
+## Simple interface for lecturers
+
+Lecturers start in a reduced interface (`isSimple(s, user)`: role `instructor` and `s.ui.simple !== false`); the sidebar button **Full interface** switches back (`toggle-simple`). Nothing is removed, only folded away:
+
+- **Menu:** `SIMPLE_NAV` (Today, My classes, Prepare lessons, Marking); every other `NAV` page sits under **More**.
+- **Today** (`dashboard`): `lecturerTasks(s, me)` rendered by the shared `taskList` (also used for students), plus three shortcuts. The former dashboard is the `classes` route.
+- **Prepare lessons / builder:** lessons still to teach first; a three-step strip; one "add" bar (Content page, Questions, Activity ▾, From the library ▾); each block row has View/Edit and an Options menu; quality, weak spots and history fold behind one line each.
+- **Marking:** one Start marking button over the folded gradebook. **Library:** three tabs (`SIMPLE_TABS`).
+- **Help:** `HELP[page]`, one sentence behind "What is this page for?". Larger type and controls come from `.app.simple` in `css/app.css`.

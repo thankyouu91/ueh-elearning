@@ -426,3 +426,68 @@ Object.assign(VI, { 'Add a header line and at least one row': 'Thêm dòng tiêu
   'Add one from the Library page.': 'Thêm ở trang Thư viện.', 'Add questions first': 'Hãy thêm câu hỏi trước', 'Add to a lesson': 'Thêm vào bài giảng', 'Add to the library': 'Thêm vào thư viện',
   'Not yet. Check your working and try again.': 'Chưa đúng. Kiểm tra lại cách làm và thử lần nữa.',
   'Case studies, activities, worksheets and practical sessions can be added to any lesson.': 'Tình huống, dự án nhóm, hoạt động, phiếu bài tập và tiết thực hành đều thêm được vào bài giảng.' });
+// sign-in page
+Object.assign(VI, { 'This is a demo environment. Choose an account to continue — single sign-on with UEH accounts will replace this screen.': 'Đây là bản demo. Hãy chọn một tài khoản để vào — sau này sẽ đăng nhập bằng tài khoản UEH.',
+  'Learning management & academic operations for UEH University — course delivery, approvals, assessment and analytics in one place.': 'Hệ thống quản lý học tập online learning.',
+  'Correct!': 'Đúng rồi!', 'UEH Economics Foundation': 'Khung Nền tảng Kinh tế UEH' });
+PATTERNS.unshift([/^(\d+) programmes$/, '$1 ngành'], [/^Demo week (\d+) of (\d+)\. Data is stored only in this browser\.$/, 'Demo đang ở tuần $1/$2. Dữ liệu chỉ lưu trong trình duyệt này.']);
+
+// simple interface for lecturers
+Object.assign(VI, { 'My classes': 'Lớp của tôi', 'Prepare lessons': 'Soạn bài', 'More': 'Thêm', 'Full interface': 'Giao diện đầy đủ', 'Simple interface': 'Giao diện đơn giản',
+  'What is this page for?': 'Trang này dùng để làm gì?', 'Here is what needs you today.': 'Đây là những việc hôm nay cần thầy cô.', 'To do': 'Việc cần làm', 'When you can': 'Khi rảnh',
+  'Nothing is waiting for you': 'Hiện không có việc nào chờ', 'Prepare a lesson ahead, or look at how your classes are doing.': 'Thầy cô có thể soạn trước bài tuần tới, hoặc xem tình hình các lớp.',
+  'Prepare a lesson': 'Soạn bài', 'For one of your classes': 'Cho một lớp của thầy cô', 'Show a lesson in class': 'Trình chiếu bài trên lớp', 'Get a code for students': 'Lấy mã lớp gửi sinh viên',
+  'Open': 'Mở', 'Fix': 'Sửa bài', 'Mark': 'Chấm', 'Prepare': 'Soạn ngay', 'Continue': 'Làm tiếp', 'Grade': 'Chấm điểm', 'Review': 'Xem lại',
+  'Live class is open': 'Lớp trực tuyến đang mở', 'The Dean asked for changes': 'Trưởng khoa yêu cầu sửa', 'Students are waiting for feedback': 'Sinh viên đang chờ kết quả',
+  'Marked with the rubric in the gradebook': 'Chấm theo rubric trong sổ điểm', 'Exam paper waiting for your sign-off': 'Đề thi đang chờ thầy cô ký duyệt',
+  'Low grade, low activity or missed assessments': 'Điểm thấp, ít học hoặc bỏ lỡ bài kiểm tra',
+  'Your lessons, week by week.': 'Bài giảng của thầy cô, theo từng tuần.', 'My lessons': 'Bài giảng của tôi', 'New lesson': 'Bài giảng mới', 'Open a class first': 'Hãy tạo lớp trước',
+  'Want a lesson you can reuse every term?': 'Muốn có bài dùng lại mỗi học kỳ?', 'Choose class and week': 'Chọn lớp và tuần', 'Build the lesson': 'Soạn nội dung', 'Send to the Dean': 'Gửi Trưởng khoa duyệt',
+  'Add to the lesson:': 'Thêm vào bài:', 'Content page': 'Soạn bài mới', 'Questions': 'Câu hỏi', 'From the library': 'Lấy từ thư viện', 'Lesson content': 'Nội dung bài giảng',
+  'Move up': 'Đưa lên', 'Move down': 'Đưa xuống', 'Preview as student': 'Xem như sinh viên', 'Remove': 'Xóa khỏi bài', 'This lesson is empty': 'Bài này còn trống',
+  'Use the buttons above to add the first part.': 'Dùng các nút phía trên để thêm phần đầu tiên.', 'History': 'Lịch sử', 'min': 'phút',
+  'Mark answers one after another. Each answer shows the model answer and the marking points.': 'Chấm lần lượt từng bài. Mỗi bài có sẵn đáp án mẫu và các ý chấm điểm.',
+  'answers waiting for you': 'bài đang chờ thầy cô chấm', 'After you save a mark, the next answer opens by itself.': 'Lưu điểm xong, bài tiếp theo sẽ tự mở.',
+  'New answers appear here as students submit them.': 'Bài mới sẽ hiện ở đây khi sinh viên nộp.', 'Start marking': 'Bắt đầu chấm', 'Gradebook by class': 'Sổ điểm theo lớp',
+  'Open the gradebook below and press Grade next to the student.': 'Mở sổ điểm bên dưới rồi bấm Chấm điểm cạnh tên sinh viên.',
+  'Cases & projects': 'Tình huống & dự án', 'Other materials': 'Tài liệu khác', 'Extracts': 'Trích đoạn', 'Nothing here yet': 'Chưa có gì ở đây',
+  // one-sentence page help
+  'This page lists what needs you today, most urgent first. Press the button on a line to do that job.': 'Trang này liệt kê việc hôm nay cần thầy cô, việc gấp nhất ở trên. Bấm nút ở cuối mỗi dòng để làm việc đó.',
+  'Your classes with their results. Press a class to see its students and grades. The code on each card is what students type to join.': 'Các lớp của thầy cô kèm kết quả. Bấm vào lớp để xem sinh viên và điểm. Mã trên mỗi thẻ là mã sinh viên nhập để vào lớp.',
+  'All your lessons by week. Press New lesson to prepare one; press Edit to continue a draft.': 'Tất cả bài giảng theo tuần. Bấm "Bài giảng mới" để soạn; bấm "Sửa" để làm tiếp bài nháp.',
+  'Build the lesson from top to bottom: add content, activities and questions, then press Send to the Dean. Students see it only after approval.': 'Soạn bài từ trên xuống: thêm nội dung, hoạt động và câu hỏi, rồi bấm gửi Trưởng khoa. Sinh viên chỉ thấy bài sau khi được duyệt.',
+  'Press Start marking to mark answers one after another. The full gradebook for each class is underneath.': 'Bấm "Bắt đầu chấm" để chấm lần lượt từng bài. Sổ điểm đầy đủ của từng lớp nằm bên dưới.',
+  'Show a published lesson in class. Students join with the PIN and can answer quick questions on their phones.': 'Trình chiếu bài đã phát hành trên lớp. Sinh viên vào bằng mã PIN và trả lời câu hỏi nhanh trên điện thoại.',
+  'Books, case studies and other materials you can add to a lesson.': 'Sách, tình huống và các tài liệu khác có thể thêm vào bài giảng.',
+  'A 16-week plan for a whole programme, built from reusable lessons. Most lecturers do not need this every week.': 'Kế hoạch 16 tuần cho cả ngành, ghép từ các bài mẫu. Phần lớn thầy cô không cần dùng hằng tuần.',
+  "Quizzes and tests for your own classes. They do not need the Dean's approval.": 'Bài kiểm tra cho lớp của thầy cô. Không cần Trưởng khoa duyệt.',
+  'Write an exam paper, alone or with colleagues, then send it to the Dean, who approves and schedules it.': 'Soạn đề thi, một mình hoặc cùng đồng nghiệp, rồi gửi Trưởng khoa duyệt và lên lịch thi.',
+  'The exercises students practise with, and the answers of your classes.': 'Bài tập sinh viên luyện, kèm bài làm của các lớp thầy cô dạy.',
+  'The whole term week by week: lessons and assessments of your classes.': 'Cả học kỳ theo từng tuần: bài giảng và bài kiểm tra của các lớp.' });
+PATTERNS.unshift(
+  [/^Mark (\d+) answers$/, 'Chấm $1 bài'], [/^Prepare the week (\d+) lesson$/, 'Soạn bài tuần $1'], [/^Week (\d+) draft not sent to the Dean yet$/, 'Bài nháp tuần $1 chưa gửi Trưởng khoa'],
+  [/^Grade (\d+) case reports$/, 'Chấm $1 báo cáo tình huống'], [/^(\d+) students need support$/, '$1 sinh viên cần hỗ trợ'], [/^(\d+) case reports to grade\.$/, 'Có $1 báo cáo tình huống cần chấm.'],
+  [/^Ready-made lessons to reuse$/, 'Bài mẫu có sẵn để dùng lại'], [/^Lesson quality: (\d+)\/(\d+) — see tips$/, 'Chất lượng bài: $1/$2 — xem gợi ý'], [/^Where students struggle$/, 'Sinh viên đang yếu ở đâu'],
+  [/^(\d+) blocks$/, '$1 phần'],
+);
+Object.assign(VI, { 'Options': 'Tùy chọn', 'Unit (from the programme curriculum)': 'Unit (theo chương trình của ngành)', 'Summary for students': 'Tóm tắt cho sinh viên', 'Lesson settings': 'Thông tin bài giảng', 'Submit for approval': 'Gửi Trưởng khoa duyệt', 'Delete draft': 'Xóa bản nháp' });
+Object.assign(VI, { 'This week and the weeks ahead': 'Tuần này và các tuần tới', 'Lessons already taught': 'Bài đã dạy', 'No class lessons yet': 'Chưa có bài giảng nào' });
+
+// ESP repositioning: English in a business context, two content sources
+Object.assign(VI, { 'English for Economics & Business · Level 1 (B1)': 'Tiếng Anh Kinh tế & Kinh doanh · Cấp độ 1 (B1)', 'English for Economics & Business': 'Tiếng Anh Kinh tế & Kinh doanh',
+  'Level 1 (B1)': 'Cấp độ 1 (B1)', 'UEH English for Economics & Business · Level 1': 'Khung Tiếng Anh Kinh tế & Kinh doanh UEH · Cấp độ 1', 'UEH English for Economics & Business': 'Khung Tiếng Anh Kinh tế & Kinh doanh UEH', 'Level 1': 'Cấp độ 1',
+  'Reading & input': 'Đọc & ngữ liệu', 'Describe the chart': 'Mô tả biểu đồ', 'Speaking task': 'Bài nói', 'Language focus': 'Trọng tâm ngôn ngữ', 'Coursebook extract': 'Trích đoạn giáo trình',
+  'Vocabulary & grammar': 'Từ vựng & ngữ pháp', 'Coursebook': 'Giáo trình', 'UEH': 'UEH', 'By the end of this lesson:': 'Sau bài này:', 'Key words:': 'Từ khóa:',
+  'Content sources by unit · coursebook and UEH': 'Nguồn nội dung theo unit · giáo trình và UEH',
+  'The UEH syllabus is the backbone. Coursebooks are licensed and read-only; UEH material is written by lecturers and approved by the Dean.': 'Đề cương của UEH là xương sống. Giáo trình có bản quyền và chỉ đọc; nội dung UEH do giảng viên soạn và Trưởng khoa duyệt.',
+  'Skills still missing': 'Kỹ năng còn thiếu', 'No coursebook mapped': 'Chưa gắn giáo trình', 'All skills covered': 'Đủ các kỹ năng',
+  'Coursebooks under this licence': 'Giáo trình thuộc giấy phép này', 'Licensed content is read-only and disappears for students when the licence ends. UEH material and student results stay.': 'Nội dung có bản quyền chỉ đọc và sẽ ẩn với sinh viên khi hết hạn. Nội dung UEH và kết quả của sinh viên vẫn còn.',
+  'Units': 'Unit', 'File': 'Tệp', 'Valid until': 'Hiệu lực đến', 'PDF uploaded': 'Đã tải PDF', 'Not uploaded': 'Chưa tải lên' });
+PATTERNS.unshift([/^(\d+) page extracts$/, '$1 trích đoạn'], [/^(\d+) library items$/, '$1 tài liệu thư viện'], [/^Coursebook (\d+)%$/, 'Giáo trình $1%'], [/^UEH (\d+)%$/, 'UEH $1%'],
+  [/^(.+) · English for Economics & Business · Level 1 \(B1\)$/, (_, x) => `${tv(x)} · Tiếng Anh Kinh tế & Kinh doanh · Cấp độ 1 (B1)`]);
+PATTERNS.unshift([/^(\d+) units · four skills plus vocabulary & grammar · (\d+) exercises$/, '$1 unit · bốn kỹ năng cùng từ vựng & ngữ pháp · $2 bài tập']);
+Object.assign(VI, { 'English for Economics & Business · Level 1 (CEFR B1)': 'Tiếng Anh Kinh tế & Kinh doanh · Cấp độ 1 (CEFR B1)' });
+Object.assign(VI, { 'Every week you teach in this class already has a lesson. Choose another class, or open the existing lesson from the list to edit it.': 'Mọi tuần thầy cô dạy ở lớp này đều đã có bài. Hãy chọn lớp khác, hoặc mở bài có sẵn trong danh sách để sửa.',
+  'Start from the unit template (reading, key words, activity, practice check)': 'Bắt đầu từ bài mẫu của unit (bài đọc, từ khóa, hoạt động, luyện tập)', 'Teaching week': 'Tuần dạy', 'Create draft': 'Tạo bản nháp',
+  'Title (optional — defaults to the unit title)': 'Tên bài (không bắt buộc — mặc định là tên unit)', 'Leave blank to use the unit title': 'Để trống để dùng tên unit' });
+PATTERNS.unshift([/^(.+) \(free\)$/, '$1 (còn trống)'], [/^(.+) \(has a lesson\)$/, '$1 (đã có bài)'], [/^Unit is now (\S+) — the ready-made blocks were updated$/, 'Unit giờ là $1 — các khối mẫu đã được đổi theo']);

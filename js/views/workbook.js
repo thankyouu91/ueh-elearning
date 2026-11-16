@@ -25,7 +25,8 @@ function shuffled(n, seed) {
 }
 const fmtNum = (v) => typeof v === 'number' ? v.toLocaleString('en-US', { maximumFractionDigits: 2 }) : v;
 const typeOf = (e) => e.speak ? ['Record', 'mic'] : TYPE[e.type];
-const skillChip = (e) => { const k = S.skillOf(e); const [l, ic] = S.SKILLS[k]; return `<span class="chip skill-${k}">${icon(ic)} ${l}</span>${e.level ? `<span class="chip">CEFR ${esc(e.level)}</span>` : ''}`; };
+const skillChip = (e) => { const k = S.skillOf(e); const [l, ic] = S.SKILLS[k]; return `<span class="chip skill-${k}">${icon(ic)} ${l}</span>${e.level ? `<span class="chip">CEFR ${esc(e.level)}</span>` : ''}${sourceChip(e)}`; };
+export const sourceChip = (x) => { const [l, ic] = S.SOURCES[S.sourceOf(x)]; return `<span class="chip src-${S.sourceOf(x)}">${icon(ic)} ${l}</span>`; };
 const typeChip = (e) => `${skillChip(e)}<span class="chip">${icon(typeOf(e)[1])} ${typeOf(e)[0]}</span>`;
 const rec = { id: null, mr: null, t0: 0 }; // one recording at a time
 /** Four bars, one per skill; null = nothing scored yet. */
@@ -237,7 +238,7 @@ function skillBank(s, sec, secs, cur) {
   const levels = [...new Set(pool.map(e => e.level).filter(Boolean))].sort();
   const pick = pool.filter(e => (!lui.skill || S.skillOf(e) === lui.skill) && (!lui.level || e.level === lui.level) && (!lui.unit || e.unitId === lui.unit));
   const count = (uid, k) => pool.filter(e => e.unitId === uid && S.skillOf(e) === k && (!lui.level || e.level === lui.level)).length;
-  const pack = pool.filter(e => e.pack === 'BE-B1');
+  const pack = pool.filter(e => e.pack);
   const packUnits = [...new Set(pack.map(e => e.unitId))];
   const sel = (k, opts, all) => `<select class="select select-sm" data-change="wbl-filter" data-k="${k}"><option value="">${all}</option>${opts.map(([v, l]) => `<option value="${v}" ${lui[k] === v ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select>`;
   const shown = pick.slice(0, 40);
@@ -246,7 +247,7 @@ function skillBank(s, sec, secs, cur) {
     html: `<div class="page">${pageHead('4-skill bank', `Every workbook exercise in ${esc(sec.code)}'s programme, tagged by language skill and CEFR level. Filter to build a lesson or a course for a target group.`, sectionPicker(secs))}
       ${wbTabs('skills')}
       <div class="grid">
-        <div class="span-7">${card({ title: 'Business English · Level 1 (CEFR B1)', subtitle: `Sample pack · ${packUnits.length} units × 4 skills · ${pack.length} exercises`, body: `<p class="small muted">One unit per core subject. Each unit has a reading text and a listening recording with auto-checked questions, a 1-minute speaking task recorded in the browser, and a short business email or memo. Speaking and writing go to your marking queue.</p>
+        <div class="span-7">${card({ title: 'English for Economics & Business · Level 1 (CEFR B1)', subtitle: `${packUnits.length} units · four skills plus vocabulary & grammar · ${pack.length} exercises`, body: `<p class="small muted">One unit per core subject. Each unit has a reading text and a listening recording with auto-checked questions, a 1-minute speaking task recorded in the browser, and a short business email or memo. Speaking and writing go to your marking queue.</p>
           <div class="row gap-2 wrap mt-3">${packUnits.map(uid => `<a class="btn btn-sm" href="#/instructor/workbook/${uid}">${uid} · ${esc(S.unitById(s, uid).title)}</a>`).join('')}</div>
           <button class="btn btn-primary btn-sm mt-3" data-action="wbl-filter-set" data-level="B1" data-skill="" data-unit="">${icon('filter')} Show the B1 pack</button>` })}</div>
         <div class="span-5">${card({ title: `Class ${esc(sec.code)} · four skills`, subtitle: 'Average score in released units', body: skillBars(S.skillProfile(s, sec.studentIds, S.releasedUnits(s, sec.id))) })}</div>

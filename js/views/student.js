@@ -2,7 +2,7 @@ import * as S from '../selectors.js';
 import { dispatch } from '../events.js';
 import { getState } from '../store.js';
 import { subjectChip, esc, icon, badge, kpi, card, empty, progress, pageHead, scoreText, TYPE_META, ASSESS_META, confirmDialog, toast, openModal, modalHead } from '../ui.js';
-import { termTimeline, timelineLegend, radarChart, BENCHMARK } from './shared.js';
+import { termTimeline, timelineLegend, radarChart, BENCHMARK, taskList } from './shared.js';
 import { marketSimHtml, startMarketSim } from '../features/market-sim.js';
 import { materialHtml, mountMaterials, resourceBody, RES_META } from './library.js';
 import { studentWorkbook, studentCases } from './workbook.js';
@@ -86,21 +86,11 @@ function dashboard(s, _id, me) {
 const LEVEL = { urgent: 'Do now', soon: 'This week', catchup: 'Catch up', missed: 'Missed', later: 'Coming up' };
 /** What to do next, colour-coded by urgency: red = now, orange = this week, blue = catch up, grey = coming up. */
 function tasksCard(s, tasks) {
-  const active = tasks.filter(t => !['later', 'missed'].includes(t.level));
-  const urgent = tasks.filter(t => t.level === 'urgent').length;
   // keep the list short: two oldest catch-up lessons, then one line for the rest
   const catchup = tasks.filter(t => t.level === 'catchup');
   let n = 0;
   tasks = tasks.flatMap(t => t.level !== 'catchup' ? [t] : ++n <= 2 ? [t] : n === 3 ? [{ level: 'catchup', icon: 'layers', title: `${catchup.length - 2} more unfinished lessons`, why: 'Finish earlier weeks to keep up with the class', href: '#/student/course', action: 'View all' }] : []);
-  const row = (t) => `<a class="task lv-${t.level}" href="${t.href}">
-      <span class="task-mark">${icon(t.icon)}</span>
-      <div class="grow"><div class="task-kicker">${LEVEL[t.level]}</div><div class="title">${esc(t.title)}</div><div class="meta">${esc(t.why)}</div>${t.pct !== undefined ? `<div class="task-bar">${progress(t.pct)}</div>` : ''}</div>
-      ${t.due ? `<span class="due-chip" title="Closes ${S.fmtDateTime(t.due)}" data-countdown="${t.due}">${S.countdown(s, t.due)}</span>` : t.opens ? `<span class="due-chip">Opens ${S.fmtDate(t.opens)}</span>` : ''}
-      <span class="btn btn-sm ${['urgent', 'soon'].includes(t.level) ? 'btn-primary' : ''}">${t.action} ${icon('arrow-right')}</span></a>`;
-  const summary = active.length ? `<span class="task-count ${urgent ? 'is-urgent' : ''}">${active.length}</span>` : `<span class="task-count is-done">${icon('check')}</span>`;
-  return `<section class="card tasks-card"><header class="card-head"><div class="row gap-3">${summary}<div><h3>What to do now</h3><p class="muted">${active.length ? `${active.length} things to do${urgent ? ` · ${urgent} urgent` : ''}` : 'All caught up'}</p></div></div>
-      <div class="row gap-3 wrap small task-legend">${['urgent', 'soon', 'catchup', 'later'].map(l => `<span class="lv-${l}"><i></i>${LEVEL[l]}</span>`).join('')}</div></header>
-    ${tasks.length ? `<div>${tasks.map(row).join('')}</div>` : `<div class="card-body">${empty('party-popper', 'Nothing left for this week', 'Revise in the workbook or read ahead in My course.')}</div>`}</section>`;
+  return taskList(s, tasks, LEVEL, { emptyTitle: 'Nothing left for this week', emptyText: 'Revise in the workbook or read ahead in My course.' });
 }
 
 function workbookCard(s, me) {
@@ -137,13 +127,13 @@ function blockBody(s, l, b) {
   const unit = S.unitById(s, l.unitId);
   const vocab = s.vocabulary.filter(v => v.unitId === l.unitId);
   switch (b.type) {
-    case 'theory': return `<div class="prose"><p><strong>Learning outcome.</strong> ${esc(unit.summary)}</p>${vocab.length ? `<p><strong>Key ideas:</strong></p><ul>${vocab.map(v => `<li><strong>${esc(v.term)}</strong> — ${esc(v.def)}</li>`).join('')}</ul>` : ''}<p class="small muted">Read the matching chapter of the ${esc(s.subjects[unit.subject].label)} course reader before class.</p></div>`;
+    case 'theory': return `<div class="prose"><p><strong>By the end of this lesson:</strong> ${esc(unit.summary)}</p>${vocab.length ? `<p><strong>Key words:</strong></p><ul>${vocab.map(v => `<li><strong>${esc(v.term)}</strong> — ${esc(v.def)}</li>`).join('')}</ul>` : ''}<p class="small muted">Read the unit text in your coursebook before class, then do the reading tasks in the workbook.</p></div>`;
     case 'vocabulary': return `<div class="stack gap-2">${vocab.length ? vocab.map(v => `<div class="block-row"><div class="grow"><div style="font-weight:600">${esc(v.term)} <span class="muted" style="font-weight:400">· ${esc(v.vi)}</span></div><div class="small muted">${esc(v.def)}</div></div><button class="btn btn-ghost btn-sm btn-icon" data-action="speak" data-text="${esc(v.term)}" aria-label="Pronounce ${esc(v.term)}">${icon('volume-2')}</button></div>`).join('') : '<p class="small muted">No key terms recorded for this unit yet.</p>'}</div>`;
-    case 'simulation': return `${marketSimHtml()}<p class="small muted mt-3">Try it: raise demand by +20, then add a price ceiling below the new equilibrium. What happens to the shortage? Then add a tax of 10 — who pays more of it?</p>`;
-    case 'calculation': return `<div class="prose">${unit.example ? `<div class="note note-info" style="font-size:14px">${icon('calculator')}<div>${esc(unit.example)}</div></div><p class="mt-3">Now change one number in the example (for instance the rate or the price) and recalculate. Compare your answer with a classmate.</p>` : '<p>Work through the exercises in the course reader for this unit.</p>'}</div>`;
+    case 'simulation': return `${marketSimHtml()}<p class="small muted mt-3">Move the sliders, then describe what you see in English. Useful language: “When demand rises, the price goes up.” “The price fell sharply.” “There is a shortage because…”. Say three sentences to a partner.</p>`;
+    case 'calculation': return `<div class="prose">${unit.example ? `<div class="note note-info" style="font-size:14px">${icon('spell-check')}<div>${esc(unit.example)}</div></div><p class="mt-3">Now write two sentences of your own with this language about a business you know. Compare them with a classmate.</p>` : '<p>Do the language-focus exercises for this unit in the workbook.</p>'}</div>`;
     case 'case_study': {
       const cases = s.resources.filter(c => c.type === 'case_study' && c.unitId === unit.id);
-      return `<div class="prose">${cases.length ? cases.map(c => `<p><strong>Case:</strong> ${esc(c.title)}</p>`).join('') : `<p><strong>Case discussion.</strong> Apply this unit to a business you know in Vietnam.</p>`}<p>In groups of three, prepare short answers:</p><ol><li>Which concept from this unit explains what is happening?</li><li>What data would you need to support your view?</li><li>What would you recommend to the manager, in two sentences?</li></ol></div>`;
+      return `<div class="prose">${cases.length ? cases.map(c => `<p><strong>Case:</strong> ${esc(c.title)}</p>`).join('') : `<p><strong>Speaking task.</strong> Talk about a business you know in Vietnam.</p>`}<p>In groups of three, speak in English:</p><ol><li>Summarise the situation in two sentences.</li><li>Use at least five key words from this unit.</li><li>Recommend one action: “I think they should… because…”.</li></ol></div>`;
     }
     case 'material': return materialHtml(s, b);
     case 'page': return pageGrid(s, b, { mode: 'student', me: S.currentUser(s) });

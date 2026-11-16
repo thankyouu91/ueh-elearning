@@ -14,7 +14,13 @@ Opens `http://localhost:3000`. No install step and no build step. Double-clickin
 
 Needs Node.js 16+ and an internet connection (icons, charts, fonts and the PDF reader load from CDNs). The server only accepts connections from this computer (`127.0.0.1`) and only serves files inside this folder. Demo data and uploaded files live in the browser, so a copy on another machine starts from the seed data. A ready-to-send copy is built at `dist/UEH-Learning-demo.zip` (without `.claude/`).
 
-## The idea: one Economics framework, tailored by each school
+## English for Specific Purposes
+
+The course is **English for Economics & Business · Level 1 (B1)**. Economics, accounting, finance, management and marketing are the *contexts*; the goal is English. Unit outcomes are can-do statements, the question bank tests vocabulary, grammar and comprehension, and case studies and group projects end in English output (a talk, an email, a short report).
+
+Two content sources run side by side on the UEH syllabus: licensed **coursebooks** (PDFs and page extracts, read-only, tied to the licence) and **UEH** material (written by lecturers, approved by the Dean). Library → *Content sources by unit* shows what each source covers and which skills are still missing; the lesson builder shows the share of each source.
+
+## The idea: one framework, tailored by each school
 
 - **Economics Foundation · Year 1** is the shared skeleton for the whole university: **16 units**, one per teaching week, split evenly across **4 core subjects** (Economics, Accounting, Finance, Management — 4 units each).
 - Each school adapts it for its programme with a **drag-and-drop curriculum designer**, pulling units from a shared library of 35 units (including Marketing):
@@ -26,7 +32,7 @@ Needs Node.js 16+ and an internet connection (icons, charts, fonts and the PDF r
 
 ## Course materials included
 
-- **Workbook** — 408 exercises, 17 for each of the 24 units: multiple choice, sort, put in order, calculate (auto-checked, worked solutions) and short written answers (marked by the lecturer with a model answer and 4-point guide). Each unit has a short Vietnamese mini-case with 3 questions. Extra content lives in `js/content/wb-*.js` (one file per subject).
+- **Workbook (ESP, CEFR B1)** — 408 exercises, 17 for each of the 24 units. The course teaches English in a business context, not the business subject: every item is tagged Reading, Listening, Speaking, Writing or Vocabulary & grammar. Reading and listening have a text or an audio transcript with questions (auto-checked); speaking is recorded and writing is typed, both marked by the lecturer on content, organisation and language. No calculation items. Content lives in `js/content/` (one file per context strand).
 - **Case studies** — 8 full cases set in Vietnam with data exhibits, 26 tasks, and teaching notes (lesson plan, key points, extension).
 - **Exam set** — complete locked finals for Economics and Accounting & Finance; a Marketing final in draft for live co-editing; a common quiz in review.
 - **Lecturer side** — lecturer edition of every unit and case with class statistics, a marking queue, and printable student / lecturer editions (`#/print/...`, "Save as PDF").
