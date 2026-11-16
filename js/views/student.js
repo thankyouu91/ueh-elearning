@@ -129,8 +129,8 @@ function blockBody(s, l, b) {
   const vocab = s.vocabulary.filter(v => v.unitId === l.unitId);
   switch (b.type) {
     case 'theory': return `<div class="prose"><p><strong>By the end of this lesson:</strong> ${esc(unit.summary)}</p>${vocab.length ? `<p><strong>Key words:</strong></p><ul>${vocab.map(v => `<li><strong>${esc(v.term)}</strong> — ${esc(v.def)}</li>`).join('')}</ul>` : ''}<p class="small muted">Read the unit text in your coursebook before class, then do the reading tasks in the workbook.</p></div>`;
-    case 'vocabulary': return `<div class="stack gap-3">${vocab.length ? vocab.map(v => `<div class="voc-item"><div class="row gap-2"><strong>${esc(v.term)}</strong>${v.pos ? `<span class="chip voc-pos">${esc(v.pos)}</span>` : ''}<span class="muted">· ${esc(v.vi)}</span><span class="grow"></span><button class="btn btn-ghost btn-sm btn-icon" data-action="speak" data-text="${esc(v.term)}" aria-label="Pronounce ${esc(v.term)}">${icon('volume-2')}</button></div>
-      <div class="small muted mt-2">${esc(v.def)}</div>${v.family ? `<div class="small faint mt-2">${esc(v.family)}</div>` : ''}${v.example ? `<p class="voc-example small mt-2">${markTerm(v.example, v.term)}</p>` : ''}</div>`).join('') : '<p class="small muted">No key words recorded for this unit yet.</p>'}</div>`;
+    case 'vocabulary': return `<div class="stack gap-3">${vocab.length ? vocab.map(v => `<div class="voc-item"><div class="row gap-2"><strong>${esc(v.term)}</strong>${v.pos ? `<span class="chip voc-pos">${esc(v.pos)}</span>` : ''}<span class="muted">${esc(v.vi)}</span><span class="grow"></span><button class="btn btn-ghost btn-sm btn-icon" data-action="speak" data-text="${esc(v.term)}" aria-label="Pronounce ${esc(v.term)}">${icon('volume-2')}</button></div>
+      <div class="small muted mt-2">${esc(v.def)}</div>${v.family ? `<div class="small faint mt-2">${parts(v.family).map(esc).join(', ')}</div>` : ''}${v.example ? `<p class="voc-example small mt-2">${markTerm(v.example, v.term)}</p>` : ''}</div>`).join('') : '<p class="small muted">No key words recorded for this unit yet.</p>'}</div>`;
     case 'simulation': return `${marketSimHtml()}<p class="small muted mt-3">Move the sliders, then describe what you see in English. Useful language: “When demand rises, the price goes up.” “The price fell sharply.” “There is a shortage because…”. Say three sentences to a partner.</p>`;
     case 'calculation': return `<div class="prose">${unit.example ? `<div class="note note-info" style="font-size:14px">${icon('spell-check')}<div>${esc(unit.example)}</div></div><p class="mt-3">Now write two sentences of your own with this language about a business you know. Compare them with a classmate.</p>` : '<p>Do the language-focus exercises for this unit in the workbook.</p>'}</div>`;
     case 'case_study': {
@@ -288,6 +288,13 @@ const VOCAB_STEPS = [
   ['Meaning', 'languages'],
   ['Use it in a sentence', 'pen-line'],
 ];
+/** The seed joins list fields with "·"; split them so the screen can show real items. */
+const parts = (s) => String(s || '').split('·').map(x => x.trim()).filter(Boolean);
+// A grammar pattern mixes words the student types as they are with slots they fill themselves.
+const SLOT = /(verb|simple|continuous|perfect|adjective|adverb|noun|participle|infinitive|gerund|clause|amount|figure|number|period|date|time|comparative|superlative|subject|object|phrase|\.\.\.)/i;
+/** Draws one pattern as coloured blocks: solid = write this word, dashed = put your own word here. */
+const formulaHtml = (pattern) => `<div class="formula">${String(pattern).split(/\s*([+,])\s*/).filter(Boolean)
+  .map(tok => tok === '+' || tok === ',' ? `<span class="f-sep">${tok}</span>` : `<span class="${SLOT.test(tok) ? 'f-slot' : 'f-word'}">${esc(tok)}</span>`).join('')}</div>`;
 /** Highlights the term inside its example sentence, whatever its case. */
 function markTerm(sentence, term) {
   const t = esc(sentence); const needle = esc(term);
@@ -301,12 +308,12 @@ function vocabulary(s) {
   const unit = S.unitById(s, v.unitId);
   const missing = '<span class="faint">Not recorded yet</span>';
   const bodies = [
-    `<div class="voc-term">${esc(v.term)}</div><div class="small muted">${esc(unit.id)} · ${esc(unit.title)}</div>
+    `<div class="voc-term">${esc(v.term)}</div><div class="small muted">${esc(unit.id)} ${esc(unit.title)}</div>
       <button class="btn btn-sm mt-3" data-action="speak" data-text="${esc(v.term)}">${icon('volume-2')} Listen</button>`,
-    v.pos ? `<span class="chip voc-pos">${esc(v.pos)}</span><div class="mt-2">${esc(v.family || '')}</div>` : missing,
+    v.pos ? `<span class="chip voc-pos">${esc(v.pos)}</span>${v.family ? `<ul class="gr-examples mt-3">${parts(v.family).map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}` : missing,
     `<div><strong>English:</strong> ${esc(v.def)}</div><div class="mt-2"><strong>Tiếng Việt:</strong> ${esc(v.vi)}</div>`,
     v.example ? `<p class="voc-example">${markTerm(v.example, v.term)}</p>
-      ${v.collocations ? `<div class="small mt-3"><strong>Words that go with it:</strong> ${esc(v.collocations)}</div>` : ''}
+      ${v.collocations ? `<div class="small mt-3"><strong>Words that go with it:</strong><ul class="gr-examples mt-2">${parts(v.collocations).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}
       <p class="small muted mt-3">Now write one sentence of your own with this word.</p>` : missing,
   ];
   const steps = VOCAB_STEPS.map(([label, ic], i) => {
@@ -345,7 +352,8 @@ function grammar(s, _id, me) {
   // practice comes from the unit's own vocabulary & grammar exercises, and opens when the class reaches that unit
   const drills = released ? S.unitExercises(s, g.unitId).filter(e => S.skillOf(e) === 'U') : [];
   const bodies = [
-    `<div class="gr-form">${esc(g.form)}</div>`,
+    `${parts(g.form).map(formulaHtml).join('')}
+      <p class="small muted mt-3"><span class="f-word">Dark block</span> = write this word exactly. <span class="f-slot">Dashed block</span> = put your own word here.</p>`,
     `<div>${esc(g.use)}</div><div class="mt-2 muted">${esc(g.useVi)}</div>`,
     `<ul class="gr-examples">${g.examples.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
       <div class="note note-warn mt-3">${icon('triangle-alert')}<div>${esc(g.watchOut)}</div></div>`,
@@ -364,7 +372,7 @@ function grammar(s, _id, me) {
   return {
     title: 'Grammar',
     html: `<div class="page">${pageHead('Grammar', `${s.grammar.length} grammar points · one for each unit, with examples and practice`, `<select class="select select-sm" data-change="gr-unit" aria-label="Subject"><option value="all">All subjects</option>${Object.entries(s.subjects).map(([k, v]) => `<option value="${k}" ${gr.unit === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select>`)}
-      <div class="grid"><div class="span-7">${card({ title: `${esc(g.name)} · ${esc(g.vi)}`, subtitle: `${esc(unit.id)} ${esc(unit.title)}`, body: `
+      <div class="grid"><div class="span-7">${card({ title: esc(g.name), subtitle: `${esc(g.vi)} — ${esc(unit.id)} ${esc(unit.title)}`, body: `
         <ol class="voc-steps">${steps}</ol>
         <div class="row between gap-2 mt-4"><button class="btn" data-action="gr-move" data-d="-1" ${gr.idx === 0 ? 'disabled' : ''}>${icon('arrow-left')} Previous point</button>
           ${more ? `<button class="btn btn-primary" data-action="gr-step">${icon('chevron-down')} Show the next step</button>`

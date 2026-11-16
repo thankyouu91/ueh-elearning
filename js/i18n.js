@@ -512,3 +512,4 @@ PATTERNS.unshift(
   [/^(\d+) exercises from (\S+)\. Check each answer as you go\.$/, '$1 bài tập của unit $2. Làm tới đâu kiểm tra đáp án tới đó.'],
   [/^Practice opens when your class reaches (\S+)\.$/, 'Phần luyện tập mở khi lớp học đến unit $1.'],
 );
+Object.assign(VI, { 'Dark block': 'Ô tô đậm', '= write this word exactly.': '= viết đúng từ này.', 'Dashed block': 'Ô nét đứt', '= put your own word here.': '= thay bằng từ của bạn.' });
