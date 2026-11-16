@@ -5,7 +5,7 @@ import { subjectChip, esc, icon, badge, kpi, card, empty, progress, pageHead, sc
 import { termTimeline, timelineLegend, radarChart, BENCHMARK, taskList } from './shared.js';
 import { marketSimHtml, startMarketSim } from '../features/market-sim.js';
 import { materialHtml, mountMaterials, resourceBody, RES_META } from './library.js';
-import { studentWorkbook, studentCases } from './workbook.js';
+import { studentWorkbook, studentCases, studentExercise } from './workbook.js';
 import { pageGrid, mountMedia } from './bento.js';
 
 export const NAV = [
@@ -19,6 +19,7 @@ export const NAV = [
   { page: 'workbook', label: 'Workbook', icon: 'notebook-pen' },
   { page: 'cases', label: 'Case studies', icon: 'briefcase', also: ['case'] },
   { page: 'vocabulary', label: 'Vocabulary', icon: 'languages' },
+  { page: 'grammar', label: 'Grammar', icon: 'spell-check' },
   { header: 'Timetable' },
   { page: 'calendar', label: 'Calendar', icon: 'calendar-days' },
   { page: 'live', label: 'Live class', icon: 'radio' },
@@ -326,6 +327,52 @@ function vocabulary(s) {
   };
 }
 
+/* ---------------- grammar ---------------- */
+const gr = { unit: 'all', idx: 0, step: 1 };
+const GRAMMAR_STEPS = [
+  ['How it is built', 'blocks'],
+  ['When to use it', 'circle-help'],
+  ['Examples in business', 'messages-square'],
+  ['Your turn: practise it', 'pen-line'],
+];
+function grammar(s, _id, me) {
+  const list = s.grammar.filter(g => gr.unit === 'all' || S.unitById(s, g.unitId).subject === gr.unit);
+  if (!list.length) return { title: 'Grammar', html: `<div class="page">${pageHead('Grammar')}${card({ body: empty('spell-check', 'No grammar points yet') })}</div>` };
+  gr.idx = Math.min(gr.idx, list.length - 1);
+  const g = list[gr.idx];
+  const unit = S.unitById(s, g.unitId);
+  const released = S.releasedUnits(s, me.sectionId).includes(g.unitId);
+  // practice comes from the unit's own vocabulary & grammar exercises, and opens when the class reaches that unit
+  const drills = released ? S.unitExercises(s, g.unitId).filter(e => S.skillOf(e) === 'U') : [];
+  const bodies = [
+    `<div class="gr-form">${esc(g.form)}</div>`,
+    `<div>${esc(g.use)}</div><div class="mt-2 muted">${esc(g.useVi)}</div>`,
+    `<ul class="gr-examples">${g.examples.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      <div class="note note-warn mt-3">${icon('triangle-alert')}<div>${esc(g.watchOut)}</div></div>`,
+    released
+      ? (drills.length ? `<p class="small muted">${drills.length} exercises from ${esc(unit.id)}. Check each answer as you go.</p>
+          <div class="stack gap-3 mt-3">${drills.map((e, i) => studentExercise(s, e, i + 1, S.answerOf(s, me.id, e.id))).join('')}</div>`
+        : '<p class="small muted">No exercises for this unit yet.</p>')
+      : `<p class="small muted">${icon('lock')} Practice opens when your class reaches ${esc(unit.id)}.</p>`,
+  ];
+  const steps = GRAMMAR_STEPS.map(([label, ic], i) => {
+    const open = i < gr.step;
+    return `<li class="voc-step ${open ? 'open' : ''}"><span class="voc-num">${open ? icon(ic) : i + 1}</span>
+      <div class="grow"><div class="voc-label">${label}</div>${open ? `<div class="voc-body">${bodies[i]}</div>` : ''}</div></li>`;
+  }).join('');
+  const more = gr.step < GRAMMAR_STEPS.length;
+  return {
+    title: 'Grammar',
+    html: `<div class="page">${pageHead('Grammar', `${s.grammar.length} grammar points · one for each unit, with examples and practice`, `<select class="select select-sm" data-change="gr-unit" aria-label="Subject"><option value="all">All subjects</option>${Object.entries(s.subjects).map(([k, v]) => `<option value="${k}" ${gr.unit === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select>`)}
+      <div class="grid"><div class="span-7">${card({ title: `${esc(g.name)} · ${esc(g.vi)}`, subtitle: `${esc(unit.id)} ${esc(unit.title)}`, body: `
+        <ol class="voc-steps">${steps}</ol>
+        <div class="row between gap-2 mt-4"><button class="btn" data-action="gr-move" data-d="-1" ${gr.idx === 0 ? 'disabled' : ''}>${icon('arrow-left')} Previous point</button>
+          ${more ? `<button class="btn btn-primary" data-action="gr-step">${icon('chevron-down')} Show the next step</button>`
+            : `<button class="btn btn-primary" data-action="gr-move" data-d="1" ${gr.idx >= list.length - 1 ? 'disabled' : ''}>Next point ${icon('arrow-right')}</button>`}</div>` })}</div>
+      <div class="span-5">${card({ title: 'All grammar points', flush: true, body: `<div class="list" style="max-height:520px;overflow-y:auto">${list.map((x, i) => `<button class="list-item" data-action="gr-go" data-i="${i}" style="${i === gr.idx ? 'background:var(--brand-soft)' : ''}"><span class="faint small" style="width:28px">${esc(x.unitId)}</span><div class="grow"><div class="title small">${esc(x.name)}</div><div class="meta truncate">${esc(x.vi)}</div></div></button>`).join('')}</div>` })}</div></div></div>`,
+  };
+}
+
 /* ---------------- grades ---------------- */
 function grades(s, _id, me) {
   const g = S.courseGrade(s, me.id);
@@ -378,7 +425,7 @@ function join(s, code, me) {
   return { title: 'Join a class', html: `<div class="page">${pageHead('Join a class', 'Type the 6-character code your lecturer sent you, or open their link.')}${card({ body: form })}${found}</div>` };
 }
 
-export const ROUTES = { join, dashboard, course, lesson, workbook: studentWorkbook, cases: studentCases, case: studentCases, assessments, exam: examPage, result, vocabulary, grades, calendar, live };
+export const ROUTES = { join, dashboard, course, lesson, workbook: studentWorkbook, cases: studentCases, case: studentCases, assessments, exam: examPage, result, vocabulary, grammar, grades, calendar, live };
 
 /* ---------------- actions ---------------- */
 function speak(text) {
@@ -448,6 +495,10 @@ export const actions = {
     if (ok) submitExam();
   },
   'fc-step': () => { fc.step = Math.min(fc.step + 1, VOCAB_STEPS.length); rerender(); },
+  'gr-step': () => { gr.step = Math.min(gr.step + 1, GRAMMAR_STEPS.length); rerender(); },
+  'gr-move': (el) => { gr.idx += Number(el.dataset.d); gr.step = 1; rerender(); },
+  'gr-go': (el) => { gr.idx = Number(el.dataset.i); gr.step = 1; rerender(); },
+  'gr-unit': (el) => { gr.unit = el.value; gr.idx = 0; gr.step = 1; rerender(); },
   'fc-move': (el) => { fc.idx += Number(el.dataset.d); fc.step = 1; logFlashcard(); rerender(); },
   'fc-go': (el) => { fc.idx = Number(el.dataset.i); fc.step = 1; rerender(); },
   'fc-unit': (el) => { fc.unit = el.value; fc.idx = 0; fc.step = 1; rerender(); },

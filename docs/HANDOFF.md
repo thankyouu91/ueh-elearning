@@ -39,3 +39,6 @@ Checked in the browser, except recording with a real microphone.
 ## Vocabulary method (2026-11-16)
 
 Each `VOCAB` row in `js/seed.js` is `[term, vi, def, unitId, pos, family, example, collocations]`. The student page `#/student/vocabulary` reveals one word in four steps — the word, what kind of word it is, its meaning in English and Vietnamese, then the word in a sentence with its collocations. The `vocabulary` lesson block shows the same four things in a list. The old flip card and its CSS are gone. State version 13.
+## Grammar reference (2026-11-16)
+
+`GRAMMAR` in `js/seed.js` holds one point per unit, 24 rows: `[id, unitId, name, vi, form, use, useVi, examples, watchOut]`. The student page `#/student/grammar` (sidebar, under Vocabulary) reveals it in four steps — the pattern, when to use it, three business examples with a common-mistake warning, then practice. Practice reuses the unit's own `skill: 'U'` exercises through `studentExercise`, and stays locked until the class reaches that unit. State version 14.

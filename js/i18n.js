@@ -501,3 +501,14 @@ Object.assign(VI, { 'The word': 'Từ cần học', 'What kind of word': 'Đây 
   'noun': 'danh từ', 'verb': 'động từ', 'adjective': 'tính từ', 'adverb': 'trạng từ', 'noun phrase': 'cụm danh từ', 'phrase': 'cụm từ' });
 PATTERNS.unshift([/^Word (\d+) of (\d+)$/, 'Từ $1/$2'], [/^(\d+) business terms$/, '$1 thuật ngữ kinh doanh']);
 PATTERNS.unshift([/^(\d+) business words · learn each one in four steps$/, '$1 từ chuyên ngành · học mỗi từ theo bốn bước']);
+
+// grammar reference: how it is built, when to use it, examples, practice
+Object.assign(VI, { 'Grammar': 'Ngữ pháp', 'How it is built': 'Cấu trúc', 'When to use it': 'Khi nào dùng', 'Examples in business': 'Ví dụ trong kinh doanh',
+  'Your turn: practise it': 'Đến lượt bạn: luyện tập', 'Show the next step': 'Xem bước tiếp theo', 'Previous point': 'Mục trước', 'Next point': 'Mục tiếp theo',
+  'All grammar points': 'Tất cả mục ngữ pháp', 'No grammar points yet': 'Chưa có mục ngữ pháp nào', 'No exercises for this unit yet.': 'Unit này chưa có bài tập.',
+  'Check each answer as you go.': 'Làm tới đâu kiểm tra đáp án tới đó.' });
+PATTERNS.unshift(
+  [/^(\d+) grammar points · one for each unit, with examples and practice$/, '$1 mục ngữ pháp · mỗi unit một mục, kèm ví dụ và bài luyện'],
+  [/^(\d+) exercises from (\S+)\. Check each answer as you go\.$/, '$1 bài tập của unit $2. Làm tới đâu kiểm tra đáp án tới đó.'],
+  [/^Practice opens when your class reaches (\S+)\.$/, 'Phần luyện tập mở khi lớp học đến unit $1.'],
+);
