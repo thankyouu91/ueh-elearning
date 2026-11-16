@@ -44,7 +44,7 @@ function dashboard(s, _id, me) {
 
   const kpis = `<div class="grid">
     <div class="span-3">${kpi({ label: 'Course grade', value: g.value === null ? '—' : `${g.value.toFixed(1)}<small> / 10</small>`, sub: g.provisional ? 'Provisional — final not taken yet' : 'Final', iconName: 'award', tone: g.value !== null && g.value < 5 ? 'danger' : '' })}</div>
-    <div class="span-3">${kpi({ label: 'Study time this week', value: S.fmtMinutes(weekMin), sub: `${weekMin >= lastWeekMin ? '+' : '−'}${S.fmtMinutes(Math.abs(weekMin - lastWeekMin))} vs last week · ${S.fmtMinutes(S.studyMinutes(s, me.id))} total`, iconName: 'clock' })}</div>
+    <div class="span-3">${kpi({ label: 'Study time this week', value: S.fmtMinutes(weekMin), sub: `${weekMin >= lastWeekMin ? '+' : '−'}${S.fmtMinutes(Math.abs(weekMin - lastWeekMin))} vs last week, ${S.fmtMinutes(S.studyMinutes(s, me.id))} total`, iconName: 'clock' })}</div>
     <div class="span-3">${kpi({ label: 'Engagement', value: eng === null ? '—' : `${eng}%`, sub: 'Lesson activities completed', iconName: 'activity', tone: eng !== null && eng < 60 ? 'danger' : 'ok' })}</div>
     <div class="span-3">${kpi({ label: 'Due in 7 days', value: String(todo.filter(x => x.st === 'open').length), sub: missing.length ? `<span class="t-danger">${missing.length} missed</span>` : 'Nothing missed', iconName: 'calendar-clock', tone: urgent || missing.length ? 'danger' : todo.length ? 'warn' : 'ok' })}</div>
   </div>`;
@@ -54,27 +54,27 @@ function dashboard(s, _id, me) {
   const continueCard = next ? (() => {
     const p = S.lessonProgress(s, me.id, next);
     const pct = Math.round((p.done / p.total) * 100);
-    return card({ title: 'Continue learning', subtitle: `Week ${next.week} · ${esc(S.unitById(s, next.unitId).title)}`, body: `
+    return card({ title: 'Continue learning', subtitle: `Week ${next.week}, ${esc(S.unitById(s, next.unitId).title)}`, body: `
       <div class="row gap-4 wrap"><div class="grow" style="min-width:240px"><h3 style="font-size:17px">${esc(next.title)}</h3><p class="muted mt-2">${esc(next.summary)}</p>
       <div class="row gap-3 mt-3">${progress(pct, pct === 100 ? 'ok' : '')}<span class="small muted" style="white-space:nowrap">${p.done}/${p.total} activities</span></div></div>
       <a class="btn btn-primary" href="#/student/lesson/${next.id}">${pct ? 'Resume' : 'Start'} lesson ${icon('arrow-right')}</a></div>` });
   })() : card({ title: 'Continue learning', body: empty('book-open', 'No lessons yet', 'Lessons appear here once they are published.') });
 
-  const weekList = card({ title: `This week · week ${s.clock.week}`, flush: true, body: thisWeek.length ? `<div class="list">${thisWeek.map(l => {
+  const weekList = card({ title: `This week, week ${s.clock.week}`, flush: true, body: thisWeek.length ? `<div class="list">${thisWeek.map(l => {
     const p = S.lessonProgress(s, me.id, l);
-    return `<a class="list-item" href="#/student/lesson/${l.id}"><span class="li-icon accent">${icon('book-open')}</span><div class="grow"><div class="title">${esc(l.title)}</div><div class="meta">${S.lessonMinutes(l)} min · ${p.done}/${p.total} done</div></div>${p.done === p.total ? badge('graded', 'Completed') : ''}</a>`;
+    return `<a class="list-item" href="#/student/lesson/${l.id}"><span class="li-icon accent">${icon('book-open')}</span><div class="grow"><div class="title">${esc(l.title)}</div><div class="meta">${S.lessonMinutes(l)} min, ${p.done}/${p.total} done</div></div>${p.done === p.total ? badge('graded', 'Completed') : ''}</a>`;
   }).join('')}</div>` : empty('calendar', 'No lesson published for this week yet') });
 
 
   const breakdown = card({ title: 'Grade breakdown', subtitle: 'Weighted by the course grading scheme', body: `<div class="stack gap-3">${s.course.gradingScheme.categories.map(c => {
     const v = g.breakdown[c.key];
-    return `<div><div class="row between small"><span>${c.label} <span class="faint">· ${Math.round(c.weight * 100)}%</span></span><span>${v === null ? '<span class="faint">No results yet</span>' : `<strong>${v.toFixed(1)}</strong> / 10`}</span></div><div class="mt-2">${progress(v === null ? 0 : v * 10, v !== null && v < 5 ? 'danger' : '')}</div></div>`;
+    return `<div><div class="row between small"><span>${c.label} <span class="faint">${Math.round(c.weight * 100)}%</span></span><span>${v === null ? '<span class="faint">No results yet</span>' : `<strong>${v.toFixed(1)}</strong> / 10`}</span></div><div class="mt-2">${progress(v === null ? 0 : v * 10, v !== null && v < 5 ? 'danger' : '')}</div></div>`;
   }).join('')}</div>` });
 
   return {
     title: 'Dashboard',
     html: `<div class="page">
-      ${pageHead(`Hello, ${esc(me.name.split(' ').slice(-1)[0])}`, `${esc(sec.code)} · ${esc(s.course.title)}`)}
+      ${pageHead(`Hello, ${esc(me.name.split(' ').slice(-1)[0])}`, `${esc(sec.code)}, ${esc(s.course.title)}`)}
       ${riskNote}${tasksCard(s, tasks)}${kpis}
       <div class="grid"><div class="span-8 stack gap-4">${continueCard}${weekList}</div><div class="span-4 stack gap-4">${workbookCard(s, me)}</div></div>
       <div class="grid"><div class="span-5">${card({ title: 'My competencies', subtitle: '% correct by skill vs. programme benchmark', body: Object.keys(comp).length ? '<div class="chart-box"><canvas id="st-radar"></canvas></div>' : empty('radar', 'No graded work yet') })}</div><div class="span-7">${breakdown}</div></div>
@@ -98,7 +98,7 @@ function workbookCard(s, me) {
   const rel = S.releasedUnits(s, me.sectionId);
   const p = S.workbookProgress(s, me.id, rel);
   const next = rel.find(u => S.workbookProgress(s, me.id, [u]).pct < 100);
-  return card({ title: 'Workbook', subtitle: `${p.done}/${p.total} exercises${p.accuracy !== null ? ` · ${p.accuracy}% accuracy` : ''}`, body: `${progress(p.pct, p.pct === 100 ? 'ok' : '')}<div class="row between mt-3"><span class="small muted">${p.pending ? `${p.pending} written answer(s) waiting for marking` : 'Practise every unit you have studied'}</span>${next ? `<a class="btn btn-sm btn-primary" href="#/student/workbook/${next}">Continue ${next}</a>` : ''}</div>` });
+  return card({ title: 'Workbook', subtitle: `${p.done}/${p.total} exercises${p.accuracy !== null ? `, ${p.accuracy}% accuracy` : ''}`, body: `${progress(p.pct, p.pct === 100 ? 'ok' : '')}<div class="row between mt-3"><span class="small muted">${p.pending ? `${p.pending} written answer(s) waiting for marking` : 'Practise every unit you have studied'}</span>${next ? `<a class="btn btn-sm btn-primary" href="#/student/workbook/${next}">Continue ${next}</a>` : ''}</div>` });
 }
 
 /* ---------------- course ---------------- */
@@ -109,13 +109,13 @@ function course(s, _id, me) {
   const counts = S.subjectCounts(s, cur);
   return {
     title: 'My course',
-    html: `<div class="page">${pageHead('My course', `${esc(S.orgById(s, prog.id).name)} · ${esc(s.course.title)} · ${lessons.length} of ${cur.length} units released`)}
-      <div class="row gap-2 wrap">${Object.entries(counts).filter(([, n]) => n).map(([k, n]) => `<span class="chip">${subjectChip(s, k)} ${s.subjects[k].label} · ${n} units</span>`).join('')}</div>
+    html: `<div class="page">${pageHead('My course', `${esc(S.orgById(s, prog.id).name)}, ${esc(s.course.title)}, ${lessons.length} of ${cur.length} units released`)}
+      <div class="row gap-2 wrap">${Object.entries(counts).filter(([, n]) => n).map(([k, n]) => `<span class="chip">${subjectChip(s, k)} ${s.subjects[k].label}, ${n} units</span>`).join('')}</div>
       ${card({ title: 'Year plan', subtitle: 'One unit per week', flush: true, body: `<div class="list">${cur.map((uid, i) => {
         const u = S.unitById(s, uid); const l = lessons.find(x => x.week === i + 1);
         if (!l) return `<div class="list-item"><span class="faint small" style="width:34px">W${i + 1}</span>${subjectChip(s, u.subject)}<div class="grow"><div class="title" style="color:var(--text-2)">${esc(u.title)}</div><div class="meta">${i + 1 > s.clock.week ? `Opens ${S.fmtDate(S.weekStartOf(s, i + 1))}` : 'Not released yet'}</div></div>${icon('lock', 'faint')}</div>`;
         const p = S.lessonProgress(s, me.id, l);
-        return `<a class="list-item" href="#/student/lesson/${l.id}"><span class="faint small" style="width:34px">W${i + 1}</span>${subjectChip(s, u.subject)}<div class="grow"><div class="title">${esc(l.title)}</div><div class="meta">${S.lessonMinutes(l)} min · ${p.done}/${p.total} activities</div></div><div style="width:120px" class="hide-sm">${progress((p.done / p.total) * 100, p.done === p.total ? 'ok' : '')}</div></a>`;
+        return `<a class="list-item" href="#/student/lesson/${l.id}"><span class="faint small" style="width:34px">W${i + 1}</span>${subjectChip(s, u.subject)}<div class="grow"><div class="title">${esc(l.title)}</div><div class="meta">${S.lessonMinutes(l)} min, ${p.done}/${p.total} activities</div></div><div style="width:120px" class="hide-sm">${progress((p.done / p.total) * 100, p.done === p.total ? 'ok' : '')}</div></a>`;
       }).join('')}</div>` })}
     </div>`,
   };
@@ -167,10 +167,10 @@ function lesson(s, id, me) {
   return {
     title: l.title,
     html: `<div class="page">
-      ${pageHead(esc(l.title), `Week ${l.week} · ${esc(S.unitById(s, l.unitId).title)} · ${S.lessonMinutes(l)} min`, `<a class="btn" href="#/student/course">${icon('arrow-left')} Course</a>`)}
+      ${pageHead(esc(l.title), `Week ${l.week}, ${esc(S.unitById(s, l.unitId).title)}, ${S.lessonMinutes(l)} min`, `<a class="btn" href="#/student/course">${icon('arrow-left')} Course</a>`)}
       <div class="player">
-        ${card({ title: 'Activities', subtitle: `${prog.done}/${prog.total} completed`, flush: true, body: `<div>${l.blocks.map((x, i) => `<button class="step ${i === player.idx ? 'active' : ''} ${prog.doneIds.has(x.id) ? 'done' : ''}" data-action="goto-block" data-i="${i}"><span class="st">${prog.doneIds.has(x.id) ? icon('check') : `<span class="small">${i + 1}</span>`}</span><div class="grow"><div class="small" style="font-weight:600">${esc(x.title)}</div><div class="small faint">${TYPE_META[x.type].label} · ${x.minutes} min</div></div></button>`).join('')}</div>` })}
-        ${card({ title: `${icon(TYPE_META[b.type].icon)} ${esc(b.title)}`, subtitle: `${TYPE_META[b.type].label} · planned ${b.minutes} min`, actions: done ? badge('graded', 'Completed') : '', body: `${blockBody(s, l, b)}
+        ${card({ title: 'Activities', subtitle: `${prog.done}/${prog.total} completed`, flush: true, body: `<div>${l.blocks.map((x, i) => `<button class="step ${i === player.idx ? 'active' : ''} ${prog.doneIds.has(x.id) ? 'done' : ''}" data-action="goto-block" data-i="${i}"><span class="st">${prog.doneIds.has(x.id) ? icon('check') : `<span class="small">${i + 1}</span>`}</span><div class="grow"><div class="small" style="font-weight:600">${esc(x.title)}</div><div class="small faint">${TYPE_META[x.type].label}, ${x.minutes} min</div></div></button>`).join('')}</div>` })}
+        ${card({ title: `${icon(TYPE_META[b.type].icon)} ${esc(b.title)}`, subtitle: `${TYPE_META[b.type].label}, planned ${b.minutes} min`, actions: done ? badge('graded', 'Completed') : '', body: `${blockBody(s, l, b)}
           <div class="row between mt-4" style="border-top:1px solid var(--border);padding-top:14px">
             <button class="btn" data-action="goto-block" data-i="${player.idx - 1}" ${player.idx === 0 ? 'disabled' : ''}>${icon('arrow-left')} Previous</button>
             ${done ? `<button class="btn btn-primary" data-action="goto-block" data-i="${player.idx + 1}" ${player.idx >= l.blocks.length - 1 ? 'disabled' : ''}>Next ${icon('arrow-right')}</button>`
@@ -215,7 +215,7 @@ function examPage(s, id, me) {
     const can = st === 'open' && att.length < a.maxAttempts;
     return {
       title: a.title,
-      html: `<div class="page" style="max-width:760px">${pageHead(esc(a.title), `${ASSESS_META[a.type].label}${a.origin === 'standardized' ? ' · Standardized' : ''}`, `<a class="btn" href="#/student/assessments">${icon('arrow-left')} Assessments</a>`)}
+      html: `<div class="page" style="max-width:760px">${pageHead(esc(a.title), `${ASSESS_META[a.type].label}${a.origin === 'standardized' ? ', Standardized' : ''}`, `<a class="btn" href="#/student/assessments">${icon('arrow-left')} Assessments</a>`)}
         ${card({ body: `<div class="grid" style="gap:12px">
           <div class="span-3"><div class="small muted">Questions</div><strong>${a.questionIds.length}</strong></div>
           <div class="span-3"><div class="small muted">Time limit</div><strong>${a.timeLimitMin ? `${a.timeLimitMin} min` : 'None'}</strong></div>
@@ -267,14 +267,14 @@ function result(s, id, me) {
   const a = S.assessmentById(s, at.assessmentId);
   const ten = S.round1((at.score / at.maxScore) * 10);
   return {
-    title: `Result · ${a.title}`,
+    title: `Result, ${a.title}`,
     html: `<div class="page" style="max-width:820px">${pageHead(`Result: ${esc(a.title)}`, `Submitted ${S.fmtDateTime(at.submittedAt)}`, `<a class="btn" href="#/student/assessments">${icon('arrow-left')} Assessments</a>`)}
       <div class="grid"><div class="span-4">${kpi({ label: 'Score', value: `${ten.toFixed(1)}<small> / 10</small>`, sub: `${at.score} of ${at.maxScore} correct`, iconName: 'award', tone: ten < 5 ? 'danger' : 'ok' })}</div>
       <div class="span-4">${kpi({ label: 'Course grade now', value: (S.courseGrade(s, me.id).value ?? 0).toFixed(1), sub: 'Updated with this result', iconName: 'chart-column' })}</div>
       <div class="span-4">${kpi({ label: 'Time taken', value: `${Math.max(1, Math.round((new Date(at.submittedAt) - new Date(at.startedAt)) / 60000))} min`, sub: a.timeLimitMin ? `Limit ${a.timeLimitMin} min` : '', iconName: 'timer' })}</div></div>
       ${card({ title: 'Review answers', body: a.questionIds.map((qid, i) => {
         const q = S.questionById(s, qid); const pick = at.answers[qid];
-        return `<div class="q-card"><div class="q-stem">${i + 1}. ${esc(q.stem)} ${pick === q.answerIndex ? badge('graded', 'Correct') : badge('missing', pick === undefined ? 'Not answered' : 'Incorrect')}</div>${q.options.map((o, oi) => `<div class="opt ${oi === q.answerIndex ? 'correct' : pick === oi ? 'wrong' : ''}" style="cursor:default">${oi === q.answerIndex ? icon('check') : pick === oi ? icon('x') : icon('circle', 'faint')} ${esc(o)}</div>`).join('')}<div class="small faint mt-2">Skill: ${q.competencyTag} · ${q.bloomLevel}</div></div>`;
+        return `<div class="q-card"><div class="q-stem">${i + 1}. ${esc(q.stem)} ${pick === q.answerIndex ? badge('graded', 'Correct') : badge('missing', pick === undefined ? 'Not answered' : 'Incorrect')}</div>${q.options.map((o, oi) => `<div class="opt ${oi === q.answerIndex ? 'correct' : pick === oi ? 'wrong' : ''}" style="cursor:default">${oi === q.answerIndex ? icon('check') : pick === oi ? icon('x') : icon('circle', 'faint')} ${esc(o)}</div>`).join('')}<div class="small faint mt-2">Skill: ${q.competencyTag}, ${q.bloomLevel}</div></div>`;
       }).join('') })}</div>`,
   };
 }
@@ -324,7 +324,7 @@ function vocabulary(s) {
   const more = fc.step < VOCAB_STEPS.length;
   return {
     title: 'Vocabulary',
-    html: `<div class="page">${pageHead('Vocabulary trainer', `${s.vocabulary.length} business words · learn each one in four steps`, `<select class="select select-sm" data-change="fc-unit"><option value="all">All subjects</option>${Object.entries(s.subjects).map(([k, v]) => `<option value="${k}" ${fc.unit === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select>`)}
+    html: `<div class="page">${pageHead('Vocabulary trainer', `${s.vocabulary.length} business words, learn each one in four steps`, `<select class="select select-sm" data-change="fc-unit"><option value="all">All subjects</option>${Object.entries(s.subjects).map(([k, v]) => `<option value="${k}" ${fc.unit === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select>`)}
       <div class="grid"><div class="span-7">${card({ title: `Word ${fc.idx + 1} of ${list.length}`, subtitle: 'One step at a time: the word, what kind of word it is, what it means, how to use it', body: `
         <ol class="voc-steps">${steps}</ol>
         <div class="row between gap-2 mt-4"><button class="btn" data-action="fc-move" data-d="-1" ${fc.idx === 0 ? 'disabled' : ''}>${icon('arrow-left')} Previous word</button>
@@ -371,7 +371,7 @@ function grammar(s, _id, me) {
   const more = gr.step < GRAMMAR_STEPS.length;
   return {
     title: 'Grammar',
-    html: `<div class="page">${pageHead('Grammar', `${s.grammar.length} grammar points · one for each unit, with examples and practice`, `<select class="select select-sm" data-change="gr-unit" aria-label="Subject"><option value="all">All subjects</option>${Object.entries(s.subjects).map(([k, v]) => `<option value="${k}" ${gr.unit === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select>`)}
+    html: `<div class="page">${pageHead('Grammar', `${s.grammar.length} grammar points, one for each unit, with examples and practice`, `<select class="select select-sm" data-change="gr-unit" aria-label="Subject"><option value="all">All subjects</option>${Object.entries(s.subjects).map(([k, v]) => `<option value="${k}" ${gr.unit === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select>`)}
       <div class="grid"><div class="span-7">${card({ title: esc(g.name), subtitle: `${esc(g.vi)} — ${esc(unit.id)} ${esc(unit.title)}`, body: `
         <ol class="voc-steps">${steps}</ol>
         <div class="row between gap-2 mt-4"><button class="btn" data-action="gr-move" data-d="-1" ${gr.idx === 0 ? 'disabled' : ''}>${icon('arrow-left')} Previous point</button>
@@ -388,8 +388,8 @@ function grades(s, _id, me) {
   return {
     title: 'Grades',
     html: `<div class="page">${pageHead('Grades', 'How your course grade is calculated')}
-      <div class="grid"><div class="span-4">${kpi({ label: 'Course grade', value: g.value === null ? '—' : `${g.value.toFixed(1)}<small> / 10</small>`, sub: `${g.provisional ? 'Provisional · ' : ''}pass mark ${s.course.gradingScheme.passMark.toFixed(1)}`, iconName: 'award', tone: g.value !== null && g.value < 5 ? 'danger' : 'ok' })}</div>
-      <div class="span-8">${card({ title: 'Weights', body: `<div class="row gap-2 wrap">${s.course.gradingScheme.categories.map(c => `<span class="chip">${c.label} ${Math.round(c.weight * 100)}% · ${g.breakdown[c.key] === null ? '—' : g.breakdown[c.key].toFixed(1)}</span>`).join('')}</div><p class="small muted mt-3">Categories without results are left out and their weight is shared among the others until results arrive. Missed assessments count as 0.</p>` })}</div></div>
+      <div class="grid"><div class="span-4">${kpi({ label: 'Course grade', value: g.value === null ? '—' : `${g.value.toFixed(1)}<small> / 10</small>`, sub: `${g.provisional ? 'Provisional, ' : ''}pass mark ${s.course.gradingScheme.passMark.toFixed(1)}`, iconName: 'award', tone: g.value !== null && g.value < 5 ? 'danger' : 'ok' })}</div>
+      <div class="span-8">${card({ title: 'Weights', body: `<div class="row gap-2 wrap">${s.course.gradingScheme.categories.map(c => `<span class="chip">${c.label} ${Math.round(c.weight * 100)}%, ${g.breakdown[c.key] === null ? '—' : g.breakdown[c.key].toFixed(1)}</span>`).join('')}</div><p class="small muted mt-3">Categories without results are left out and their weight is shared among the others until results arrive. Missed assessments count as 0.</p>` })}</div></div>
       ${card({ flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th>Assessment</th><th>Category</th><th>Closes</th><th>Status</th><th class="num">Score</th></tr></thead><tbody>${list.map(a => {
         const r = S.assessmentResult(s, me.id, a);
         return `<tr><td>${esc(a.title)}</td><td>${ASSESS_META[a.type].label}</td><td>${S.fmtDate(a.closesAt)}</td><td>${badge(r.state === 'graded' || r.state === 'missing' || r.state === 'awaiting_grade' ? r.state : S.assessmentStatus(s, a))}</td><td class="num">${scoreText(r.value)}</td></tr>`;
@@ -399,7 +399,7 @@ function grades(s, _id, me) {
 
 /* ---------------- calendar & live ---------------- */
 function calendar(s, _id, me) {
-  return { title: 'Calendar', html: `<div class="page">${pageHead('Calendar', `${esc(s.term.title)} · ${s.term.weeks} weeks`)}${card({ actions: timelineLegend(), title: 'Term timeline', flush: true, body: termTimeline(s, { sections: [S.sectionById(s, me.sectionId)], viewer: 'student' }) })}</div>` };
+  return { title: 'Calendar', html: `<div class="page">${pageHead('Calendar', `${esc(s.term.title)}, ${s.term.weeks} weeks`)}${card({ actions: timelineLegend(), title: 'Term timeline', flush: true, body: termTimeline(s, { sections: [S.sectionById(s, me.sectionId)], viewer: 'student' }) })}</div>` };
 }
 const reactionsLog = [];
 function live(s, _id, me) {
@@ -411,7 +411,7 @@ function live(s, _id, me) {
   const checks = onScreen.map(t => { const mine = x.answers?.[t.id]?.[me.id]; return `<div class="live-check"><div class="q-stem">${esc(t.prompt)}</div>${t.options.map((o, i) => mine === undefined ? `<button class="opt" data-action="live-answer" data-tile="${t.id}" data-o="${i}"><span class="mono small">${'ABCD'[i]}</span> ${esc(o)}</button>` : `<div class="opt ${mine === i ? 'picked' : ''}"><span class="mono small">${'ABCD'[i]}</span> ${esc(o)}</div>`).join('')}${mine === undefined ? '' : '<p class="small">Answer sent — watch the screen for the result.</p>'}</div>`; }).join('');
   return {
     title: 'Live class',
-    html: `<div class="page">${pageHead('Live class', `${esc(l.title)} · ${esc(S.userById(s, x.startedBy).name)}`)}
+    html: `<div class="page">${pageHead('Live class', `${esc(l.title)}, ${esc(S.userById(s, x.startedBy).name)}`)}
       ${joined ? `<div class="live-stage"><span class="badge b-danger">${icon('radio')} Live</span><h2>${esc(l.title)}</h2><p style="color:#9fb2b7">Follow the slides on the classroom screen. Use reactions to respond.</p>${checks}
           <div class="row gap-2"><button class="btn" data-action="react" data-r="👏 Clap">👏</button><button class="btn" data-action="react" data-r="✋ Question">✋ Question</button><button class="btn" data-action="react" data-r="👍 Understood">👍 Understood</button></div>
           <div class="reactions" id="reactions"></div></div>`
@@ -425,7 +425,7 @@ function join(s, code, me) {
   const sec = code ? S.classByCode(s, code) : null;
   const cur = S.sectionById(s, me.sectionId);
   const form = `<form class="row gap-2 wrap" data-submit="class-join-find"><input class="input mono join-input" name="code" placeholder="ABC123" maxlength="6" autocomplete="off" value="${esc(code || '')}" required aria-label="Class code"><button class="btn btn-primary">${icon('search')} Find class</button></form>`;
-  const found = sec ? card({ title: esc(sec.code), subtitle: `${esc(S.orgById(s, sec.programId).name)} · ${esc(s.course.title)}`, body: `<div class="stack gap-3">
+  const found = sec ? card({ title: esc(sec.code), subtitle: `${esc(S.orgById(s, sec.programId).name)}, ${esc(s.course.title)}`, body: `<div class="stack gap-3">
       <div class="row gap-3 wrap small"><span class="chip">${icon('user')} ${esc(S.userById(s, sec.leadId).name)}</span><span class="chip">${icon('users')} ${sec.studentIds.length} students</span>${S.joinCodeOf(sec) !== String(code).toUpperCase() ? `<span class="chip">${icon('corner-down-right')} Moved from a cancelled class</span>` : ''}</div>
       ${sec.id === me.sectionId ? `<div class="note note-ok">${icon('circle-check')}<div>You are already in this class.</div></div>`
         : `${cur ? `<div class="note note-info">${icon('info')}<div><span>Current class:</span> <strong>${esc(cur.code)}</strong> → <strong>${esc(sec.code)}</strong><div class="small">Joining moves you out of your current class.</div></div></div>` : ''}<div><button class="btn btn-primary" data-action="class-join" data-code="${esc(code)}">${icon('log-in')} Join ${esc(sec.code)}</button></div>`}</div>` })
@@ -451,7 +451,7 @@ export const actions = {
     const s = getState(); const l = S.lessonById(s, el.dataset.lesson); const b = l?.blocks.find(x => x.id === el.dataset.block);
     if (!b) return;
     const body = l.unitId || b.type === 'page' ? blockBody(s, l, b) : '<p class="muted">Choose a teaching week first — block content comes from the unit.</p>';
-    openModal(`${modalHead(`${icon(TYPE_META[b.type].icon)} ${esc(b.title)}`, `${TYPE_META[b.type].label} · ${b.minutes} min · ${esc(l.title)}${l.unitId ? ` · ${l.unitId}` : ''}`)}<div class="modal-body"><div class="note note-info small" style="display:block">${icon('eye')} Student view</div>${body}</div>`, { wide: true });
+    openModal(`${modalHead(`${icon(TYPE_META[b.type].icon)} ${esc(b.title)}`, `${TYPE_META[b.type].label}, ${b.minutes} min, ${esc(l.title)}${l.unitId ? `, ${l.unitId}` : ''}`)}<div class="modal-body"><div class="note note-info small" style="display:block">${icon('eye')} Student view</div>${body}</div>`, { wide: true });
     if (b.type === 'simulation') startMarketSim();
     if (b.type === 'material') mountMaterials(s);
     if (b.type === 'page') mountMedia(document.getElementById('modal-root'));

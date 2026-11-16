@@ -258,7 +258,7 @@ const H = {
     if (published.length) parts.push(`${published.length} lesson${published.length > 1 ? 's' : ''} published`);
     if (opened.length) parts.push(`${opened.map(x => x.title).join(', ')} opened`);
     if (closed.length) parts.push(`${closed.length} assessment${closed.length > 1 ? 's' : ''} closed`);
-    return { audit: [parts.join(' · '), 'term', s.term.id], toast: parts.join(' · '), actorOverride: 'system' };
+    return { audit: [parts.join(', '), 'term', s.term.id], toast: parts.join(', '), actorOverride: 'system' };
   },
 
   ASSESSMENT_CREATED(s, a, p, eventId) {
@@ -384,7 +384,7 @@ const H = {
     if (pr?.status !== 'submitted') fail('Nothing awaiting approval');
     const t = S.now(s).toISOString();
     const n = 50 + prog.versions.length;
-    prog.versions.push({ id: `${prog.id}-K${n}`, label: `Intake K${n} · ${2026 + prog.versions.length}`, unitIds: [...pr.unitIds], status: 'approved', approvedBy: a.id, approvedAt: t, rationale: pr.rationale });
+    prog.versions.push({ id: `${prog.id}-K${n}`, label: `Intake K${n}, ${2026 + prog.versions.length}`, unitIds: [...pr.unitIds], status: 'approved', approvedBy: a.id, approvedAt: t, rationale: pr.rationale });
     pr.history.push({ at: t, by: a.id, action: 'Approved' });
     prog.proposal = null;
     const name = S.orgById(s, prog.id).name;
@@ -443,7 +443,7 @@ const H = {
   MODULE_CREATED(s, a, p) {
     const prog = S.programById(s, p.programId) || fail('Choose a programme');
     const v = S.activeVersion(prog);
-    const m = { id: newId('MOD'), title: p.title?.trim() || `${S.orgById(s, prog.id).name} · Year 1`, programId: prog.id, versionId: v.id, ownerId: a.id,
+    const m = { id: newId('MOD'), title: p.title?.trim() || `${S.orgById(s, prog.id).name}, Year 1`, programId: prog.id, versionId: v.id, ownerId: a.id,
       weeks: v.unitIds.map((u, i) => ({ week: i + 1, lessonId: p.autofill ? (S.bankLessonsFor(s, u, a.id)[0]?.id || null) : null, extras: [] })),
       sectionIds: [], status: 'draft', note: null, updatedAt: S.now(s).toISOString(), history: [{ at: S.now(s).toISOString(), by: a.id, action: 'Created module plan' }] };
     s.modules.push(m);
@@ -481,7 +481,7 @@ const H = {
     if (!m.sectionIds.every(id => S.canManageSection(s, a, id))) fail('This module includes classes outside your school');
     const r = instantiateModule(s, a, m, eventId);
     m.status = 'locked';
-    m.history.push({ at: S.now(s).toISOString(), by: a.id, action: `Approved and locked · ${r.created} lessons created, ${r.kept} already running kept` });
+    m.history.push({ at: S.now(s).toISOString(), by: a.id, action: `Approved and locked, ${r.created} lessons created, ${r.kept} already running kept` });
     notify(s, [m.ownerId, ...m.sectionIds.flatMap(id => S.instructorsOfSection(s, id))], 'Module approved & locked', `"${m.title}" is locked for ${m.sectionIds.map(id => S.sectionById(s, id).code).join(', ')}. ${r.created} lessons scheduled.`, '#/instructor/modules', eventId);
     checkAtRisk(s);
     return { audit: [`Approved module "${m.title}" (${r.created} lessons scheduled)`, 'module', m.id], toast: `Locked — ${r.created} lessons scheduled, ${r.kept} running lessons kept` };
@@ -722,7 +722,7 @@ const H = {
     if (userId) notify(s, [userId], 'New teaching assignment', `${a.name} assigned you to ${label} in ${sec.code}.`, '#/instructor/dashboard', eventId);
     if (prev) notify(s, [prev], 'Teaching assignment changed', `You no longer teach ${label} in ${sec.code}.`, '#/instructor/dashboard', eventId);
     const load = userId ? S.lecturerLoad(s, userId) : null;
-    return { audit: [`${sec.code} · ${label}: ${prev ? S.userById(s, prev).name : 'unassigned'} → ${userId ? S.userById(s, userId).name : 'unassigned'}`, 'section', sec.id],
+    return { audit: [`${sec.code}, ${label}: ${prev ? S.userById(s, prev).name : 'unassigned'} → ${userId ? S.userById(s, userId).name : 'unassigned'}`, 'section', sec.id],
       toast: load?.over ? `Assigned — ${S.userById(s, userId).name} is now at ${load.hours}h (limit ${s.staffing.maxHours}h)` : 'Assignment saved', tone: load?.over ? 'warn' : 'ok' };
   },
   WORKBOOK_ANSWERED(s, a, p) {

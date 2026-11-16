@@ -34,7 +34,7 @@ export const skillBars = (p) => `<div class="skill-bars">${Object.entries(S.SKIL
 function statusChip(e, a) {
   if (!a) return '<span class="chip">Not started</span>';
   if (e.type === 'written') return a.status === 'graded' ? badge(a.score >= 3 ? 'ok' : a.score >= 2 ? 'warn' : 'danger', `Marked ${a.score}/4`) : badge('info', 'Waiting for marking');
-  return a.correct ? badge('ok', a.tries === 1 ? 'Correct first try' : 'Correct') : badge('warn', `Try again · ${a.tries} tries`);
+  return a.correct ? badge('ok', a.tries === 1 ? 'Correct first try' : 'Correct') : badge('warn', `Try again, ${a.tries} tries`);
 }
 
 /* ---------------- exercise card: student ---------------- */
@@ -43,10 +43,10 @@ function caseIntro(list, i, print = false, lecturer = false) {
   const sc = list[i].scenario;
   if (!sc || list[i - 1]?.scenario?.id === sc.id) return '';
   const n = list.filter(e => e.scenario?.id === sc.id).length;
-  if (sc.audio) return print ? `<div class="doc-instr"><strong>Listening · ${esc(sc.title)}</strong><br>${lecturer ? esc(sc.audio) : 'Listen to the recording, then answer.'}</div>`
-    : `<div class="mini-case"><div class="mini-case-kicker">${icon('headphones', 'ic-xs')} Listening · ${n} questions</div><h3>${esc(sc.title)}</h3><div class="row gap-2 wrap"><button class="btn btn-sm" data-action="bento-speak" data-text="${esc(sc.audio)}">${icon('play')} Play recording</button><span class="small faint">Listen up to twice, then answer.</span></div>${lecturer ? `<details class="mt-2"><summary class="small">Transcript</summary><p class="small">${esc(sc.audio)}</p></details>` : ''}</div>`;
-  return print ? `<div class="doc-instr"><strong>Case · ${esc(sc.title)}</strong><br>${esc(sc.text)}</div>`
-    : `<div class="mini-case"><div class="mini-case-kicker">${icon('briefcase', 'ic-xs')} Case · ${n} questions</div><h3>${esc(sc.title)}</h3><p>${esc(sc.text)}</p></div>`;
+  if (sc.audio) return print ? `<div class="doc-instr"><strong>Listening, ${esc(sc.title)}</strong><br>${lecturer ? esc(sc.audio) : 'Listen to the recording, then answer.'}</div>`
+    : `<div class="mini-case"><div class="mini-case-kicker">${icon('headphones', 'ic-xs')} Listening, ${n} questions</div><h3>${esc(sc.title)}</h3><div class="row gap-2 wrap"><button class="btn btn-sm" data-action="bento-speak" data-text="${esc(sc.audio)}">${icon('play')} Play recording</button><span class="small faint">Listen up to twice, then answer.</span></div>${lecturer ? `<details class="mt-2"><summary class="small">Transcript</summary><p class="small">${esc(sc.audio)}</p></details>` : ''}</div>`;
+  return print ? `<div class="doc-instr"><strong>Case, ${esc(sc.title)}</strong><br>${esc(sc.text)}</div>`
+    : `<div class="mini-case"><div class="mini-case-kicker">${icon('briefcase', 'ic-xs')} Case, ${n} questions</div><h3>${esc(sc.title)}</h3><p>${esc(sc.text)}</p></div>`;
 }
 
 export function studentExercise(s, e, n, a) {
@@ -90,7 +90,7 @@ export function studentExercise(s, e, n, a) {
     const words = String(v).trim().split(/\s+/).filter(Boolean).length;
     const locked = a?.status === 'graded';
     body = `<textarea class="textarea" style="min-height:120px" data-change="wb-text" data-id="${e.id}" ${locked ? 'disabled' : ''} placeholder="Write your answer (about ${e.words} words)">${esc(v)}</textarea>
-      <div class="row between small mt-2"><span class="faint">${words} words · aim for ${e.words}</span>${locked ? '' : `<button class="btn btn-primary btn-sm" data-action="wb-submit" data-id="${e.id}">${icon('send')} ${a ? 'Resubmit' : 'Submit to lecturer'}</button>`}</div>
+      <div class="row between small mt-2"><span class="faint">${words} words, aim for ${e.words}</span>${locked ? '' : `<button class="btn btn-primary btn-sm" data-action="wb-submit" data-id="${e.id}">${icon('send')} ${a ? 'Resubmit' : 'Submit to lecturer'}</button>`}</div>
       ${a?.status === 'graded' ? `<div class="note ${a.score >= 3 ? 'note-ok' : 'note-warn'} mt-3">${icon('message-square')}<div><strong>${a.score}/4</strong>${a.feedback ? ` — ${esc(a.feedback)}` : ''}<div class="small mt-2">Model answer: ${esc(e.model)}</div></div></div>` : ''}`;
   }
   const res = lastCheck[e.id];
@@ -114,7 +114,7 @@ export function lecturerExercise(s, e, n, st) {
   return `<section class="card ex-card"><div class="card-body">
     <div class="row between gap-2 wrap"><div class="row gap-2"><span class="q-num">${n}</span><strong>${esc(e.title)}</strong></div><div class="row gap-2">${typeChip(e)}
       ${st ? `<span class="chip" title="Attempted">${icon('users')} ${st.attempted}/${st.of}</span>${st.pct !== null ? `<span class="chip ${st.pct < 60 ? 't-danger' : ''}">${icon('target')} ${st.pct}% ${e.type === 'written' ? 'avg mark' : 'correct'}</span>` : ''}${st.firstTry !== null && e.type !== 'written' ? `<span class="chip">${st.firstTry}% first try</span>` : ''}${st.pending ? badge('warn', `${st.pending} to mark`) : ''}` : ''}</div></div>
-    <p class="mt-3">${esc(e.prompt)}</p>${e.type === 'classify' ? `<p class="small muted">Categories: ${e.categories.map(esc).join(' · ')}</p>` : ''}
+    <p class="mt-3">${esc(e.prompt)}</p>${e.type === 'classify' ? `<p class="small muted">Categories: ${e.categories.map(esc).join(', ')}</p>` : ''}
     <div class="answer-box mt-3">${answerHtml(e)}</div></div></section>`;
 }
 
@@ -129,11 +129,11 @@ export function studentWorkbook(s, unitId, u) {
     const pr = S.workbookProgress(s, u.id, [unitId]);
     const cases = S.fullCases(s).filter(c => c.unitId === unitId);
     return {
-      title: `Workbook · ${unit.id}`,
-      html: `<div class="page" style="max-width:900px">${pageHead(`${esc(unit.id)} · ${esc(unit.title)}`, `Workbook · week ${cur.indexOf(unitId) + 1} · ${ex.length} exercises`, `<a class="btn" href="#/student/workbook">${icon('arrow-left')} Workbook</a><a class="btn" href="#/print/workbook/${unit.id}" target="_blank">${icon('printer')} Print</a>`)}
-        <div class="row gap-3 wrap">${subjectChip(s, unit.subject)}<div style="width:220px">${progress(pr.pct, pr.pct === 100 ? 'ok' : '')}</div><span class="small muted">${pr.done}/${pr.total} done${pr.accuracy !== null ? ` · ${pr.accuracy}% accuracy` : ''}${pr.pending ? ` · ${pr.pending} waiting for marking` : ''}</span></div>
+      title: `Workbook, ${unit.id}`,
+      html: `<div class="page" style="max-width:900px">${pageHead(`${esc(unit.id)}, ${esc(unit.title)}`, `Workbook, week ${cur.indexOf(unitId) + 1}, ${ex.length} exercises`, `<a class="btn" href="#/student/workbook">${icon('arrow-left')} Workbook</a><a class="btn" href="#/print/workbook/${unit.id}" target="_blank">${icon('printer')} Print</a>`)}
+        <div class="row gap-3 wrap">${subjectChip(s, unit.subject)}<div style="width:220px">${progress(pr.pct, pr.pct === 100 ? 'ok' : '')}</div><span class="small muted">${pr.done}/${pr.total} done${pr.accuracy !== null ? `, ${pr.accuracy}% accuracy` : ''}${pr.pending ? `, ${pr.pending} waiting for marking` : ''}</span></div>
         ${ex.map((e, i) => caseIntro(ex, i) + studentExercise(s, e, i + 1, S.answerOf(s, u.id, e.id))).join('')}
-        ${cases.length ? card({ title: 'Case study for this unit', flush: true, body: `<div class="list">${cases.map(c => `<a class="list-item" href="#/student/case/${c.id}"><span class="li-icon accent">${icon('briefcase')}</span><div class="grow"><div class="title">${esc(c.title)}</div><div class="meta">${c.minutes} min · ${S.caseTasks(s, c.id).length} tasks</div></div>${icon('chevron-right', 'faint')}</a>`).join('')}</div>` }) : ''}
+        ${cases.length ? card({ title: 'Case study for this unit', flush: true, body: `<div class="list">${cases.map(c => `<a class="list-item" href="#/student/case/${c.id}"><span class="li-icon accent">${icon('briefcase')}</span><div class="grow"><div class="title">${esc(c.title)}</div><div class="meta">${c.minutes} min, ${S.caseTasks(s, c.id).length} tasks</div></div>${icon('chevron-right', 'faint')}</a>`).join('')}</div>` }) : ''}
       </div>`,
       mount: () => mountMedia(),
     };
@@ -145,10 +145,10 @@ export function studentWorkbook(s, unitId, u) {
       <div class="grid"><div class="span-4">${kpi({ label: 'Completed', value: `${all.pct}%`, sub: `${all.done} of ${all.total} exercises in released units`, iconName: 'book-check' })}</div>
         <div class="span-4">${kpi({ label: 'Accuracy', value: all.accuracy === null ? '—' : `${all.accuracy}%`, sub: 'Auto-checked and marked work', iconName: 'target', tone: all.accuracy !== null && all.accuracy < 60 ? 'warn' : 'ok' })}</div>
         <div class="span-4">${kpi({ label: 'Waiting for marking', value: String(all.pending), sub: 'Written and spoken answers', iconName: 'hourglass' })}</div></div>
-      ${card({ title: 'My four skills', subtitle: 'Average score in released units · reading and listening are auto-checked; speaking and writing are marked by your lecturer', body: skillBars(S.skillProfile(s, [u.id], released)) })}
+      ${card({ title: 'My four skills', subtitle: 'Average score in released units, reading and listening are auto-checked; speaking and writing are marked by your lecturer', body: skillBars(S.skillProfile(s, [u.id], released)) })}
       ${card({ title: 'Units', flush: true, body: `<div class="list">${cur.map((uid, i) => {
         const unit = S.unitById(s, uid); const open = released.includes(uid); const p = S.workbookProgress(s, u.id, [uid]);
-        return open ? `<a class="list-item" href="#/student/workbook/${uid}"><span class="faint small" style="width:34px">W${i + 1}</span>${subjectChip(s, unit.subject)}<div class="grow"><div class="title">${esc(unit.title)}</div><div class="meta">${p.done}/${p.total} done${p.accuracy !== null ? ` · ${p.accuracy}%` : ''}${p.pending ? ` · ${p.pending} waiting` : ''}</div></div><div style="width:120px" class="hide-sm">${progress(p.pct, p.pct === 100 ? 'ok' : '')}</div></a>`
+        return open ? `<a class="list-item" href="#/student/workbook/${uid}"><span class="faint small" style="width:34px">W${i + 1}</span>${subjectChip(s, unit.subject)}<div class="grow"><div class="title">${esc(unit.title)}</div><div class="meta">${p.done}/${p.total} done${p.accuracy !== null ? `, ${p.accuracy}%` : ''}${p.pending ? `, ${p.pending} waiting` : ''}</div></div><div style="width:120px" class="hide-sm">${progress(p.pct, p.pct === 100 ? 'ok' : '')}</div></a>`
           : `<div class="list-item"><span class="faint small" style="width:34px">W${i + 1}</span>${subjectChip(s, unit.subject)}<div class="grow"><div class="title" style="color:var(--text-2)">${esc(unit.title)}</div><div class="meta">Opens ${S.fmtDate(S.weekStartOf(s, i + 1))}</div></div>${icon('lock', 'faint')}</div>`;
       }).join('')}</div>` })}</div>`,
   };
@@ -169,7 +169,7 @@ export function studentCases(s, id, u) {
     const tasks = S.caseTasks(s, c.id);
     return {
       title: c.title,
-      html: `<div class="page" style="max-width:1100px">${pageHead(esc(c.title), `Case study · ${c.unitId} · about ${c.minutes} minutes`, `<a class="btn" href="#/student/cases">${icon('arrow-left')} Cases</a><a class="btn" href="#/print/case/${c.id}" target="_blank">${icon('printer')} Print</a>`)}
+      html: `<div class="page" style="max-width:1100px">${pageHead(esc(c.title), `Case study, ${c.unitId}, about ${c.minutes} minutes`, `<a class="btn" href="#/student/cases">${icon('arrow-left')} Cases</a><a class="btn" href="#/print/case/${c.id}" target="_blank">${icon('printer')} Print</a>`)}
         ${bentoGrid(s, c, { mode: 'student', me: u })}</div>`,
       mount: () => mountMedia(),
     };
@@ -179,8 +179,8 @@ export function studentCases(s, id, u) {
     title: 'Case studies',
     html: `<div class="page">${pageHead('Case studies', 'Real business situations with data. Calculate, analyse and recommend.')}
       <div class="case-grid">${list.map(c => { const open = released.includes(c.unitId); const t = S.caseTasks(s, c.id); const done = t.filter(e => S.answerOf(s, u.id, e.id)).length; const unit = S.unitById(s, c.unitId);
-        return `<${open ? `a href="#/student/case/${c.id}"` : 'div'} class="case-card ${open ? '' : 'locked'}"><div class="row gap-2">${subjectChip(s, unit.subject)}<span class="chip">${c.unitId} · week ${units.indexOf(c.unitId) + 1}</span></div><h3>${esc(c.title)}</h3><p class="small muted">${esc(c.body.slice(0, 140))}…</p>
-          <div class="row between small"><span>${icon('clock')} ${c.minutes} min · ${t.length} tasks</span>${open ? `<span>${done}/${t.length} done</span>` : `<span class="faint">${icon('lock')} Opens week ${units.indexOf(c.unitId) + 1}</span>`}</div></${open ? 'a' : 'div'}>`; }).join('')}</div></div>`,
+        return `<${open ? `a href="#/student/case/${c.id}"` : 'div'} class="case-card ${open ? '' : 'locked'}"><div class="row gap-2">${subjectChip(s, unit.subject)}<span class="chip">${c.unitId}, week ${units.indexOf(c.unitId) + 1}</span></div><h3>${esc(c.title)}</h3><p class="small muted">${esc(c.body.slice(0, 140))}…</p>
+          <div class="row between small"><span>${icon('clock')} ${c.minutes} min, ${t.length} tasks</span>${open ? `<span>${done}/${t.length} done</span>` : `<span class="faint">${icon('lock')} Opens week ${units.indexOf(c.unitId) + 1}</span>`}</div></${open ? 'a' : 'div'}>`; }).join('')}</div></div>`,
   };
 }
 
@@ -203,8 +203,8 @@ export function lecturerWorkbook(s, unitId, u) {
     const unit = S.unitById(s, unitId);
     const ex = S.unitExercises(s, unitId);
     return {
-      title: `Lecturer edition · ${unitId}`,
-      html: `<div class="page" style="max-width:980px">${pageHead(`${esc(unit.id)} · ${esc(unit.title)}`, `Lecturer edition · answers, solutions, marking guide · class ${esc(sec.code)}`, `<a class="btn" href="#/instructor/workbook">${icon('arrow-left')} Workbook</a><a class="btn" href="#/print/workbook/${unit.id}" target="_blank">${icon('printer')} Student edition</a><a class="btn btn-primary" href="#/print/workbook/${unit.id}?ed=lecturer" target="_blank">${icon('printer')} Lecturer edition</a>`)}
+      title: `Lecturer edition, ${unitId}`,
+      html: `<div class="page" style="max-width:980px">${pageHead(`${esc(unit.id)}, ${esc(unit.title)}`, `Lecturer edition, answers, solutions, marking guide, class ${esc(sec.code)}`, `<a class="btn" href="#/instructor/workbook">${icon('arrow-left')} Workbook</a><a class="btn" href="#/print/workbook/${unit.id}" target="_blank">${icon('printer')} Student edition</a><a class="btn btn-primary" href="#/print/workbook/${unit.id}?ed=lecturer" target="_blank">${icon('printer')} Lecturer edition</a>`)}
         <div class="note note-info">${icon('presentation')}<div><strong>Teaching tip:</strong> set the auto-checked exercises as homework before class; use class time for the written task and the case study. Exercises with low % correct are worth reviewing together.</div></div>
         ${ex.map((e, i) => caseIntro(ex, i, false, true) + lecturerExercise(s, e, i + 1, S.exerciseStats(s, e.id, studs))).join('')}</div>`,
       mount: () => mountMedia(),
@@ -224,7 +224,7 @@ export function lecturerWorkbook(s, unitId, u) {
   const queue = S.pendingMarking(s, [sec], u.id).length;
   return {
     title: 'Workbook',
-    html: `<div class="page">${pageHead('Workbook', `Lecturer edition for ${esc(sec.code)} · ${s.exercises.filter(e => !e.caseId && cur.includes(e.unitId)).length} exercises in this programme`, `${sectionPicker(secs)}${queue ? `<button class="btn btn-primary" data-action="wbl-mark-next" data-section="${sec.id}">${icon('clipboard-pen')} Mark ${sec.code} (${queue})</button>` : ''}`)}
+    html: `<div class="page">${pageHead('Workbook', `Lecturer edition for ${esc(sec.code)}, ${s.exercises.filter(e => !e.caseId && cur.includes(e.unitId)).length} exercises in this programme`, `${sectionPicker(secs)}${queue ? `<button class="btn btn-primary" data-action="wbl-mark-next" data-section="${sec.id}">${icon('clipboard-pen')} Mark ${sec.code} (${queue})</button>` : ''}`)}
       ${wbTabs('wb')}
       ${card({ flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th class="num">Week</th><th>Unit</th><th class="num">Exercises</th><th>Class completion</th><th class="num">Accuracy</th><th class="num">To mark</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>` })}</div>`,
   };
@@ -247,15 +247,15 @@ function skillBank(s, sec, secs, cur) {
     html: `<div class="page">${pageHead('4-skill bank', `Every workbook exercise in ${esc(sec.code)}'s programme, tagged by language skill and CEFR level. Filter to build a lesson or a course for a target group.`, sectionPicker(secs))}
       ${wbTabs('skills')}
       <div class="grid">
-        <div class="span-7">${card({ title: 'English for Economics & Business · Level 1 (CEFR B1)', subtitle: `${packUnits.length} units · four skills plus vocabulary & grammar · ${pack.length} exercises`, body: `<p class="small muted">One unit per core subject. Each unit has a reading text and a listening recording with auto-checked questions, a 1-minute speaking task recorded in the browser, and a short business email or memo. Speaking and writing go to your marking queue.</p>
-          <div class="row gap-2 wrap mt-3">${packUnits.map(uid => `<a class="btn btn-sm" href="#/instructor/workbook/${uid}">${uid} · ${esc(S.unitById(s, uid).title)}</a>`).join('')}</div>
+        <div class="span-7">${card({ title: 'English for Economics & Business, Level 1 (CEFR B1)', subtitle: `${packUnits.length} units, four skills plus vocabulary & grammar, ${pack.length} exercises`, body: `<p class="small muted">One unit per core subject. Each unit has a reading text and a listening recording with auto-checked questions, a 1-minute speaking task recorded in the browser, and a short business email or memo. Speaking and writing go to your marking queue.</p>
+          <div class="row gap-2 wrap mt-3">${packUnits.map(uid => `<a class="btn btn-sm" href="#/instructor/workbook/${uid}">${uid}, ${esc(S.unitById(s, uid).title)}</a>`).join('')}</div>
           <button class="btn btn-primary btn-sm mt-3" data-action="wbl-filter-set" data-level="B1" data-skill="" data-unit="">${icon('filter')} Show the B1 pack</button>` })}</div>
-        <div class="span-5">${card({ title: `Class ${esc(sec.code)} · four skills`, subtitle: 'Average score in released units', body: skillBars(S.skillProfile(s, sec.studentIds, S.releasedUnits(s, sec.id))) })}</div>
+        <div class="span-5">${card({ title: `Class ${esc(sec.code)}, four skills`, subtitle: 'Average score in released units', body: skillBars(S.skillProfile(s, sec.studentIds, S.releasedUnits(s, sec.id))) })}</div>
       </div>
-      ${card({ title: 'Coverage by unit', subtitle: `Exercises per skill${lui.level ? ` at ${lui.level}` : ''} · click a number to list them · a dash is a gap to fill`, flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th class="num">Week</th><th>Unit</th>${Object.values(S.SKILLS).map(([l, ic]) => `<th class="num">${icon(ic)} ${l}</th>`).join('')}</tr></thead><tbody>${cur.map((uid, i) => `<tr><td class="num faint">W${i + 1}</td><td><div class="row gap-2">${subjectChip(s, S.unitById(s, uid).subject)}<span>${esc(S.unitById(s, uid).title)}</span></div></td>${Object.keys(S.SKILLS).map(k => { const n = count(uid, k); return `<td class="num">${n ? `<button class="btn btn-ghost btn-sm ${lui.unit === uid && lui.skill === k ? 'active' : ''}" data-action="wbl-filter-set" data-unit="${uid}" data-skill="${k}" data-level="${lui.level}">${n}</button>` : '<span class="faint">—</span>'}</td>`; }).join('')}</tr>`).join('')}</tbody></table></div>` })}
-      <div class="row gap-2 wrap mt-4">${sel('skill', Object.entries(S.SKILLS).map(([k, [l]]) => [k, l]), 'All skills')}${sel('level', levels.map(l => [l, 'CEFR ' + l]), 'All levels')}${sel('unit', cur.map(uid => [uid, uid + ' · ' + S.unitById(s, uid).title]), 'All units')}
-        <span class="small muted">${pick.length} exercise(s)${pick.length > shown.length ? ` · showing the first ${shown.length}` : ''}</span>${lui.skill || lui.level || lui.unit ? `<button class="btn btn-ghost btn-sm" data-action="wbl-filter-set" data-skill="" data-level="" data-unit="">${icon('x')} Clear</button>` : ''}</div>
-      <div class="mt-3">${shown.length ? shown.map((e, i) => `<div class="small faint mt-3">${e.unitId} · ${esc(S.unitById(s, e.unitId).title)}</div>${caseIntro(shown, i, false, true)}${lecturerExercise(s, e, i + 1, S.exerciseStats(s, e.id, sec.studentIds))}`).join('') : card({ body: empty('search-x', 'No exercises match these filters') })}</div></div>`,
+      ${card({ title: 'Coverage by unit', subtitle: `Exercises per skill${lui.level ? ` at ${lui.level}` : ''}, click a number to list them, a dash is a gap to fill`, flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th class="num">Week</th><th>Unit</th>${Object.values(S.SKILLS).map(([l, ic]) => `<th class="num">${icon(ic)} ${l}</th>`).join('')}</tr></thead><tbody>${cur.map((uid, i) => `<tr><td class="num faint">W${i + 1}</td><td><div class="row gap-2">${subjectChip(s, S.unitById(s, uid).subject)}<span>${esc(S.unitById(s, uid).title)}</span></div></td>${Object.keys(S.SKILLS).map(k => { const n = count(uid, k); return `<td class="num">${n ? `<button class="btn btn-ghost btn-sm ${lui.unit === uid && lui.skill === k ? 'active' : ''}" data-action="wbl-filter-set" data-unit="${uid}" data-skill="${k}" data-level="${lui.level}">${n}</button>` : '<span class="faint">—</span>'}</td>`; }).join('')}</tr>`).join('')}</tbody></table></div>` })}
+      <div class="row gap-2 wrap mt-4">${sel('skill', Object.entries(S.SKILLS).map(([k, [l]]) => [k, l]), 'All skills')}${sel('level', levels.map(l => [l, 'CEFR ' + l]), 'All levels')}${sel('unit', cur.map(uid => [uid, uid + ', ' + S.unitById(s, uid).title]), 'All units')}
+        <span class="small muted">${pick.length} exercise(s)${pick.length > shown.length ? `, showing the first ${shown.length}` : ''}</span>${lui.skill || lui.level || lui.unit ? `<button class="btn btn-ghost btn-sm" data-action="wbl-filter-set" data-skill="" data-level="" data-unit="">${icon('x')} Clear</button>` : ''}</div>
+      <div class="mt-3">${shown.length ? shown.map((e, i) => `<div class="small faint mt-3">${e.unitId}, ${esc(S.unitById(s, e.unitId).title)}</div>${caseIntro(shown, i, false, true)}${lecturerExercise(s, e, i + 1, S.exerciseStats(s, e.id, sec.studentIds))}`).join('') : card({ body: empty('search-x', 'No exercises match these filters') })}</div></div>`,
   };
 }
 
@@ -267,7 +267,7 @@ export function lecturerCases(s, id, u) {
     const tasks = S.caseTasks(s, c.id);
     return {
       title: c.title,
-      html: `<div class="page" style="max-width:1100px">${pageHead(esc(c.title), `Case study · ${c.unitId} · ${c.minutes} min · lecturer edition`, `<a class="btn" href="#/instructor/cases">${icon('arrow-left')} Cases</a><a class="btn" href="#/instructor/caseedit/${c.id}">${icon('layout-grid')} Edit layout</a><a class="btn" href="#/print/case/${c.id}" target="_blank">${icon('printer')} Student copy</a><a class="btn btn-primary" href="#/print/case/${c.id}?ed=lecturer" target="_blank">${icon('printer')} Teaching notes</a>`)}
+      html: `<div class="page" style="max-width:1100px">${pageHead(esc(c.title), `Case study, ${c.unitId}, ${c.minutes} min, lecturer edition`, `<a class="btn" href="#/instructor/cases">${icon('arrow-left')} Cases</a><a class="btn" href="#/instructor/caseedit/${c.id}">${icon('layout-grid')} Edit layout</a><a class="btn" href="#/print/case/${c.id}" target="_blank">${icon('printer')} Student copy</a><a class="btn btn-primary" href="#/print/case/${c.id}?ed=lecturer" target="_blank">${icon('printer')} Teaching notes</a>`)}
         ${c.notes?.timing?.length ? card({ title: 'Teaching notes', body: `<div class="grid" style="gap:16px"><div class="span-4"><h4>Lesson plan</h4><ul class="tight">${c.notes.timing.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div><div class="span-4"><h4>Key points to draw out</h4><ul class="tight">${c.notes.points.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div><div class="span-4"><h4>Extension</h4><p class="small">${esc(c.notes.extension)}</p></div></div>` }) : ''}
         ${bentoGrid(s, c, { mode: 'lecturer', me: u, stats: sec ? sec.studentIds : null })}</div>`,
       mount: () => mountMedia(),
@@ -277,7 +277,7 @@ export function lecturerCases(s, id, u) {
     title: 'Case studies',
     html: `<div class="page">${pageHead('Case studies', 'Full cases with data exhibits, student tasks, answers and teaching notes. Add them to lessons from the Library.', `<button class="btn btn-primary" data-action="case-new">${icon('plus')} New case</button>`)}
       ${wbTabs('cases')}
-      <div class="case-grid">${S.fullCases(s).map(c => { const unit = S.unitById(s, c.unitId); return `<a href="#/instructor/cases/${c.id}" class="case-card"><div class="row gap-2">${subjectChip(s, unit.subject)}<span class="chip">${c.unitId}</span>${c.isNew ? badge('accent', 'New') : ''}</div><h3>${esc(c.title)}</h3><p class="small muted">${esc(c.body.slice(0, 140))}…</p><div class="row between small"><span>${icon('clock')} ${c.minutes} min · ${S.caseTasks(s, c.id).length} tasks</span><span>${icon('table')} Exhibit</span></div></a>`; }).join('')}</div></div>`,
+      <div class="case-grid">${S.fullCases(s).map(c => { const unit = S.unitById(s, c.unitId); return `<a href="#/instructor/cases/${c.id}" class="case-card"><div class="row gap-2">${subjectChip(s, unit.subject)}<span class="chip">${c.unitId}</span>${c.isNew ? badge('accent', 'New') : ''}</div><h3>${esc(c.title)}</h3><p class="small muted">${esc(c.body.slice(0, 140))}…</p><div class="row between small"><span>${icon('clock')} ${c.minutes} min, ${S.caseTasks(s, c.id).length} tasks</span><span>${icon('table')} Exhibit</span></div></a>`; }).join('')}</div></div>`,
   };
 }
 
@@ -289,10 +289,10 @@ function openMarking(answerId) {
   if (!a) return;
   const e = S.exerciseById(s, a.exerciseId); const st = S.userById(s, a.studentId);
   const left = markQueue(s).length;
-  openModal(`${modalHead(`Mark · ${esc(e.title)}`, `${esc(st.name)} · ${esc(S.sectionById(s, st.sectionId).code)} · ${left} left in queue`)}
+  openModal(`${modalHead(`Mark, ${esc(e.title)}`, `${esc(st.name)}, ${esc(S.sectionById(s, st.sectionId).code)}, ${left} left in queue`)}
     <form data-submit="wbl-save"><input type="hidden" name="id" value="${a.id}"><div class="modal-body">
       <div><div class="small muted">Task</div><p>${esc(e.prompt)}</p></div>
-      <div class="student-answer">${a.media ? `<div class="small muted">Recording</div><audio controls preload="none" data-media="${esc(a.media)}" style="width:100%"></audio>` : ''}${a.value ? `<div class="small muted">${e.speak ? 'Typed instead of recording' : 'Student answer'} · ${String(a.value).trim().split(/\s+/).length} words</div><p>${esc(a.value)}</p>` : ''}</div>
+      <div class="student-answer">${a.media ? `<div class="small muted">Recording</div><audio controls preload="none" data-media="${esc(a.media)}" style="width:100%"></audio>` : ''}${a.value ? `<div class="small muted">${e.speak ? 'Typed instead of recording' : 'Student answer'}, ${String(a.value).trim().split(/\s+/).length} words</div><p>${esc(a.value)}</p>` : ''}</div>
       <div class="answer-box">${answerHtml(e)}</div>
       <div class="field"><span>Mark</span><div class="row gap-2 wrap">${[0, 1, 2, 3, 4].map(n => `<label class="opt" style="margin:0"><input type="radio" name="score" value="${n}" required> <strong>${n}</strong></label>`).join('')}</div></div>
       <label class="field"><span>Feedback to the student</span><textarea class="textarea" name="feedback" style="min-height:70px" placeholder="What was good, and one thing to improve"></textarea></label>
@@ -304,7 +304,7 @@ function openMarking(answerId) {
 /* ---------------- printable documents ---------------- */
 export function printView(s, kind, id, u) {
   const lecturer = new URLSearchParams(location.hash.split('?')[1] || '').get('ed') === 'lecturer' && u.role !== 'student';
-  const head = (title, sub) => `<header class="doc-head"><div class="doc-brand"><span class="l1">${esc(BRAND.shortName)}</span><span class="l2">UNIVERSITY</span></div><div><div class="doc-kicker">${esc(s.course.title)} · ${lecturer ? 'Lecturer edition' : 'Student edition'}</div><h1>${title}</h1><div class="doc-sub">${sub}</div></div></header>`;
+  const head = (title, sub) => `<header class="doc-head"><div class="doc-brand"><span class="l1">${esc(BRAND.shortName)}</span><span class="l2">UNIVERSITY</span></div><div><div class="doc-kicker">${esc(s.course.title)}, ${lecturer ? 'Lecturer edition' : 'Student edition'}</div><h1>${title}</h1><div class="doc-sub">${sub}</div></div></header>`;
   const studentBox = lecturer ? '' : '<div class="doc-fields"><span>Name: ____________________________</span><span>Student ID: ______________</span><span>Class: __________</span></div>';
   const exHtml = (e, n) => {
     let body = '';
@@ -313,17 +313,17 @@ export function printView(s, kind, id, u) {
     else if (e.type === 'order') { const sh = shuffled(e.steps.length, e.id); body = `<table class="doc-table"><tbody>${sh.map(si => `<tr><td style="width:46px">${lecturer ? `<strong>${si + 1}</strong>` : '☐'}</td><td>${esc(e.steps[si])}</td></tr>`).join('')}</tbody></table>`; }
     else if (e.type === 'numeric') body = lecturer ? `<div class="doc-answer"><strong>${fmtNum(e.answer)} ${esc(e.unit || '')}</strong> — ${esc(e.solution)}</div>` : '<div class="doc-working">Working:</div><div class="doc-line">Answer: ______________ ' + esc(e.unit || '') + '</div>';
     else body = lecturer ? `<div class="doc-answer"><strong>Model answer:</strong> ${esc(e.model)}<br><strong>Marking (4):</strong> ${e.marking.map(esc).join('; ')}.</div>` : `<div class="doc-lines">${'<div></div>'.repeat(Math.ceil(e.words / 18))}</div>`;
-    return `<div class="doc-q"><div class="doc-qh"><span>${n}. ${esc(e.title)}</span><span class="doc-type">${S.SKILLS[S.skillOf(e)][0]} · ${typeOf(e)[0]}</span></div><p>${esc(e.prompt)}</p>${body}${lecturer && e.type !== 'numeric' && e.type !== 'written' ? `<div class="doc-answer">${esc(e.solution)}</div>` : ''}</div>`;
+    return `<div class="doc-q"><div class="doc-qh"><span>${n}. ${esc(e.title)}</span><span class="doc-type">${S.SKILLS[S.skillOf(e)][0]}, ${typeOf(e)[0]}</span></div><p>${esc(e.prompt)}</p>${body}${lecturer && e.type !== 'numeric' && e.type !== 'written' ? `<div class="doc-answer">${esc(e.solution)}</div>` : ''}</div>`;
   };
   let html = '';
   if (kind === 'workbook') {
     const units = id.startsWith('P-') ? S.activeVersion(S.programById(s, id)).unitIds : [id];
-    html = units.map((uid, ui) => { const unit = S.unitById(s, uid); return `<section class="doc-page">${head(`Workbook · ${esc(unit.id)} ${esc(unit.title)}`, esc(unit.summary))}${ui === 0 ? studentBox : ''}${S.unitExercises(s, uid).map((e, i, all) => caseIntro(all, i, true, lecturer) + exHtml(e, i + 1)).join('')}</section>`; }).join('');
+    html = units.map((uid, ui) => { const unit = S.unitById(s, uid); return `<section class="doc-page">${head(`Workbook, ${esc(unit.id)} ${esc(unit.title)}`, esc(unit.summary))}${ui === 0 ? studentBox : ''}${S.unitExercises(s, uid).map((e, i, all) => caseIntro(all, i, true, lecturer) + exHtml(e, i + 1)).join('')}</section>`; }).join('');
   } else if (kind === 'case') {
     const c = S.resourceById(s, id);
     let qn = 0;
-    const tilePrint = (t) => t.kind === 'text' ? `${t.title ? `<h3>${esc(t.title)}</h3>` : ''}<div class="prose">${richText(t.body)}</div>` : t.kind === 'image' && t.src ? `<figure class="doc-fig"><img src="${esc(t.src)}" alt="">${t.caption ? `<figcaption>${esc(t.caption)}</figcaption>` : ''}</figure>` : t.kind === 'image' ? `<figure class="doc-fig"><img data-media="${esc(t.media.key)}" alt="">${t.caption ? `<figcaption>${esc(t.caption)}</figcaption>` : ''}</figure>` : t.kind === 'audio' ? `<div class="doc-instr"><strong>Listening · ${esc(t.title || '')}</strong>${lecturer && t.transcript ? `<br>${esc(t.transcript)}` : ''}</div>` : t.kind === 'exhibit' ? exhibitHtml(t.table) : t.kind === 'question' && S.exerciseById(s, t.exerciseId) ? exHtml(S.exerciseById(s, t.exerciseId), ++qn) : '';
-    html = `<section class="doc-page">${head(`Case study · ${esc(c.title)}`, `${c.unitId} · ${c.minutes} minutes`)}${studentBox}${layoutOf(s, c).map(tilePrint).join('')}
+    const tilePrint = (t) => t.kind === 'text' ? `${t.title ? `<h3>${esc(t.title)}</h3>` : ''}<div class="prose">${richText(t.body)}</div>` : t.kind === 'image' && t.src ? `<figure class="doc-fig"><img src="${esc(t.src)}" alt="">${t.caption ? `<figcaption>${esc(t.caption)}</figcaption>` : ''}</figure>` : t.kind === 'image' ? `<figure class="doc-fig"><img data-media="${esc(t.media.key)}" alt="">${t.caption ? `<figcaption>${esc(t.caption)}</figcaption>` : ''}</figure>` : t.kind === 'audio' ? `<div class="doc-instr"><strong>Listening, ${esc(t.title || '')}</strong>${lecturer && t.transcript ? `<br>${esc(t.transcript)}` : ''}</div>` : t.kind === 'exhibit' ? exhibitHtml(t.table) : t.kind === 'question' && S.exerciseById(s, t.exerciseId) ? exHtml(S.exerciseById(s, t.exerciseId), ++qn) : '';
+    html = `<section class="doc-page">${head(`Case study, ${esc(c.title)}`, `${c.unitId}, ${c.minutes} minutes`)}${studentBox}${layoutOf(s, c).map(tilePrint).join('')}
       ${lecturer && c.notes?.timing?.length ? `<h2>Teaching notes</h2><h3>Lesson plan</h3><ul>${c.notes.timing.map(t => `<li>${esc(t)}</li>`).join('')}</ul><h3>Key points</h3><ul>${c.notes.points.map(t => `<li>${esc(t)}</li>`).join('')}</ul><h3>Extension</h3><p>${esc(c.notes.extension)}</p>` : ''}</section>`;
   } else if (kind === 'exam') {
     const ex = S.examById(s, id); let n = 0;
@@ -333,10 +333,10 @@ export function printView(s, kind, id, u) {
     const order = (p) => vB ? shuffled(p.items.length, ex.id + p.id + 'B').map(i => p.items[i]) : p.items;
     const opts = (q) => vB ? shuffled(q.options.length, q.id + 'B') : q.options.map((_, i) => i);
     const keyOf = (q) => L[opts(q).indexOf(q.answerIndex)];
-    html = `<section class="doc-page">${head(`${esc(ex.title)}${vB ? ' · Version B' : ' · Version A'}`, `${esc(S.orgById(s, ex.programId).name)} · ${ex.durationMin} minutes · ${S.examStats(s, ex).count} questions · ${esc(s.term.title)}`)}${studentBox}
+    html = `<section class="doc-page">${head(`${esc(ex.title)}${vB ? ', Version B' : ', Version A'}`, `${esc(S.orgById(s, ex.programId).name)}, ${ex.durationMin} minutes, ${S.examStats(s, ex).count} questions, ${esc(s.term.title)}`)}${studentBox}
       ${lecturer ? '' : `<div class="doc-instr"><strong>Instructions.</strong> Answer all questions. Circle one letter for each question. No marks are deducted for wrong answers. Calculators are allowed.</div>`}
       ${ex.parts.map(p => `<h2>${esc(p.title)}</h2><p class="small">${esc(p.instructions)}</p>${order(p).map(it => { const q = S.questionById(s, it.questionId); n++; const u2 = S.unitById(s, q.unitId);
-        return `<div class="doc-q"><div class="doc-qh"><span>${n}. ${esc(q.stem)}</span>${lecturer ? `<span class="doc-type">${u2.id} · ${q.bloomLevel}</span>` : `<span class="doc-type">${it.points || 1} mark</span>`}</div><ol class="doc-opts">${opts(q).map((oi, pos) => `<li class="${lecturer && oi === q.answerIndex ? 'key' : ''}"><span>${L[pos]}.</span> ${esc(q.options[oi])}</li>`).join('')}</ol></div>`; }).join('')}`).join('')}
+        return `<div class="doc-q"><div class="doc-qh"><span>${n}. ${esc(q.stem)}</span>${lecturer ? `<span class="doc-type">${u2.id}, ${q.bloomLevel}</span>` : `<span class="doc-type">${it.points || 1} mark</span>`}</div><ol class="doc-opts">${opts(q).map((oi, pos) => `<li class="${lecturer && oi === q.answerIndex ? 'key' : ''}"><span>${L[pos]}.</span> ${esc(q.options[oi])}</li>`).join('')}</ol></div>`; }).join('')}`).join('')}
       ${lecturer ? `<h2>Answer key</h2><table class="doc-table"><thead><tr><th>Q</th><th>Answer</th><th>Unit</th><th>Subject</th><th>Level</th></tr></thead><tbody>${ex.parts.flatMap(order).map(it => it.questionId).map((qid, i) => { const q = S.questionById(s, qid); const u2 = S.unitById(s, q.unitId); return `<tr><td>${i + 1}</td><td><strong>${keyOf(q)}</strong></td><td>${u2.id}</td><td>${esc(s.subjects[u2.subject].label)}</td><td>${q.bloomLevel}</td></tr>`; }).join('')}</tbody></table>` : ''}</section>`;
   } else html = empty('file-x', 'Nothing to print');
   return `<div class="doc"><div class="doc-toolbar no-print"><button class="btn btn-primary" onclick="window.print()">${icon('printer')} Print / Save as PDF</button><button class="btn" onclick="history.length > 1 ? history.back() : window.close()">${icon('x')} Close</button><span class="small muted">Tip: choose "Save as PDF" in the print dialog.</span></div>${html}</div>`;

@@ -273,7 +273,7 @@ export function upcomingForStudent(s, studentId) {
 }
 /**
  * Everything a student should do next, most urgent first.
- * level: urgent (≤ 2 days left or live now) · soon (this week) · catchup (earlier weeks) · later (opens soon) · missed.
+ * level: urgent (≤ 2 days left or live now), soon (this week), catchup (earlier weeks), later (opens soon), missed.
  */
 export function studentTasks(s, studentId) {
   const stu = userById(s, studentId); const t = now(s);
@@ -290,7 +290,7 @@ export function studentTasks(s, studentId) {
     const p = lessonProgress(s, studentId, l);
     if (p.done >= p.total) continue;
     const thisWeek = l.week === s.clock.week;
-    tasks.push({ level: thisWeek ? 'soon' : 'catchup', icon: 'book-open', title: l.title, why: thisWeek ? `This week's lesson · ${p.done}/${p.total} done` : `Week ${l.week} lesson not finished · ${p.done}/${p.total} done`, href: `#/student/lesson/${l.id}`, action: p.done ? 'Resume' : 'Start', pct: Math.round((p.done / p.total) * 100) });
+    tasks.push({ level: thisWeek ? 'soon' : 'catchup', icon: 'book-open', title: l.title, why: thisWeek ? `This week's lesson, ${p.done}/${p.total} done` : `Week ${l.week} lesson not finished, ${p.done}/${p.total} done`, href: `#/student/lesson/${l.id}`, action: p.done ? 'Resume' : 'Start', pct: Math.round((p.done / p.total) * 100) });
   }
   for (const a of overdue(s, studentId).filter(a => t - new Date(a.closesAt) < 14 * DAY)) tasks.push({ level: 'missed', icon: 'circle-x', title: a.title, why: 'Missed — counted as 0. Talk to your lecturer.', href: '#/student/assessments', action: 'View' });
   const order = { urgent: 0, soon: 1, catchup: 2, missed: 3, later: 4 };
@@ -303,22 +303,22 @@ export function lecturerTasks(s, me) {
   const secs = sectionsForUser(s, me); const tasks = [];
   for (const sec of secs) {
     const live = activeLiveFor(s, sec.id);
-    if (live && live.startedBy === me.id) tasks.push({ level: 'urgent', icon: 'radio', title: lessonById(s, live.lessonId).title, why: `${sec.code} · Live class is open`, href: '#/instructor/live', action: 'Open' });
+    if (live && live.startedBy === me.id) tasks.push({ level: 'urgent', icon: 'radio', title: lessonById(s, live.lessonId).title, why: `${sec.code}, Live class is open`, href: '#/instructor/live', action: 'Open' });
   }
   for (const l of s.lessons.filter(l => l.authorId === me.id && l.status === 'changes_requested'))
-    tasks.push({ level: 'urgent', icon: 'message-square-warning', title: l.title, why: `${sectionById(s, l.sectionId)?.code || ''} · The Dean asked for changes`, href: `#/instructor/builder/${l.id}`, action: 'Fix' });
+    tasks.push({ level: 'urgent', icon: 'message-square-warning', title: l.title, why: `${sectionById(s, l.sectionId)?.code || ''}, The Dean asked for changes`, href: `#/instructor/builder/${l.id}`, action: 'Fix' });
   for (const sec of secs) {
     const nw = s.clock.week + 1;
     const unit = nw <= s.term.weeks ? unitForWeek(s, sec.id, nw) : null;
     if (unit && teachesUnit(s, me.id, sec.id, unit.id)) {
       const l = s.lessons.find(x => x.sectionId === sec.id && x.week === nw && x.status !== 'rejected');
-      if (!l) tasks.push({ level: 'soon', icon: 'layers', title: `Prepare the week ${nw} lesson`, why: `${sec.code} · ${unit.id} ${unit.title}`, href: `#/instructor/lessons?new=${sec.id}`, action: 'Prepare' });
-      else if (l.status === 'draft') tasks.push({ level: 'soon', icon: 'send', title: l.title, why: `${sec.code} · Week ${nw} draft not sent to the Dean yet`, href: `#/instructor/builder/${l.id}`, action: 'Continue' });
+      if (!l) tasks.push({ level: 'soon', icon: 'layers', title: `Prepare the week ${nw} lesson`, why: `${sec.code}, ${unit.id} ${unit.title}`, href: `#/instructor/lessons?new=${sec.id}`, action: 'Prepare' });
+      else if (l.status === 'draft') tasks.push({ level: 'soon', icon: 'send', title: l.title, why: `${sec.code}, Week ${nw} draft not sent to the Dean yet`, href: `#/instructor/builder/${l.id}`, action: 'Continue' });
     }
   }
   // one line for all marking: the queue runs across classes, oldest answer first
   const toMark = pendingMarking(s, secs, me.id).length;
-  if (toMark) tasks.push({ level: toMark > 10 ? 'urgent' : 'soon', icon: 'pen-line', title: `Mark ${toMark} answers`, why: `${secs.filter(sec => pendingMarking(s, [sec], me.id).length).map(sec => sec.code).join(', ')} · Students are waiting for feedback`, href: '#/instructor/gradebook', act: 'wbl-mark-next', action: 'Mark' });
+  if (toMark) tasks.push({ level: toMark > 10 ? 'urgent' : 'soon', icon: 'pen-line', title: `Mark ${toMark} answers`, why: `${secs.filter(sec => pendingMarking(s, [sec], me.id).length).map(sec => sec.code).join(', ')}, Students are waiting for feedback`, href: '#/instructor/gradebook', act: 'wbl-mark-next', action: 'Mark' });
   const reports = ungradedWorkshop(s, secs).length;
   if (reports) tasks.push({ level: 'soon', icon: 'clipboard-pen', title: `Grade ${reports} case reports`, why: 'Marked with the rubric in the gradebook', href: '#/instructor/gradebook/all', action: 'Grade' });
   for (const e of s.exams.filter(e => e.status === 'review' && e.coEditors.some(c => c.userId === me.id && !c.signedOff)))

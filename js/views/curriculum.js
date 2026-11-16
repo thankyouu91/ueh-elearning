@@ -22,7 +22,7 @@ function ensureDraft(s, prog, editable) {
 /* ---------------- pieces ---------------- */
 function unitCard(s, u, { slot = null, locked = false, changed = false, draggable = true, removable = false } = {}) {
   const qn = s.questions.filter(q => q.unitId === u.id).length;
-  return `<div class="ucard s-${u.subject} ${draggable ? '' : 'locked'} ${changed ? 'changed' : ''}" ${draggable ? `draggable="true"` : ''} data-unit="${u.id}" ${slot !== null ? `data-slot="${slot}"` : ''} data-action="cur-unit" role="button" tabindex="0" title="Click for details · drag to move">
+  return `<div class="ucard s-${u.subject} ${draggable ? '' : 'locked'} ${changed ? 'changed' : ''}" ${draggable ? `draggable="true"` : ''} data-unit="${u.id}" ${slot !== null ? `data-slot="${slot}"` : ''} data-action="cur-unit" role="button" tabindex="0" title="Click for details, drag to move">
     <div class="grow"><div class="row gap-2">${subjectChip(s, u.subject)}<span class="faint small mono">${u.id}</span>${locked ? `<span class="faint" title="Required core unit">${icon('lock', 'ic-xs')}</span>` : ''}</div>
       <div class="ut mt-2">${esc(u.title)}</div>${qn ? '' : '<div class="um">No question bank yet</div>'}</div>
     ${removable ? `<button class="btn btn-ghost btn-sm btn-icon x" data-action="cur-remove" data-slot="${slot}" aria-label="Remove ${esc(u.title)}">${icon('x')}</button>` : ''}
@@ -51,7 +51,7 @@ export function balancePanel(s, unitIds) {
       <div class="bar" title="${counts[k]} units (framework ${fw[k]})"><span style="width:${(counts[k] / max) * 100}%;background:var(--s-${k})"></span>${fw[k] ? `<span class="fw" style="width:${(fw[k] / max) * 100}%"></span>` : ''}</div>
       <div class="delta ${d > 0 ? 'up' : d < 0 ? 'down' : 'eq'}">${counts[k]} ${d ? `(${d > 0 ? '+' : ''}${d})` : ''}</div></div>`;
   }).join('')}
-  <div class="small faint">Bar = units in this plan · marker = framework standard (4 per core subject).</div></div>`;
+  <div class="small faint">Bar = units in this plan, marker = framework standard (4 per core subject).</div></div>`;
 }
 
 export function diffList(s, from, to) {
@@ -73,7 +73,7 @@ export function compareMatrix(s, programs) {
     <tr><td><strong>Units per subject</strong></td><td class="mark small">${countLine(s, s.framework.unitIds)}</td>${programs.map(p => `<td class="mark small">${countLine(s, S.activeVersion(p).unitIds)}</td>`).join('')}</tr>
   </tbody></table></div>`;
 }
-const countLine = (s, ids) => { const c = S.subjectCounts(s, ids); return SUBJ_ORDER.filter(k => c[k]).map(k => `${s.subjects[k].short} ${c[k]}`).join(' · '); };
+const countLine = (s, ids) => { const c = S.subjectCounts(s, ids); return SUBJ_ORDER.filter(k => c[k]).map(k => `${s.subjects[k].short} ${c[k]}`).join(', '); };
 
 /* ---------------- designer page ---------------- */
 export function designerView(s, prog, me) {
@@ -102,8 +102,8 @@ export function designerView(s, prog, me) {
     <div class="lib-list lib-zone" id="cur-lib">${lib.length ? lib.map(u => `<div class="row gap-1">${unitCard(s, u, { draggable: editable })}${editable ? `<button class="btn btn-ghost btn-sm btn-icon" data-action="cur-add" data-unit="${u.id}" aria-label="Add ${esc(u.title)}">${icon('plus')}</button>` : ''}</div>`).join('') : empty('library', 'No units', 'Every matching unit is already in the plan.')}</div>` });
 
   const grid = card({
-    title: `${esc(S.orgById(s, prog.id).name)} · Year 1 plan`,
-    subtitle: `${draft.unitIds.filter(Boolean).length}/${s.framework.capacity} weeks filled · highlighted weeks differ from the current curriculum (${esc(active.label)})`,
+    title: `${esc(S.orgById(s, prog.id).name)}, Year 1 plan`,
+    subtitle: `${draft.unitIds.filter(Boolean).length}/${s.framework.capacity} weeks filled, highlighted weeks differ from the current curriculum (${esc(active.label)})`,
     actions: editable ? `<button class="btn btn-sm" data-action="cur-reset" data-to="framework">${icon('rotate-ccw')} Framework</button><button class="btn btn-sm" data-action="cur-reset" data-to="active">${icon('history')} Current</button>` : (pr?.status === 'submitted' ? badge('submitted') : ''),
     body: slotGrid(s, draft.unitIds, { editable, compareTo: active.unitIds }),
   });
@@ -193,20 +193,20 @@ function openUnitDetail(unitId) {
   const cases = s.resources.filter(r => r.unitId === u.id);
   const books = s.library.books.filter(b => b.unitIds.includes(u.id));
   const used = s.programs.map(p => ({ p, w: S.activeVersion(p).unitIds.indexOf(u.id) })).filter(x => x.w >= 0);
-  const count = (arr, key) => Object.entries(arr.reduce((m, x) => ({ ...m, [x[key]]: (m[x[key]] || 0) + 1 }), {})).map(([k, n]) => `${k} ${n}`).join(' · ');
-  const lessonItem = (l, meta) => `<details class="lesson-detail"><summary><span class="grow"><strong>${esc(l.title)}</strong><span class="small muted"> · ${meta}</span></span>${badge(l.status === 'template' ? 'accent' : l.status, l.status === 'template' ? 'Bank' : undefined)}</summary>
+  const count = (arr, key) => Object.entries(arr.reduce((m, x) => ({ ...m, [x[key]]: (m[x[key]] || 0) + 1 }), {})).map(([k, n]) => `${k} ${n}`).join(', ');
+  const lessonItem = (l, meta) => `<details class="lesson-detail"><summary><span class="grow"><strong>${esc(l.title)}</strong><span class="small muted">, ${meta}</span></span>${badge(l.status === 'template' ? 'accent' : l.status, l.status === 'template' ? 'Bank' : undefined)}</summary>
     <div class="stack gap-2" style="padding:8px 0 4px">${l.summary ? `<p class="small muted">${esc(l.summary)}</p>` : ''}${lessonBlocks(l)}</div></details>`;
   const section = (title, body) => `<div><h4 style="margin-bottom:8px">${title}</h4>${body}</div>`;
-  openModal(`${modalHead(`${esc(u.id)} · ${esc(u.title)}`, `${esc(s.subjects[u.subject].label)}${s.framework.requiredUnitIds.includes(u.id) ? ' · required core unit' : ''}`)}
+  openModal(`${modalHead(`${esc(u.id)}, ${esc(u.title)}`, `${esc(s.subjects[u.subject].label)}${s.framework.requiredUnitIds.includes(u.id) ? ', required core unit' : ''}`)}
     <div class="modal-body">
-      <div class="row gap-2 wrap">${subjectChip(s, u.subject)}${used.map(x => `<span class="chip">${esc(x.p.code)} · week ${x.w + 1}</span>`).join('') || '<span class="chip">Library only</span>'}</div>
+      <div class="row gap-2 wrap">${subjectChip(s, u.subject)}${used.map(x => `<span class="chip">${esc(x.p.code)}, week ${x.w + 1}</span>`).join('') || '<span class="chip">Library only</span>'}</div>
       ${section('Learning outcome', `<p>${esc(u.summary)}</p>${u.example ? `<div class="note note-info mt-2">${icon('calculator')}<div><strong>Worked example:</strong> ${esc(u.example)}</div></div>` : ''}`)}
-      ${section(`Lessons · ${bank.length + taught.length}`, bank.length + taught.length
-        ? `<div class="stack gap-2">${bank.map(l => lessonItem(l, `lesson bank · ${esc(S.userById(s, l.authorId).name)} · ${S.lessonMinutes(l)} min`)).join('')}${taught.map(l => lessonItem(l, `${esc(S.sectionById(s, l.sectionId).code)} · week ${l.week} · ${esc(S.userById(s, l.authorId).name)} · ${S.lessonMinutes(l)} min`)).join('')}</div>`
+      ${section(`Lessons, ${bank.length + taught.length}`, bank.length + taught.length
+        ? `<div class="stack gap-2">${bank.map(l => lessonItem(l, `lesson bank, ${esc(S.userById(s, l.authorId).name)}, ${S.lessonMinutes(l)} min`)).join('')}${taught.map(l => lessonItem(l, `${esc(S.sectionById(s, l.sectionId).code)}, week ${l.week}, ${esc(S.userById(s, l.authorId).name)}, ${S.lessonMinutes(l)} min`)).join('')}</div>`
         : empty('book-open', 'No lessons yet', 'Lecturers have not built a lesson for this unit.'))}
-      ${section(`Workbook · ${ex.length} exercises`, ex.length ? `<ul class="tight">${ex.map(e => `<li>${esc(e.title)} <span class="faint">(${e.type})</span></li>`).join('')}</ul>` : '<p class="small muted">No exercises yet.</p>')}
-      ${section(`Question bank · ${qs.length}`, qs.length ? `<p class="small muted">${count(qs, 'bloomLevel')}</p>` : '<p class="small t-warn">No questions — this unit cannot be examined yet.</p>')}
-      ${section(`Key terms · ${vocab.length}`, vocab.length ? `<div class="row gap-1 wrap">${vocab.map(v => `<span class="chip" title="${esc(v.def)}">${esc(v.term)} · ${esc(v.vi)}</span>`).join('')}</div>` : '<p class="small muted">None yet.</p>')}
+      ${section(`Workbook, ${ex.length} exercises`, ex.length ? `<ul class="tight">${ex.map(e => `<li>${esc(e.title)} <span class="faint">(${e.type})</span></li>`).join('')}</ul>` : '<p class="small muted">No exercises yet.</p>')}
+      ${section(`Question bank, ${qs.length}`, qs.length ? `<p class="small muted">${count(qs, 'bloomLevel')}</p>` : '<p class="small t-warn">No questions — this unit cannot be examined yet.</p>')}
+      ${section(`Key terms, ${vocab.length}`, vocab.length ? `<div class="row gap-1 wrap">${vocab.map(v => `<span class="chip" title="${esc(v.def)}">${esc(v.term)}, ${esc(v.vi)}</span>`).join('')}</div>` : '<p class="small muted">None yet.</p>')}
       ${section('Library', `${cases.map(r => `<div class="small">${icon('briefcase')} ${esc(r.title)} <span class="faint">(${r.type.replace('_', ' ')}, ${r.minutes} min)</span></div>`).join('')}${books.map(b => `<div class="small">${icon('book')} ${esc(b.title)}</div>`).join('')}` || '<p class="small muted">No library material linked.</p>')}
     </div>`, { drawer: true, wide: true });
 }

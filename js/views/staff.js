@@ -23,12 +23,12 @@ export function staffView(s, _id, me) {
     const units = S.curriculumOfSection(s, sec.id).filter(u => S.unitById(s, u).subject === k).length;
     if (!editable) return `<td>${uid ? esc(S.userById(s, uid).name) : '<span class="t-danger">Unassigned</span>'}<div class="small faint">${units} units</div></td>`;
     return `<td><select class="select select-sm staff-pick ${uid ? '' : 'gap'} ${uid && loads[uid].over ? 'over' : ''}" data-change="staff-assign" data-section="${sec.id}" data-subject="${k}" aria-label="${esc(sec.code)} ${esc(s.subjects[k].label)} lecturer">
-      <option value="">Unassigned</option>${lecturers.map(u => `<option value="${u.id}" ${u.id === uid ? 'selected' : ''}>${esc(u.name)} · ${loads[u.id].hours}h</option>`).join('')}</select><div class="small faint">${units} units · ${units * s.staffing.hoursPerUnit}h</div></td>`;
+      <option value="">Unassigned</option>${lecturers.map(u => `<option value="${u.id}" ${u.id === uid ? 'selected' : ''}>${esc(u.name)}, ${loads[u.id].hours}h</option>`).join('')}</select><div class="small faint">${units} units, ${units * s.staffing.hoursPerUnit}h</div></td>`;
   };
 
   return {
     title: 'Teaching staff',
-    html: `<div class="page">${pageHead('Teaching staff', `Assign a lecturer to each subject in each class · load limit ${max}h per term (${s.staffing.hoursPerUnit}h per unit)${editable ? '' : ' · read-only'}`)}
+    html: `<div class="page">${pageHead('Teaching staff', `Assign a lecturer to each subject in each class, load limit ${max}h per term (${s.staffing.hoursPerUnit}h per unit)${editable ? '' : ', read-only'}`)}
       <div class="grid">
         <div class="span-3">${kpi({ label: 'Lecturers', value: String(inScope.length), sub: `teaching ${secs.length} classes`, iconName: 'users' })}</div>
         <div class="span-3">${kpi({ label: 'Subjects staffed', value: `${slots - gaps.length}<small> / ${slots}</small>`, sub: 'class × subject slots', iconName: 'grid-3x3' })}</div>
@@ -36,7 +36,7 @@ export function staffView(s, _id, me) {
         <div class="span-3">${kpi({ label: 'Over the limit', value: String(over.length), sub: over.map(u => u.name).join(', ') || `Everyone ≤ ${max}h`, iconName: 'gauge', tone: over.length ? 'warn' : 'ok' })}</div>
       </div>
       ${newClassesCard(s, secs, editable)}
-      ${gaps.length ? `<div class="note note-danger">${icon('user-x')}<div><strong>Unassigned:</strong> ${gaps.map(g => `${esc(g.sec.code)} · ${esc(s.subjects[g.subject].label)}`).join(', ')}</div></div>` : ''}
+      ${gaps.length ? `<div class="note note-danger">${icon('user-x')}<div><strong>Unassigned:</strong> ${gaps.map(g => `${esc(g.sec.code)}, ${esc(s.subjects[g.subject].label)}`).join(', ')}</div></div>` : ''}
       ${card({ title: 'Assignments by class', subtitle: 'Lessons, marking and reminders for a subject go to the lecturer assigned here', flush: true, body: `<div class="table-wrap"><table class="table staff-table"><thead><tr><th>Class</th><th>Class lead</th>${subjects.map(k => `<th>${subjectChip(s, k)} ${esc(s.subjects[k].label)}</th>`).join('')}</tr></thead><tbody>
         ${secs.map(sec => `<tr><td><strong>${esc(sec.code)}</strong><div class="small faint">${sec.studentIds.length} students</div></td>
           <td>${editable ? `<select class="select select-sm staff-pick" data-change="staff-assign" data-section="${sec.id}" data-subject="lead" aria-label="${esc(sec.code)} class lead">${lecturers.map(u => `<option value="${u.id}" ${u.id === sec.leadId ? 'selected' : ''}>${esc(u.name)}</option>`).join('')}</select>` : esc(S.userById(s, sec.leadId).name)}</td>
@@ -55,10 +55,10 @@ export function staffView(s, _id, me) {
 function newClassesCard(s, secs, editable) {
   const list = S.newClasses(s, secs);
   if (!list.length) return '';
-  return card({ title: `New classes · ${list.length}`, subtitle: 'Opened by lecturers with a class code. Assign lecturers to each subject below.', flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th>Class</th><th>Opened by</th><th class="num">Students</th><th>Subjects without a lecturer</th><th></th></tr></thead><tbody>
+  return card({ title: `New classes, ${list.length}`, subtitle: 'Opened by lecturers with a class code. Assign lecturers to each subject below.', flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th>Class</th><th>Opened by</th><th class="num">Students</th><th>Subjects without a lecturer</th><th></th></tr></thead><tbody>
     ${list.map(sec => { const g = S.staffingGaps(s, [sec]); return `<tr><td><strong>${esc(sec.code)}</strong><div class="small faint">${esc(S.orgById(s, sec.programId).name)}</div></td>
       <td class="small">${esc(S.userById(s, sec.createdBy).name)}<div class="faint">${S.relTime(s, sec.createdAt)}</div></td><td class="num">${sec.studentIds.length}</td>
-      <td>${g.length ? `<span class="t-danger small">${g.map(x => esc(s.subjects[x.subject].label)).join(' · ')}</span>` : badge('ok', 'All assigned')}</td>
+      <td>${g.length ? `<span class="t-danger small">${g.map(x => esc(s.subjects[x.subject].label)).join(', ')}</span>` : badge('ok', 'All assigned')}</td>
       <td class="num"><div class="row gap-2" style="justify-content:flex-end"><button class="btn btn-sm" data-action="class-share" data-id="${sec.id}">${icon('ticket')} Code</button>${editable ? `<button class="btn btn-sm btn-ghost" data-action="class-cancel" data-id="${sec.id}">${icon('x')} Cancel</button>` : ''}</div></td></tr>`; }).join('')}</tbody></table></div>` });
 }
 
@@ -66,7 +66,7 @@ const canCancel = (s, me, sec) => sec.createdBy === me.id || (me.role === 'direc
 function shareModal(id) {
   const s = getState(); const me = S.currentUser(s); const sec = S.sectionById(s, id); if (!sec) return;
   const code = S.joinCodeOf(sec); const link = S.joinLink(sec);
-  openModal(`${modalHead(`Class code · ${esc(sec.code)}`, 'Send the code or the link to your students')}
+  openModal(`${modalHead(`Class code, ${esc(sec.code)}`, 'Send the code or the link to your students')}
     <div class="modal-body stack gap-3"><div class="join-code" aria-label="Class code">${code}</div>
       <div class="row gap-2"><input class="input mono" readonly value="${esc(link)}" aria-label="Class link" onclick="this.select()"><button class="btn" data-action="class-copy" data-text="${esc(link)}">${icon('link')} Copy link</button><button class="btn" data-action="class-copy" data-text="${code}">${icon('copy')} Copy code</button></div>
       <p class="small muted">Students open the link, or choose <strong>Join a class</strong> and type the code. Each code opens one class. If this class is cancelled, the code takes students to the class they were moved to.</p>
@@ -94,7 +94,7 @@ export const actions = {
     const targets = same.length ? same : s.sections.filter(x => x.id !== sec.id);
     openModal(`${modalHead(`Cancel ${esc(sec.code)}?`, 'Use this when a class does not open, for example too few students.')}
       <form data-submit="class-cancel-go"><input type="hidden" name="id" value="${sec.id}"><div class="modal-body stack gap-3">
-        <label class="field"><span>Move its ${sec.studentIds.length} student(s) and its code to</span><select class="select" name="targetId">${targets.map(x => `<option value="${x.id}">${esc(x.code)} · ${x.studentIds.length} students</option>`).join('')}</select></label>
+        <label class="field"><span>Move its ${sec.studentIds.length} student(s) and its code to</span><select class="select" name="targetId">${targets.map(x => `<option value="${x.id}">${esc(x.code)}, ${x.studentIds.length} students</option>`).join('')}</select></label>
         <div class="note note-warn">${icon('triangle-alert')}<div>Draft lessons of this class are deleted. Students who use the old code or link are taken to the class you choose.</div></div></div>
       <footer class="modal-foot"><button type="button" class="btn btn-ghost" data-action="modal-close">Keep the class</button><button class="btn btn-danger">${icon('x')} Cancel class</button></footer></form>`);
   },

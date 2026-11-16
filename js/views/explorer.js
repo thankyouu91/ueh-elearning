@@ -27,7 +27,7 @@ function kpis(st) {
     <div class="span-3">${kpi({ label: 'Students', value: String(st.students), sub: `${st.sections} class${st.sections === 1 ? '' : 'es'}`, iconName: 'users' })}</div>
     <div class="span-3">${kpi({ label: 'Average grade', value: st.avg === null ? '—' : `${st.avg.toFixed(1)}<small> / 10</small>`, sub: `Pass rate ${st.pass ?? '—'}%`, iconName: 'graduation-cap', tone: st.pass !== null && st.pass < 80 ? 'warn' : '' })}</div>
     <div class="span-3">${kpi({ label: 'Engagement', value: st.engagement === null ? '—' : `${st.engagement}%`, sub: `Term delivery ${st.delivery}%`, iconName: 'activity', tone: st.engagement !== null && st.engagement < 70 ? 'warn' : 'ok' })}</div>
-    <div class="span-3">${kpi({ label: 'At risk', value: String(st.atRisk), sub: `${st.pending} lessons in review · ${st.ungraded} to grade`, iconName: 'triangle-alert', tone: st.atRisk ? 'danger' : 'ok' })}</div>
+    <div class="span-3">${kpi({ label: 'At risk', value: String(st.atRisk), sub: `${st.pending} lessons in review, ${st.ungraded} to grade`, iconName: 'triangle-alert', tone: st.atRisk ? 'danger' : 'ok' })}</div>
   </div>`;
 }
 
@@ -67,12 +67,12 @@ export function explorerView(s, me, id, base) {
   const students = S.studentsInSections(s, sections);
   let children;
   if (org.type === 'program') {
-    children = sections.map(sec => ({ id: sec.id, name: sec.code, short: sec.code, lead: sec.instructorIds.map(i => S.userById(s, i).name).join(', '), st: S.orgStats(s, [sec]), sub: `Week ${s.clock.week} · ${S.publishedLessons(s, sec.id).length} lessons live` }));
+    children = sections.map(sec => ({ id: sec.id, name: sec.code, short: sec.code, lead: sec.instructorIds.map(i => S.userById(s, i).name).join(', '), st: S.orgStats(s, [sec]), sub: `Week ${s.clock.week}, ${S.publishedLessons(s, sec.id).length} lessons live` }));
   } else {
     children = S.orgChildren(s, org.id).map(c => {
       const secs = S.sectionsUnder(s, c.id);
       const lead = c.type === 'school' ? s.users.find(u => u.role === 'director' && u.orgId === c.id)?.name : [...new Set(secs.flatMap(x => x.instructorIds))].map(i => S.userById(s, i).name).join(', ');
-      return { id: c.id, name: c.name, short: c.name.replace(/^(School of|Bachelor of) /, ''), lead, st: S.orgStats(s, secs), sub: c.type === 'program' ? `${secs.length} classes · curriculum ${esc(S.activeVersion(S.programById(s, c.id)).label)}` : `${S.orgChildren(s, c.id).length} programme(s)` };
+      return { id: c.id, name: c.name, short: c.name.replace(/^(School of|Bachelor of) /, ''), lead, st: S.orgStats(s, secs), sub: c.type === 'program' ? `${secs.length} classes, curriculum ${esc(S.activeVersion(S.programById(s, c.id)).label)}` : `${S.orgChildren(s, c.id).length} programme(s)` };
     });
   }
   const prog = org.type === 'program' ? S.programById(s, org.id) : null;
@@ -80,7 +80,7 @@ export function explorerView(s, me, id, base) {
   return {
     title: org.name,
     html: `<div class="page">
-      <div class="stack gap-2">${crumbs(s, me, base, S.orgPath(s, org.id))}<div class="page-head"><div><div class="level-tag">${LEVEL[org.type]}</div><h1>${esc(org.name)}</h1><p class="muted">${esc(s.term.title)} · week ${s.clock.week} of ${s.term.weeks}</p></div></div></div>
+      <div class="stack gap-2">${crumbs(s, me, base, S.orgPath(s, org.id))}<div class="page-head"><div><div class="level-tag">${LEVEL[org.type]}</div><h1>${esc(org.name)}</h1><p class="muted">${esc(s.term.title)}, week ${s.clock.week} of ${s.term.weeks}</p></div></div></div>
       ${kpis(st)}
       ${card({ title: childLabel, subtitle: 'Click a row to drill down', flush: true, body: childRows(s, base, children) })}
       ${prog ? card({ title: 'Curriculum in use', subtitle: esc(S.activeVersion(prog).label), body: curriculumStrip(s, S.activeVersion(prog).unitIds) }) : ''}
@@ -88,7 +88,7 @@ export function explorerView(s, me, id, base) {
         <div class="span-7">${card({ title: `Compare ${childLabel.toLowerCase()}`, body: '<div class="chart-box"><canvas id="ex-compare"></canvas></div>' })}</div>
         <div class="span-5">${card({ title: 'Mastery by subject', subtitle: '% correct vs. benchmark', body: '<div class="chart-box"><canvas id="ex-radar"></canvas></div>' })}</div>
       </div>
-      ${card({ title: `At-risk students · ${st.atRisk}`, flush: true, body: atRiskList(s, sections, null, base) })}
+      ${card({ title: `At-risk students, ${st.atRisk}`, flush: true, body: atRiskList(s, sections, null, base) })}
     </div>`,
     mount: () => {
       compareChart('ex-compare', children);
@@ -104,7 +104,7 @@ function sectionView(s, me, sec, base) {
   return {
     title: sec.code,
     html: `<div class="page">
-      <div class="stack gap-2">${crumbs(s, me, base, chain)}<div class="page-head"><div><div class="level-tag">Class</div><h1>${esc(sec.code)}</h1><p class="muted">${esc(S.orgById(s, prog.id).name)} · Lecturer ${esc(sec.instructorIds.map(i => S.userById(s, i).name).join(', '))}</p></div></div></div>
+      <div class="stack gap-2">${crumbs(s, me, base, chain)}<div class="page-head"><div><div class="level-tag">Class</div><h1>${esc(sec.code)}</h1><p class="muted">${esc(S.orgById(s, prog.id).name)}, Lecturer ${esc(sec.instructorIds.map(i => S.userById(s, i).name).join(', '))}</p></div></div></div>
       ${kpis(st)}
       ${card({ title: 'Students', subtitle: 'Click a name to open the student record', flush: true, body: gradebookTable(s, [sec], { studentHref: (u) => `${base}/${u.id}` }) })}
       ${card({ title: 'Teaching plan', actions: timelineLegend(), flush: true, body: termTimeline(s, { sections: [sec], viewer: 'director', showGaps: true }) })}
@@ -123,7 +123,7 @@ function studentView(s, me, { stu, sec }, base) {
     title: stu.name,
     html: `<div class="page">
       <div class="stack gap-2">${crumbs(s, me, base, chain)}
-        <div class="page-head"><div class="row gap-3">${avatar(stu, 'lg')}<div><div class="level-tag">Student</div><h1>${esc(stu.name)}</h1><p class="muted">${stu.id} · ${esc(sec.code)} · ${esc(stu.email)}</p></div></div>${r.flag ? badge('at_risk') : badge('on_track')}</div></div>
+        <div class="page-head"><div class="row gap-3">${avatar(stu, 'lg')}<div><div class="level-tag">Student</div><h1>${esc(stu.name)}</h1><p class="muted">${stu.id}, ${esc(sec.code)}, ${esc(stu.email)}</p></div></div>${r.flag ? badge('at_risk') : badge('on_track')}</div></div>
       ${r.flag ? `<div class="note note-danger">${icon('triangle-alert')}<div><strong>At risk:</strong> ${esc(r.reasons.join('; '))}</div></div>` : ''}
       <div class="grid">
         <div class="span-3">${kpi({ label: 'Course grade', value: g.value === null ? '—' : `${g.value.toFixed(1)}<small> / 10</small>`, sub: g.provisional ? 'Provisional' : 'Final', iconName: 'award', tone: g.value !== null && g.value < 5 ? 'danger' : '' })}</div>
@@ -137,7 +137,7 @@ function studentView(s, me, { stu, sec }, base) {
       </div>
       <div class="grid">
         <div class="span-7">${card({ title: 'Lesson progress', flush: true, body: `<div class="list">${lessons.map(l => { const p = S.lessonProgress(s, stu.id, l); const u = S.unitById(s, l.unitId); return `<div class="list-item"><span class="faint small" style="width:28px">W${l.week}</span>${subjectChip(s, u.subject)}<div class="grow truncate">${esc(l.title)}</div><span class="small ${p.done === p.total ? 't-ok' : p.done === 0 ? 't-danger' : 'muted'}">${p.done}/${p.total}</span></div>`; }).join('')}</div>` })}</div>
-        <div class="span-5">${card({ title: 'Recent activity', flush: true, body: recent.length ? `<div class="list">${recent.map(a => `<div class="list-item"><span class="li-icon">${icon(a.type === 'flashcard' ? 'languages' : a.type === 'live' ? 'radio' : 'check')}</span><div class="grow"><div class="small">${a.type === 'complete' ? `Completed an activity in "${esc(S.lessonById(s, a.lessonId)?.title || '')}"` : a.type === 'flashcard' ? 'Vocabulary practice' : 'Live class'}</div><div class="small faint">${S.fmtDateTime(a.at)} · ${a.minutes} min</div></div></div>`).join('')}</div>` : empty('activity', 'No activity yet') })}</div>
+        <div class="span-5">${card({ title: 'Recent activity', flush: true, body: recent.length ? `<div class="list">${recent.map(a => `<div class="list-item"><span class="li-icon">${icon(a.type === 'flashcard' ? 'languages' : a.type === 'live' ? 'radio' : 'check')}</span><div class="grow"><div class="small">${a.type === 'complete' ? `Completed an activity in "${esc(S.lessonById(s, a.lessonId)?.title || '')}"` : a.type === 'flashcard' ? 'Vocabulary practice' : 'Live class'}</div><div class="small faint">${S.fmtDateTime(a.at)}, ${a.minutes} min</div></div></div>`).join('')}</div>` : empty('activity', 'No activity yet') })}</div>
       </div>
     </div>`,
     mount: () => radarChart('ex-stu-radar', [{ label: stu.name, values: S.competency(s, [stu.id]) }, { label: `${sec.code} average`, values: S.competency(s, sec.studentIds) }, { label: 'Benchmark', values: BENCHMARK, dashed: true }]),

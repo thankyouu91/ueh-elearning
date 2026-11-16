@@ -22,7 +22,7 @@ export const NAV = [
 
 function decisions(s) {
   const pending = s.programs.filter(p => p.proposal?.status === 'submitted');
-  return card({ title: 'Needs your decision', flush: true, body: pending.length ? `<div class="list">${pending.map(p => `<a class="list-item" href="#/provost/curricula/${p.id}"><span class="li-icon warn">${icon('blocks')}</span><div class="grow"><div class="title">${esc(S.orgById(s, p.id).name)} — curriculum change</div><div class="meta">Submitted by ${esc(S.userById(s, p.proposal.updatedBy).name)} ${S.relTime(s, p.proposal.submittedAt)} · "${esc(p.proposal.rationale || '')}"</div></div>${badge('submitted')}</a>`).join('')}</div>` : empty('circle-check', 'Nothing waiting', 'Curriculum proposals from deans will appear here.') });
+  return card({ title: 'Needs your decision', flush: true, body: pending.length ? `<div class="list">${pending.map(p => `<a class="list-item" href="#/provost/curricula/${p.id}"><span class="li-icon warn">${icon('blocks')}</span><div class="grow"><div class="title">${esc(S.orgById(s, p.id).name)} — curriculum change</div><div class="meta">Submitted by ${esc(S.userById(s, p.proposal.updatedBy).name)} ${S.relTime(s, p.proposal.submittedAt)}, "${esc(p.proposal.rationale || '')}"</div></div>${badge('submitted')}</a>`).join('')}</div>` : empty('circle-check', 'Nothing waiting', 'Curriculum proposals from deans will appear here.') });
 }
 
 function dashboard(s, _id, me) {
@@ -56,7 +56,7 @@ function review(s, pid) {
   const pending = pr?.status === 'submitted';
   return {
     title: S.orgById(s, p.id).name,
-    html: `<div class="page">${pageHead(esc(S.orgById(s, p.id).name), pr ? `Proposal for the next intake · submitted by ${esc(S.userById(s, pr.updatedBy).name)}` : `${esc(active.label)} · no pending proposal`, `<a class="btn" href="#/provost/curricula">${icon('arrow-left')} Curricula</a>`)}
+    html: `<div class="page">${pageHead(esc(S.orgById(s, p.id).name), pr ? `Proposal for the next intake, submitted by ${esc(S.userById(s, pr.updatedBy).name)}` : `${esc(active.label)}, no pending proposal`, `<a class="btn" href="#/provost/curricula">${icon('arrow-left')} Curricula</a>`)}
       ${pr?.rationale ? `<div class="note note-info">${icon('quote')}<div><strong>Dean's rationale:</strong> ${esc(pr.rationale)}</div></div>` : ''}
       <div class="grid">
         <div class="span-8">${card({ title: pr ? 'Proposed year plan' : 'Current year plan', subtitle: pr ? `Highlighted weeks differ from ${esc(active.label)}` : '', actions: pr ? badge(pr.status) : '', body: slotGrid(s, shown, { compareTo: pr ? active.unitIds : null }) })}</div>
@@ -78,7 +78,7 @@ function framework(s) {
   const usage = (id) => s.programs.filter(p => S.activeVersion(p).unitIds.includes(id)).map(p => p.code);
   return {
     title: 'Framework & units',
-    html: `<div class="page">${pageHead(esc(fw.title), `${fw.capacity} units per year · ${fw.coreSubjects.length} core subjects × 4 units · every programme starts from this skeleton`)}
+    html: `<div class="page">${pageHead(esc(fw.title), `${fw.capacity} units per year, ${fw.coreSubjects.length} core subjects × 4 units, every programme starts from this skeleton`)}
       <div class="grid"><div class="span-8">${card({ title: 'Standard year plan', subtitle: 'Locked units are required in every programme', body: slotGrid(s, fw.unitIds, { editable: false }) })}</div>
       <div class="span-4">${card({ title: 'Rules for programmes', body: `<ul style="margin:0;padding-left:18px;line-height:1.8">
         <li>Exactly ${fw.capacity} units, one per teaching week</li>
@@ -86,7 +86,7 @@ function framework(s) {
         <li>At least ${fw.minPerCoreSubject} units in each core subject (${fw.coreSubjects.map(k => s.subjects[k].label).join(', ')})</li>
         <li>Remaining weeks are free for the school's specialism (e.g. Marketing)</li>
         <li>Changes are approved by Academic Affairs and apply from the next intake</li></ul>` })}</div></div>
-      ${card({ title: `Unit library · ${s.units.length} units`, flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th>Unit</th><th>Subject</th><th class="num">Questions</th><th class="num">Key terms</th><th>Used by</th></tr></thead><tbody>
+      ${card({ title: `Unit library, ${s.units.length} units`, flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th>Unit</th><th>Subject</th><th class="num">Questions</th><th class="num">Key terms</th><th>Used by</th></tr></thead><tbody>
         ${s.units.map(u => `<tr><td><div class="row gap-2"><span class="mono small faint">${u.id}</span><strong>${esc(u.title)}</strong>${fw.requiredUnitIds.includes(u.id) ? icon('lock', 'faint') : ''}</div><div class="small muted">${esc(u.summary)}</div></td><td>${subjectChip(s, u.subject)}</td>
           <td class="num">${s.questions.filter(q => q.unitId === u.id).length || '<span class="t-warn">0</span>'}</td><td class="num">${s.vocabulary.filter(v => v.unitId === u.id).length}</td><td>${usage(u.id).map(c => `<span class="chip">${c}</span>`).join(' ') || '<span class="faint small">Library only</span>'}</td></tr>`).join('')}</tbody></table></div>` })}</div>`,
   };

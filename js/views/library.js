@@ -29,7 +29,7 @@ const srcChip = (k) => `<span class="chip src-${k}">${icon(S.SOURCES[k][1])} ${S
 function sourcesCard(s) {
   const units = [...new Set(s.programs.flatMap(p => S.activeVersion(p).unitIds))].filter(u => !ui.subject || S.unitById(s, u).subject === ui.subject);
   const rows = S.sourceCoverage(s, units);
-  return `<details class="aid"><summary>${icon('git-compare')} Content sources by unit · coursebook and UEH</summary>${card({ subtitle: 'The UEH syllabus is the backbone. Coursebooks are licensed and read-only; UEH material is written by lecturers and approved by the Dean.', flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th>Unit</th><th>${srcChip('book')}</th><th>${srcChip('ueh')}</th><th>Skills still missing</th></tr></thead><tbody>
+  return `<details class="aid"><summary>${icon('git-compare')} Content sources by unit, coursebook and UEH</summary>${card({ subtitle: 'The UEH syllabus is the backbone. Coursebooks are licensed and read-only; UEH material is written by lecturers and approved by the Dean.', flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th>Unit</th><th>${srcChip('book')}</th><th>${srcChip('ueh')}</th><th>Skills still missing</th></tr></thead><tbody>
     ${rows.map(r => `<tr><td><div class="row gap-2">${subjectChip(s, r.unit.subject)}<span><strong>${r.unit.id}</strong> ${esc(r.unit.title)}</span></div></td>
       <td class="small">${r.books.length ? `${r.books.map(b => esc(b.title)).join(', ')}<div class="faint">${r.extracts} page extracts</div>` : '<span class="t-warn">No coursebook mapped</span>'}</td>
       <td class="small">${r.exercises} exercises<div class="faint">${r.resources} library items</div></td>
@@ -40,7 +40,7 @@ function filters(s) {
   return `<div class="row gap-2 wrap">
     <input class="input" style="max-width:240px;height:32px" placeholder="Search…" value="${esc(ui.q)}" data-change="lib-q" aria-label="Search library">
     <select class="select select-sm" data-change="lib-subject"><option value="">All subjects</option>${Object.entries(s.subjects).map(([k, v]) => `<option value="${k}" ${ui.subject === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select>
-    <select class="select select-sm" data-change="lib-unit"><option value="">All units</option>${s.units.filter(u => !ui.subject || u.subject === ui.subject).map(u => `<option value="${u.id}" ${ui.unit === u.id ? 'selected' : ''}>${u.id} · ${esc(u.title)}</option>`).join('')}</select>
+    <select class="select select-sm" data-change="lib-unit"><option value="">All units</option>${s.units.filter(u => !ui.subject || u.subject === ui.subject).map(u => `<option value="${u.id}" ${ui.unit === u.id ? 'selected' : ''}>${u.id}, ${esc(u.title)}</option>`).join('')}</select>
   </div>`;
 }
 const matchText = (t) => !ui.q || t.toLowerCase().includes(ui.q.toLowerCase());
@@ -58,7 +58,7 @@ function booksGrid(s) {
     return `<a class="book" href="${base}/${b.id}">${bookCover(s, b)}
       <div class="book-meta"><div class="title">${esc(b.title)}</div><div class="mt-2">${srcChip('book')}</div>
         <div class="row gap-1 wrap mt-2">${b.unitIds.map(u => `<span class="chip">${u}</span>`).join('')}</div>
-        <div class="small mt-2 ${bookHasFile(b) ? 't-ok' : 'faint'}">${bookHasFile(b) ? `${icon('file-check')} PDF · ${b.file.pages} pages` : b.file ? `${icon('cloud-off')} PDF on another device` : `${icon('upload')} No PDF yet`}${n ? ` · ${n} extract${n > 1 ? 's' : ''}` : ''}</div></div></a>`;
+        <div class="small mt-2 ${bookHasFile(b) ? 't-ok' : 'faint'}">${bookHasFile(b) ? `${icon('file-check')} PDF, ${b.file.pages} pages` : b.file ? `${icon('cloud-off')} PDF on another device` : `${icon('upload')} No PDF yet`}${n ? `, ${n} extract${n > 1 ? 's' : ''}` : ''}</div></div></a>`;
   }).join('')}</div>`;
 }
 
@@ -76,7 +76,7 @@ function resourcesTable(s, type) {
   const list = s.resources.filter(r => r.type === type && (!ui.unit || r.unitId === ui.unit) && (!ui.subject || S.unitById(s, r.unitId)?.subject === ui.subject) && matchText(`${r.title} ${r.body}`));
   if (!list.length) return empty(RES_META[type].icon, `No ${RES_META[type].plural.toLowerCase()} match`);
   return `<div class="list">${list.map(r => `<div class="list-item"><span class="li-icon accent">${icon(RES_META[type].icon)}</span>
-    <div class="grow"><div class="title">${esc(r.title)} ${srcChip(S.sourceOf(r))}</div><div class="meta">${r.unitId ? `${subjectChip(s, S.unitById(s, r.unitId).subject)} ${r.unitId} · ` : ''}${r.minutes} min · by ${esc(S.userById(s, r.createdBy).name)} · used in ${usedIn(s, b => b.resourceId === r.id)} lesson(s)${r.file ? ` · ${icon('paperclip')} ${esc(r.file.name)}` : ''}</div></div>
+    <div class="grow"><div class="title">${esc(r.title)} ${srcChip(S.sourceOf(r))}</div><div class="meta">${r.unitId ? `${subjectChip(s, S.unitById(s, r.unitId).subject)} ${r.unitId}, ` : ''}${r.minutes} min, by ${esc(S.userById(s, r.createdBy).name)}, used in ${usedIn(s, b => b.resourceId === r.id)} lesson(s)${r.file ? `, ${icon('paperclip')} ${esc(r.file.name)}` : ''}</div></div>
     <button class="btn btn-sm" data-action="lib-view-resource" data-id="${r.id}">View</button>${canEditLessons() ? `<button class="btn btn-sm btn-primary" data-action="lib-add-to-lesson" data-kind="resource" data-id="${r.id}">${icon('plus')} Lesson</button>` : ''}</div>`).join('')}</div>`;
 }
 
@@ -87,12 +87,12 @@ export function libraryView(s) {
   const label = (k) => k === 'extracts' ? 'Extracts' : RES_META[k].plural;
   const group = simple ? SIMPLE_TABS.find(t => t[0] === ui.tab) || SIMPLE_TABS.find(t => t[2].includes(ui.tab)) || SIMPLE_TABS[0] : null;
   const tab = simple ? group[0] : TABS.some(t => t[0] === ui.tab) ? ui.tab : 'books'; // a tab key from the other mode falls back
-  const body = !simple ? kindBody(tab) : group[2].length === 1 ? kindBody(group[2][0]) : group[2].filter(k => counts[k]).map(k => `<div class="nav-label" style="padding-left:22px">${label(k)} · ${counts[k]}</div>${kindBody(k)}`).join('') || empty('library', 'Nothing here yet');
+  const body = !simple ? kindBody(tab) : group[2].length === 1 ? kindBody(group[2][0]) : group[2].filter(k => counts[k]).map(k => `<div class="nav-label" style="padding-left:22px">${label(k)}, ${counts[k]}</div>${kindBody(k)}`).join('') || empty('library', 'Nothing here yet');
   const tabs = simple ? SIMPLE_TABS.map(([k, l, kinds]) => [k, l, kinds.reduce((t, x) => t + counts[x], 0)]) : TABS.map(([k, l]) => [k, l, counts[k]]);
   const canAddRes = role() !== 'admin';
   return {
     title: 'Library',
-    html: `<div class="page">${pageHead('Library', `${esc(s.library.collection)} · research the books, extract units, and add materials to lessons`, `${canAddRes ? `<button class="btn" data-action="lib-new-resource">${icon('plus')} Case study / activity</button>` : ''}<button class="btn btn-primary" data-action="lib-new-book">${icon('upload')} Upload book</button>`)}
+    html: `<div class="page">${pageHead('Library', `${esc(s.library.collection)}, research the books, extract units, and add materials to lessons`, `${canAddRes ? `<button class="btn" data-action="lib-new-resource">${icon('plus')} Case study / activity</button>` : ''}<button class="btn btn-primary" data-action="lib-new-book">${icon('upload')} Upload book</button>`)}
       ${simple ? '' : `<div class="note note-info">${icon('route')}<div><strong>Workflow:</strong> Library → open a book and research → save page ranges as <em>extracts</em> → add extracts, case studies, activities, worksheets and practicals to lessons → arrange lessons in a <em>module plan</em> → finalise the module for a programme and its classes.</div></div>`}
       ${sourcesCard(s)}
       ${card({ flush: true, body: `<div class="tabs" style="padding:0 12px">${tabs.map(([k, l, n]) => `<button class="${tab === k ? 'active' : ''}" data-action="lib-tab" data-tab="${k}">${l} <span class="faint">${n}</span></button>`).join('')}</div>
@@ -110,7 +110,7 @@ export function readerView(s, id) {
   if (reader.bookId !== b.id) { reader.bookId = b.id; reader.page = qp || 1; reader.from = null; reader.to = null; }
   else if (qp) reader.page = qp;
   const extracts = s.library.extracts.filter(x => x.bookId === b.id).sort((a, c) => a.fromPage - c.fromPage);
-  const head = pageHead(esc(b.title), `${esc(s.subjects[b.subject].label)} · suggested units ${b.unitIds.join(', ') || '—'}`, `<a class="btn" href="#/${role()}/library">${icon('arrow-left')} Library</a>`);
+  const head = pageHead(esc(b.title), `${esc(s.subjects[b.subject].label)}, suggested units ${b.unitIds.join(', ') || '—'}`, `<a class="btn" href="#/${role()}/library">${icon('arrow-left')} Library</a>`);
   if (!bookHasFile(b)) {
     return {
       title: b.title,
@@ -147,10 +147,10 @@ export function readerView(s, id) {
             <label class="field"><span>Title</span><input class="input" name="title" required placeholder="e.g. Price elasticity — worked examples"></label>
             <div class="form-grid"><label class="field"><span>From page</span><input class="input" type="number" name="fromPage" min="1" max="${b.file.pages}" value="${reader.from || reader.page}" required></label>
             <label class="field"><span>To page</span><input class="input" type="number" name="toPage" min="1" max="${b.file.pages}" value="${reader.to || reader.from || reader.page}" required></label></div>
-            <label class="field"><span>Unit</span><select class="select" name="unitId">${units.map(u => `<option value="${u.id}" ${b.unitIds[0] === u.id ? 'selected' : ''}>${u.id} · ${esc(u.title)}</option>`).join('')}</select></label>
+            <label class="field"><span>Unit</span><select class="select" name="unitId">${units.map(u => `<option value="${u.id}" ${b.unitIds[0] === u.id ? 'selected' : ''}>${u.id}, ${esc(u.title)}</option>`).join('')}</select></label>
             <label class="field"><span>Note for colleagues (optional)</span><input class="input" name="note" placeholder="e.g. Good diagrams on p. 3"></label>
             <button class="btn btn-primary">${icon('scissors')} Save extract</button></form>` })}
-          ${card({ title: `Extracts from this book · ${extracts.length}`, flush: true, body: extracts.length ? `<div class="list">${extracts.map(x => `<div class="list-item"><div class="grow"><button class="link-btn" data-action="rd-go" data-page="${x.fromPage}"><strong>${esc(x.title)}</strong></button><div class="meta">pp. ${x.fromPage}–${x.toPage}${x.unitId ? ` · ${x.unitId}` : ''} · ${esc(S.userById(s, x.createdBy).name)}</div></div>
+          ${card({ title: `Extracts from this book, ${extracts.length}`, flush: true, body: extracts.length ? `<div class="list">${extracts.map(x => `<div class="list-item"><div class="grow"><button class="link-btn" data-action="rd-go" data-page="${x.fromPage}"><strong>${esc(x.title)}</strong></button><div class="meta">pp. ${x.fromPage}–${x.toPage}${x.unitId ? `, ${x.unitId}` : ''}, ${esc(S.userById(s, x.createdBy).name)}</div></div>
             ${canEditLessons() ? `<button class="btn btn-sm btn-icon" data-action="lib-add-to-lesson" data-kind="extract" data-id="${x.id}" aria-label="Add to lesson">${icon('plus')}</button>` : ''}
             <button class="btn btn-ghost btn-sm btn-icon" data-action="rd-del-extract" data-id="${x.id}" aria-label="Delete extract">${icon('trash-2')}</button></div>`).join('')}</div>` : empty('scissors', 'No extracts yet') })}
         </div>
@@ -214,13 +214,13 @@ export function openAddToLesson(kind, id) {
   const unitId = item.unitId;
   const mine = s.lessons.filter(l => l.authorId === me.id && ['template', 'draft', 'changes_requested'].includes(l.status))
     .sort((a, b) => (b.unitId === unitId) - (a.unitId === unitId) || (a.status === 'template' ? -1 : 1));
-  openModal(`${modalHead('Add to a lesson', `${esc(item.title)}${unitId ? ` · ${unitId}` : ''}`)}
+  openModal(`${modalHead('Add to a lesson', `${esc(item.title)}${unitId ? `, ${unitId}` : ''}`)}
     <div class="modal-body">
       ${unitId ? `<button class="btn" data-action="lib-new-bank-with" data-kind="${kind}" data-id="${id}">${icon('plus')} New bank lesson for ${unitId} with this material</button>` : ''}
       <div class="small muted">Or add it to one of your lessons:</div>
       <div class="list" style="max-height:360px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius-sm)">${mine.map(l => `<button class="list-item" data-action="lib-pick-lesson" data-kind="${kind}" data-id="${id}" data-lesson="${l.id}">
         <span class="li-icon ${l.unitId === unitId ? 'accent' : ''}">${icon(l.status === 'template' ? 'book-copy' : 'calendar')}</span>
-        <div class="grow"><div class="title">${esc(l.title)}</div><div class="meta">${l.status === 'template' ? 'Lesson bank' : `${esc(S.sectionById(s, l.sectionId).code)} · week ${l.week}`} · ${l.unitId || '—'}${l.unitId === unitId ? ' · <strong>same unit</strong>' : ''}</div></div>${badge(l.status === 'template' ? 'accent' : l.status, l.status === 'template' ? 'Bank' : undefined)}</button>`).join('') || empty('book-copy', 'No editable lessons', 'Create one with the button above.')}</div>
+        <div class="grow"><div class="title">${esc(l.title)}</div><div class="meta">${l.status === 'template' ? 'Lesson bank' : `${esc(S.sectionById(s, l.sectionId).code)}, week ${l.week}`}, ${l.unitId || '—'}${l.unitId === unitId ? ', <strong>same unit</strong>' : ''}</div></div>${badge(l.status === 'template' ? 'accent' : l.status, l.status === 'template' ? 'Bank' : undefined)}</button>`).join('') || empty('book-copy', 'No editable lessons', 'Create one with the button above.')}</div>
     </div>`);
 }
 
@@ -241,7 +241,7 @@ function openNewResource() {
   openModal(`${modalHead('Add to the library', 'Case studies, activities, worksheets and practical sessions can be added to any lesson.')}
     <form data-submit="lib-create-resource"><div class="modal-body"><div class="form-grid">
       <label class="field"><span>Type</span><select class="select" name="type">${S.RESOURCE_TYPES.map(t => `<option value="${t}" ${ui.tab === t ? 'selected' : ''}>${RES_META[t].label}</option>`).join('')}</select></label>
-      <label class="field"><span>Unit</span><select class="select" name="unitId">${s.units.map(u => `<option value="${u.id}">${u.id} · ${esc(u.title)}</option>`).join('')}</select></label>
+      <label class="field"><span>Unit</span><select class="select" name="unitId">${s.units.map(u => `<option value="${u.id}">${u.id}, ${esc(u.title)}</option>`).join('')}</select></label>
       <label class="field full"><span>Title</span><input class="input" name="title" required autofocus></label>
       <label class="field"><span>Duration (min)</span><input class="input" type="number" name="minutes" value="30" min="5" max="240"></label>
       <label class="field"><span>Attachment (optional PDF)</span><input class="input" type="file" name="file" accept="application/pdf" style="padding-top:5px"></label>
@@ -249,7 +249,7 @@ function openNewResource() {
     </div></div><footer class="modal-foot"><button type="button" class="btn btn-ghost" data-action="modal-close">Cancel</button><button class="btn btn-primary">${icon('plus')} Add</button></footer></form>`, { wide: true });
 }
 export function resourceBody(s, r) {
-  return `<div class="stack gap-3"><div class="row gap-2 wrap"><span class="chip">${icon(RES_META[r.type].icon)} ${RES_META[r.type].label}</span>${r.unitId ? `${subjectChip(s, S.unitById(s, r.unitId).subject)}<span class="chip">${r.unitId} · ${esc(S.unitById(s, r.unitId).title)}</span>` : ''}<span class="chip">${r.minutes} min</span></div>
+  return `<div class="stack gap-3"><div class="row gap-2 wrap"><span class="chip">${icon(RES_META[r.type].icon)} ${RES_META[r.type].label}</span>${r.unitId ? `${subjectChip(s, S.unitById(s, r.unitId).subject)}<span class="chip">${r.unitId}, ${esc(S.unitById(s, r.unitId).title)}</span>` : ''}<span class="chip">${r.minutes} min</span></div>
     <div class="prose" style="white-space:pre-wrap">${esc(r.body).replace(/^(Brief|Deliverables|Team roles.*|Timeline.*|Assessment.*)$/gm, '<strong class="res-head">$1</strong>') || '<span class="faint">No instructions.</span>'}</div>
     ${r.file ? `<button class="btn btn-sm" data-action="lib-open-attachment" data-id="${r.id}" style="align-self:flex-start">${icon('paperclip')} ${esc(r.file.name)} (${fmtSize(r.file.size)})</button>` : ''}</div>`;
 }
@@ -318,7 +318,7 @@ export function materialHtml(s, blk) {
   const x = S.extractById(s, blk.extractId);
   if (!x) return '<p class="small muted">This extract was removed from the library.</p>';
   const b = S.bookById(s, x.bookId);
-  return `<div class="stack gap-2"><div class="small muted">${icon('book-marked')} ${esc(b.title)} · pages ${x.fromPage}–${x.toPage}${x.note ? ` · ${esc(x.note)}` : ''}</div>
+  return `<div class="stack gap-2"><div class="small muted">${icon('book-marked')} ${esc(b.title)}, pages ${x.fromPage}–${x.toPage}${x.note ? `, ${esc(x.note)}` : ''}</div>
     <div class="extract-pages" data-extract="${x.id}">${hasFile(`book:${b.id}`) ? '<div class="skeleton" style="height:300px"></div>' : `<div class="note note-warn">${icon('cloud-off')}<div>The book PDF is not stored on this device. In production the file is served from the university library server.</div></div>`}</div></div>`;
 }
 export async function mountMaterials(s) {

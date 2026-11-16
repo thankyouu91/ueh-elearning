@@ -1,10 +1,10 @@
-// ESP (English for Specific Purposes, CEFR B1) · Economics context, units E1–E4.
+// ESP (English for Specific Purposes, CEFR B1), Economics context, units E1–E4.
 // The economics topic is only the setting: every answer is in the text/audio or is a language point.
 // E1 has 11 items here; be-b1.js supplies its other 6 (including speaking and writing).
 import { C, O, M, READ, LISTEN, SPEAK, WRITE, USE } from './helpers.js';
 
 export const EXTRA = [
-  /* ---------------- E1 · Scarcity and choice · language focus: comparatives and superlatives ---------------- */
+  /* ---------------- E1, Scarcity and choice, language focus: comparatives and superlatives ---------------- */
   ...USE([
     C('E1', 'Word families: noun or adjective?', 'Sort the words into nouns and adjectives.',
       ['Noun', 'Adjective'],
@@ -34,7 +34,7 @@ export const EXTRA = [
       ['The share of workers in private firms fell slightly from 2021 to 2023.', 'The share of workers in private firms remained stable from 2021 to 2023.', 'The share of workers in private firms rose steadily from 2021 to 2023.', 'The share of workers in private firms rose in 2022 and then fell sharply in 2023.'], 2,
       'The number goes up every year (52, 58, 65), so we say it "rose steadily". "Remained stable" means no change.'),
   ]),
-  ...READ('E1-r1', 'Reading · Flowers or strawberries? A farm in Da Lat',
+  ...READ('E1-r1', 'Reading, Flowers or strawberries? A farm in Da Lat',
     `Green Hill Farm is a small family business in Da Lat. The farm has only two hectares of land, six workers and a limited budget, so the owner, Mr Phuc, cannot grow everything he wants. For ten years the farm has grown flowers for markets in Ho Chi Minh City. Flowers sell well before Tet, but prices are low for the rest of the year.\n\nThis year Mr Phuc is thinking about a change. Strawberries are more profitable than flowers because tourists pay high prices for fresh fruit. However, strawberries need more water and more workers, and the plants are easily damaged by heavy rain. If Mr Phuc uses one hectare for strawberries, he will have to give up half of his flower production. That is the trade-off.\n\nIn a market economy, nobody tells a farmer what to produce. Mr Phuc must look at prices, costs and risks and then decide for himself. "My resources are scarce," he says. "I cannot say yes to one crop without saying no to another. So I will start small: half a hectare of strawberries this year, and more next year if the customers come."`, [
       M('E1', 'Main idea', 'What is the text mainly about?',
         ['Why flower prices are low before Tet', 'A farmer who must choose how to use limited land', 'How tourists damage strawberry plants', 'A government plan that tells farmers what to grow'], 1,
@@ -43,7 +43,7 @@ export const EXTRA = [
         ['sell half of his flowers at a higher price', 'start growing more flowers', 'pay workers to pick the flowers', 'stop growing half of his flowers'], 3,
         'The phrasal verb "give up" means to stop having or doing something. The land used for strawberries can no longer be used for flowers.'),
     ]),
-  ...LISTEN('E1-l1', 'Listening · A voicemail about the guest house budget',
+  ...LISTEN('E1-l1', 'Listening, A voicemail about the guest house budget',
     "Hi Tuan, it's Hanh. I'm calling about the money we saved this year. We have one hundred and twenty million dong, and that's not enough for everything on our list. I see two main choices. One is to repair the roof of the guest house. The other is to build a new website with online booking. The website would bring more guests, I know, but honestly I think the roof is more important. The rainy season starts in September, and if the rooms get wet, we'll lose the guests we already have. The website can wait until next year. Can you call me back before Thursday? I'd like to talk to the builder on Friday. Thanks, bye.", [
       M('E1', 'Listening for gist', 'Why is Hanh calling Tuan?',
         ['To discuss how to spend their limited savings', 'To say that rain has damaged the roof', 'To book a room at the guest house', 'To ask him to build a website this week'], 0,
@@ -53,7 +53,7 @@ export const EXTRA = [
         'She says "honestly I think the roof is more important. The rainy season starts in September". "Honestly I think…" introduces her opinion.'),
     ]),
 
-  /* ---------------- E2 · Demand, supply and prices · language focus: first conditional ---------------- */
+  /* ---------------- E2, Demand, supply and prices, language focus: first conditional ---------------- */
   ...USE([
     C('E2', 'Verbs of change: up, down or no change?', 'Sort the verbs by their meaning.',
       ['Go up', 'Go down', 'No change'],
@@ -85,7 +85,7 @@ export const EXTRA = [
       ['The price rose slightly in April and then fell sharply in May.', 'The price rose sharply in April and then fell slightly in May.', 'The price remained stable from March to May.', 'The price fell sharply in April and then rose slightly in May.'], 1,
       'From 20,000 to 35,000 is a big change, so "rose sharply". From 35,000 to 34,000 is a small change, so "fell slightly".'),
   ]),
-  ...READ('E2-r1', 'Reading · An email from a seafood supplier',
+  ...READ('E2-r1', 'Reading, An email from a seafood supplier',
     `Subject: Shrimp prices from 1 June\n\nDear Ms Ngoc,\n\nThank you for your order last week. I am writing to explain a change in our prices.\n\nFrom 1 June, the price of fresh shrimp will rise from 240,000 to 280,000 VND per kilo. There are two reasons for this. First, the weather in May was very bad, so our boats in Vung Tau went out on only twelve days. Supply has fallen by about a third. Second, demand is growing: the summer holiday season has started and hotels along the coast are ordering much more seafood than in spring.\n\nWe know that higher prices are difficult for restaurants. For this reason, we can offer you frozen shrimp at the old price of 240,000 VND until the end of June. The quality is good, and many of our customers use it for soups and fried rice.\n\nIf the weather improves, we expect supply to return to normal in July, and prices will probably fall again. Please tell me by Friday how many kilos you would like.\n\nBest regards,\nPham Van Duc\nSales Manager, Song Xanh Seafood`, [
       M('E2', 'Writer\'s purpose', 'Why is Mr Duc writing to Ms Ngoc?',
         ['To apologise for a late delivery', 'To ask her to pay for last week\'s order', 'To explain a price rise and offer another product', 'To tell her that he has stopped selling shrimp'], 2,
@@ -100,7 +100,7 @@ export const EXTRA = [
         ['It will certainly stay at 280,000 VND', 'It may go down if the boats can fish more often', 'It will rise again because of the holiday season', 'It will be lower than the price of frozen shrimp'], 1,
         'The writer says "If the weather improves… prices will probably fall again". "Probably" and "if" show it is possible, not certain.'),
     ]),
-  ...LISTEN('E2-l1', 'Listening · Morning update at a mini-supermarket',
+  ...LISTEN('E2-l1', 'Listening, Morning update at a mini-supermarket',
     "Good morning, everyone. Just a quick update before we open. First, watermelons. Farmers in Long An had a very good harvest, so there's a lot of supply and our buying price has dropped to eight thousand dong a kilo. Let's put them at the front of the store and sell them at twelve thousand. Second, eggs. Demand is very high this week because of the Mid-Autumn Festival. Bakeries are buying everything, and we only have forty boxes left. I don't want a shortage on Saturday, so Lan, please call the supplier this morning and order sixty more boxes. If they ask for a higher price, that's fine, but tell me first. Okay, that's all. Have a good day.", [
       M('E2', 'Listening for gist', 'What is the speaker doing?',
         ['Complaining to a supplier about prices', 'Giving staff an update about two products', 'Welcoming customers to a new store', 'Explaining how farmers grow watermelons'], 1,
@@ -112,16 +112,16 @@ export const EXTRA = [
         ['Call the supplier and order sixty more boxes of eggs', 'Move the eggs to the front of the store', 'Raise the price of eggs to twelve thousand dong', 'Tell the bakeries to stop buying eggs'], 0,
         'The speaker says: "Lan, please call the supplier this morning and order sixty more boxes."'),
     ]),
-  ...SPEAK('E2', 'Speaking · A price that changed',
+  ...SPEAK('E2', 'Speaking, A price that changed',
     'Talk for about 1 minute about a product whose price changed recently (for example petrol, eggs, bubble tea or vegetables).\n• Say what the product is and how the price changed\n• Explain why (think about demand or supply)\n• Say what you think will happen next (use "If…, … will…")',
     'I want to talk about the price of eggs near my dormitory. Last month a box of ten eggs cost thirty thousand dong, but now it costs thirty-six thousand. I think the price rose because demand is high before the Mid-Autumn Festival. Bakeries need a lot of eggs for moon cakes, so there is a small shortage. If farmers send more eggs to the city, the price will fall again. I think it will return to normal next month.',
     'Content: names the product, describes the price change, gives a demand or supply reason and makes one prediction'),
-  ...WRITE('E2', 'Writing · Email to the head chef about a price rise',
+  ...WRITE('E2', 'Writing, Email to the head chef about a price rise',
     'You are Ms Ngoc, the manager of Sen Viet Restaurant in Nha Trang. Your supplier is raising the price of fresh shrimp (see the reading). Write an email of about 100 words to your head chef, Mr Hai.\n• Explain what is changing and why\n• Say what you want the kitchen to do in June\n• Say when you will review the decision',
     'Dear Chef Hai,\nI am writing about our shrimp order for June. Song Xanh Seafood will raise the price of fresh shrimp from 240,000 to 280,000 VND per kilo because bad weather has reduced supply and demand from hotels is high.\nFor this reason, please use frozen shrimp for soups and fried rice in June. It is still 240,000 VND per kilo and the quality is good. We will keep fresh shrimp only for grilled dishes.\nIf supply returns to normal in July, prices will probably fall. I will review our order on 30 June.\nThank you for your help.\nBest regards,\nNgoc',
     'Content: states the price change and its two causes, gives a clear instruction for June and a review date'),
 
-  /* ---------------- E3 · Prices, customers and government rules · language focus: the passive ---------------- */
+  /* ---------------- E3, Prices, customers and government rules, language focus: the passive ---------------- */
   ...USE([
     C('E3', 'Who does it: the government or a business?', 'Sort the phrases: is this usually an action of the government or of a business?',
       ['Government action', 'Business decision'],
@@ -154,7 +154,7 @@ export const EXTRA = [
       ['After the price went up in February, weekly sales remained stable.', 'After the price was cut in February, weekly sales rose sharply.', 'Both the price and weekly sales increased in February.', 'After the price went up in February, weekly sales fell.'], 3,
       'The price moved from 40,000 to 44,000 ("went up") and sales moved from 1,000 to 850 ("fell").'),
   ]),
-  ...READ('E3-r1', 'Reading · A limit on student rents?',
+  ...READ('E3-r1', 'Reading, A limit on student rents?',
     `Thousands of students rent small rooms near the universities in Thu Duc. Last year the average rent was 3 million VND a month. Many students say that this is more than half of their monthly budget.\n\nLast week a local councillor suggested a maximum rent of 2.4 million VND for rooms under 20 square metres. "Housing is a necessity, not a luxury," she said. "Students cannot simply stop renting when prices rise."\n\nNot everyone agrees. Landlords say that their costs for electricity and repairs have increased. Mr Hung, who owns twelve rooms, told us: "If the rent is capped, I will turn four of my rooms into storage space. It will not be worth renting them to students." A student union survey found that more students would look for rooms at the lower rent, but fewer rooms would be offered.\n\nThe union supports a different idea: the city could give a small monthly subsidy to students from low-income families. The proposal will be discussed at a public meeting on 15 October.`, [
       M('E3', 'Main idea', 'What is the article mainly about?',
         ['How to find a cheap room in Thu Duc', 'Different opinions about a plan to limit student rents', 'A new university dormitory for students', 'Why landlords are selling their rooms'], 1,
@@ -169,7 +169,7 @@ export const EXTRA = [
         ['Landlords would build more rooms', 'Rents would go above 3 million VND', 'Fewer students would want to rent a room', 'Some students would not be able to find a room'], 3,
         'The survey found that "more students would look for rooms… but fewer rooms would be offered", so there would not be enough rooms for everyone.'),
     ]),
-  ...LISTEN('E3-l1', 'Listening · A gym owner talks about prices',
+  ...LISTEN('E3-l1', 'Listening, A gym owner talks about prices',
     "Thanks for joining the call. Let me start with our prices. In March we raised the monthly membership from four hundred thousand to four hundred and fifty thousand dong. I expected to lose a few members, but we lost almost two hundred, mostly students. They are very price-sensitive, and there are three other gyms near the university, so it's easy for them to switch. Our office workers are different. Almost all of them stayed. So here's my plan. From the first of June, students will pay three hundred and eighty thousand if they show a student card. The price for everyone else won't change. Minh, can you prepare the new price list and send it to me by Wednesday? Thanks.", [
       M('E3', 'Listening for gist', 'What is the speaker mainly talking about?',
         ['Opening a new gym near the university', 'A problem with student cards', 'The result of a price rise and a new price plan', 'Hiring more staff for June'], 2,
@@ -181,16 +181,16 @@ export const EXTRA = [
         ['Visit the three other gyms', 'Prepare the new price list by Wednesday', 'Call the students who left', 'Raise the price for office workers'], 1,
         'The request is: "Minh, can you prepare the new price list and send it to me by Wednesday?"'),
     ]),
-  ...SPEAK('E3', 'Speaking · When prices go up',
+  ...SPEAK('E3', 'Speaking, When prices go up',
     'Talk for about 1 minute. A café near your university raises all its prices by 10%.\n• Say which product you would stop buying there and which you would still buy\n• Explain why (is it a necessity or a luxury? are there substitutes?)\n• Say what the owner should do to keep student customers',
     'If the café near my university raises its prices by ten per cent, I will stop buying bubble tea there. Bubble tea is a luxury for me, and there are many substitutes, so I can easily switch to another shop. However, I will still buy lunch there, because lunch is a necessity and the café is close to my classroom. I think the owner should offer a student discount. Students are very price-sensitive, so a lower price will bring them back.',
     'Content: names one product to stop buying and one to keep, explains with necessity/luxury or substitutes, gives one suggestion to the owner'),
-  ...WRITE('E3', 'Writing · Short report on sales after a price rise',
+  ...WRITE('E3', 'Writing, Short report on sales after a price rise',
     'You are the assistant manager of Tra Xanh, a bubble tea shop near a university in Ho Chi Minh City. On 1 February the price of a cup was raised from 40,000 to 44,000 VND, and weekly sales fell from 1,000 to 850 cups. Write a short report of about 100 words for the owner, Ms Vy.\n• Describe what happened after the price rise\n• Explain why you think customers reacted this way\n• Make one recommendation',
     'To: Ms Vy\nSubject: Sales after the price rise\nThis report describes our sales in February. On 1 February the price of a cup was raised from 40,000 to 44,000 VND. After that, weekly sales fell from 1,000 to 850 cups.\nI think there are two reasons. Most of our customers are students, who are very price-sensitive. In addition, there are four other tea shops on our street, so it is easy to switch.\nI recommend that we keep the new price but offer a student discount of 4,000 VND on weekdays. Sales should be checked again at the end of March.\nTrang',
     'Content: reports the price and sales figures from the prompt, gives at least one reason for the customers\' reaction, makes one clear recommendation'),
 
-  /* ---------------- E4 · Prices, jobs and the economy · language focus: present perfect vs past simple ---------------- */
+  /* ---------------- E4, Prices, jobs and the economy, language focus: present perfect vs past simple ---------------- */
   ...USE([
     C('E4', 'Good news or bad news for workers?', 'Sort the phrases by their meaning for a worker.',
       ['Usually good news', 'Usually bad news'],
@@ -222,7 +222,7 @@ export const EXTRA = [
       ['Unemployment fell sharply in 2022 and then remained almost stable in 2023.', 'Unemployment rose sharply in 2022 and then fell slightly in 2023.', 'Unemployment fell slightly in 2022 and then fell sharply in 2023.', 'Unemployment remained stable from 2021 to 2023.'], 0,
       'From 4.5 to 3.1 is a big fall ("fell sharply"). From 3.1 to 3.0 is almost no change ("remained almost stable").'),
   ]),
-  ...READ('E4-r1', 'Reading · What does inflation mean for a student?',
+  ...READ('E4-r1', 'Reading, What does inflation mean for a student?',
     `Newspapers say that prices rose by about 4% last year. For Linh, a second-year student in Binh Thanh District, the number feels much higher.\n\nLinh writes down everything she spends in a notebook. Last year her room, food and transport cost 6 million VND a month, exactly the same as the allowance from her parents. This year her landlord has raised the rent, a bowl of pho near her university costs 5,000 VND more, and petrol is more expensive too. Now the same things cost 6.6 million VND a month.\n\nHer parents have increased her allowance to 6.3 million VND. "They gave me more money, but I can buy less with it," Linh says. "That is what inflation means for me."\n\nTo close the gap, Linh has started to cook at home four evenings a week, and she takes the bus instead of her motorbike. She has also found a part-time job in a bookshop. "I cannot control prices," she says, "but I can control my budget."`, [
       M('E4', 'Main idea', 'What is the article mainly about?',
         ['How to get a bigger allowance from your parents', 'Why pho is more expensive than other food', 'How rising prices affect one student\'s budget', 'How newspapers measure inflation'], 2,
@@ -237,7 +237,7 @@ export const EXTRA = [
         ['Her parents have reduced her allowance', 'Her costs have gone up more than her allowance', 'She now spends more money on books', 'She has lost her part-time job'], 1,
         'Her costs are now 6.6 million VND but her allowance is 6.3 million VND, so the extra money does not cover the higher prices.'),
     ]),
-  ...LISTEN('E4-l1', 'Listening · An HR manager explains a salary decision',
+  ...LISTEN('E4-l1', 'Listening, An HR manager explains a salary decision',
     "Good afternoon, everyone. I'd like to explain this year's salary decision. As you know, the cost of living has gone up a lot. Prices in the city rose by about five per cent last year, and rent rose even faster. Many of you have told me that your salary doesn't go as far as before. The good news is that the company had a strong year. Our exports to Japan grew by twelve per cent, and we hired forty new workers. So, from the first of July, all salaries will increase by seven per cent. That is higher than inflation, so you should really feel the difference. Your team leaders will give you a letter with your new salary next Monday. Any questions?", [
       M('E4', 'Listening for gist', 'What is the main purpose of the talk?',
         ['To explain why forty workers lost their jobs', 'To announce and explain a salary increase', 'To introduce a new customer from Japan', 'To ask workers to spend less money'], 1,
@@ -249,11 +249,11 @@ export const EXTRA = [
         ['It is too small to help with rent', 'It is risky because exports are falling', 'Workers will notice it because it is higher than inflation', 'It should be only for team leaders'], 2,
         'The speaker says: "That is higher than inflation, so you should really feel the difference."'),
     ]),
-  ...SPEAK('E4', 'Speaking · The cost of living for students',
+  ...SPEAK('E4', 'Speaking, The cost of living for students',
     'Talk for about 1 minute about the cost of living for students in your city.\n• Say what has become more expensive this year\n• Explain how this has changed your spending\n• Say what students can do to manage their budget',
     'The cost of living in Ho Chi Minh City has risen this year. My rent has gone up by two hundred thousand dong, and lunch near my university is more expensive too. Because of inflation, my allowance does not go as far as before, so I have changed my spending. I cook at home more often and I take the bus. I think students should write down what they spend and look for a part-time job. We cannot control prices, but we can plan our budget.',
     'Content: gives one or two examples of higher prices, explains a change in spending, suggests one way to manage a budget'),
-  ...WRITE('E4', 'Writing · Memo to staff about a salary increase',
+  ...WRITE('E4', 'Writing, Memo to staff about a salary increase',
     'You work in the HR department of Sao Mai Garment Company in Binh Duong. Write a memo of about 100 words to all staff.\n• Give the reason for a salary increase (the rising cost of living)\n• State the size and the date of the increase\n• Say what staff should do if they have questions',
     'To: All staff\nFrom: Human Resources\nSubject: Salary increase from 1 July\nWe know that the cost of living has risen this year. Prices in our area have increased by about 5%, and many of you are paying more for rent and food.\nBecause the company has had a strong year, all salaries will increase by 7% from 1 July. This is higher than inflation, so we hope it will help your family budget.\nYou will receive a letter with your new salary next Monday. If you have any questions, please speak to your team leader or email the HR office.\nThank you for your hard work.\nMs Thu, HR Manager',
     'Content: gives the reason, the size and the start date of the increase, and tells staff who to contact with questions'),

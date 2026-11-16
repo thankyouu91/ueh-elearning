@@ -74,11 +74,11 @@ function classCard(s, h, me) {
   const { sec, st } = h;
   const prog = S.programOfSection(s, sec.id);
   const bar = (label, pct, tone) => `<div class="cc-bar"><span>${label}</span>${progress(pct, tone)}<b>${Math.round(pct)}%</b></div>`;
-  const next = !h.nextUnit ? '<span class="faint">Term ends</span>' : !h.mineNext ? `<span class="faint">W${h.nw} · ${h.nextUnit.id} (colleague)</span>` : `W${h.nw} · ${h.nextUnit.id} ${badge(h.nextLesson?.status || 'missing', h.nextLesson ? undefined : 'No lesson')}`;
+  const next = !h.nextUnit ? '<span class="faint">Term ends</span>' : !h.mineNext ? `<span class="faint">W${h.nw}, ${h.nextUnit.id} (colleague)</span>` : `W${h.nw}, ${h.nextUnit.id} ${badge(h.nextLesson?.status || 'missing', h.nextLesson ? undefined : 'No lesson')}`;
   return `<a class="class-card ${h.attention ? 'attn' : ''}" href="#/instructor/gradebook/${sec.id}">
     <div class="row between gap-2"><strong class="cc-code">${esc(sec.code)}</strong><span class="row gap-2"><button class="code-chip" data-action="class-share" data-id="${sec.id}" title="Class code — send it to students">${icon('ticket', 'ic-xs')} ${S.joinCodeOf(sec)}</button>${sec.studentIds.length ? (h.attention ? badge('warn', 'Needs attention') : badge('ok', 'On track')) : badge('info', 'New')}</span></div>
-    <div class="small muted">${esc(prog.code)} · ${st.students} students · ${S.lecturerSubjects(s, me.id, sec.id).map(k => subjectChip(s, k)).join(' ') || '<span class="faint">lead only</span>'}</div>
-    ${h.attention ? `<div class="small t-warn">${icon('triangle-alert')} ${esc(h.reasons.join(' · '))}</div>` : ''}
+    <div class="small muted">${esc(prog.code)}, ${st.students} students, ${S.lecturerSubjects(s, me.id, sec.id).map(k => subjectChip(s, k)).join(' ') || '<span class="faint">lead only</span>'}</div>
+    ${h.attention ? `<div class="small t-warn">${icon('triangle-alert')} ${esc(h.reasons.join(', '))}</div>` : ''}
     ${bar('Delivery', (h.live / s.clock.week) * 100, h.live < s.clock.week ? 'warn' : 'ok')}
     ${bar('Workbook', h.wb, h.wb < 50 ? 'danger' : h.wb < 75 ? 'warn' : 'ok')}
     <div class="cc-stats"><span>Avg <b>${st.avg === null ? '—' : st.avg.toFixed(1)}</b></span><span>Pass <b>${st.pass ?? '—'}%</b></span><span>Eng <b>${st.engagement ?? '—'}%</b></span></div>
@@ -121,11 +121,11 @@ function classes(s, _id, me) {
     : (a, b) => b.reasons.length - a.reasons.length || b.st.atRisk - a.st.atRisk || a.sec.code.localeCompare(b.sec.code));
 
   const queue = [
-    ...changes.map(l => `<a class="list-item" href="#/instructor/builder/${l.id}"><span class="li-icon warn">${icon('message-square-warning')}</span><div class="grow"><div class="title">${esc(l.title)}</div><div class="meta">${esc(S.sectionById(s, l.sectionId).code)} · ${l.status === 'rejected' ? 'Rejected' : 'Changes requested'}: "${esc(l.reviewNote)}"</div></div></a>`),
+    ...changes.map(l => `<a class="list-item" href="#/instructor/builder/${l.id}"><span class="li-icon warn">${icon('message-square-warning')}</span><div class="grow"><div class="title">${esc(l.title)}</div><div class="meta">${esc(S.sectionById(s, l.sectionId).code)}, ${l.status === 'rejected' ? 'Rejected' : 'Changes requested'}: "${esc(l.reviewNote)}"</div></div></a>`),
     ...(toMark ? [`<a class="list-item" href="#/instructor/gradebook"><span class="li-icon warn">${icon('clipboard-pen')}</span><div class="grow"><div class="title">${toMark} written answers to mark</div><div class="meta">Workbook and case tasks in your subjects</div></div></a>`] : []),
     ...(ungraded.length ? [`<a class="list-item" href="#/instructor/gradebook"><span class="li-icon warn">${icon('clipboard-check')}</span><div class="grow"><div class="title">${ungraded.length} case reports to grade</div><div class="meta">${esc([...new Set(ungraded.map(x => x.section.code))].join(', '))}</div></div></a>`] : []),
-    ...health.filter(h => h.mineNext && !['submitted', 'scheduled', 'published'].includes(h.nextLesson?.status)).map(h => `<a class="list-item" href="${h.nextLesson ? `#/instructor/builder/${h.nextLesson.id}` : '#/instructor/lessons'}"><span class="li-icon">${icon('calendar-plus')}</span><div class="grow"><div class="title">Week ${h.nw} · ${esc(h.sec.code)} · ${h.nextUnit.id}</div><div class="meta">${h.nextLesson ? 'Draft — submit it for approval' : 'Nothing planned yet'}</div></div></a>`),
-    ...pending.map(l => `<a class="list-item" href="#/instructor/builder/${l.id}"><span class="li-icon">${icon('hourglass')}</span><div class="grow"><div class="title">${esc(l.title)}</div><div class="meta">${esc(S.sectionById(s, l.sectionId).code)} · waiting for the Dean since ${S.fmtDate(l.submittedAt)}</div></div></a>`),
+    ...health.filter(h => h.mineNext && !['submitted', 'scheduled', 'published'].includes(h.nextLesson?.status)).map(h => `<a class="list-item" href="${h.nextLesson ? `#/instructor/builder/${h.nextLesson.id}` : '#/instructor/lessons'}"><span class="li-icon">${icon('calendar-plus')}</span><div class="grow"><div class="title">Week ${h.nw}, ${esc(h.sec.code)}, ${h.nextUnit.id}</div><div class="meta">${h.nextLesson ? 'Draft — submit it for approval' : 'Nothing planned yet'}</div></div></a>`),
+    ...pending.map(l => `<a class="list-item" href="#/instructor/builder/${l.id}"><span class="li-icon">${icon('hourglass')}</span><div class="grow"><div class="title">${esc(l.title)}</div><div class="meta">${esc(S.sectionById(s, l.sectionId).code)}, waiting for the Dean since ${S.fmtDate(l.submittedAt)}</div></div></a>`),
   ];
   const chip = (k, label, n) => `<button class="chip-btn ${dashUi.filter === k ? 'active' : ''}" data-action="dash-filter" data-k="${k}">${label} <span>${n}</span></button>`;
 
@@ -133,16 +133,16 @@ function classes(s, _id, me) {
   return {
     title: simple ? 'My classes' : 'Dashboard',
     html: `<div class="page">
-      ${simple ? pageHead('My classes', `${secs.length} classes · ${students.length} students · week ${s.clock.week} of ${s.term.weeks}`, `<button class="btn btn-primary" data-action="class-new">${icon('users-round')} Open a class</button>`) : pageHead(`Good morning, ${esc(me.name)}`, `${secs.length} classes · ${students.length} students · week ${s.clock.week} of ${s.term.weeks}`, `<button class="btn" data-action="class-new">${icon('users-round')} Open a class</button><a class="btn" href="#/instructor/live">${icon('radio')} Start live session</a><a class="btn btn-primary" href="#/instructor/lessons?new">${icon('plus')} New lesson</a>`)}
+      ${simple ? pageHead('My classes', `${secs.length} classes, ${students.length} students, week ${s.clock.week} of ${s.term.weeks}`, `<button class="btn btn-primary" data-action="class-new">${icon('users-round')} Open a class</button>`) : pageHead(`Good morning, ${esc(me.name)}`, `${secs.length} classes, ${students.length} students, week ${s.clock.week} of ${s.term.weeks}`, `<button class="btn" data-action="class-new">${icon('users-round')} Open a class</button><a class="btn" href="#/instructor/live">${icon('radio')} Start live session</a><a class="btn btn-primary" href="#/instructor/lessons?new">${icon('plus')} New lesson</a>`)}
       ${simple ? '' : startHere(s, me, [
         ['#/instructor/lessons', 'layers', "Prepare next week's lesson", 'Create or edit a lesson for one of your classes.'],
         ['#/instructor/gradebook', 'clipboard-pen', 'Mark student work', 'The number in the menu shows how many answers wait for you.'],
         ['#/instructor/live', 'presentation', 'Teach a live class', 'Start a session; students join with a PIN.'],
       ])}
       <div class="grid">
-        <div class="span-3">${kpi({ label: 'Classes', value: `${secs.length}<small> · ${students.length} students</small>`, sub: attn ? `<span class="t-warn">${attn} need attention</span>` : 'All on track', iconName: 'school', tone: attn ? 'warn' : 'ok' })}</div>
-        <div class="span-3">${kpi({ label: 'Average course grade', value: avgGrade === null ? '—' : `${avgGrade.toFixed(1)}<small> / 10</small>`, sub: `Pass rate ${passRate ?? '—'}% · ${atRisk} at risk`, iconName: 'chart-column', tone: atRisk ? 'danger' : '' })}</div>
-        <div class="span-3">${kpi({ label: 'To mark', value: String(toMark + ungraded.length), sub: `${toMark} written · ${ungraded.length} case reports`, iconName: 'clipboard-pen', tone: toMark + ungraded.length ? 'warn' : 'ok' })}</div>
+        <div class="span-3">${kpi({ label: 'Classes', value: `${secs.length}<small>, ${students.length} students</small>`, sub: attn ? `<span class="t-warn">${attn} need attention</span>` : 'All on track', iconName: 'school', tone: attn ? 'warn' : 'ok' })}</div>
+        <div class="span-3">${kpi({ label: 'Average course grade', value: avgGrade === null ? '—' : `${avgGrade.toFixed(1)}<small> / 10</small>`, sub: `Pass rate ${passRate ?? '—'}%, ${atRisk} at risk`, iconName: 'chart-column', tone: atRisk ? 'danger' : '' })}</div>
+        <div class="span-3">${kpi({ label: 'To mark', value: String(toMark + ungraded.length), sub: `${toMark} written, ${ungraded.length} case reports`, iconName: 'clipboard-pen', tone: toMark + ungraded.length ? 'warn' : 'ok' })}</div>
         <div class="span-3">${kpi({ label: 'Lessons in review', value: String(pending.length), sub: changes.length ? `<span class="t-warn">${changes.length} need changes</span>` : 'No changes requested', iconName: 'inbox', tone: changes.length ? 'warn' : '' })}</div>
       </div>
       <div class="grid">
@@ -165,7 +165,7 @@ function classes(s, _id, me) {
         const rate = (a) => { const ss = students.filter(u => a.sectionIds.includes(u.sectionId)); return ss.length ? Math.round((ss.filter(u => S.attemptsOf(s, u.id, a.id).length).length / ss.length) * 100) : 0; };
         makeChart('in-bar', {
           type: 'bar',
-          data: { labels: closedAssess.map(a => `${a.title.split(' · ')[0]} (${a.programId?.slice(2) || ''})`), datasets: [
+          data: { labels: closedAssess.map(a => `${a.title.split(', ')[0]} (${a.programId?.slice(2) || ''})`), datasets: [
             { label: 'Average (/10)', data: closedAssess.map(avgOf), backgroundColor: cssVar('--brand'), borderRadius: 4, yAxisID: 'y' },
             { label: 'Submitted (%)', data: closedAssess.map(rate), type: 'line', borderColor: cssVar('--brand-2'), backgroundColor: cssVar('--brand-2'), yAxisID: 'y2', tension: .3 } ] },
           options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 10 } } }, scales: { y: { min: 0, max: 10, grid: { color: cssVar('--border') } }, y2: { position: 'right', min: 0, max: 100, grid: { display: false } }, x: { grid: { display: false } } } },
@@ -198,13 +198,13 @@ function lessons(s, _id, me) {
   const past = list.filter(l => l.status === 'published' && l.week < s.clock.week);
   const current = list.filter(l => !past.includes(l));
   const bankTools = `<div class="card-body row gap-2 wrap"><label class="opt" style="margin:0"><input type="checkbox" data-change="bank-mine" ${lessonsUi.mine ? 'checked' : ''}> Only mine</label>
-          <select class="select select-sm" data-change="bank-unit"><option value="">All units</option>${s.units.map(u => `<option value="${u.id}" ${lessonsUi.unit === u.id ? 'selected' : ''}>${u.id} · ${esc(u.title)}</option>`).join('')}</select></div>`;
+          <select class="select select-sm" data-change="bank-unit"><option value="">All units</option>${s.units.map(u => `<option value="${u.id}" ${lessonsUi.unit === u.id ? 'selected' : ''}>${u.id}, ${esc(u.title)}</option>`).join('')}</select></div>`;
   if (S.isSimple(s, me)) return {
     title: 'Prepare lessons',
     html: `<div class="page">${pageHead('Prepare lessons', 'Your lessons, week by week.', `<button class="btn btn-primary" data-action="new-lesson">${icon('plus')} New lesson</button>`)}
       ${card({ title: 'My lessons', subtitle: 'This week and the weeks ahead', flush: true, body: classTable(current) })}
-      ${past.length ? `<details class="aid"><summary>${icon('history')} Lessons already taught · ${past.length}</summary>${card({ flush: true, body: classTable(past) })}</details>` : ''}
-      <details class="aid" ${lessonsUi.mine || lessonsUi.unit ? 'open' : ''}><summary>${icon('book-copy')} Ready-made lessons to reuse · ${S.bankLessons(s).length}</summary>${card({ flush: true, body: bankTools + bankBody })}
+      ${past.length ? `<details class="aid"><summary>${icon('history')} Lessons already taught, ${past.length}</summary>${card({ flush: true, body: classTable(past) })}</details>` : ''}
+      <details class="aid" ${lessonsUi.mine || lessonsUi.unit ? 'open' : ''}><summary>${icon('book-copy')} Ready-made lessons to reuse, ${S.bankLessons(s).length}</summary>${card({ flush: true, body: bankTools + bankBody })}
         <p class="small muted" style="padding:8px 4px 0">Want a lesson you can reuse every term? <button class="btn btn-sm" data-action="new-bank-lesson">${icon('copy-plus')} Reusable lesson</button></p></details>
     </div>`,
   };
@@ -213,7 +213,7 @@ function lessons(s, _id, me) {
     html: `<div class="page">${pageHead('Lessons', 'Teaching one class this week? Create a lesson for that class. Want to reuse it every term? Create a reusable lesson.', `<button class="btn btn-primary" data-action="new-lesson">${icon('plus')} Lesson for one class</button><button class="btn" data-action="new-bank-lesson">${icon('copy-plus')} Reusable lesson</button>`)}
       ${card({ flush: true, body: `<div class="tabs" style="padding:0 12px"><button class="${lessonsUi.tab === 'bank' ? 'active' : ''}" data-action="lessons-tab" data-tab="bank">Lesson bank <span class="faint">${S.bankLessons(s).length}</span></button><button class="${lessonsUi.tab === 'class' ? 'active' : ''}" data-action="lessons-tab" data-tab="class">Class lessons <span class="faint">${list.length}</span></button></div>
         ${lessonsUi.tab === 'bank' ? `<div class="card-body row gap-2 wrap"><label class="opt" style="margin:0"><input type="checkbox" data-change="bank-mine" ${lessonsUi.mine ? 'checked' : ''}> Only mine</label>
-          <select class="select select-sm" data-change="bank-unit"><option value="">All units</option>${s.units.map(u => `<option value="${u.id}" ${lessonsUi.unit === u.id ? 'selected' : ''}>${u.id} · ${esc(u.title)}</option>`).join('')}</select>
+          <select class="select select-sm" data-change="bank-unit"><option value="">All units</option>${s.units.map(u => `<option value="${u.id}" ${lessonsUi.unit === u.id ? 'selected' : ''}>${u.id}, ${esc(u.title)}</option>`).join('')}</select>
           <span class="small muted">Lessons from other lecturers can be duplicated into your bank and adapted.</span></div>${bankBody}` : classBody}` })}
     </div>`,
   };
@@ -223,7 +223,7 @@ function openNewBankLesson(unitId = '') {
   const s = getState();
   openModal(`${modalHead('New bank lesson', 'A reusable lesson for one unit. Add textbook extracts and library resources, then plan it into a module.')}
     <form data-submit="create-bank-lesson"><div class="modal-body"><div class="form-grid">
-      <label class="field full"><span>Unit</span><select class="select" name="unitId">${s.units.map(u => `<option value="${u.id}" ${u.id === unitId ? 'selected' : ''}>${u.id} · ${esc(u.title)}</option>`).join('')}</select></label>
+      <label class="field full"><span>Unit</span><select class="select" name="unitId">${s.units.map(u => `<option value="${u.id}" ${u.id === unitId ? 'selected' : ''}>${u.id}, ${esc(u.title)}</option>`).join('')}</select></label>
       <label class="field full"><span>Title (optional)</span><input class="input" name="title" placeholder="Defaults to the unit title"></label>
       <label class="opt full" style="margin:0"><input type="checkbox" name="template" checked> Start from the unit template</label>
     </div></div><footer class="modal-foot"><button type="button" class="btn btn-ghost" data-action="modal-close">Cancel</button><button class="btn btn-primary">${icon('plus')} Create</button></footer></form>`);
@@ -237,7 +237,7 @@ function weekOptions(s, sectionId) {
   const pick = weeks.find(w => gaps.includes(w)); // preselect the first week this lecturer teaches that has no lesson yet
   return weeks.map(w => {
     const u = S.unitForWeek(s, sectionId, w);
-    return `<option value="${w}" ${w === pick ? 'selected' : ''} ${gaps.includes(w) ? '' : 'disabled'}>Week ${w} · ${esc(u.id)} ${esc(u.title)}${gaps.includes(w) ? ' (free)' : ' (has a lesson)'}</option>`;
+    return `<option value="${w}" ${w === pick ? 'selected' : ''} ${gaps.includes(w) ? '' : 'disabled'}>Week ${w}, ${esc(u.id)} ${esc(u.title)}${gaps.includes(w) ? ' (free)' : ' (has a lesson)'}</option>`;
   }).join('');
 }
 /** New-lesson dialog: when the chosen class has no free week left, say so and block Create. */
@@ -273,9 +273,9 @@ const DEFAULT_MIN = { page: 15, theory: 25, vocabulary: 10, simulation: 20, calc
 
 const LIB_KINDS = [['extract', 'Textbook extract', 'book-marked'], ...S.RESOURCE_TYPES.map(t => [t, RES_META[t].label, RES_META[t].icon])];
 function blockMeta(s, b) {
-  if (b.type === 'material') { const x = S.extractById(s, b.extractId); return x ? `${esc(S.bookById(s, x.bookId).title)} · pp. ${x.fromPage}–${x.toPage}` : 'Extract removed'; }
-  if (b.type === 'resource') { const r = S.resourceById(s, b.resourceId); return r ? `${RES_META[r.type].label}${b.extra ? ' · add-on session' : ''}` : 'Resource removed'; }
-  if (b.type === 'page') return b.layout?.length ? `Page · ${b.layout.length} tiles · ${S.slidesOf({ blocks: [b] }).length} slides` : 'Page · empty — click Edit page';
+  if (b.type === 'material') { const x = S.extractById(s, b.extractId); return x ? `${esc(S.bookById(s, x.bookId).title)}, pp. ${x.fromPage}–${x.toPage}` : 'Extract removed'; }
+  if (b.type === 'resource') { const r = S.resourceById(s, b.resourceId); return r ? `${RES_META[r.type].label}${b.extra ? ', add-on session' : ''}` : 'Resource removed'; }
+  if (b.type === 'page') return b.layout?.length ? `Page, ${b.layout.length} tiles, ${S.slidesOf({ blocks: [b] }).length} slides` : 'Page, empty — click Edit page';
   return TYPE_META[b.type]?.label || b.type;
 }
 const pageLink = (l, b, editable) => b.type === 'page' ? `<a class="btn btn-sm ${editable ? 'btn-primary' : ''}" href="#/instructor/pageedit/${l.id}~${b.id}">${icon(editable ? 'pencil' : 'eye')} ${editable ? 'Edit page' : 'Open page'}</a>` : '';
@@ -289,18 +289,18 @@ function lessonAids(s, l, editable, simple = false) {
   const units = sec ? S.curriculumOfSection(s, sec.id).slice(0, Math.max(l.week || s.clock.week, 1)) : [l.unitId].filter(Boolean);
   const ids = sec ? sec.studentIds : s.users.filter(u => u.role === 'student').map(u => u.id);
   const spots = units.length ? S.weakSpots(s, ids, units) : [];
-  const weak = card({ title: 'Where students struggle', subtitle: sec ? `${esc(sec.code)} · units taught so far` : 'All classes · this unit', flush: true, body: spots.length ? `<div class="list">${spots.map(w => `<div class="list-item"><div class="grow"><div class="small" style="font-weight:600">${esc(w.title.length > 90 ? w.title.slice(0, 88) + '…' : w.title)}</div><div class="meta">${w.unitId} · ${w.source} · ${w.pct}% correct · ${w.n} answers</div></div></div>`).join('')}</div>
+  const weak = card({ title: 'Where students struggle', subtitle: sec ? `${esc(sec.code)}, units taught so far` : 'All classes, this unit', flush: true, body: spots.length ? `<div class="list">${spots.map(w => `<div class="list-item"><div class="grow"><div class="small" style="font-weight:600">${esc(w.title.length > 90 ? w.title.slice(0, 88) + '…' : w.title)}</div><div class="meta">${w.unitId}, ${w.source}, ${w.pct}% correct, ${w.n} answers</div></div></div>`).join('')}</div>
       ${editable ? `<div class="row gap-2 wrap" style="padding:12px 22px;border-top:1px solid var(--border)"><span class="small muted grow">Revisit these in class:</span><button class="btn btn-sm" data-action="add-block" data-type="calculation">${icon('calculator')} Add worked problem</button><button class="btn btn-sm" data-action="add-block" data-type="quiz">${icon('list-checks')} Add practice check</button></div>` : ''}`
     : `<div class="card-body small muted">No weak spots yet — fewer than 3 answers per question, or students score 60 % or more.</div>` });
   if (!simple) return quality + weak;
   return `<details class="aid"><summary>${icon(passed === checks.length ? 'circle-check' : 'circle-dashed')} Lesson quality: ${passed}/${checks.length} — see tips</summary>${quality}</details>
-    <details class="aid"><summary>${icon('chart-column')} Where students struggle · ${spots.length}</summary>${weak}</details>`;
+    <details class="aid"><summary>${icon('chart-column')} Where students struggle, ${spots.length}</summary>${weak}</details>`;
 }
 /** Share of lesson time taken from the coursebook versus UEH material. */
 function sourceMix(l) {
   const total = S.lessonMinutes(l); if (!total) return '';
   const book = Math.round((l.blocks.filter(b => S.sourceOf(b) === 'book').reduce((t, b) => t + b.minutes, 0) / total) * 100);
-  return ` · Coursebook ${book}% · UEH ${100 - book}%`;
+  return `, Coursebook ${book}%, UEH ${100 - book}%`;
 }
 function blockIcon(s, b) {
   if (b.type === 'resource') { const r = S.resourceById(s, b.resourceId); return RES_META[r?.type]?.icon || 'paperclip'; }
@@ -330,7 +330,7 @@ function builder(s, id, me) {
     <div class="nav-label" style="padding-left:2px">From the library</div>
     ${LIB_KINDS.map(([k, label, ic]) => `<button class="palette-item lib" data-action="pick-library" data-kind="${k}" ${editable ? '' : 'disabled'}>${icon(ic)}<div class="grow"><div style="font-weight:500">${label}</div><div class="small faint">${k === 'extract' ? s.library.extracts.length : s.resources.filter(r => r.type === k).length} available</div></div>${icon('chevron-right', 'faint')}</button>`).join('')}</div>` });
 
-  const canvas = card({ title: esc(l.title || 'Untitled lesson'), subtitle: `${l.blocks.length} blocks · ${total} min total${sourceMix(l)}`, actions: `${l.blocks.length ? `<button class="btn btn-sm" data-action="present-lesson" data-id="${l.id}">${icon('presentation')} Present</button>` : ''}${badge(isBank ? 'accent' : l.status, isBank ? 'Lesson bank' : undefined)}`, body: editable ? `<div class="drop-zone" id="drop-zone">${l.blocks.length ? l.blocks.map((b, i) => `<div class="block-row ${b.type === 'material' || b.type === 'resource' ? 'lib-row' : ''}" data-index="${i}"><span class="num">${i + 1}</span>${icon(blockIcon(s, b))}
+  const canvas = card({ title: esc(l.title || 'Untitled lesson'), subtitle: `${l.blocks.length} blocks, ${total} min total${sourceMix(l)}`, actions: `${l.blocks.length ? `<button class="btn btn-sm" data-action="present-lesson" data-id="${l.id}">${icon('presentation')} Present</button>` : ''}${badge(isBank ? 'accent' : l.status, isBank ? 'Lesson bank' : undefined)}`, body: editable ? `<div class="drop-zone" id="drop-zone">${l.blocks.length ? l.blocks.map((b, i) => `<div class="block-row ${b.type === 'material' || b.type === 'resource' ? 'lib-row' : ''}" data-index="${i}"><span class="num">${i + 1}</span>${icon(blockIcon(s, b))}
         <div class="grow stack" style="gap:2px"><input class="input" value="${esc(b.title)}" data-change="block-title" data-i="${i}" aria-label="Block title"><span class="small faint" style="padding-left:2px">${blockMeta(s, b)}</span></div>
         <input class="input mins" type="number" min="1" max="240" value="${b.minutes}" data-change="block-mins" data-i="${i}" aria-label="Minutes">
         ${pageLink(l, b, true)}<button class="btn btn-ghost btn-sm btn-icon" data-action="block-preview" data-lesson="${l.id}" data-block="${b.id}" aria-label="Preview" title="Preview as students see it">${icon('eye')}</button>
@@ -368,10 +368,10 @@ function builder(s, id, me) {
         ${b.type === 'page' ? pageLink(l, b, true) : `<button class="btn btn-sm" data-action="block-preview" data-lesson="${l.id}" data-block="${b.id}">${icon('eye')} View</button>`}
         ${menu('Options', 'ellipsis', `<button class="menu-item" data-action="move-block" data-i="${i}" data-d="-1" ${i === 0 ? 'disabled' : ''}>${icon('arrow-up')} Move up</button><button class="menu-item" data-action="move-block" data-i="${i}" data-d="1" ${i === l.blocks.length - 1 ? 'disabled' : ''}>${icon('arrow-down')} Move down</button><button class="menu-item" data-action="block-preview" data-lesson="${l.id}" data-block="${b.id}">${icon('eye')} Preview as student</button><button class="menu-item t-danger" data-action="remove-block" data-i="${i}">${icon('trash-2')} Remove</button>`)}</div>`
       : `<div class="block-row clickable" data-action="block-preview" data-lesson="${l.id}" data-block="${b.id}" role="button" tabindex="0"><span class="num">${i + 1}</span>${icon(blockIcon(s, b))}<div class="grow"><div style="font-weight:500">${esc(b.title)}</div><div class="small muted">${blockMeta(s, b)}</div></div>${pageLink(l, b, false)}<span class="chip">${b.minutes} min</span></div>`).join('');
-    const content = card({ title: 'Lesson content', subtitle: `${l.blocks.length} blocks · ${total} min total${sourceMix(l)}`, actions: l.blocks.length ? `<button class="btn btn-sm" data-action="present-lesson" data-id="${l.id}">${icon('presentation')} Present</button>` : '', body: `${addBar}<div class="drop-zone stack gap-2" id="drop-zone">${rows || `<div class="empty">${icon('mouse-pointer-click')}<strong>This lesson is empty</strong><p>Use the buttons above to add the first part.</p></div>`}</div>` });
+    const content = card({ title: 'Lesson content', subtitle: `${l.blocks.length} blocks, ${total} min total${sourceMix(l)}`, actions: l.blocks.length ? `<button class="btn btn-sm" data-action="present-lesson" data-id="${l.id}">${icon('presentation')} Present</button>` : '', body: `${addBar}<div class="drop-zone stack gap-2" id="drop-zone">${rows || `<div class="empty">${icon('mouse-pointer-click')}<strong>This lesson is empty</strong><p>Use the buttons above to add the first part.</p></div>`}</div>` });
     return {
       title: l.title,
-      html: `<div class="page">${pageHead(esc(l.title || 'Untitled lesson'), isBank ? `Lesson bank · ${l.unitId}` : `${esc(S.sectionById(s, l.sectionId).code)} · ${l.week ? `Week ${l.week}` : 'No week yet'}`, `<a class="btn" href="#/instructor/lessons">${icon('arrow-left')} Lessons</a>`)}
+      html: `<div class="page">${pageHead(esc(l.title || 'Untitled lesson'), isBank ? `Lesson bank, ${l.unitId}` : `${esc(S.sectionById(s, l.sectionId).code)}, ${l.week ? `Week ${l.week}` : 'No week yet'}`, `<a class="btn" href="#/instructor/lessons">${icon('arrow-left')} Lessons</a>`)}
         ${isBank ? '' : stepsHtml(step)}
         <div class="builder builder-simple"><div class="stack gap-4">${content}</div>
           <div class="stack gap-4">${settings}${lessonAids(s, l, editable, true)}${l.history.length ? `<details class="aid"><summary>${icon('history')} History</summary>${card({ body: lessonHistory(s, l) })}</details>` : ''}</div></div></div>`,
@@ -379,7 +379,7 @@ function builder(s, id, me) {
   }
   return {
     title: l.title,
-    html: `<div class="page">${pageHead('Lesson builder', isBank ? `Lesson bank · ${l.unitId}` : `${esc(S.sectionById(s, l.sectionId).code)} · ${l.week ? `Week ${l.week}` : 'No week yet'}`, `<a class="btn" href="#/instructor/lessons">${icon('arrow-left')} Lessons</a>`)}
+    html: `<div class="page">${pageHead('Lesson builder', isBank ? `Lesson bank, ${l.unitId}` : `${esc(S.sectionById(s, l.sectionId).code)}, ${l.week ? `Week ${l.week}` : 'No week yet'}`, `<a class="btn" href="#/instructor/lessons">${icon('arrow-left')} Lessons</a>`)}
       <div class="builder">${palette}<div class="stack gap-4">${canvas}${l.history.length ? card({ title: 'History', body: lessonHistory(s, l) }) : ''}</div><div class="stack gap-4">${settings}${lessonAids(s, l, editable)}</div></div></div>`,
     mount: () => {
       if (!editable) return;
@@ -403,11 +403,11 @@ function openLibraryPicker(kind) {
   const s = getState();
   const l = S.lessonById(s, location.hash.split('/')[3]);
   const items = kind === 'extract'
-    ? s.library.extracts.map(x => ({ id: x.id, title: x.title, unitId: x.unitId, meta: `${S.bookById(s, x.bookId).title} · pp. ${x.fromPage}–${x.toPage}` }))
-    : s.resources.filter(r => r.type === kind).map(r => ({ id: r.id, title: r.title, unitId: r.unitId, meta: `${r.minutes} min · ${esc(r.body.slice(0, 90))}…` }));
+    ? s.library.extracts.map(x => ({ id: x.id, title: x.title, unitId: x.unitId, meta: `${S.bookById(s, x.bookId).title}, pp. ${x.fromPage}–${x.toPage}` }))
+    : s.resources.filter(r => r.type === kind).map(r => ({ id: r.id, title: r.title, unitId: r.unitId, meta: `${r.minutes} min, ${esc(r.body.slice(0, 90))}…` }));
   items.sort((a, b) => (b.unitId === l.unitId) - (a.unitId === l.unitId));
   const label = kind === 'extract' ? 'Textbook extracts' : RES_META[kind].plural;
-  openModal(`${modalHead(`Add from the library · ${label}`, l.unitId ? `Items for ${l.unitId} are listed first` : '')}
+  openModal(`${modalHead(`Add from the library, ${label}`, l.unitId ? `Items for ${l.unitId} are listed first` : '')}
     <div class="modal-body">${items.length ? `<div class="list" style="border:1px solid var(--border);border-radius:var(--radius-sm);max-height:420px;overflow-y:auto">${items.map(i => `<div class="list-item"><div class="grow"><div class="title">${esc(i.title)} ${i.unitId ? `<span class="chip">${i.unitId}</span>` : ''}${i.unitId === l.unitId ? ' <span class="badge b-accent">Same unit</span>' : ''}</div><div class="meta">${i.meta}</div></div>
       <button class="btn btn-sm btn-primary" data-action="pick-library-item" data-kind="${kind === 'extract' ? 'extract' : 'resource'}" data-id="${i.id}">${icon('plus')} Add</button></div>`).join('')}</div>`
       : empty(kind === 'extract' ? 'scissors' : 'library', 'Nothing here yet', kind === 'extract' ? 'Open a book in the Library and save a page range as an extract.' : 'Add one from the Library page.', `<a class="btn mt-3" href="#/instructor/library">Open library</a>`)}</div>`, { wide: true });
@@ -442,7 +442,7 @@ function assessments(s, _id, me) {
         const graded = res.filter(r => r.state === 'graded');
         const sub = a.type === 'workshop' ? graded.length : students.filter(u => S.attemptsOf(s, u.id, a.id).length).length;
         const avg = graded.length ? S.round1(graded.reduce((t, r) => t + r.value, 0) / graded.length) : null;
-        return `<tr><td><strong>${esc(a.title)}</strong> ${a.origin === 'standardized' ? '<span class="chip">Standardized</span>' : ''}<div class="small faint">${a.questionIds.length ? `${a.questionIds.length} questions` : 'Rubric graded'}${a.timeLimitMin ? ` · ${a.timeLimitMin} min` : ''} · ${a.maxAttempts} attempt${a.maxAttempts > 1 ? 's' : ''}</div></td>
+        return `<tr><td><strong>${esc(a.title)}</strong> ${a.origin === 'standardized' ? '<span class="chip">Standardized</span>' : ''}<div class="small faint">${a.questionIds.length ? `${a.questionIds.length} questions` : 'Rubric graded'}${a.timeLimitMin ? `, ${a.timeLimitMin} min` : ''}, ${a.maxAttempts} attempt${a.maxAttempts > 1 ? 's' : ''}</div></td>
           <td>${ASSESS_META[a.type].label}</td><td class="small">${S.fmtDate(a.opensAt)} – ${S.fmtDate(a.closesAt)}</td><td>${badge(S.assessmentStatus(s, a))}</td>
           <td class="num">${sub}/${students.length}</td><td class="num">${avg === null ? '—' : avg.toFixed(1)}</td></tr>`;
       }).join('')}</tbody></table></div>` })}</div>`,
@@ -458,7 +458,7 @@ function questionPicker(s, unitId) {
   const allowed = new Set(scopeUnits(s).map(u => u.id));
   const qs = s.questions.filter(q => allowed.has(q.unitId) && (!unitId || q.unitId === unitId));
   if (!qs.length) return '<p class="small muted" style="padding:8px">No questions for this unit yet.</p>';
-  return qs.map(q => `<label class="opt" style="align-items:flex-start"><input type="checkbox" name="q" value="${q.id}" ${unitId ? 'checked' : ''}><div class="grow"><div class="small" style="font-weight:500">${esc(q.stem)}</div><div class="small faint">${esc(q.unitId)} · ${q.competencyTag} · ${q.bloomLevel}</div></div></label>`).join('');
+  return qs.map(q => `<label class="opt" style="align-items:flex-start"><input type="checkbox" name="q" value="${q.id}" ${unitId ? 'checked' : ''}><div class="grow"><div class="small" style="font-weight:500">${esc(q.stem)}</div><div class="small faint">${esc(q.unitId)}, ${q.competencyTag}, ${q.bloomLevel}</div></div></label>`).join('');
 }
 export function openAssessmentModal({ standardized = false } = {}) {
   const s = getState();
@@ -468,7 +468,7 @@ export function openAssessmentModal({ standardized = false } = {}) {
       <div class="form-grid">
         <label class="field full"><span>Title</span><input class="input" name="title" required autofocus placeholder="${standardized ? 'e.g. School Common Exam: Finance' : 'e.g. Quiz: Time Value of Money'}"></label>
         <label class="field"><span>Type</span><select class="select" name="type" data-change="assess-type">${(standardized ? ['midterm', 'final', 'unit_test'] : ['quiz', 'unit_test', 'workshop']).map(t => `<option value="${t}">${ASSESS_META[t].label}</option>`).join('')}</select></label>
-        <label class="field"><span>Unit</span><select class="select" name="unitId" data-change="assess-unit"><option value="">All units</option>${scopeUnits(s).map(u => `<option value="${u.id}">${esc(u.id)} · ${esc(u.title)}</option>`).join('')}</select></label>
+        <label class="field"><span>Unit</span><select class="select" name="unitId" data-change="assess-unit"><option value="">All units</option>${scopeUnits(s).map(u => `<option value="${u.id}">${esc(u.id)}, ${esc(u.title)}</option>`).join('')}</select></label>
         <label class="field"><span>Opens in week</span><select class="select" name="week">${weeks.map(w => `<option value="${w}" ${w === Math.min(s.clock.week + 1, s.term.weeks) ? 'selected' : ''}>Week ${w}${w === s.clock.week ? ' (opens now)' : ''}</option>`).join('')}</select></label>
         <label class="field"><span>Open for</span><select class="select" name="durationDays"><option value="7">7 days</option><option value="5">5 days</option><option value="12">12 days</option></select></label>
         <label class="field q-only"><span>Time limit (min)</span><input class="input" type="number" name="timeLimitMin" value="15" min="5" max="180"></label>
@@ -507,7 +507,7 @@ function gradebook(s, id, me) {
       html: `<div class="page">${pageHead('Marking', 'Mark answers one after another. Each answer shows the model answer and the marking points.')}
         <section class="card mark-hero"><div class="score-num ${toMark ? '' : 't-ok'}">${toMark || icon('check')}</div>
           <div class="grow"><h3>${toMark ? 'answers waiting for you' : 'Nothing to mark'}</h3><p class="muted">${toMark ? 'After you save a mark, the next answer opens by itself.' : 'New answers appear here as students submit them.'}</p>
-            ${perClass.length > 1 ? `<div class="row gap-2 wrap mt-3">${perClass.map(x => `<button class="btn btn-sm" data-action="wbl-mark-next" data-section="${x.sec.id}">${esc(x.sec.code)} · ${x.n}</button>`).join('')}</div>` : ''}</div>
+            ${perClass.length > 1 ? `<div class="row gap-2 wrap mt-3">${perClass.map(x => `<button class="btn btn-sm" data-action="wbl-mark-next" data-section="${x.sec.id}">${esc(x.sec.code)}, ${x.n}</button>`).join('')}</div>` : ''}</div>
           ${toMark ? `<button class="btn btn-primary btn-lg" data-action="wbl-mark-next">${icon('pen-line')} Start marking</button>` : ''}</section>
         ${reports ? `<div class="note note-warn">${icon('clipboard-pen')}<div><strong>${reports} case reports to grade.</strong> Open the gradebook below and press Grade next to the student.</div></div>` : ''}
         <details class="aid" ${id || filtering ? 'open' : ''}><summary>${icon('table')} Gradebook by class</summary>
@@ -522,7 +522,7 @@ function gradebook(s, id, me) {
   }
   return {
     title: 'Grades & marking',
-    html: `<div class="page">${pageHead('Grades & marking', `${secs.length} classes · weights: ${s.course.gradingScheme.categories.map(c => `${c.label} ${Math.round(c.weight * 100)}%`).join(' · ')}`, `<button class="btn" data-action="export-csv">${icon('download')} Export CSV</button>${toMark ? `<button class="btn btn-primary" data-action="wbl-mark-next">${icon('pen-line')} Mark next (${toMark})</button>` : ''}`)}
+    html: `<div class="page">${pageHead('Grades & marking', `${secs.length} classes, weights: ${s.course.gradingScheme.categories.map(c => `${c.label} ${Math.round(c.weight * 100)}%`).join(', ')}`, `<button class="btn" data-action="export-csv">${icon('download')} Export CSV</button>${toMark ? `<button class="btn btn-primary" data-action="wbl-mark-next">${icon('pen-line')} Mark next (${toMark})</button>` : ''}`)}
       <div class="row gap-2 wrap"><input class="input" style="max-width:240px;height:32px" placeholder="Find student or ID…" value="${esc(gbUi.q)}" data-change="gb-q" aria-label="Find student">
         <label class="opt" style="margin:0;padding:5px 10px"><input type="checkbox" data-change="gb-risk" ${gbUi.risk ? 'checked' : ''}> At risk only</label>
         <span class="grow"></span><button class="btn btn-sm" data-action="gb-all" data-open="1">${icon('chevrons-down')} Expand all</button><button class="btn btn-sm" data-action="gb-all" data-open="0">${icon('chevrons-up')} Collapse all</button></div>
@@ -538,7 +538,7 @@ function openRubric(assessmentId, studentId) {
   const s = getState(); const a = S.assessmentById(s, assessmentId); const u = S.userById(s, studentId);
   const g = S.rubricOf(s, studentId, assessmentId);
   const LV = ['Beginning', 'Developing', 'Proficient', 'Exemplary'];
-  openModal(`${modalHead(`Grade: ${esc(a.title)}`, `${esc(u.name)} · ${esc(S.sectionById(s, u.sectionId).code)}`)}
+  openModal(`${modalHead(`Grade: ${esc(a.title)}`, `${esc(u.name)}, ${esc(S.sectionById(s, u.sectionId).code)}`)}
     <form data-submit="save-rubric"><input type="hidden" name="assessmentId" value="${a.id}"><input type="hidden" name="studentId" value="${u.id}"><div class="modal-body">
     ${a.rubric.map((c, i) => `<fieldset style="border:0;padding:0;margin:0"><legend style="font-weight:600;margin-bottom:6px">${esc(c)}</legend><div class="row gap-2 wrap">${LV.map((lv, k) => `<label class="opt" style="margin:0;flex:1;min-width:120px"><input type="radio" name="c${i}" value="${k + 1}" ${g?.criteria[i]?.level === k + 1 ? 'checked' : ''} required> <span><strong>${k + 1}</strong> ${lv}</span></label>`).join('')}</div></fieldset>`).join('')}
     <p class="small muted">Score = total levels ÷ ${a.rubric.length * 4} × 10.</p></div>
@@ -555,7 +555,7 @@ function live(s, _id, me) {
       title: 'Live session',
       html: `<div class="page">${pageHead('Live session', 'Present a published lesson in class. Students join with a PIN and are credited attendance time.')}
         ${card({ title: 'Start a session', body: pub.length ? `<form class="stack gap-3" data-submit="start-live" style="max-width:520px">
-          <label class="field"><span>Lesson</span><select class="select" name="lessonId">${pub.map(l => `<option value="${l.id}">Week ${l.week} · ${esc(l.title)}${secs.length > 1 ? ` (${S.sectionById(s, l.sectionId).code})` : ''}</option>`).join('')}</select></label>
+          <label class="field"><span>Lesson</span><select class="select" name="lessonId">${pub.map(l => `<option value="${l.id}">Week ${l.week}, ${esc(l.title)}${secs.length > 1 ? ` (${S.sectionById(s, l.sectionId).code})` : ''}</option>`).join('')}</select></label>
           <label class="field"><span>PIN valid for</span><select class="select" name="hours"><option value="2">2 hours</option><option value="1">1 hour</option><option value="24">24 hours</option></select></label>
           <div><button class="btn btn-primary">${icon('radio')} Start session</button></div></form>` : empty('radio', 'No published lessons', 'Lessons can be presented once they are published.') })}</div>`,
     };
@@ -567,21 +567,21 @@ function live(s, _id, me) {
   const sec = S.sectionById(s, active.sectionId);
   return {
     title: 'Live session',
-    html: `<div class="page">${pageHead(esc(l.title), `${esc(sec.code)} · live since ${S.fmtDateTime(active.startedAt)} · PIN expires ${S.fmtDateTime(active.expiresAt)}`, `<button class="btn btn-danger" data-action="end-live" data-id="${active.id}">${icon('square')} End session</button>`)}
+    html: `<div class="page">${pageHead(esc(l.title), `${esc(sec.code)}, live since ${S.fmtDateTime(active.startedAt)}, PIN expires ${S.fmtDateTime(active.expiresAt)}`, `<button class="btn btn-danger" data-action="end-live" data-id="${active.id}">${icon('square')} End session</button>`)}
       <div class="grid"><div class="span-8"><div class="live-stage" id="live-stage">
-          <div class="small" style="color:#9fb2b7">Slide ${at + 1} / ${slides.length} · ${TYPE_META[b.type].label}</div>
+          <div class="small" style="color:#9fb2b7">Slide ${at + 1} / ${slides.length}, ${TYPE_META[b.type].label}</div>
           ${b.type === 'simulation' ? `<h2>${esc(b.title)}</h2><div style="width:100%;max-width:820px;color:var(--text)">${marketSimHtml('live-sim')}</div>` : slideHtml(s, l, slide, active)}
           <div class="row gap-2"><button class="btn" data-action="live-slide" data-id="${active.id}" data-to="${at - 1}" ${at === 0 ? 'disabled' : ''} aria-label="Previous slide">${icon('arrow-left')}</button><button class="btn" data-action="live-slide" data-id="${active.id}" data-to="${at + 1}" ${at >= slides.length - 1 ? 'disabled' : ''} aria-label="Next slide">${icon('arrow-right')}</button>
             ${slide.tiles?.some(t => t.kind === 'check') ? `<button class="btn" data-action="live-reveal">${icon('eye')} Show answer</button>` : ''}<button class="btn" data-action="live-full" aria-label="Full screen">${icon('maximize')}</button></div>
         </div></div>
         <div class="span-4 stack gap-4">${card({ title: 'Join code', body: `<div class="pin">${esc(active.pin)}</div><p class="small muted mt-2">Students open <strong>Live class</strong> and enter this PIN.</p>` })}
-          ${card({ title: `Joined · ${active.joined.length}/${sec.studentIds.length}`, flush: true, body: `<div class="list">${sec.studentIds.map(id => S.userById(s, id)).map(u => `<div class="list-item">${avatar(u, 'sm')}<span class="grow">${esc(u.name)}</span>${active.joined.includes(u.id) ? badge('graded', 'Joined') : '<span class="faint small">Not joined</span>'}</div>`).join('')}</div>` })}</div></div></div>`,
+          ${card({ title: `Joined, ${active.joined.length}/${sec.studentIds.length}`, flush: true, body: `<div class="list">${sec.studentIds.map(id => S.userById(s, id)).map(u => `<div class="list-item">${avatar(u, 'sm')}<span class="grow">${esc(u.name)}</span>${active.joined.includes(u.id) ? badge('graded', 'Joined') : '<span class="faint small">Not joined</span>'}</div>`).join('')}</div>` })}</div></div></div>`,
     mount: () => { if (b.type === 'simulation') startMarketSim('live-sim'); mountMedia(document.getElementById('live-stage')); },
   };
 }
 
 function calendar(s, _id, me) {
-  return { title: 'Calendar', html: `<div class="page">${pageHead('Calendar', `${esc(s.term.title)} · gaps are weeks with no lesson planned`)}${card({ title: 'Term timeline', actions: timelineLegend(), flush: true, body: termTimeline(s, { sections: mySections(s, me), viewer: 'instructor', showGaps: true }) })}</div>` };
+  return { title: 'Calendar', html: `<div class="page">${pageHead('Calendar', `${esc(s.term.title)}, gaps are weeks with no lesson planned`)}${card({ title: 'Term timeline', actions: timelineLegend(), flush: true, body: termTimeline(s, { sections: mySections(s, me), viewer: 'instructor', showGaps: true }) })}</div>` };
 }
 
 function library(s) { return libraryView(s); }

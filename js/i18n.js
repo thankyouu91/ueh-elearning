@@ -16,7 +16,7 @@ const VI = {
   'STUDENT': 'SINH VIÊN', 'LECTURER': 'GIẢNG VIÊN', 'DEAN': 'TRƯỞNG KHOA', 'ADMINISTRATOR': 'QUẢN TRỊ', 'ACADEMIC AFFAIRS': 'PHÒNG ĐÀO TẠO',
   'Student': 'Sinh viên', 'Lecturer': 'Giảng viên', 'Dean': 'Trưởng khoa', 'Administrator': 'Quản trị viên', 'Academic Affairs': 'Phòng Đào tạo', 'Instructor': 'Giảng viên',
   'University leadership': 'Ban Giám hiệu', 'Deans': 'Trưởng khoa', 'Lecturers': 'Giảng viên', 'Students': 'Sinh viên', 'Students (one per class)': 'Sinh viên (mỗi lớp một)',
-  'Economics Foundation · Year 1': 'Nền tảng Kinh tế · Năm 1', 'UEH Economics Foundation · Year 1': 'Khung Nền tảng Kinh tế UEH · Năm 1',
+  'Economics Foundation, Year 1': 'Nền tảng Kinh tế, Năm 1', 'UEH Economics Foundation, Year 1': 'Khung Nền tảng Kinh tế UEH, Năm 1',
   'School of Economics': 'Khoa Kinh tế', 'School of Accounting & Finance': 'Khoa Kế toán – Tài chính', 'School of Marketing': 'Khoa Marketing',
   'Bachelor of Economics': 'Cử nhân Kinh tế', 'Bachelor of Accounting & Finance': 'Cử nhân Kế toán – Tài chính', 'Bachelor of Marketing': 'Cử nhân Marketing',
   'Economics': 'Kinh tế', 'Accounting': 'Kế toán', 'Finance': 'Tài chính', 'Management': 'Quản trị', 'Marketing': 'Marketing',
@@ -125,24 +125,24 @@ const VI = {
   'Start recording': 'Bắt đầu ghi âm', 'Stop recording': 'Dừng ghi âm', 'Record again': 'Ghi âm lại', 'Play recording': 'Phát bài nghe', 'Transcript': 'Lời thoại',
   'No microphone? Type what you would say': 'Không có micro? Gõ nội dung bạn sẽ nói', 'Listen up to twice, then answer.': 'Nghe tối đa hai lần, rồi trả lời.',
   'Coverage by unit': 'Độ phủ theo đơn vị', 'All skills': 'Mọi kỹ năng', 'All levels': 'Mọi cấp độ', 'All units': 'Mọi đơn vị', 'Show the B1 pack': 'Xem gói B1',
-  'Business English · Level 1 (CEFR B1)': 'Tiếng Anh kinh doanh · Cấp 1 (CEFR B1)', 'Recording': 'Bản ghi âm', 'Typed instead of recording': 'Gõ thay cho ghi âm',
+  'Business English, Level 1 (CEFR B1)': 'Tiếng Anh kinh doanh, Cấp 1 (CEFR B1)', 'Recording': 'Bản ghi âm', 'Typed instead of recording': 'Gõ thay cho ghi âm',
 };
 
 const PATTERNS = [
-  [/^Week (\d+)\/(\d+)$/, 'Tuần $1/$2'], [/^Week (\d+)$/, 'Tuần $1'], [/^Week (\d+) · now$/, 'Tuần $1 · hiện tại'], [/^Week (\d+) of (\d+)$/, 'Tuần $1/$2'],
-  [/^AY (\S+) · Term (\d+)$/, 'Năm học $1 · Học kỳ $2'], [/^(\d+) min$/, '$1 phút'], [/^(\d+) min ago$/, '$1 phút trước'], [/^(\d+) h ago$/, '$1 giờ trước'],
+  [/^Week (\d+)\/(\d+)$/, 'Tuần $1/$2'], [/^Week (\d+)$/, 'Tuần $1'], [/^Week (\d+), now$/, 'Tuần $1, hiện tại'], [/^Week (\d+) of (\d+)$/, 'Tuần $1/$2'],
+  [/^AY (\S+), Term (\d+)$/, 'Năm học $1, Học kỳ $2'], [/^(\d+) min$/, '$1 phút'], [/^(\d+) min ago$/, '$1 phút trước'], [/^(\d+) h ago$/, '$1 giờ trước'],
   [/^(\d+) d ago$/, '$1 ngày trước'], [/^just now$/, 'vừa xong'], [/^Hello, (.+)$/, 'Xin chào, $1'], [/^Good morning, (.+)$/, 'Chào buổi sáng, $1'],
-  [/^This week · week (\d+)$/, 'Tuần này · tuần $1'], [/^(\d+)\/(\d+) weeks planned$/, 'Đã lên kế hoạch $1/$2 tuần'], [/^(\d+) teaching hours$/, '$1 giờ dạy'],
-  [/^(\d+) add-ons$/, '$1 phần bổ sung'], [/^(\d+) to mark$/, '$1 bài cần chấm'], [/^Marked (\d)\/4$/, 'Đã chấm $1/4'], [/^Try again · (\d+) tries$/, 'Làm lại · $1 lần'],
-  [/^Waiting for review · (\d+)$/, 'Chờ duyệt · $1'], [/^Lessons waiting for review · (\d+)$/, 'Bài giảng chờ duyệt · $1'], [/^Modules waiting for approval · (\d+)$/, 'Học phần chờ duyệt · $1'],
-  [/^Discussion · (\d+)$/, 'Thảo luận · $1'], [/^At-risk students · (\d+)$/, 'Sinh viên có nguy cơ · $1'], [/^Approve all \((\d+)\)$/, 'Duyệt tất cả ($1)'],
+  [/^This week, week (\d+)$/, 'Tuần này, tuần $1'], [/^(\d+)\/(\d+) weeks planned$/, 'Đã lên kế hoạch $1/$2 tuần'], [/^(\d+) teaching hours$/, '$1 giờ dạy'],
+  [/^(\d+) add-ons$/, '$1 phần bổ sung'], [/^(\d+) to mark$/, '$1 bài cần chấm'], [/^Marked (\d)\/4$/, 'Đã chấm $1/4'], [/^Try again, (\d+) tries$/, 'Làm lại, $1 lần'],
+  [/^Waiting for review, (\d+)$/, 'Chờ duyệt, $1'], [/^Lessons waiting for review, (\d+)$/, 'Bài giảng chờ duyệt, $1'], [/^Modules waiting for approval, (\d+)$/, 'Học phần chờ duyệt, $1'],
+  [/^Discussion, (\d+)$/, 'Thảo luận, $1'], [/^At-risk students, (\d+)$/, 'Sinh viên có nguy cơ, $1'], [/^Approve all \((\d+)\)$/, 'Duyệt tất cả ($1)'],
   [/^Review approvals \((\d+)\)$/, 'Xem phê duyệt ($1)'], [/^Marking queue \((\d+)\)$/, 'Hàng chờ chấm ($1)'], [/^Continue (\w+)$/, 'Tiếp tục $1'],
   [/^Opens (.+)$/, 'Mở $1'], [/^Closes (.+)$/, 'Đóng $1'],
-  [/^AY (\S+) · Term (\d+) · week (\d+) of (\d+)$/, 'Năm học $1 · HK $2 · tuần $3/$4'], [/^Pass rate (.+)$/, 'Tỉ lệ đạt $1'], [/^(\d+) at risk$/, '$1 có nguy cơ'],
-  [/^(\d+) need changes$/, '$1 bài cần sửa'], [/^(\d+) classes$/, '$1 lớp'], [/^(\d+) students$/, '$1 sinh viên'], [/^(.+) · Economics Foundation · Year 1$/, (_, x) => `${tv(x)} · Nền tảng Kinh tế · Năm 1`],
+  [/^AY (\S+), Term (\d+), week (\d+) of (\d+)$/, 'Năm học $1, HK $2, tuần $3/$4'], [/^Pass rate (.+)$/, 'Tỉ lệ đạt $1'], [/^(\d+) at risk$/, '$1 có nguy cơ'],
+  [/^(\d+) need changes$/, '$1 bài cần sửa'], [/^(\d+) classes$/, '$1 lớp'], [/^(\d+) students$/, '$1 sinh viên'], [/^(.+), Economics Foundation, Year 1$/, (_, x) => `${tv(x)}, Nền tảng Kinh tế, Năm 1`],
   [/^(\d+) of (\d+) lesson-weeks published$/, 'Đã phát hành $1/$2 tuần-bài'], [/^Oldest (.+)$/, 'Cũ nhất $1'], [/^(\d+)% of cohort$/, '$1% của khóa'],
   [/^Waiting for the Academic Director since (.+)$/, 'Chờ Trưởng khoa duyệt từ $1'], [/^Term delivery (.+)$/, 'Tiến độ học kỳ $1'],
-  [/^(\d+) lessons in review · (\d+) to grade$/, '$1 bài chờ duyệt · $2 bài cần chấm'], [/^(\d+) programme\(s\)$/, '$1 ngành'], [/^(.+) — curriculum change$/, '$1 — thay đổi chương trình'], [/^(\d+)\/(\d+) done$/, 'Đã làm $1/$2'], [/^(\d+) exercises$/, '$1 bài tập'], [/^teaching (\d+) classes$/, 'dạy $1 lớp'], [/^(\d+) units · (\d+)h$/, '$1 unit · $2 giờ'], [/^(\d+) units$/, '$1 unit'], [/^Lessons · (\d+)$/, 'Bài giảng · $1'], [/^Workbook · (\d+) exercises$/, 'Sách bài tập · $1 bài'], [/^Question bank · (\d+)$/, 'Ngân hàng câu hỏi · $1'], [/^Key terms · (\d+)$/, 'Thuật ngữ · $1'],
+  [/^(\d+) lessons in review, (\d+) to grade$/, '$1 bài chờ duyệt, $2 bài cần chấm'], [/^(\d+) programme\(s\)$/, '$1 ngành'], [/^(.+) — curriculum change$/, '$1 — thay đổi chương trình'], [/^(\d+)\/(\d+) done$/, 'Đã làm $1/$2'], [/^(\d+) exercises$/, '$1 bài tập'], [/^teaching (\d+) classes$/, 'dạy $1 lớp'], [/^(\d+) units, (\d+)h$/, '$1 unit, $2 giờ'], [/^(\d+) units$/, '$1 unit'], [/^Lessons, (\d+)$/, 'Bài giảng, $1'], [/^Workbook, (\d+) exercises$/, 'Sách bài tập, $1 bài'], [/^Question bank, (\d+)$/, 'Ngân hàng câu hỏi, $1'], [/^Key terms, (\d+)$/, 'Thuật ngữ, $1'],
 ];
 Object.assign(VI, { 'Teaching staff': 'Phân công giảng dạy', 'Assignments by class': 'Phân công theo lớp', 'Lecturer workload': 'Khối lượng giảng dạy', 'Class lead': 'Phụ trách lớp',
   'Unassigned': 'Chưa phân công', 'Subjects staffed': 'Môn đã phân công', 'Over the limit': 'Vượt định mức', 'Over limit': 'Vượt định mức', 'Near limit': 'Gần định mức', 'Available': 'Còn trống',
@@ -150,7 +150,7 @@ Object.assign(VI, { 'Teaching staff': 'Phân công giảng dạy', 'Assignments 
   'Lessons, marking and reminders for a subject go to the lecturer assigned here': 'Bài giảng, chấm bài và nhắc việc của mỗi môn sẽ đến giảng viên được phân công ở đây',
   'All classes the lecturer teaches, including other schools': 'Tất cả lớp giảng viên dạy, kể cả khoa khác', 'Lessons fall back to the class lead': 'Tạm giao cho phụ trách lớp',
   'Every subject has a lecturer': 'Môn nào cũng có giảng viên', 'Unassigned:': 'Chưa phân công:' });
-Object.assign(VI, { 'Learning outcome': 'Mục tiêu học tập', 'Worked example:': 'Ví dụ mẫu:', 'No lessons yet': 'Chưa có bài giảng', 'No exercises yet.': 'Chưa có bài tập.', 'None yet.': 'Chưa có.', 'No library material linked.': 'Chưa có tài liệu thư viện.', 'Click for details · drag to move': 'Bấm để xem chi tiết · kéo để di chuyển' });
+Object.assign(VI, { 'Learning outcome': 'Mục tiêu học tập', 'Worked example:': 'Ví dụ mẫu:', 'No lessons yet': 'Chưa có bài giảng', 'No exercises yet.': 'Chưa có bài tập.', 'None yet.': 'Chưa có.', 'No library material linked.': 'Chưa có tài liệu thư viện.', 'Click for details, drag to move': 'Bấm để xem chi tiết, kéo để di chuyển' });
 Object.assign(VI, { 'None at risk': 'Không ai có nguy cơ', 'Workshop rubrics': 'Chấm theo rubric', 'No changes requested': 'Không có yêu cầu sửa', 'Inbox clear': 'Không có việc chờ',
   'Nothing missed': 'Không bỏ lỡ bài nào', 'Avg grade': 'Điểm TB', 'In review': 'Đang duyệt', 'Lesson activities completed': 'Hoạt động bài học đã hoàn thành', 'Course grade ≥ 5.0': 'Điểm học phần ≥ 5.0' });
 Object.assign(VI, { 'Compare schools': 'So sánh các khoa', 'Compare programmes': 'So sánh các ngành', 'Compare classes': 'So sánh các lớp' });
@@ -159,17 +159,22 @@ let lang = 'en';
 const ATTRS = ['placeholder', 'title', 'aria-label'];
 
 // UI chrome only: course content (lesson, case, vocabulary text) stays 100% English by design.
-const SEPS = [' · ', ' — ', ' – ', '; '];
+// Compound labels are translated piece by piece. ", " comes last and is skipped for prose,
+// so a sentence with a comma is never cut up and half-translated.
+const SEPS = [' — ', ' – ', '; ', ', '];
 const MONTHS = { Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6, Jul: 7, Aug: 8, Sept: 9, Sep: 9, Oct: 10, Nov: 11, Dec: 12 };
 const DATE_G = /\b(\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec)\b/g;
 
-/** Whole string first, then a pattern, then each " · "-style segment on its own. */
+/** Whole string first, then a pattern, then a split at the FIRST separator only — so that a long
+ *  phrase holding commas of its own is still found as one key before it is cut up. */
 function tv(key) {
   let v = VI[key];
   if (v === undefined) { for (const [re, rep] of PATTERNS) if (re.test(key)) { v = key.replace(re, rep); break; } }
   if (v !== undefined) return v;
-  const sep = SEPS.find(x => key.includes(x));
-  return sep ? key.split(sep).map(p => p ? tv(p) : p).join(sep) : key;
+  const sep = SEPS.find(x => key.includes(x) && (x !== ', ' || !/\. |[.!?]$/.test(key)));
+  if (!sep) return key;
+  const i = key.indexOf(sep);
+  return tv(key.slice(0, i)) + sep + tv(key.slice(i + sep.length));
 }
 
 function tr(text) {
@@ -207,9 +212,9 @@ Object.assign(VI, { 'My classes': 'Lớp của tôi', 'Click a class to open its
   'Collapse all': 'Thu gọn tất cả', 'Find student or ID…': 'Tìm sinh viên hoặc mã…', 'At risk only': 'Chỉ SV có nguy cơ', 'All on track': 'Tất cả đúng tiến độ', 'To mark': 'Cần chấm',
   'Term ends': 'Hết học kỳ', 'Classes': 'Lớp', 'No classes match': 'Không có lớp phù hợp', 'Low engagement': 'Tham gia thấp', 'lead only': 'chỉ phụ trách' });
 PATTERNS.unshift(
-  [/^(\d+) classes$/, '$1 lớp'], [/^(\d+) need attention$/, '$1 lớp cần chú ý'], [/^(\d+) written · (\d+) case reports$/, '$1 bài viết · $2 báo cáo tình huống'], [/^(\d+) to grade$/, '$1 bài cần chấm điểm'],
-  [/^(\d+) classes · (\d+) students · week (\d+) of (\d+)$/, '$1 lớp · $2 sinh viên · tuần $3/$4'], [/^Pass rate (.+) · (\d+) at risk$/, 'Tỉ lệ đạt $1 · $2 có nguy cơ'],
-  [/^(\d+) classes · weights: (.+)$/, '$1 lớp · trọng số: $2'], [/^Week (\d+) lesson not ready$/, 'Bài tuần $1 chưa sẵn sàng'], [/^(\d+) written answers to mark$/, '$1 bài viết cần chấm'],
+  [/^(\d+) classes$/, '$1 lớp'], [/^(\d+) need attention$/, '$1 lớp cần chú ý'], [/^(\d+) written, (\d+) case reports$/, '$1 bài viết, $2 báo cáo tình huống'], [/^(\d+) to grade$/, '$1 bài cần chấm điểm'],
+  [/^(\d+) classes, (\d+) students, week (\d+) of (\d+)$/, '$1 lớp, $2 sinh viên, tuần $3/$4'], [/^Pass rate (.+), (\d+) at risk$/, 'Tỉ lệ đạt $1, $2 có nguy cơ'],
+  [/^(\d+) classes, weights: (.+)$/, '$1 lớp, trọng số: $2'], [/^Week (\d+) lesson not ready$/, 'Bài tuần $1 chưa sẵn sàng'], [/^(\d+) written answers to mark$/, '$1 bài viết cần chấm'],
   [/^(\d+) case reports to grade$/, '$1 báo cáo tình huống cần chấm'],
 );
 
@@ -220,7 +225,7 @@ Object.assign(VI, { 'Edit layout': 'Sửa bố cục', 'New case': 'Tình huốn
   'Preview this block': 'Xem trước khối này', 'Choose an answer': 'Chọn một đáp án', 'Case saved': 'Đã lưu tình huống', 'Add tile': 'Thêm ô', 'Save tile': 'Lưu ô',
   'Create & edit': 'Tạo & soạn', 'Drop here to add at the end': 'Thả vào đây để thêm cuối', 'Preview as students see it': 'Xem như sinh viên', 'Short title': 'Tiêu đề ngắn',
   'Correct answer': 'Đáp án đúng', 'Explanation shown after answering': 'Giải thích hiện sau khi trả lời', 'Caption': 'Chú thích', 'Transcript (used for the voice if no file)': 'Lời thoại (dùng cho giọng đọc nếu không có tệp)' });
-PATTERNS.unshift([/^Edit case · (.+)$/, 'Sửa tình huống · $1'], [/^Check (\d+)$/, 'Câu hỏi $1']);
+PATTERNS.unshift([/^Edit case, (.+)$/, 'Sửa tình huống, $1'], [/^Check (\d+)$/, 'Câu hỏi $1']);
 
 // grouped lecturer sidebar & merged grading
 Object.assign(VI, { 'Teach live': 'Dạy trực tuyến', 'Teaching': 'Giảng dạy', 'Materials': 'Học liệu', 'Assessment': 'Đánh giá', 'Workbook & cases': 'Bài tập & tình huống',
@@ -275,8 +280,8 @@ PATTERNS.unshift(
   [/^(\d+) tasks?$/, '$1 nhiệm vụ'], [/^week (\d+)$/, 'tuần $1'], [/^(\d+) of (\d+) exercises in released units$/, '$1/$2 bài tập trong các unit đã mở'], [/^(\d+) waiting$/, '$1 đang chờ'],
   [/^(\d+) business terms$/, '$1 thuật ngữ kinh doanh'], [/^Card (\d+) of (\d+)$/, 'Thẻ $1/$2'], [/^pass mark (.+)$/, 'điểm đạt $1'],
   [/^(Quizzes|Unit tests|Case reports|Midterm|Final) (\d+)%$/, (_, c, p) => `${GRADE_CAT[c]} ${p}%`], [/^Term (\d+)$/, 'Học kỳ $1'], [/^AY (\S+)$/, 'Năm học $1'], [/^(\d+) weeks$/, '$1 tuần'],
-  [/^(\d+) hours?$/, '$1 giờ'], [/^(.+): No lesson$/, '$1: Chưa có bài'], [/^· (\d+) students$/, '· $1 sinh viên'], [/^(\S+) · (\d+) students ·$/, '$1 · $2 sinh viên ·'],
-  [/^W(\d+) · (\S+) \(colleague\)$/, 'T$1 · $2 (đồng nghiệp)'], [/^Changes requested: (.+)$/, 'Yêu cầu sửa: $1'], [/^waiting for the Dean since (.+)$/, 'chờ Trưởng khoa duyệt từ $1'],
+  [/^(\d+) hours?$/, '$1 giờ'], [/^(.+): No lesson$/, '$1: Chưa có bài'], [/^(\S+), (\d+) students,$/, '$1, $2 sinh viên,'],
+  [/^W(\d+), (\S+) \(colleague\)$/, 'T$1, $2 (đồng nghiệp)'], [/^Changes requested: (.+)$/, 'Yêu cầu sửa: $1'], [/^waiting for the Dean since (.+)$/, 'chờ Trưởng khoa duyệt từ $1'],
   [/^Notifications, (\d+) unread$/, 'Thông báo, $1 chưa đọc'], [/^Lecturer edition for (\S+)$/, 'Bản giảng viên cho $1'], [/^(\d+) exercises in this programme$/, '$1 bài tập trong ngành này'],
   [/^Course grade (.+) is below the pass mark$/, 'Điểm học phần $1 dưới mức đạt'], [/^Engagement (.+) is below (.+)$/, 'Mức hoàn thành bài $1 dưới $2'],
   [/^(\d+) missed assessments?$/, 'bỏ lỡ $1 bài kiểm tra'], [/^(\d+) questions$/, '$1 câu hỏi'], [/^(\d+) attempts?$/, '$1 lượt làm'],
@@ -314,14 +319,14 @@ PATTERNS.unshift(
   [/^All programmes are built on (.+) \((\d+) units per year\)$/, (_, f, n) => `Mọi ngành đều xây trên ${tv(f)} (${n} unit mỗi năm)`], [/^Intake (\S+)$/, 'Khóa $1'],
   [/^(\d+) units per year$/, '$1 unit mỗi năm'], [/^(\d+) core subjects × (\d+) units$/, '$1 môn cốt lõi × $2 unit'], [/^(\d+) blocks$/, '$1 khối'],
   [/^Build the year plan for (.+) from the (.+) skeleton\. Changes apply to the next intake after approval\.$/, (_, p, f) => `Xây kế hoạch năm cho ${tv(p)} từ khung ${tv(f)}. Thay đổi áp dụng cho khóa tuyển sinh tiếp theo sau khi được duyệt.`],
-  [/^(\d+)\/(\d+) weeks filled · highlighted weeks differ from the current curriculum \((.+)\)$/, (_, a, b, i) => `Đã xếp ${a}/${b} tuần · tuần được tô khác với chương trình hiện tại (${tv(i)})`],
+  [/^(\d+)\/(\d+) weeks filled, highlighted weeks differ from the current curriculum \((.+)\)$/, (_, a, b, i) => `Đã xếp ${a}/${b} tuần, tuần được tô khác với chương trình hiện tại (${tv(i)})`],
   [/^(\d+) units \(framework (\d+)\)$/, '$1 unit (khung: $2)'],
   [/^(\d+) (published|scheduled|in review|changes|drafts|gaps)$/, (_, n, k) => `${n} ${COUNTS[k]}`], [/^(.+) studied$/, 'đã học $1'],
   [/^(\d+)% used$/, 'đã dùng $1%'], [/^expires (\w+) (\d{4})$/, (_, m, y) => `hết hạn ${MONTHS[m] || m}/${y}`], [/^of (\d+) accounts$/, 'trên $1 tài khoản'],
   [/^(\d+) total this term$/, '$1 lượt trong học kỳ'], [/^Signed in \((\w+)\)$/, (_, r) => `Đăng nhập (${ROLE_VI[r] || r})`], [/^(\d+) accounts$/, '$1 tài khoản'],
   [/^(\d+) actions?$/, '$1 thao tác'], [/^(\d+) available$/, 'còn $1'], [/^(\d+) days remaining$/, 'còn $1 ngày'], [/^(\d+) events$/, '$1 sự kiện'],
   [/^Submitted "(.+)" for approval$/, 'Đã nộp "$1" để duyệt'], [/^Submitted (.+) curriculum \(intake (\S+)\) for approval$/, (_, p, i) => `Đã nộp chương trình ${tv(p)} (khóa ${i}) để duyệt`],
-  [/^Requested changes on "(.+)"$/, 'Yêu cầu sửa "$1"'], [/^Week (\d+) started$/, 'Bắt đầu tuần $1'], [/^(\d+) lessons published$/, 'đã phát hành $1 bài'], [/^([^·]+) opened$/, 'đã mở $1'],
+  [/^Requested changes on "(.+)"$/, 'Yêu cầu sửa "$1"'], [/^Week (\d+) started$/, 'Bắt đầu tuần $1'], [/^(\d+) lessons published$/, 'đã phát hành $1 bài'], [/^([^,]+) opened$/, 'đã mở $1'],
 );
 
 // lesson pages, presenter, lesson quality, exam paper check
@@ -334,12 +339,12 @@ Object.assign(VI, { 'Page': 'Trang', 'New page': 'Trang mới', 'Quick check': '
   'Each row of tiles becomes one slide when you present.': 'Khi trình chiếu, mỗi hàng ô thành một slide.', 'Click to edit': 'Bấm để sửa', 'Narrower': 'Hẹp lại', 'Wider': 'Rộng ra',
   'Taller / shorter': 'Cao / thấp', 'Duplicate': 'Nhân bản', 'Edit': 'Sửa', 'Delete': 'Xóa', 'Heading': 'Tiêu đề', 'Subheading': 'Tiêu đề phụ', 'Bold': 'In đậm', 'Italic': 'In nghiêng',
   'Bullet list': 'Danh sách gạch đầu dòng', 'Numbered list': 'Danh sách đánh số', 'Formatting': 'Định dạng', 'Blank line = new paragraph': 'Dòng trống = đoạn mới', 'Preview': 'Xem trước',
-  'Fit': 'Cách hiển thị', 'Fill the tile (may crop)': 'Lấp đầy ô (có thể bị cắt)', 'Show the whole image': 'Hiện toàn bộ ảnh', 'Image file (PNG, JPG, SVG · max 8 MB)': 'Tệp ảnh (PNG, JPG, SVG · tối đa 8 MB)',
+  'Fit': 'Cách hiển thị', 'Fill the tile (may crop)': 'Lấp đầy ô (có thể bị cắt)', 'Show the whole image': 'Hiện toàn bộ ảnh', 'Image file (PNG, JPG, SVG, max 8 MB)': 'Tệp ảnh (PNG, JPG, SVG, tối đa 8 MB)',
   'Question': 'Câu hỏi', 'Options — select the correct one': 'Phương án — chọn phương án đúng', 'Optional': 'Không bắt buộc', 'The correct option cannot be empty': 'Phương án đúng không được để trống',
   'Write at least two options': 'Viết ít nhất hai phương án', 'Delete this tile?': 'Xóa ô này?', 'It disappears from the page when you save.': 'Ô sẽ biến mất khỏi trang khi bạn lưu.',
   'Discard changes?': 'Bỏ các thay đổi?', 'The page goes back to its last saved version.': 'Trang quay về bản đã lưu gần nhất.', 'Questions cannot be duplicated — add a new one': 'Không nhân bản được câu hỏi — hãy thêm câu mới',
   'Present the saved version?': 'Trình chiếu bản đã lưu?', 'You have unsaved changes. The presentation shows the last saved page.': 'Bạn có thay đổi chưa lưu. Trình chiếu sẽ dùng bản đã lưu gần nhất.',
-  'Present anyway': 'Vẫn trình chiếu', 'Page · empty — click Edit page': 'Trang · trống — bấm Soạn trang', 'Discard': 'Hủy thay đổi', 'Full screen': 'Toàn màn hình', 'Previous slide': 'Slide trước', 'Next slide': 'Slide sau',
+  'Present anyway': 'Vẫn trình chiếu', 'Page, empty — click Edit page': 'Trang, trống — bấm Soạn trang', 'Discard': 'Hủy thay đổi', 'Full screen': 'Toàn màn hình', 'Previous slide': 'Slide trước', 'Next slide': 'Slide sau',
   'Lesson quality': 'Chất lượng bài giảng', 'Checklist used by reviewers': 'Tiêu chí người duyệt sử dụng', 'Learning outcome stated': 'Có mục tiêu học tập',
   'Write in "Summary for students" what they will be able to do.': 'Ghi vào "Tóm tắt cho sinh viên" điều các em sẽ làm được sau bài.', 'Checks understanding': 'Có kiểm tra mức hiểu bài',
   'Add a Practice check block or a Quick check on a page.': 'Thêm khối Luyện tập hoặc Câu hỏi nhanh trên một trang.', 'Length fits one class session': 'Thời lượng vừa một buổi học',
@@ -349,7 +354,7 @@ Object.assign(VI, { 'Page': 'Trang', 'New page': 'Trang mới', 'Quick check': '
   'Where students struggle': 'Sinh viên đang yếu ở đâu', 'All classes': 'Tất cả lớp', 'this unit': 'unit này', 'Revisit these in class:': 'Nên ôn lại trên lớp:', 'Add worked problem': 'Thêm bài giải mẫu',
   'Add practice check': 'Thêm câu hỏi luyện tập', 'No weak spots yet — fewer than 3 answers per question, or students score 60 % or more.': 'Chưa thấy điểm yếu — mỗi câu có dưới 3 lượt trả lời, hoặc sinh viên đúng từ 60 % trở lên.',
   'Answer sent — watch the screen for the result.': 'Đã gửi đáp án — xem kết quả trên màn hình lớp.', 'Answer sent': 'Đã gửi đáp án', 'Join the live class first': 'Hãy vào lớp trực tuyến trước',
-  'This question is no longer on screen': 'Câu hỏi này không còn trên màn hình', 'Choose an answer': 'Hãy chọn một đáp án', 'answered ·': 'đã trả lời ·', 'correct': 'đúng',
+  'This question is no longer on screen': 'Câu hỏi này không còn trên màn hình', 'Choose an answer': 'Hãy chọn một đáp án', 'answered': 'đã trả lời', 'correct': 'đúng',
   'Too easy': 'Quá dễ', 'Too hard': 'Quá khó', 'An option nobody picks': 'Có phương án không ai chọn', 'Negative wording': 'Câu hỏi phủ định', '"All / none of the above"': '"Tất cả / không có ý nào ở trên"',
   'Review this question': 'Nên xem lại câu này', 'Paper check': 'Kiểm tra đề', 'Time, item quality and versions': 'Thời gian, chất lượng câu hỏi và các mã đề',
   'Add questions to estimate the working time.': 'Thêm câu hỏi để ước tính thời gian làm bài.', 'No item warnings': 'Không có câu nào cần lưu ý',
@@ -358,10 +363,10 @@ Object.assign(VI, { 'Page': 'Trang', 'New page': 'Trang mới', 'Quick check': '
   'Chosen to match the blueprint by subject and thinking level, preferring questions with medium difficulty that were not in another locked paper.': 'Chọn theo ma trận đề (môn và mức tư duy), ưu tiên câu có độ khó vừa phải và chưa dùng trong đề đã khóa khác.',
   'Add to paper': 'Thêm vào đề', 'remove or simplify questions.': 'nên bớt hoặc đơn giản hóa câu hỏi.', 'students will finish early.': 'sinh viên sẽ làm xong sớm.' });
 PATTERNS.unshift(
-  [/^Page · (\d+) tiles · (\d+) slides$/, 'Trang · $1 ô · $2 slide'], [/^Slide (\d+) \/ (\d+)$/, 'Slide $1/$2'], [/^Waiting for answers · (\d+) joined$/, 'Đang chờ trả lời · $1 đã vào lớp'],
-  [/^(Add|Edit) · (.+)$/, (_, a, k) => `${a === 'Add' ? 'Thêm' : 'Sửa'} · ${tv(k)}`],
+  [/^Page, (\d+) tiles, (\d+) slides$/, 'Trang, $1 ô, $2 slide'], [/^Slide (\d+) \/ (\d+)$/, 'Slide $1/$2'], [/^Waiting for answers, (\d+) joined$/, 'Đang chờ trả lời, $1 đã vào lớp'],
+  [/^(Add|Edit), (.+)$/, (_, a, k) => `${a === 'Add' ? 'Thêm' : 'Sửa'}, ${tv(k)}`],
   [/^(\d+) minutes of reading or lecture in a row — insert a discussion, calculation or check\.$/, '$1 phút đọc hoặc nghe giảng liên tục — chèn thảo luận, bài tính hoặc câu hỏi.'],
-  [/^(\S+) · units taught so far$/, '$1 · các unit đã dạy'], [/^(\d+)% correct$/, '$1% đúng'], [/^(\d+) answers$/, '$1 lượt trả lời'], [/^(\d+) options nobody picks$/, '$1 phương án không ai chọn'],
+  [/^(\S+), units taught so far$/, '$1, các unit đã dạy'], [/^(\d+)% correct$/, '$1% đúng'], [/^(\d+) answers$/, '$1 lượt trả lời'], [/^(\d+) options nobody picks$/, '$1 phương án không ai chọn'],
   [/^About (\d+) min of work for a (\d+)-minute paper\.$/, 'Ước tính $1 phút làm bài cho đề $2 phút.'], [/^About (\d+) min of work for a (\d+)-minute paper$/, 'Ước tính $1 phút làm bài cho đề $2 phút'],
   [/^(\d+) question\(s\) to review$/, '$1 câu nên xem lại'], [/^Fill (\d+) gap\(s\) from the bank$/, 'Lấp $1 chỗ trống từ ngân hàng'], [/^Add (\d+) question\(s\)\?$/, 'Thêm $1 câu hỏi?'],
   [/^(\d+) question\(s\) added$/, 'Đã thêm $1 câu hỏi'],
@@ -412,14 +417,14 @@ Object.assign(VI, { 'Open a class': 'Tạo lớp', 'Open a new class': 'Tạo l�
   'Choose the class to move students to': 'Hãy chọn lớp để chuyển sinh viên sang', 'Choose a different class': 'Hãy chọn lớp khác', 'Class cancelled': 'Đã hủy lớp', 'New class opened': 'Có lớp mới được mở',
   'Student joined your class': 'Có sinh viên vào lớp', 'Your class was moved': 'Lớp của bạn đã được chuyển', 'Students moved to your class': 'Có sinh viên chuyển vào lớp của bạn' });
 PATTERNS.unshift(
-  [/^New classes · (\d+)$/, 'Lớp mới mở · $1'], [/^Class code · (.+)$/, 'Mã lớp · $1'], [/^Cancel (.+)\?$/, 'Hủy lớp $1?'], [/^Join (.+)$/, 'Vào lớp $1'],
+  [/^New classes, (\d+)$/, 'Lớp mới mở, $1'], [/^Class code, (.+)$/, 'Mã lớp, $1'], [/^Cancel (.+)\?$/, 'Hủy lớp $1?'], [/^Join (.+)$/, 'Vào lớp $1'],
   [/^(\d+) student\(s\) in the class so far\.$/, 'Hiện lớp có $1 sinh viên.'], [/^Move its (\d+) student\(s\) and its code to$/, 'Chuyển $1 sinh viên và mã lớp sang'],
   [/^Class (.+) created$/, 'Đã tạo lớp $1'], [/^You are now in (.+)$/, 'Bạn đã vào lớp $1'], [/^You are already in (.+)$/, 'Bạn đã ở lớp $1'], [/^Cancelled — students and code now go to (.+)$/, 'Đã hủy — sinh viên và mã lớp chuyển sang $1'],
 );
 
 Object.assign(VI, { 'Current class:': 'Lớp hiện tại:', 'Joining moves you out of your current class.': 'Vào lớp mới sẽ chuyển bạn ra khỏi lớp hiện tại.' });
 Object.assign(VI, { 'Group project': 'Dự án nhóm', 'Group projects': 'Dự án nhóm' });
-PATTERNS.unshift([/^Case · (\d+) questions$/, 'Tình huống · $1 câu hỏi']);
+PATTERNS.unshift([/^Case, (\d+) questions$/, 'Tình huống, $1 câu hỏi']);
 Object.assign(VI, { 'Add a header line and at least one row': 'Thêm dòng tiêu đề và ít nhất một dòng dữ liệu', 'Add a title': 'Hãy nhập tiêu đề', 'Add a title before submitting': 'Hãy nhập tiêu đề trước khi gửi',
   'Add an audio file or a transcript': 'Thêm tệp âm thanh hoặc lời thoại', 'Add at least one block': 'Thêm ít nhất một khối', 'Add at least one block before submitting': 'Thêm ít nhất một khối trước khi gửi',
   'Add at least one tile': 'Thêm ít nhất một ô', 'Add blocks from the palette to build the lesson.': 'Thêm khối từ danh sách bên trái để soạn bài.', 'Add from the question bank': 'Thêm từ ngân hàng câu hỏi',
@@ -474,19 +479,19 @@ Object.assign(VI, { 'Options': 'Tùy chọn', 'Unit (from the programme curricul
 Object.assign(VI, { 'This week and the weeks ahead': 'Tuần này và các tuần tới', 'Lessons already taught': 'Bài đã dạy', 'No class lessons yet': 'Chưa có bài giảng nào' });
 
 // ESP repositioning: English in a business context, two content sources
-Object.assign(VI, { 'English for Economics & Business · Level 1 (B1)': 'Tiếng Anh Kinh tế & Kinh doanh · Cấp độ 1 (B1)', 'English for Economics & Business': 'Tiếng Anh Kinh tế & Kinh doanh',
-  'Level 1 (B1)': 'Cấp độ 1 (B1)', 'UEH English for Economics & Business · Level 1': 'Khung Tiếng Anh Kinh tế & Kinh doanh UEH · Cấp độ 1', 'UEH English for Economics & Business': 'Khung Tiếng Anh Kinh tế & Kinh doanh UEH', 'Level 1': 'Cấp độ 1',
+Object.assign(VI, { 'English for Economics & Business, Level 1 (B1)': 'Tiếng Anh Kinh tế & Kinh doanh, Cấp độ 1 (B1)', 'English for Economics & Business': 'Tiếng Anh Kinh tế & Kinh doanh',
+  'Level 1 (B1)': 'Cấp độ 1 (B1)', 'UEH English for Economics & Business, Level 1': 'Khung Tiếng Anh Kinh tế & Kinh doanh UEH, Cấp độ 1', 'UEH English for Economics & Business': 'Khung Tiếng Anh Kinh tế & Kinh doanh UEH', 'Level 1': 'Cấp độ 1',
   'Reading & input': 'Đọc & ngữ liệu', 'Describe the chart': 'Mô tả biểu đồ', 'Speaking task': 'Bài nói', 'Language focus': 'Trọng tâm ngôn ngữ', 'Coursebook extract': 'Trích đoạn giáo trình',
   'Vocabulary & grammar': 'Từ vựng & ngữ pháp', 'Coursebook': 'Giáo trình', 'UEH': 'UEH', 'By the end of this lesson:': 'Sau bài này:', 'Key words:': 'Từ khóa:',
-  'Content sources by unit · coursebook and UEH': 'Nguồn nội dung theo unit · giáo trình và UEH',
+  'Content sources by unit, coursebook and UEH': 'Nguồn nội dung theo unit, giáo trình và UEH',
   'The UEH syllabus is the backbone. Coursebooks are licensed and read-only; UEH material is written by lecturers and approved by the Dean.': 'Đề cương của UEH là xương sống. Giáo trình có bản quyền và chỉ đọc; nội dung UEH do giảng viên soạn và Trưởng khoa duyệt.',
   'Skills still missing': 'Kỹ năng còn thiếu', 'No coursebook mapped': 'Chưa gắn giáo trình', 'All skills covered': 'Đủ các kỹ năng',
   'Coursebooks under this licence': 'Giáo trình thuộc giấy phép này', 'Licensed content is read-only and disappears for students when the licence ends. UEH material and student results stay.': 'Nội dung có bản quyền chỉ đọc và sẽ ẩn với sinh viên khi hết hạn. Nội dung UEH và kết quả của sinh viên vẫn còn.',
   'Units': 'Unit', 'File': 'Tệp', 'Valid until': 'Hiệu lực đến', 'PDF uploaded': 'Đã tải PDF', 'Not uploaded': 'Chưa tải lên' });
 PATTERNS.unshift([/^(\d+) page extracts$/, '$1 trích đoạn'], [/^(\d+) library items$/, '$1 tài liệu thư viện'], [/^Coursebook (\d+)%$/, 'Giáo trình $1%'], [/^UEH (\d+)%$/, 'UEH $1%'],
-  [/^(.+) · English for Economics & Business · Level 1 \(B1\)$/, (_, x) => `${tv(x)} · Tiếng Anh Kinh tế & Kinh doanh · Cấp độ 1 (B1)`]);
-PATTERNS.unshift([/^(\d+) units · four skills plus vocabulary & grammar · (\d+) exercises$/, '$1 unit · bốn kỹ năng cùng từ vựng & ngữ pháp · $2 bài tập']);
-Object.assign(VI, { 'English for Economics & Business · Level 1 (CEFR B1)': 'Tiếng Anh Kinh tế & Kinh doanh · Cấp độ 1 (CEFR B1)' });
+  [/^(.+), English for Economics & Business, Level 1 \(B1\)$/, (_, x) => `${tv(x)}, Tiếng Anh Kinh tế & Kinh doanh, Cấp độ 1 (B1)`]);
+PATTERNS.unshift([/^(\d+) units, four skills plus vocabulary & grammar, (\d+) exercises$/, '$1 unit, bốn kỹ năng cùng từ vựng & ngữ pháp, $2 bài tập']);
+Object.assign(VI, { 'English for Economics & Business, Level 1 (CEFR B1)': 'Tiếng Anh Kinh tế & Kinh doanh, Cấp độ 1 (CEFR B1)' });
 Object.assign(VI, { 'Every week you teach in this class already has a lesson. Choose another class, or open the existing lesson from the list to edit it.': 'Mọi tuần thầy cô dạy ở lớp này đều đã có bài. Hãy chọn lớp khác, hoặc mở bài có sẵn trong danh sách để sửa.',
   'Start from the unit template (reading, key words, activity, practice check)': 'Bắt đầu từ bài mẫu của unit (bài đọc, từ khóa, hoạt động, luyện tập)', 'Teaching week': 'Tuần dạy', 'Create draft': 'Tạo bản nháp',
   'Title (optional — defaults to the unit title)': 'Tên bài (không bắt buộc — mặc định là tên unit)', 'Leave blank to use the unit title': 'Để trống để dùng tên unit' });
@@ -500,7 +505,7 @@ Object.assign(VI, { 'The word': 'Từ cần học', 'What kind of word': 'Đây 
   'Not recorded yet': 'Chưa có dữ liệu', 'No key words recorded for this unit yet.': 'Unit này chưa có từ khóa nào.', 'Vocabulary trainer': 'Luyện từ vựng',
   'noun': 'danh từ', 'verb': 'động từ', 'adjective': 'tính từ', 'adverb': 'trạng từ', 'noun phrase': 'cụm danh từ', 'phrase': 'cụm từ' });
 PATTERNS.unshift([/^Word (\d+) of (\d+)$/, 'Từ $1/$2'], [/^(\d+) business terms$/, '$1 thuật ngữ kinh doanh']);
-PATTERNS.unshift([/^(\d+) business words · learn each one in four steps$/, '$1 từ chuyên ngành · học mỗi từ theo bốn bước']);
+PATTERNS.unshift([/^(\d+) business words, learn each one in four steps$/, '$1 từ chuyên ngành, học mỗi từ theo bốn bước']);
 
 // grammar reference: how it is built, when to use it, examples, practice
 Object.assign(VI, { 'Grammar': 'Ngữ pháp', 'How it is built': 'Cấu trúc', 'When to use it': 'Khi nào dùng', 'Examples in business': 'Ví dụ trong kinh doanh',
@@ -508,7 +513,7 @@ Object.assign(VI, { 'Grammar': 'Ngữ pháp', 'How it is built': 'Cấu trúc', 
   'All grammar points': 'Tất cả mục ngữ pháp', 'No grammar points yet': 'Chưa có mục ngữ pháp nào', 'No exercises for this unit yet.': 'Unit này chưa có bài tập.',
   'Check each answer as you go.': 'Làm tới đâu kiểm tra đáp án tới đó.' });
 PATTERNS.unshift(
-  [/^(\d+) grammar points · one for each unit, with examples and practice$/, '$1 mục ngữ pháp · mỗi unit một mục, kèm ví dụ và bài luyện'],
+  [/^(\d+) grammar points, one for each unit, with examples and practice$/, '$1 mục ngữ pháp, mỗi unit một mục, kèm ví dụ và bài luyện'],
   [/^(\d+) exercises from (\S+)\. Check each answer as you go\.$/, '$1 bài tập của unit $2. Làm tới đâu kiểm tra đáp án tới đó.'],
   [/^Practice opens when your class reaches (\S+)\.$/, 'Phần luyện tập mở khi lớp học đến unit $1.'],
 );

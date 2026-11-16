@@ -38,7 +38,7 @@ function dashboard(s, _id, me) {
   return {
     title: 'Dashboard',
     html: `<div class="page">
-      ${pageHead(esc(S.orgById(s, me.orgId).name), `${esc(s.term.title)} · ${esc(scope)} · ${students.length} students`, `<a class="btn" href="#/director/studio">${icon('pen-tool')} Exam studio</a><a class="btn btn-primary" href="#/director/approvals">${icon('inbox')} Review approvals${pending.length ? ` (${pending.length})` : ''}</a>`)}
+      ${pageHead(esc(S.orgById(s, me.orgId).name), `${esc(s.term.title)}, ${esc(scope)}, ${students.length} students`, `<a class="btn" href="#/director/studio">${icon('pen-tool')} Exam studio</a><a class="btn btn-primary" href="#/director/approvals">${icon('inbox')} Review approvals${pending.length ? ` (${pending.length})` : ''}</a>`)}
       <div class="grid">
         <div class="span-3">${kpi({ label: 'Pending approvals', value: String(pending.length), sub: pending.length ? `Oldest ${S.relTime(s, pending[0].submittedAt)}` : 'Inbox clear', iconName: 'inbox', tone: pending.length ? 'warn' : 'ok' })}</div>
         <div class="span-3">${kpi({ label: 'Term delivery', value: `${prog.pct}%`, sub: `${prog.published} of ${prog.planned} lesson-weeks published`, iconName: 'calendar-check' })}</div>
@@ -48,7 +48,7 @@ function dashboard(s, _id, me) {
       <div class="grid">
         <div class="span-8">${card({ title: 'Approvals inbox', subtitle: 'Lessons submitted by instructors', actions: pending.length > 1 ? `<button class="btn btn-sm" data-action="bulk-approve">${icon('check-check')} Approve all (${pending.length})</button>` : '', flush: true, body: approvalsTable(s, pending.slice(0, 6)) })}</div>
         <div class="span-4 stack gap-4">
-          ${card({ title: 'Planning gaps', subtitle: 'Next 4 weeks without a lesson', flush: true, body: upcomingGaps.length ? `<div class="list">${upcomingGaps.map(({ sec, w }) => `<a class="list-item" href="#/director/timeline"><span class="li-icon warn">${icon('calendar-x')}</span><div class="grow"><div class="title">Week ${w} · ${esc(sec.code)}</div><div class="meta">${esc(sec.instructorIds.map(id => S.userById(s, id).name).join(', '))}</div></div></a>`).join('')}</div>` : empty('circle-check', 'No gaps', 'Every section has lessons planned.') })}
+          ${card({ title: 'Planning gaps', subtitle: 'Next 4 weeks without a lesson', flush: true, body: upcomingGaps.length ? `<div class="list">${upcomingGaps.map(({ sec, w }) => `<a class="list-item" href="#/director/timeline"><span class="li-icon warn">${icon('calendar-x')}</span><div class="grow"><div class="title">Week ${w}, ${esc(sec.code)}</div><div class="meta">${esc(sec.instructorIds.map(id => S.userById(s, id).name).join(', '))}</div></div></a>`).join('')}</div>` : empty('circle-check', 'No gaps', 'Every section has lessons planned.') })}
           ${card({ title: 'At-risk students', flush: true, body: atRiskList(s, secs, '#/director/analytics') })}
         </div>
       </div>
@@ -56,7 +56,7 @@ function dashboard(s, _id, me) {
         <div class="span-7">${card({ title: 'Section comparison', subtitle: 'Average grade, pass rate and engagement', body: '<div class="chart-box"><canvas id="dr-sections"></canvas></div>' })}</div>
         <div class="span-5">${card({ title: 'Cohort competencies', subtitle: '% correct vs. programme benchmark', body: '<div class="chart-box"><canvas id="dr-radar"></canvas></div>' })}</div>
       </div>
-      ${card({ title: 'Master timeline', subtitle: 'All sections · dashed boxes are unplanned weeks', actions: timelineLegend(), flush: true, body: termTimeline(s, { sections: secs, viewer: 'director', showGaps: true }) })}
+      ${card({ title: 'Master timeline', subtitle: 'All sections, dashed boxes are unplanned weeks', actions: timelineLegend(), flush: true, body: termTimeline(s, { sections: secs, viewer: 'director', showGaps: true }) })}
     </div>`,
     mount: () => {
       sectionChart(s, 'dr-sections', secs);
@@ -80,7 +80,7 @@ function sectionChart(s, id, secs) {
 function approvalsTable(s, list) {
   if (!list.length) return empty('inbox', 'No lessons waiting', 'New submissions from instructors will appear here.');
   return `<div class="table-wrap"><table class="table"><thead><tr><th>Lesson</th><th>Instructor</th><th>Section</th><th class="num">Week</th><th class="num">Duration</th><th>Submitted</th><th></th></tr></thead><tbody>
-    ${list.map(l => `<tr><td><a href="#/director/approvals/${l.id}" style="font-weight:600">${esc(l.title)}</a><div class="small faint">${esc(S.unitById(s, l.unitId).title)} · ${l.blocks.length} blocks</div></td>
+    ${list.map(l => `<tr><td><a href="#/director/approvals/${l.id}" style="font-weight:600">${esc(l.title)}</a><div class="small faint">${esc(S.unitById(s, l.unitId).title)}, ${l.blocks.length} blocks</div></td>
       <td><div class="row gap-2">${avatar(S.userById(s, l.authorId), 'sm')}${esc(S.userById(s, l.authorId).name)}</div></td><td>${esc(S.sectionById(s, l.sectionId).code)}</td><td class="num">${l.week}</td><td class="num">${S.lessonMinutes(l)} min</td>
       <td class="small">${S.relTime(s, l.submittedAt)}</td><td class="num"><a class="btn btn-sm btn-primary" href="#/director/approvals/${l.id}">Review</a></td></tr>`).join('')}</tbody></table></div>`;
 }
@@ -90,7 +90,7 @@ function approvals(s, id, me) {
   const secs = S.scopedSections(s);
   const pending = S.pendingApprovals(s, secs);
   const mods = s.modules.filter(m => m.status === 'submitted' && m.sectionIds.some(x => secs.some(y => y.id === x)));
-  const modCard = card({ title: `Modules waiting for approval · ${mods.length}`, subtitle: 'A whole 16-week plan finalised by a lecturer for specific classes', flush: true, body: mods.length ? `<div class="list">${mods.map(m => `<a class="list-item" href="#/director/approvals/${m.id}"><span class="li-icon warn">${icon('calendar-range')}</span><div class="grow"><div class="title">${esc(m.title)}</div><div class="meta">${esc(S.userById(s, m.ownerId).name)} · ${m.sectionIds.map(x => esc(S.sectionById(s, x).code)).join(', ')} · ${m.weeks.reduce((t, w) => t + w.extras.length, 0)} add-ons</div></div><span class="btn btn-sm btn-primary">Review</span></a>`).join('')}</div>` : empty('calendar-range', 'No modules waiting') });
+  const modCard = card({ title: `Modules waiting for approval, ${mods.length}`, subtitle: 'A whole 16-week plan finalised by a lecturer for specific classes', flush: true, body: mods.length ? `<div class="list">${mods.map(m => `<a class="list-item" href="#/director/approvals/${m.id}"><span class="li-icon warn">${icon('calendar-range')}</span><div class="grow"><div class="title">${esc(m.title)}</div><div class="meta">${esc(S.userById(s, m.ownerId).name)}, ${m.sectionIds.map(x => esc(S.sectionById(s, x).code)).join(', ')}, ${m.weeks.reduce((t, w) => t + w.extras.length, 0)} add-ons</div></div><span class="btn btn-sm btn-primary">Review</span></a>`).join('')}</div>` : empty('calendar-range', 'No modules waiting') });
   const reviewed = s.lessons.filter(l => l.reviewedBy && secs.some(x => x.id === l.sectionId) && l.status !== 'submitted')
     .map(l => ({ l, h: [...l.history].reverse().find(h => ['Approved', 'Requested changes', 'Rejected'].includes(h.action)) })).filter(x => x.h)
     .sort((a, b) => new Date(b.h.at) - new Date(a.h.at)).slice(0, 10);
@@ -98,8 +98,8 @@ function approvals(s, id, me) {
     title: 'Approvals',
     html: `<div class="page">${pageHead('Approvals', 'Approved lessons are scheduled and publish automatically when their week starts', pending.length > 1 ? `<button class="btn" data-action="bulk-approve">${icon('check-check')} Approve all (${pending.length})</button>` : '')}
       ${modCard}
-      ${card({ title: `Lessons waiting for review · ${pending.length}`, flush: true, body: approvalsTable(s, pending) })}
-      ${card({ title: 'Recently reviewed', flush: true, body: reviewed.length ? `<div class="list">${reviewed.map(({ l, h }) => `<a class="list-item" href="#/director/approvals/${l.id}"><span class="li-icon ${h.action === 'Approved' ? 'ok' : h.action === 'Rejected' ? 'danger' : 'warn'}">${icon(h.action === 'Approved' ? 'check' : h.action === 'Rejected' ? 'x' : 'message-square-warning')}</span><div class="grow"><div class="title">${esc(l.title)}</div><div class="meta">${esc(h.action)} ${S.relTime(s, h.at)} · ${esc(S.sectionById(s, l.sectionId).code)} · week ${l.week}</div></div>${badge(l.status)}</a>`).join('')}</div>` : empty('history', 'Nothing reviewed yet') })}
+      ${card({ title: `Lessons waiting for review, ${pending.length}`, flush: true, body: approvalsTable(s, pending) })}
+      ${card({ title: 'Recently reviewed', flush: true, body: reviewed.length ? `<div class="list">${reviewed.map(({ l, h }) => `<a class="list-item" href="#/director/approvals/${l.id}"><span class="li-icon ${h.action === 'Approved' ? 'ok' : h.action === 'Rejected' ? 'danger' : 'warn'}">${icon(h.action === 'Approved' ? 'check' : h.action === 'Rejected' ? 'x' : 'message-square-warning')}</span><div class="grow"><div class="title">${esc(l.title)}</div><div class="meta">${esc(h.action)} ${S.relTime(s, h.at)}, ${esc(S.sectionById(s, l.sectionId).code)}, week ${l.week}</div></div>${badge(l.status)}</a>`).join('')}</div>` : empty('history', 'Nothing reviewed yet') })}
     </div>`,
     mount: () => { if (id?.startsWith('MOD')) openModuleReview(id); else if (id) openReview(id); },
   };
@@ -111,7 +111,7 @@ function openModuleReview(id) {
   if (!m) return;
   const issues = S.validateModule(s, m);
   const pending = m.status === 'submitted';
-  openModal(`${modalHead(esc(m.title), `Module by ${esc(S.userById(s, m.ownerId).name)} · ${esc(S.orgById(s, m.programId).name)}`)}
+  openModal(`${modalHead(esc(m.title), `Module by ${esc(S.userById(s, m.ownerId).name)}, ${esc(S.orgById(s, m.programId).name)}`)}
     <div class="modal-body">
       <div class="row gap-2 wrap">${badge(m.status)}${m.sectionIds.map(x => `<span class="chip">${icon('users')} ${esc(S.sectionById(s, x).code)}</span>`).join('')}<span class="chip">${icon('clock')} ${Math.round(S.moduleMinutes(s, m) / 6) / 10} h</span></div>
       ${issues.length ? `<div class="note note-warn">${icon('triangle-alert')}<div>${issues.map(esc).join('<br>')}</div></div>` : ''}
@@ -130,7 +130,7 @@ function openReview(id) {
   const sec = S.sectionById(s, l.sectionId);
   const clash = s.lessons.find(x => x.id !== l.id && x.sectionId === l.sectionId && x.week === l.week && ['scheduled', 'published'].includes(x.status));
   const pending = l.status === 'submitted';
-  openModal(`${modalHead(esc(l.title), `${esc(sec.code)} · week ${l.week} · ${esc(S.unitById(s, l.unitId).title)}`)}
+  openModal(`${modalHead(esc(l.title), `${esc(sec.code)}, week ${l.week}, ${esc(S.unitById(s, l.unitId).title)}`)}
     <div class="modal-body">
       <div class="row gap-3 wrap">${badge(l.status)}<span class="chip">${icon('user')} ${esc(S.userById(s, l.authorId).name)}</span><span class="chip">${icon('clock')} ${S.lessonMinutes(l)} min</span><span class="chip">${icon('calendar')} ${S.fmtDate(S.weekStartOf(s, l.week))}</span></div>
       ${clash ? `<div class="note note-warn">${icon('triangle-alert')}<div>Week ${l.week} already has "${esc(clash.title)}" for ${esc(sec.code)}.</div></div>` : ''}
@@ -150,7 +150,7 @@ function timeline(s) {
   const secs = S.scopedSections(s);
   return {
     title: 'Master timeline',
-    html: `<div class="page">${pageHead('Master timeline', `${esc(s.term.title)} · ${s.term.weeks} weeks · week ${s.clock.week} in progress`)}
+    html: `<div class="page">${pageHead('Master timeline', `${esc(s.term.title)}, ${s.term.weeks} weeks, week ${s.clock.week} in progress`)}
       <div class="grid">${secs.map(sec => {
         const ls = s.lessons.filter(l => l.sectionId === sec.id);
         const n = (st) => ls.filter(l => l.status === st).length;
@@ -172,11 +172,11 @@ function analytics(s) {
   students.forEach(x => { const v = S.courseGrade(s, x.id).value; if (v !== null) buckets[Math.min(4, Math.floor(v / 2))]++; });
   return {
     title: 'Analytics',
-    html: `<div class="page">${pageHead('Analytics', `${secs.map(x => esc(x.code)).join(', ')} · ${students.length} students`)}
+    html: `<div class="page">${pageHead('Analytics', `${secs.map(x => esc(x.code)).join(', ')}, ${students.length} students`)}
       <div class="grid"><div class="span-6">${card({ title: 'Grade distribution', subtitle: 'Course grade, 0–10', body: '<div class="chart-box sm"><canvas id="an-dist"></canvas></div>' })}</div>
       <div class="span-6">${card({ title: 'Section comparison', body: '<div class="chart-box sm"><canvas id="an-sec"></canvas></div>' })}</div></div>
       ${card({ title: 'Student drill-down', actions: `<select class="select select-sm" data-change="drill-student">${students.map(x => `<option value="${x.id}" ${x.id === u.id ? 'selected' : ''}>${esc(x.name)} (${esc(S.sectionById(s, x.sectionId).code)})</option>`).join('')}</select>`, body: `
-        <div class="grid"><div class="span-5"><div class="row gap-3">${avatar(u, 'lg')}<div><h3>${esc(u.name)}</h3><div class="small muted">${u.id} · ${esc(S.sectionById(s, u.sectionId).code)} · ${esc(u.email)}</div></div></div>
+        <div class="grid"><div class="span-5"><div class="row gap-3">${avatar(u, 'lg')}<div><h3>${esc(u.name)}</h3><div class="small muted">${u.id}, ${esc(S.sectionById(s, u.sectionId).code)}, ${esc(u.email)}</div></div></div>
           <div class="grid mt-4" style="gap:10px"><div class="span-6">${kpi({ label: 'Course grade', value: g.value === null ? '—' : g.value.toFixed(1), sub: g.provisional ? 'Provisional' : '' })}</div><div class="span-6">${kpi({ label: 'Engagement', value: `${S.engagement(s, u.id) ?? '—'}%`, sub: S.fmtMinutes(S.studyMinutes(s, u.id)) + ' studied' })}</div></div>
           <div class="mt-3">${r.flag ? `<div class="note note-danger">${icon('triangle-alert')}<div>${esc(r.reasons.join('; '))}</div></div>` : `<div class="note note-ok">${icon('circle-check')}<div>On track</div></div>`}</div></div>
         <div class="span-7"><div class="chart-box"><canvas id="an-radar"></canvas></div></div></div>` })}

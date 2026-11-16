@@ -34,7 +34,7 @@ export function taskList(s, tasks, labels, { title = 'What to do now', emptyTitl
   };
   const summary = active.length ? `<span class="task-count ${urgent ? 'is-urgent' : ''}">${active.length}</span>` : `<span class="task-count is-done">${icon('check')}</span>`;
   const levels = Object.keys(labels).filter(l => l !== 'missed');
-  return `<section class="card tasks-card"><header class="card-head"><div class="row gap-3">${summary}<div><h3>${title}</h3><p class="muted">${active.length ? `${active.length} things to do${urgent ? ` · ${urgent} urgent` : ''}` : 'All caught up'}</p></div></div>
+  return `<section class="card tasks-card"><header class="card-head"><div class="row gap-3">${summary}<div><h3>${title}</h3><p class="muted">${active.length ? `${active.length} things to do${urgent ? `, ${urgent} urgent` : ''}` : 'All caught up'}</p></div></div>
       <div class="row gap-3 wrap small task-legend">${levels.map(l => `<span class="lv-${l}"><i></i>${labels[l]}</span>`).join('')}</div></header>
     ${tasks.length ? `<div>${tasks.map(row).join('')}</div>` : `<div class="card-body">${empty('party-popper', emptyTitle, emptyText)}</div>`}</section>`;
 }
@@ -82,13 +82,13 @@ export function termTimeline(s, opts) {
     const cls = w < s.clock.week ? 'past' : w === s.clock.week ? 'current' : '';
     const ws = S.weekStartOf(s, w);
     return `<div class="tl-week ${cls}">
-      <div class="tl-head"><b>W${w}${w === s.clock.week ? ' · now' : ''}</b><span>${S.fmtDate(ws)}</span></div>
+      <div class="tl-head"><b>W${w}${w === s.clock.week ? ', now' : ''}</b><span>${S.fmtDate(ws)}</span></div>
       <div class="tl-body">
         ${lessons.map(l => `<a class="tl-item s-${l.status}" href="${lessonLink(l)}" title="${esc(l.title)} — ${esc(l.status.replace('_', ' '))}">
             <div class="truncate" style="font-weight:600">${esc(l.title)}</div>
-            <div class="tl-meta">${multi ? esc(S.sectionById(s, l.sectionId).code) + ' · ' : ''}${esc((l.status === 'changes_requested' ? 'changes' : l.status))}</div></a>${l.blocks.filter(b => b.type === 'resource' && b.extra).map(b => { const r = S.resourceById(s, b.resourceId); return r ? `<div class="tl-extra x-${r.type}" title="${esc(r.title)}">${icon(r.type === 'practical' ? 'monitor-cog' : 'briefcase', 'ic-xs')} ${esc(r.title)}</div>` : ''; }).join('')}`).join('')}
+            <div class="tl-meta">${multi ? esc(S.sectionById(s, l.sectionId).code) + ', ' : ''}${esc((l.status === 'changes_requested' ? 'changes' : l.status))}</div></a>${l.blocks.filter(b => b.type === 'resource' && b.extra).map(b => { const r = S.resourceById(s, b.resourceId); return r ? `<div class="tl-extra x-${r.type}" title="${esc(r.title)}">${icon(r.type === 'practical' ? 'monitor-cog' : 'briefcase', 'ic-xs')} ${esc(r.title)}</div>` : ''; }).join('')}`).join('')}
         ${assess.map(a => `<a class="tl-item assess" href="${viewer === 'student' ? (a.type === 'workshop' ? '#/student/assessments' : `#/student/exam/${a.id}`) : viewer === 'instructor' ? '#/instructor/assessments' : '#/director/studio'}" title="${esc(a.title)}">
-            <div class="truncate" style="font-weight:600">${icon(ASSESS_META[a.type].icon, 'ic-xs')} ${esc(a.title)}</div><div class="tl-meta">${esc(ASSESS_META[a.type].label)} · ${badgeless(S.assessmentStatus(s, a))}</div></a>`).join('')}
+            <div class="truncate" style="font-weight:600">${icon(ASSESS_META[a.type].icon, 'ic-xs')} ${esc(a.title)}</div><div class="tl-meta">${esc(ASSESS_META[a.type].label)}, ${badgeless(S.assessmentStatus(s, a))}</div></a>`).join('')}
         ${resources.map(c => `<div class="tl-item" style="border-left-color:var(--text-3)" title="${esc(c.title)}"><div class="truncate">${icon(c.kind === 'safety_sop' ? 'shield-alert' : 'wrench')} ${esc(c.title)}</div><div class="tl-meta">Repository</div></div>`).join('')}
         ${gaps.map(sec => `<div class="tl-gap">${multi ? esc(sec.code) + ': ' : ''}No lesson</div>`).join('')}
       </div></div>`;
@@ -153,7 +153,7 @@ export function gradebookTable(s, sections, opts = {}) {
 export function atRiskList(s, sections, link, base = null) {
   const list = S.studentsInSections(s, sections).map(u => ({ u, r: S.atRisk(s, u.id) })).filter(x => x.r.flag);
   if (!list.length) return empty('circle-check', 'No students at risk', 'Everyone is above the pass mark and engagement threshold.');
-  return `<div class="list">${list.map(({ u, r }) => `<a class="list-item" href="${base ? `${base}/${u.id}` : link}"><span class="li-icon danger">${icon('triangle-alert')}</span><div class="grow"><div class="title">${esc(u.name)} <span class="faint small">${esc(S.sectionById(s, u.sectionId).code)}</span></div><div class="meta">${esc(r.reasons.join(' · '))}</div></div></a>`).join('')}</div>`;
+  return `<div class="list">${list.map(({ u, r }) => `<a class="list-item" href="${base ? `${base}/${u.id}` : link}"><span class="li-icon danger">${icon('triangle-alert')}</span><div class="grow"><div class="title">${esc(u.name)} <span class="faint small">${esc(S.sectionById(s, u.sectionId).code)}</span></div><div class="meta">${esc(r.reasons.join(', '))}</div></div></a>`).join('')}</div>`;
 }
 
 /* ---------- charts ---------- */

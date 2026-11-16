@@ -41,9 +41,9 @@ function dashboard(s) {
   const byRole = ['student', 'instructor', 'director', 'provost', 'admin'].map(r => s.users.filter(u => u.role === r).length);
   return {
     title: 'Dashboard',
-    html: `<div class="page">${pageHead('System overview', `${esc(s.term.title)} · ${s.sections.length} sections`)}
+    html: `<div class="page">${pageHead('System overview', `${esc(s.term.title)}, ${s.sections.length} sections`)}
       <div class="grid">
-        <div class="span-3">${kpi({ label: 'Licensed seats', value: `${seats}<small> / ${s.license.seats}</small>`, sub: `${Math.round((seats / s.license.seats) * 100)}% used · expires ${S.fmtDate(s.license.expiresAt, { month: 'short', year: 'numeric' })}`, iconName: 'key-round' })}</div>
+        <div class="span-3">${kpi({ label: 'Licensed seats', value: `${seats}<small> / ${s.license.seats}</small>`, sub: `${Math.round((seats / s.license.seats) * 100)}% used, expires ${S.fmtDate(s.license.expiresAt, { month: 'short', year: 'numeric' })}`, iconName: 'key-round' })}</div>
         <div class="span-3">${kpi({ label: 'Active users (7 days)', value: String(activeUsers(s)), sub: `of ${s.users.length} accounts`, iconName: 'user-check' })}</div>
         <div class="span-3">${kpi({ label: 'Integrations', value: `${Object.keys(s.integrations || {}).length}/${INTEGRATIONS.length}`, sub: 'Synced at least once (simulated)', iconName: 'plug', tone: 'warn' })}</div>
         <div class="span-3">${kpi({ label: 'Audit events today', value: String(events.filter(e => new Date(e.at) >= today).length), sub: `${events.length} total this term`, iconName: 'scroll-text' })}</div>
@@ -59,7 +59,7 @@ function users(s) {
   const list = s.users.filter(u => !userFilter.role || u.role === userFilter.role);
   return {
     title: 'Users',
-    html: `<div class="page">${pageHead('Users', `${s.users.length} accounts · provisioning will come from OneRoster`, `<select class="select select-sm" data-change="user-role"><option value="">All roles</option>${Object.entries(ROLE_LABEL).map(([k, v]) => `<option value="${k}" ${userFilter.role === k ? 'selected' : ''}>${v}</option>`).join('')}</select>`)}
+    html: `<div class="page">${pageHead('Users', `${s.users.length} accounts, provisioning will come from OneRoster`, `<select class="select select-sm" data-change="user-role"><option value="">All roles</option>${Object.entries(ROLE_LABEL).map(([k, v]) => `<option value="${k}" ${userFilter.role === k ? 'selected' : ''}>${v}</option>`).join('')}</select>`)}
       ${card({ flush: true, body: `<div class="table-wrap"><table class="table"><thead><tr><th>Name</th><th>Role</th><th>Email</th><th>Class / unit</th><th class="num">Last 7 days</th></tr></thead><tbody>${list.map(u => {
         const since = S.now(s).getTime() - 7 * 86400000;
         const n = s.activity.filter(a => a.studentId === u.id && new Date(a.at) >= since).length + s.auditLog.filter(a => a.actorId === u.id && new Date(a.at) >= since).length;
@@ -87,7 +87,7 @@ function integrations(s) {
       <div class="note note-warn">${icon('flask-conical')}<div>These connectors are <strong>simulated</strong> in the demo — a sync only writes an audit entry. Real endpoints are configured during deployment.</div></div>
       <div class="grid">${INTEGRATIONS.map(i => {
         const st = s.integrations?.[i.key];
-        return `<div class="span-4">${card({ title: i.label, actions: st ? badge('ok', 'Synced') : badge('neutral', 'Not configured'), body: `<p class="muted small">${i.desc}</p><p class="small mt-3">${st ? `Last sync ${S.fmtDateTime(st.lastSync)} · ${st.records} records` : 'Never synced'}</p><button class="btn btn-sm mt-3" data-action="run-sync" data-key="${i.key}" data-label="${esc(i.label)}">${icon('refresh-cw')} Run sync</button>` })}</div>`;
+        return `<div class="span-4">${card({ title: i.label, actions: st ? badge('ok', 'Synced') : badge('neutral', 'Not configured'), body: `<p class="muted small">${i.desc}</p><p class="small mt-3">${st ? `Last sync ${S.fmtDateTime(st.lastSync)}, ${st.records} records` : 'Never synced'}</p><button class="btn btn-sm mt-3" data-action="run-sync" data-key="${i.key}" data-label="${esc(i.label)}">${icon('refresh-cw')} Run sync</button>` })}</div>`;
       }).join('')}</div></div>`,
   };
 }

@@ -27,11 +27,11 @@ function list(s, me) {
     title: 'Exam studio',
     html: `<div class="page">${pageHead('Exam studio', me.role === 'instructor' ? 'Write a paper for your classes, invite colleagues if you like, then send it to the Dean. The Dean approves and schedules it.' : 'Build exam papers with your lecturers: set the blueprint, invite co-editors, review together, lock and schedule. Papers written by lecturers come here for your approval.', canCreate ? `<button class="btn btn-primary" data-action="ex-new">${icon('plus')} New exam paper</button>` : '')}
       ${card({ flush: true, body: exams.length ? `<div class="table-wrap"><table class="table"><thead><tr><th>Exam</th><th>Programme</th><th>Owner</th><th>Co-editors</th><th class="num">Questions</th><th>Status</th><th>Last edit</th><th></th></tr></thead><tbody>
-        ${exams.map(ex => { const st = S.examStats(s, ex); return `<tr class="click" data-action="go" data-href="${base()}/${ex.id}"><td><strong>${esc(ex.title)}</strong><div class="small faint">${ASSESS_META[ex.type].label} · ${ex.durationMin} min</div></td>
+        ${exams.map(ex => { const st = S.examStats(s, ex); return `<tr class="click" data-action="go" data-href="${base()}/${ex.id}"><td><strong>${esc(ex.title)}</strong><div class="small faint">${ASSESS_META[ex.type].label}, ${ex.durationMin} min</div></td>
           <td class="small">${esc(S.orgById(s, ex.programId).name)}</td><td class="small">${esc(S.userById(s, ex.ownerId).name)}</td>
           <td><div class="row" style="gap:2px">${ex.coEditors.map(c => `<span title="${esc(S.userById(s, c.userId).name)}${c.signedOff ? ' — signed off' : ''}" class="${c.signedOff ? 'av-ok' : ''}">${avatar(S.userById(s, c.userId), 'sm')}</span>`).join('') || '<span class="faint small">—</span>'}</div></td>
           <td class="num">${st.count}/${ex.targets.total}</td><td>${stBadge(ex.status)}${myTurn(ex) ? ` <span class="badge b-warn">${ex.status === 'submitted' ? 'Your approval' : 'Your sign-off'}</span>` : ''}</td>
-          <td class="small">${esc(S.userById(s, ex.lastEdit.by).name)} · ${S.relTime(s, ex.lastEdit.at)}</td><td class="num">${icon('chevron-right', 'faint')}</td></tr>`; }).join('')}</tbody></table></div>` : empty('pen-tool', 'No exams yet', me.role === 'instructor' ? 'Create a paper, or wait for a Dean to invite you.' : 'Create the first paper.') })}
+          <td class="small">${esc(S.userById(s, ex.lastEdit.by).name)}, ${S.relTime(s, ex.lastEdit.at)}</td><td class="num">${icon('chevron-right', 'faint')}</td></tr>`; }).join('')}</tbody></table></div>` : empty('pen-tool', 'No exams yet', me.role === 'instructor' ? 'Create a paper, or wait for a Dean to invite you.' : 'Create the first paper.') })}
       ${canCreate && me.role !== 'instructor' ? bankOverview(s, me) : ''}
     </div>`,
   };
@@ -41,7 +41,7 @@ function bankOverview(s, me) {
   const units = new Set(S.programsUnder(s, me.orgId).flatMap(p => S.activeVersion(p).unitIds));
   const qs = s.questions.filter(q => units.has(q.unitId));
   const byUnit = [...units].map(u => ({ u: S.unitById(s, u), n: qs.filter(q => q.unitId === u).length })).sort((a, b) => a.n - b.n);
-  return card({ title: `Question bank coverage · ${qs.length} questions`, subtitle: 'Units with few questions limit how many papers you can build', body: `<div class="row gap-2 wrap">${byUnit.map(({ u, n }) => `<span class="chip ${n < 3 ? 't-warn' : ''}">${subjectChip(s, u.subject)} ${u.id} · ${n}</span>`).join('')}</div>` });
+  return card({ title: `Question bank coverage, ${qs.length} questions`, subtitle: 'Units with few questions limit how many papers you can build', body: `<div class="row gap-2 wrap">${byUnit.map(({ u, n }) => `<span class="chip ${n < 3 ? 't-warn' : ''}">${subjectChip(s, u.subject)} ${u.id}, ${n}</span>`).join('')}</div>` });
 }
 
 /* ---------------- editor ---------------- */
@@ -57,7 +57,7 @@ function editor(s, id, me) {
   const used = new Set(S.examQuestionIds(ex));
   let n = 0;
 
-  const parts = ex.parts.map((p, pi) => `<section class="card paper-part"><header class="card-head"><div><h3>${esc(p.title)}</h3><p class="muted">${esc(p.instructions || '')} · ${p.items.length} question${p.items.length === 1 ? '' : 's'}</p></div>
+  const parts = ex.parts.map((p, pi) => `<section class="card paper-part"><header class="card-head"><div><h3>${esc(p.title)}</h3><p class="muted">${esc(p.instructions || '')}, ${p.items.length} question${p.items.length === 1 ? '' : 's'}</p></div>
       ${canEdit ? `<div class="row gap-2"><button class="btn btn-sm" data-action="ex-bank" data-part="${p.id}">${icon('library')} Add from bank</button><button class="btn btn-sm" data-action="ex-write" data-part="${p.id}">${icon('pencil-line')} Write new</button>${ex.parts.length > 1 && !p.items.length ? `<button class="btn btn-ghost btn-sm btn-icon" data-action="ex-del-part" data-part="${p.id}" aria-label="Delete part">${icon('trash-2')}</button>` : ''}</div>` : ''}</header>
     <div class="card-body stack gap-2">${p.items.length ? p.items.map((it, ii) => {
       const q = S.questionById(s, it.questionId); n++;
@@ -66,7 +66,7 @@ function editor(s, id, me) {
       return `<div class="q-item"><div class="q-num">${n}</div><div class="grow">
         <div class="q-stem">${esc(q.stem)}</div>
         <ol class="q-opts" type="A">${q.options.map((o, oi) => `<li class="${oi === q.answerIndex ? 'ok' : ''}">${esc(o)}${oi === q.answerIndex ? ` ${icon('check', 't-ok')}` : ''}</li>`).join('')}</ol>
-        <div class="row gap-2 wrap small">${subjectChip(s, u.subject)}<span class="chip">${u.id}</span><span class="chip">${q.bloomLevel}</span>${qs.pct !== null ? `<span class="chip" title="From ${qs.n} past answers">${qs.pct}% correct</span>` : '<span class="chip">New</span>'}${flagChips(s, q)}<span class="faint">added by ${esc(S.userById(s, it.addedBy).name)}${q.authorId ? ` · written by ${esc(S.userById(s, q.authorId).name)}` : ''}</span></div></div>
+        <div class="row gap-2 wrap small">${subjectChip(s, u.subject)}<span class="chip">${u.id}</span><span class="chip">${q.bloomLevel}</span>${qs.pct !== null ? `<span class="chip" title="From ${qs.n} past answers">${qs.pct}% correct</span>` : '<span class="chip">New</span>'}${flagChips(s, q)}<span class="faint">added by ${esc(S.userById(s, it.addedBy).name)}${q.authorId ? `, written by ${esc(S.userById(s, q.authorId).name)}` : ''}</span></div></div>
         ${canEdit ? `<div class="stack gap-1"><button class="btn btn-ghost btn-sm btn-icon" data-action="ex-move" data-part="${p.id}" data-i="${ii}" data-d="-1" ${ii === 0 ? 'disabled' : ''} aria-label="Move up">${icon('arrow-up')}</button><button class="btn btn-ghost btn-sm btn-icon" data-action="ex-move" data-part="${p.id}" data-i="${ii}" data-d="1" ${ii === p.items.length - 1 ? 'disabled' : ''} aria-label="Move down">${icon('arrow-down')}</button><button class="btn btn-ghost btn-sm btn-icon" data-action="ex-remove" data-part="${p.id}" data-i="${ii}" aria-label="Remove">${icon('trash-2')}</button></div>` : ''}</div>`;
     }).join('') : empty('list-plus', 'No questions in this part yet')}</div></section>`).join('');
 
@@ -78,10 +78,10 @@ function editor(s, id, me) {
 
   const people = card({ title: 'Team', actions: isOwner ? `<button class="btn btn-sm" data-action="ex-invite">${icon('user-plus')} Invite</button>` : '', flush: true, body: `<div class="list">
       <div class="list-item">${avatar(S.userById(s, ex.ownerId), 'sm')}<div class="grow"><div class="title small">${esc(S.userById(s, ex.ownerId).name)}</div><div class="meta">Owner</div></div></div>
-      ${ex.coEditors.map(c => `<div class="list-item">${avatar(S.userById(s, c.userId), 'sm')}<div class="grow"><div class="title small">${esc(S.userById(s, c.userId).name)}</div><div class="meta">Co-editor · ${ex.parts.flatMap(p => p.items).filter(i => i.addedBy === c.userId).length} questions added</div></div>
+      ${ex.coEditors.map(c => `<div class="list-item">${avatar(S.userById(s, c.userId), 'sm')}<div class="grow"><div class="title small">${esc(S.userById(s, c.userId).name)}</div><div class="meta">Co-editor, ${ex.parts.flatMap(p => p.items).filter(i => i.addedBy === c.userId).length} questions added</div></div>
         ${ex.status === 'review' ? (c.signedOff ? badge('ok', 'Signed off') : badge('warn', 'Pending')) : ''}${isOwner && ex.status === 'draft' ? `<button class="btn btn-ghost btn-sm btn-icon" data-action="ex-uninvite" data-user="${c.userId}" aria-label="Remove">${icon('x')}</button>` : ''}</div>`).join('') || '<div class="list-item small muted">No co-editors yet — invite lecturers to help write the paper.</div>'}</div>` });
 
-  const comments = card({ title: `Discussion · ${ex.comments.length}`, flush: true, body: `<div class="comments">${ex.comments.map(c => `<div class="comment">${avatar(S.userById(s, c.userId), 'sm')}<div class="grow"><div class="small"><strong>${esc(S.userById(s, c.userId).name)}</strong> <span class="faint">${S.relTime(s, c.at)}</span></div><div class="small">${esc(c.text)}</div></div></div>`).join('') || '<p class="small muted" style="padding:12px 16px">No comments yet.</p>'}</div>
+  const comments = card({ title: `Discussion, ${ex.comments.length}`, flush: true, body: `<div class="comments">${ex.comments.map(c => `<div class="comment">${avatar(S.userById(s, c.userId), 'sm')}<div class="grow"><div class="small"><strong>${esc(S.userById(s, c.userId).name)}</strong> <span class="faint">${S.relTime(s, c.at)}</span></div><div class="small">${esc(c.text)}</div></div></div>`).join('') || '<p class="small muted" style="padding:12px 16px">No comments yet.</p>'}</div>
     <form class="row gap-2" style="padding:12px 16px;border-top:1px solid var(--border)" data-submit="ex-comment"><input class="input" name="text" placeholder="Write a comment… (everyone on the team is notified)" autocomplete="off"><button class="btn btn-sm btn-primary">${icon('send')}</button></form>` });
 
   const unsigned = ex.coEditors.filter(c => !c.signedOff).length;
@@ -97,8 +97,8 @@ function editor(s, id, me) {
   return {
     title: ex.title,
     html: `<div class="page">
-      ${pageHead(esc(ex.title), `${ASSESS_META[ex.type].label} · ${esc(S.orgById(s, ex.programId).name)} · ${ex.sectionIds.map(x => esc(S.sectionById(s, x).code)).join(', ')} · ${ex.durationMin} min`, `<a class="btn" href="${base()}">${icon('arrow-left')} Studio</a><button class="btn" data-action="ex-preview">${icon('eye')} Preview</button><a class="btn" href="#/print/exam/${ex.id}" target="_blank">${icon('printer')} Paper</a><a class="btn" href="#/print/exam/${ex.id}?ed=lecturer" target="_blank">${icon('key-round')} Answer key</a>${flow}`)}
-      <div class="row gap-3 wrap">${stBadge(ex.status)}<span class="small muted">${icon('history')} Last edit by <strong>${esc(S.userById(s, ex.lastEdit.by).name)}</strong> · ${S.relTime(s, ex.lastEdit.at)}</span>${ex.versions.length ? `<span class="small muted">${ex.versions.length} saved version(s)</span>` : ''}${scheduled ? `<span class="chip">${icon('calendar')} Opens ${S.fmtDateTime(scheduled.opensAt)}</span>` : ''}</div>
+      ${pageHead(esc(ex.title), `${ASSESS_META[ex.type].label}, ${esc(S.orgById(s, ex.programId).name)}, ${ex.sectionIds.map(x => esc(S.sectionById(s, x).code)).join(', ')}, ${ex.durationMin} min`, `<a class="btn" href="${base()}">${icon('arrow-left')} Studio</a><button class="btn" data-action="ex-preview">${icon('eye')} Preview</button><a class="btn" href="#/print/exam/${ex.id}" target="_blank">${icon('printer')} Paper</a><a class="btn" href="#/print/exam/${ex.id}?ed=lecturer" target="_blank">${icon('key-round')} Answer key</a>${flow}`)}
+      <div class="row gap-3 wrap">${stBadge(ex.status)}<span class="small muted">${icon('history')} Last edit by <strong>${esc(S.userById(s, ex.lastEdit.by).name)}</strong>, ${S.relTime(s, ex.lastEdit.at)}</span>${ex.versions.length ? `<span class="small muted">${ex.versions.length} saved version(s)</span>` : ''}${scheduled ? `<span class="chip">${icon('calendar')} Opens ${S.fmtDateTime(scheduled.opensAt)}</span>` : ''}</div>
       ${ex.status === 'submitted' ? `<div class="note ${approver ? 'note-warn' : 'note-info'}">${icon('hourglass')}<div>${approver ? `${esc(S.userById(s, ex.ownerId).name)} sent this paper for your approval. Check it, then approve or request changes.` : 'Waiting for the Dean’s approval. Editing is locked until the Dean responds.'}</div></div>` : ''}
       ${ex.status === 'draft' && ex.reviewNote ? `<div class="note note-warn">${icon('message-square-warning')}<div><strong>Changes requested:</strong> "${esc(ex.reviewNote)}"</div></div>` : ''}
       ${ex.status === 'locked' && dean && !decides ? `<div class="note note-ok">${icon('circle-check')}<div>Approved by the Dean. The Dean schedules it for your classes.</div></div>` : ''}
@@ -125,7 +125,7 @@ function paperCheck(s, ex, st, canEdit) {
   return card({ title: 'Paper check', subtitle: 'Time, item quality and versions', body: `<div class="stack gap-3">
       <div class="row gap-2 ${est > ex.durationMin || (st.count && est < ex.durationMin * 0.4) ? 't-warn' : ''}">${icon('timer')}<span class="small">${timeNote}</span></div>
       <div class="row gap-2 ${flagged.length ? 't-warn' : 't-ok'}">${icon(flagged.length ? 'flag' : 'circle-check')}<span class="small">${flagged.length ? `${flagged.length} question(s) to review` : 'No item warnings'}</span></div>
-      ${flagged.length ? `<ul class="small flag-list">${flagged.map(x => `<li><strong>Q${x.n}</strong> <span>${x.f.join(' · ')}</span></li>`).join('')}</ul>` : ''}
+      ${flagged.length ? `<ul class="small flag-list">${flagged.map(x => `<li><strong>Q${x.n}</strong> <span>${x.f.join(', ')}</span></li>`).join('')}</ul>` : ''}
       ${canEdit && missing > 0 ? `<button class="btn btn-primary" data-action="ex-autofill">${icon('wand-sparkles')} Fill ${missing} gap(s) from the bank</button>` : ''}
       <div class="small muted">Printed versions — B shuffles question and option order:</div>
       <div class="row gap-2 wrap"><a class="btn btn-sm" href="#/print/exam/${ex.id}" target="_blank">Version A</a><a class="btn btn-sm" href="#/print/exam/${ex.id}?v=B" target="_blank">Version B</a><a class="btn btn-sm btn-ghost" href="#/print/exam/${ex.id}?ed=lecturer" target="_blank">${icon('key-round')} Key A</a><a class="btn btn-sm btn-ghost" href="#/print/exam/${ex.id}?ed=lecturer&v=B" target="_blank">${icon('key-round')} Key B</a></div>
@@ -145,13 +145,13 @@ function bankModal(partId) {
   const qs = s.questions.filter(q => units.includes(q.unitId) && !used.has(q.id)
     && (!bankUi.unit || q.unitId === bankUi.unit) && (!bankUi.subject || S.unitById(s, q.unitId).subject === bankUi.subject) && (!bankUi.bloom || q.bloomLevel === bankUi.bloom)
     && (!bankUi.q || q.stem.toLowerCase().includes(bankUi.q.toLowerCase())));
-  openModal(`${modalHead('Add from the question bank', `${qs.length} available · only units in ${esc(S.orgById(s, ex.programId).name)}`)}
+  openModal(`${modalHead('Add from the question bank', `${qs.length} available, only units in ${esc(S.orgById(s, ex.programId).name)}`)}
     <div class="modal-body">
       <div class="row gap-2 wrap"><input class="input" style="max-width:220px;height:32px" placeholder="Search…" value="${esc(bankUi.q)}" data-change="exb-q">
         <select class="select select-sm" data-change="exb-subject"><option value="">All subjects</option>${Object.entries(s.subjects).map(([k, v]) => `<option value="${k}" ${bankUi.subject === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select>
-        <select class="select select-sm" data-change="exb-unit"><option value="">All units</option>${units.map(u => `<option value="${u}" ${bankUi.unit === u ? 'selected' : ''}>${u} · ${esc(S.unitById(s, u).title)}</option>`).join('')}</select>
+        <select class="select select-sm" data-change="exb-unit"><option value="">All units</option>${units.map(u => `<option value="${u}" ${bankUi.unit === u ? 'selected' : ''}>${u}, ${esc(S.unitById(s, u).title)}</option>`).join('')}</select>
         <select class="select select-sm" data-change="exb-bloom"><option value="">All levels</option>${BLOOM.map(b => `<option ${bankUi.bloom === b ? 'selected' : ''}>${b}</option>`).join('')}</select></div>
-      <form id="exb-form" data-submit="exb-add"><div class="list" style="border:1px solid var(--border);border-radius:var(--radius-sm);max-height:420px;overflow-y:auto">${qs.map(q => { const st = S.questionStats(s, q.id); const u = S.unitById(s, q.unitId); return `<label class="list-item" style="cursor:pointer"><input type="checkbox" name="q" value="${q.id}"><div class="grow"><div class="small" style="font-weight:500">${esc(q.stem)}</div><div class="row gap-2 small mt-2">${subjectChip(s, u.subject)}<span class="chip">${u.id}</span><span class="chip">${q.bloomLevel}</span>${st.pct !== null ? `<span class="chip">${st.pct}% correct · ${st.n} answers</span>` : '<span class="chip">New</span>'}${flagChips(s, q)}</div></div></label>`; }).join('') || '<p class="small muted" style="padding:12px">No questions match. Write a new one instead.</p>'}</div></form>
+      <form id="exb-form" data-submit="exb-add"><div class="list" style="border:1px solid var(--border);border-radius:var(--radius-sm);max-height:420px;overflow-y:auto">${qs.map(q => { const st = S.questionStats(s, q.id); const u = S.unitById(s, q.unitId); return `<label class="list-item" style="cursor:pointer"><input type="checkbox" name="q" value="${q.id}"><div class="grow"><div class="small" style="font-weight:500">${esc(q.stem)}</div><div class="row gap-2 small mt-2">${subjectChip(s, u.subject)}<span class="chip">${u.id}</span><span class="chip">${q.bloomLevel}</span>${st.pct !== null ? `<span class="chip">${st.pct}% correct, ${st.n} answers</span>` : '<span class="chip">New</span>'}${flagChips(s, q)}</div></div></label>`; }).join('') || '<p class="small muted" style="padding:12px">No questions match. Write a new one instead.</p>'}</div></form>
     </div><footer class="modal-foot"><button class="btn btn-ghost" data-action="modal-close">Cancel</button><button class="btn btn-primary" type="submit" form="exb-form">${icon('plus')} Add selected</button></footer>`, { wide: true });
 }
 
@@ -163,14 +163,14 @@ function writeModal(partId) {
       <label class="field"><span>Question</span><textarea class="textarea" name="stem" required autofocus></textarea></label>
       ${[0, 1, 2, 3].map(i => `<label class="row gap-2"><input type="radio" name="answer" value="${i}" ${i === 0 ? 'checked' : ''} aria-label="Correct answer ${String.fromCharCode(65 + i)}"><span class="mono small">${String.fromCharCode(65 + i)}</span><input class="input" name="opt${i}" required placeholder="Option ${String.fromCharCode(65 + i)}"></label>`).join('')}
       <p class="small muted">Select the radio button next to the correct answer.</p>
-      <div class="form-grid"><label class="field"><span>Unit</span><select class="select" name="unitId">${units.map(u => `<option value="${u}">${u} · ${esc(S.unitById(s, u).title)}</option>`).join('')}</select></label>
+      <div class="form-grid"><label class="field"><span>Unit</span><select class="select" name="unitId">${units.map(u => `<option value="${u}">${u}, ${esc(S.unitById(s, u).title)}</option>`).join('')}</select></label>
       <label class="field"><span>Thinking level</span><select class="select" name="bloom">${BLOOM.map(b => `<option>${b}</option>`).join('')}</select></label></div>
     </div><footer class="modal-foot"><button type="button" class="btn btn-ghost" data-action="modal-close">Cancel</button><button class="btn btn-primary">${icon('save')} Save & add</button></footer></form>`, { wide: true });
 }
 
 function previewModal() {
   const s = getState(); const ex = currentExam(); let n = 0;
-  openModal(`${modalHead(`Preview · ${esc(ex.title)}`, `As students will see it · ${S.examStats(s, ex).count} questions · ${ex.durationMin} minutes`)}
+  openModal(`${modalHead(`Preview, ${esc(ex.title)}`, `As students will see it, ${S.examStats(s, ex).count} questions, ${ex.durationMin} minutes`)}
     <div class="modal-body">${ex.parts.map(p => `<h3>${esc(p.title)}</h3><p class="small muted">${esc(p.instructions)}</p>${p.items.map(it => { const q = S.questionById(s, it.questionId); n++; return `<div class="q-card"><div class="q-stem">${n}. ${esc(q.stem)}</div>${q.options.map(o => `<div class="opt" style="cursor:default">${icon('circle', 'faint')} ${esc(o)}</div>`).join('')}</div>`; }).join('')}`).join('')}</div>`, { wide: true });
 }
 
@@ -180,7 +180,7 @@ export const actions = {
     const progs = me.role === 'provost' ? s.programs : me.role === 'instructor' ? s.programs.filter(p => s.sections.some(x => x.programId === p.id && x.instructorIds.includes(me.id))) : S.programsUnder(s, me.orgId);
     openModal(`${modalHead('New exam paper', 'The blueprint is pre-filled from the programme curriculum and can be changed later.')}
       <form data-submit="ex-create"><div class="modal-body"><div class="form-grid">
-        <label class="field full"><span>Title</span><input class="input" name="title" required autofocus placeholder="e.g. Final Examination · Bachelor of Economics"></label>
+        <label class="field full"><span>Title</span><input class="input" name="title" required autofocus placeholder="e.g. Final Examination, Bachelor of Economics"></label>
         <label class="field"><span>Programme</span><select class="select" name="programId">${progs.map(p => `<option value="${p.id}">${esc(S.orgById(s, p.id).name)}</option>`).join('')}</select></label>
         <label class="field"><span>Type</span><select class="select" name="type">${(me.role === 'instructor' ? ['unit_test', 'midterm', 'final'] : ['final', 'midterm', 'unit_test']).map(t => `<option value="${t}">${ASSESS_META[t].label}</option>`).join('')}</select></label>
         <label class="field"><span>Number of questions</span><input class="input" type="number" name="total" value="16" min="4" max="60"></label>

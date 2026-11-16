@@ -107,15 +107,15 @@ export function slideHtml(s, l, slide, live = null) {
     const ctx = { picks: {}, blockId: b.id };
     return `<div class="slide-page"><div class="slide-kicker">${esc(b.title)}</div><div class="bento slide-grid">${tiles.map(t => `<div class="bento-tile k-${t.kind}" style="--w:${t.w};--h:1">${tileBody(s, t, 'present', null, 0, null, ctx)}${live && t.kind === 'check' ? tallyHtml(t, live) : ''}</div>`).join('')}</div></div>`;
   }
-  const line = b.type === 'theory' ? l.summary : b.type === 'vocabulary' ? s.vocabulary.filter(v => v.unitId === l.unitId).map(v => v.term).join(' · ') : 'Discuss in pairs, then share your answers with the class.';
+  const line = b.type === 'theory' ? l.summary : b.type === 'vocabulary' ? s.vocabulary.filter(v => v.unitId === l.unitId).map(v => v.term).join(', ') : 'Discuss in pairs, then share your answers with the class.';
   return `<div class="slide-plain"><div class="slide-kicker">${esc(TYPE_META[b.type]?.label || '')}</div><h2>${esc(b.title)}</h2><p>${esc(line)}</p></div>`;
 }
 /** Live answers to a quick check, shown under the slide to the lecturer. */
 function tallyHtml(t, live) {
   const ans = Object.values(live.answers?.[t.id] || {});
-  if (!ans.length) return `<p class="tally small">Waiting for answers · ${live.joined.length} joined</p>`;
+  if (!ans.length) return `<p class="tally small">Waiting for answers, ${live.joined.length} joined</p>`;
   const right = ans.filter(o => o === t.answerIndex).length;
-  return `<div class="tally"><div class="small"><strong>${ans.length}</strong> answered · <strong>${Math.round((right / ans.length) * 100)}%</strong> correct</div>
+  return `<div class="tally"><div class="small"><strong>${ans.length}</strong> answered, <strong>${Math.round((right / ans.length) * 100)}%</strong> correct</div>
     ${(t.options || []).map((o, i) => { const n = ans.filter(x => x === i).length; return `<div class="tally-row ${i === t.answerIndex ? 'key' : ''}"><span class="mono small">${'ABCD'[i]}</span><span class="bar"><span style="width:${(n / ans.length) * 100}%"></span></span><span class="small">${n}</span></div>`; }).join('')}</div>`;
 }
 
@@ -141,7 +141,7 @@ function drawPresenter() {
   const s = getState(); const l = S.lessonById(s, pres.lessonId); const slides = S.slidesOf(l);
   pres.i = Math.max(0, Math.min(pres.i, slides.length - 1));
   root.innerHTML = `<div class="presenter-stage">${slides.length ? slideHtml(s, l, slides[pres.i]) : '<p>No slides</p>'}</div>
-    <div class="presenter-bar"><span class="small">${esc(l.title)} · ${pres.i + 1} / ${slides.length}</span><span class="grow"></span>
+    <div class="presenter-bar"><span class="small">${esc(l.title)}, ${pres.i + 1} / ${slides.length}</span><span class="grow"></span>
       <button class="btn btn-sm" data-action="pres-reveal">${icon('eye')} Show answer</button>
       <button class="btn btn-sm" data-action="pres-step" data-d="-1" ${pres.i === 0 ? 'disabled' : ''} aria-label="Previous slide">${icon('arrow-left')}</button>
       <button class="btn btn-sm" data-action="pres-step" data-d="1" ${pres.i >= slides.length - 1 ? 'disabled' : ''} aria-label="Next slide">${icon('arrow-right')}</button>
@@ -159,12 +159,12 @@ function targetInfo(s, target, me) {
   if (target.kind === 'case') {
     const c = S.resourceById(s, target.id);
     if (!c || c.type !== 'case_study') return null;
-    return { title: c.title, layout: layoutOf(s, c), editable: true, unitId: c.unitId, kinds: CASE_KINDS, back: `#/instructor/cases/${c.id}`, backLabel: 'View', heading: `Edit case · ${c.title}`, saveLabel: 'Save case', c };
+    return { title: c.title, layout: layoutOf(s, c), editable: true, unitId: c.unitId, kinds: CASE_KINDS, back: `#/instructor/cases/${c.id}`, backLabel: 'View', heading: `Edit case, ${c.title}`, saveLabel: 'Save case', c };
   }
   const l = S.lessonById(s, target.lessonId); const b = l?.blocks.find(x => x.id === target.blockId);
   if (!b || b.type !== 'page') return null;
   const editable = l.status === 'template' ? l.authorId === me.id : ['draft', 'changes_requested'].includes(l.status) && l.authorId === me.id;
-  return { title: b.title, layout: b.layout || [], editable, unitId: l.unitId, kinds: PAGE_KINDS, back: `#/instructor/builder/${l.id}`, backLabel: 'Lesson', heading: `${l.title} · ${b.title}`, saveLabel: 'Save page', l, b };
+  return { title: b.title, layout: b.layout || [], editable, unitId: l.unitId, kinds: PAGE_KINDS, back: `#/instructor/builder/${l.id}`, backLabel: 'Lesson', heading: `${l.title}, ${b.title}`, saveLabel: 'Save page', l, b };
 }
 
 function layoutEditor(s, me, target) {
@@ -176,7 +176,7 @@ function layoutEditor(s, me, target) {
   let n = 0;
   const tiles = ed.layout.map((t, i) => {
     const k = t.kind === 'question' ? S.exerciseById(s, t.exerciseId)?.type || 'mcq' : t.kind;
-    const bar = info.editable ? `<div class="tile-bar"><span class="tile-grip" title="Drag to move">${icon('grip-vertical')}</span><span class="small"><strong>${TILE_KINDS[k].label}</strong> · ${t.w}×${t.h}</span><span class="grow"></span>
+    const bar = info.editable ? `<div class="tile-bar"><span class="tile-grip" title="Drag to move">${icon('grip-vertical')}</span><span class="small"><strong>${TILE_KINDS[k].label}</strong>, ${t.w}×${t.h}</span><span class="grow"></span>
         <button class="btn btn-ghost btn-sm btn-icon" data-action="bento-w" data-i="${i}" data-d="-1" ${t.w <= 1 ? 'disabled' : ''} aria-label="Narrower" title="Narrower">${icon('minus')}</button>
         <button class="btn btn-ghost btn-sm btn-icon" data-action="bento-w" data-i="${i}" data-d="1" ${t.w >= 4 ? 'disabled' : ''} aria-label="Wider" title="Wider">${icon('plus')}</button>
         <button class="btn btn-ghost btn-sm btn-icon" data-action="bento-h" data-i="${i}" aria-label="Toggle height" title="Taller / shorter">${icon(t.h === 2 ? 'fold-vertical' : 'unfold-vertical')}</button>
@@ -188,7 +188,7 @@ function layoutEditor(s, me, target) {
   }).join('');
   const extra = isPage ? `<button class="btn" data-action="pg-phone">${icon('smartphone')} Phone preview</button><button class="btn" data-action="pg-present">${icon('presentation')} Present</button>` : '';
   return {
-    title: `Edit · ${info.title}`,
+    title: `Edit, ${info.title}`,
     html: `<div class="page">${pageHead(esc(info.heading), info.editable ? 'Drag tiles from the left onto the page, drag a tile to move it, click a tile to edit it.' : 'Read only — this lesson is not a draft.', `<a class="btn" href="${info.back}">${icon(isPage ? 'arrow-left' : 'eye')} ${info.backLabel}</a>${extra}${info.editable ? `<button class="btn" data-action="bento-discard" ${ed.dirty ? '' : 'disabled'}>${icon('undo-2')} Discard</button><button class="btn btn-primary" data-action="bento-save" ${ed.dirty ? '' : 'disabled'}>${icon('save')} ${info.saveLabel}</button>` : ''}`)}
       ${ed.dirty ? `<div class="note note-warn">${icon('pencil')}<div>Unsaved changes — students still see the saved version.</div></div>` : ''}
       <div class="bento-editor">
@@ -243,10 +243,10 @@ function editTile(t, idx, isNew = false) {
     + `<div class="field full"><span>Text</span><div class="rt-toolbar" role="toolbar" aria-label="Formatting">${RT_TOOLS.map(([ic, pre, post, mode, label]) => `<button type="button" class="btn btn-ghost btn-sm btn-icon" data-action="rt" data-pre="${esc(pre)}" data-post="${esc(post)}" data-mode="${mode}" title="${label}" aria-label="${label}">${icon(ic)}</button>`).join('')}<span class="small faint">Blank line = new paragraph</span></div>
       <textarea class="textarea" name="body" id="rt-body" style="min-height:200px">${esc(t.body || '')}</textarea></div>
       <div class="field full"><span>Preview</span><div class="rt-preview prose" id="rt-preview">${richText(t.body)}</div></div>`;
-  if (t.kind === 'image') body = f('Image file (PNG, JPG, SVG · max 8 MB)', `<input class="input" type="file" name="file" accept="image/*" style="padding-top:5px">`) + (t.media || t.src ? '<p class="small muted full">Leave empty to keep the current image.</p>' : '')
+  if (t.kind === 'image') body = f('Image file (PNG, JPG, SVG, max 8 MB)', `<input class="input" type="file" name="file" accept="image/*" style="padding-top:5px">`) + (t.media || t.src ? '<p class="small muted full">Leave empty to keep the current image.</p>' : '')
     + f('Caption', `<input class="input" name="caption" value="${esc(t.caption || '')}">`, false)
     + f('Fit', `<select class="select" name="fit"><option value="cover" ${t.fit !== 'contain' ? 'selected' : ''}>Fill the tile (may crop)</option><option value="contain" ${t.fit === 'contain' ? 'selected' : ''}>Show the whole image</option></select>`, false);
-  if (t.kind === 'audio') body = f('Title', `<input class="input" name="title" value="${esc(t.title || '')}" placeholder="e.g. Voice note from the manager">`) + f('Audio file (MP3, M4A, WAV · max 15 MB, optional)', `<input class="input" type="file" name="file" accept="audio/*" style="padding-top:5px">`) + f('Transcript (used for the voice if no file)', `<textarea class="textarea" name="transcript">${esc(t.transcript || '')}</textarea>`);
+  if (t.kind === 'audio') body = f('Title', `<input class="input" name="title" value="${esc(t.title || '')}" placeholder="e.g. Voice note from the manager">`) + f('Audio file (MP3, M4A, WAV, max 15 MB, optional)', `<input class="input" type="file" name="file" accept="audio/*" style="padding-top:5px">`) + f('Transcript (used for the voice if no file)', `<textarea class="textarea" name="transcript">${esc(t.transcript || '')}</textarea>`);
   if (t.kind === 'exhibit') { const tb = t.table || { title: 'Exhibit', columns: ['Item', 'Value'], rows: [] }; body = f('Title', `<input class="input" name="ttitle" value="${esc(tb.title)}">`) + f('Table — first line is the header, separate cells with |', `<textarea class="textarea mono" name="grid" style="min-height:160px">${esc([tb.columns, ...tb.rows].map(r => r.join(' | ')).join('\n'))}</textarea>`) + f('Note', `<input class="input" name="note" value="${esc(tb.note || '')}">`); }
   if (t.kind === 'check') body = f('Question', `<textarea class="textarea" name="prompt" required>${esc(t.prompt || '')}</textarea>`)
     + `<div class="field full"><span>Options — select the correct one</span>${[0, 1, 2, 3].map(i => `<label class="row gap-2"><input type="radio" name="answerIndex" value="${i}" ${(t.answerIndex ?? 0) === i ? 'checked' : ''} aria-label="Correct option ${'ABCD'[i]}"><span class="mono small">${'ABCD'[i]}</span><input class="input" name="opt${i}" value="${esc(t.options?.[i] || '')}" ${i < 2 ? 'required' : ''} placeholder="${i < 2 ? '' : 'Optional'}"></label>`).join('')}</div>`
@@ -259,7 +259,7 @@ function editTile(t, idx, isNew = false) {
   }
   const kindLabel = TILE_KINDS[e ? e.type : t.kind].label;
   ed.pending = { t: clone(t), idx, isNew };
-  openModal(`${modalHead(`${isNew ? 'Add' : 'Edit'} · ${kindLabel}`, esc(info.title))}<form data-submit="bento-tile-save"><div class="modal-body"><div class="form-grid">${body}</div></div>
+  openModal(`${modalHead(`${isNew ? 'Add' : 'Edit'}, ${kindLabel}`, esc(info.title))}<form data-submit="bento-tile-save"><div class="modal-body"><div class="form-grid">${body}</div></div>
     <footer class="modal-foot"><button type="button" class="btn btn-ghost" data-action="modal-close">Cancel</button><button class="btn btn-primary">${icon('check')} ${isNew ? 'Add tile' : 'Save tile'}</button></footer></form>`, { wide: true });
   const ta = document.getElementById('rt-body');
   ta?.addEventListener('input', () => { document.getElementById('rt-preview').innerHTML = richText(ta.value); });
@@ -347,7 +347,7 @@ export const actions = {
     const s = getState();
     openModal(`${modalHead('New case study', 'Start with a title and unit, then build it tile by tile.')}<form data-submit="case-create"><div class="modal-body"><div class="form-grid">
       <label class="field full"><span>Title</span><input class="input" name="title" required autofocus></label>
-      <label class="field"><span>Unit</span><select class="select" name="unitId">${s.units.map(u => `<option value="${u.id}">${u.id} · ${esc(u.title)}</option>`).join('')}</select></label>
+      <label class="field"><span>Unit</span><select class="select" name="unitId">${s.units.map(u => `<option value="${u.id}">${u.id}, ${esc(u.title)}</option>`).join('')}</select></label>
       <label class="field"><span>Duration (min)</span><input class="input" type="number" name="minutes" value="40"></label></div></div>
       <footer class="modal-foot"><button type="button" class="btn btn-ghost" data-action="modal-close">Cancel</button><button class="btn btn-primary">${icon('layout-grid')} Create & edit</button></footer></form>`);
   },

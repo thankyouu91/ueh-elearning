@@ -127,7 +127,7 @@ function shell(s, user, route, view) {
       ${user.role === 'instructor' ? `<button class="btn btn-ghost btn-sm nav-mode" data-action="toggle-simple">${icon(simple ? 'layout-grid' : 'square')} ${simple ? 'Full interface' : 'Simple interface'}</button>` : ''}
       <details class="sidebar-foot demo-tools" ${s.ui.demoOpen ? 'open' : ''}>
         <summary data-action="toggle-demo">${icon('flask-conical')}<span>Demo controls</span>${icon('chevron-up', 'ic-xs')}</summary>
-        <div class="demo-week">${esc(s.term.title)} · week ${s.clock.week} of ${s.term.weeks}</div>
+        <div class="demo-week">${esc(s.term.title)}, week ${s.clock.week} of ${s.term.weeks}</div>
         <button class="btn btn-ghost btn-sm" data-action="advance-week" ${s.clock.week >= s.term.weeks ? 'disabled' : ''}>${icon('fast-forward')} Advance week</button>
         <button class="btn btn-ghost btn-sm" data-action="toggle-popover" data-which="user">${icon('repeat')} Switch account</button>
         <button class="btn btn-ghost btn-sm" data-action="reset-demo">${icon('rotate-ccw')} Reset demo</button>
@@ -163,13 +163,13 @@ export function render() {
 
   if (!user) {
     if (route.full !== 'login') { if (route.role) sessionStorage.setItem('afterLogin', route.full); history.replaceState(null, '', '#/login'); }
-    document.title = `Sign in · ${BRAND.product}`;
+    document.title = `Sign in, ${BRAND.product}`;
     app.innerHTML = loginView(s);
     window.lucide?.createIcons();
     return;
   }
   if (route.role === 'print') {
-    document.title = `Print · ${BRAND.product}`;
+    document.title = `Print, ${BRAND.product}`;
     app.innerHTML = workbook.printView(s, route.page, route.id, user);
     window.lucide?.createIcons();
     bento.mountMedia(app);
@@ -184,7 +184,7 @@ export function render() {
   let view;
   try { view = VIEWS[user.role].ROUTES[route.page](s, route.id, user); }
   catch (e) { console.error(e); view = { title: 'Error', html: `<div class="card card-body">${icon('circle-alert')} This page could not be displayed. <a href="#/${user.role}/dashboard">Back to dashboard</a></div>` }; }
-  document.title = `${view.title} · ${BRAND.product}`;
+  document.title = `${view.title}, ${BRAND.product}`;
   app.innerHTML = shell(s, user, route, view);
   window.lucide?.createIcons();
   if (changedRoute) { lastRoute = route.full; if (isModalOpen()) closeModal(); }

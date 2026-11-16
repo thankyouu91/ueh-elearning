@@ -311,7 +311,7 @@ export function buildSeed() {
   NAMES.forEach((name, i) => {
     const sec = SECTION_DEFS[Math.floor(i / 6)];
     const id = `SV${String(i + 1).padStart(3, '0')}`;
-    users.push({ id, name, title: `Student · ${sec.code}`, role: 'student', sectionId: sec.id });
+    users.push({ id, name, title: `Student, ${sec.code}`, role: 'student', sectionId: sec.id });
     profile[id] = { ab: PROFILE[i][0], en: PROFILE[i][1] };
   });
   users.forEach(u => { u.email = u.role === 'student' ? `${u.id.toLowerCase()}@st.ueh.edu.vn` : `${u.name.replace(/^Dr\.\s*/, '').toLowerCase().split(' ').slice(-1)[0]}.${u.id.toLowerCase()}@ueh.edu.vn`; });
@@ -319,7 +319,7 @@ export function buildSeed() {
 
   const programs = ['P-ECO', 'P-ACF', 'P-MKT'].map(pid => ({
     id: pid, orgId: pid, schoolId: orgUnits.find(o => o.id === pid).parentId, frameworkId: 'FW1', code: pid.slice(2),
-    versions: [{ id: `${pid}-K50`, label: 'Intake K50 · 2026', unitIds: CURRICULA[pid], status: 'active', approvedBy: 'P1', approvedAt: iso(new Date('2026-06-15T09:00:00')) }],
+    versions: [{ id: `${pid}-K50`, label: 'Intake K50, 2026', unitIds: CURRICULA[pid], status: 'active', approvedBy: 'P1', approvedAt: iso(new Date('2026-06-15T09:00:00')) }],
     proposal: null,
   }));
   // Marketing has a proposal for the next intake waiting for the Vice Rector.
@@ -388,14 +388,14 @@ export function buildSeed() {
       opensAt: iso(at(openW, openD, 8)), closesAt: iso(at(closeW, closeD, 23, 59)), timeLimitMin: 15, maxAttempts: 1, status: 'scheduled',
       origin: 'instructor', createdBy: sections.find(x => x.programId === p.id).instructorIds[0], ...extra,
     });
-    A('Q1', 'quiz', 'Quiz 1 · Weeks 1–2', 2, 0, 2, 6, wk(1, 2, 3), { maxAttempts: 2 });
-    A('Q2', 'quiz', 'Quiz 2 · Weeks 3–4', 4, 0, 4, 6, wk(3, 4, 3), { maxAttempts: 2 });
-    A('UT1', 'unit_test', 'Unit Test 1 · Weeks 1–6', 6, 0, 6, 6, wk(1, 6, 2), { timeLimitMin: 25 });
+    A('Q1', 'quiz', 'Quiz 1, Weeks 1–2', 2, 0, 2, 6, wk(1, 2, 3), { maxAttempts: 2 });
+    A('Q2', 'quiz', 'Quiz 2, Weeks 3–4', 4, 0, 4, 6, wk(3, 4, 3), { maxAttempts: 2 });
+    A('UT1', 'unit_test', 'Unit Test 1, Weeks 1–6', 6, 0, 6, 6, wk(1, 6, 2), { timeLimitMin: 25 });
     A('CR1', 'workshop', 'Case Report 1', 6, 0, 7, 4, [], { rubric, timeLimitMin: null });
     A('MID', 'midterm', 'Midterm Examination', CURRENT_WEEK, 0, CURRENT_WEEK + 1, 4, wk(1, 8, 2), { timeLimitMin: 30, origin: 'standardized', createdBy: deanOf[p.id] });
-    A('Q3', 'quiz', 'Quiz 3 · Weeks 9–10', 10, 0, 10, 6, wk(9, 10, 3), { maxAttempts: 2 });
+    A('Q3', 'quiz', 'Quiz 3, Weeks 9–10', 10, 0, 10, 6, wk(9, 10, 3), { maxAttempts: 2 });
     A('CR2', 'workshop', 'Case Report 2', 11, 0, 12, 4, [], { rubric, timeLimitMin: null });
-    A('Q4', 'quiz', 'Quiz 4 · Weeks 11–12', 12, 0, 12, 6, wk(11, 12, 3), { maxAttempts: 2 });
+    A('Q4', 'quiz', 'Quiz 4, Weeks 11–12', 12, 0, 12, 6, wk(11, 12, 3), { maxAttempts: 2 });
     A('FIN', 'final', 'Final Examination', 16, 0, 16, 4, wk(1, 16, 1), { timeLimitMin: 45, origin: 'standardized', createdBy: deanOf[p.id] });
   }
 
@@ -468,25 +468,25 @@ export function buildSeed() {
   const auditLog = [
     { id: 'E0', actorId: 'D3', action: 'CURRICULUM_SUBMITTED', summary: 'Submitted Bachelor of Marketing curriculum (intake K51) for approval', entityType: 'program', entityId: 'P-MKT', at: iso(at(CURRENT_WEEK - 1, 3, 15)) },
     { id: 'E3', actorId: 'D1', action: 'LESSON_CHANGES_REQUESTED', summary: `Requested changes on "${crLesson.title}"`, entityType: 'lesson', entityId: crLesson.id, at: iso(at(CURRENT_WEEK - 1, 2, 10)) },
-    { id: 'E4', actorId: 'system', action: 'WEEK_ADVANCED', summary: `Week ${CURRENT_WEEK} started · ${sections.length} lessons published · Midterm Examination opened`, entityType: 'term', entityId: 'T1', at: now(0, 7) },
+    { id: 'E4', actorId: 'system', action: 'WEEK_ADVANCED', summary: `Week ${CURRENT_WEEK} started, ${sections.length} lessons published, Midterm Examination opened`, entityType: 'term', entityId: 'T1', at: now(0, 7) },
     ...['S-ECO1', 'S-ACF1', 'S-MKT1'].map((sid, i) => { const l = pendingLesson(sid); return { id: `E1${i}`, actorId: l.authorId, action: 'LESSON_SUBMITTED', summary: `Submitted "${l.title}" for approval`, entityType: 'lesson', entityId: l.id, at: now(0, 15 + i) }; }),
   ];
 
   const st = {
-    version: 14,
+    version: 15,
     clock: { week: CURRENT_WEEK, setAt: Date.now() },
     session: { userId: null },
     ui: { theme: 'light', orgFilter: null },
-    term: { id: 'T1', title: 'AY 2026–27 · Term 1', startDate: TERM_START, weeks: TERM_WEEKS },
+    term: { id: 'T1', title: 'AY 2026–27, Term 1', startDate: TERM_START, weeks: TERM_WEEKS },
     course: {
-      id: 'C1', code: 'ECON-FDN', title: 'English for Economics & Business · Level 1 (B1)',
+      id: 'C1', code: 'ECON-FDN', title: 'English for Economics & Business, Level 1 (B1)',
       gradingScheme: { categories: [
         { key: 'quiz', label: 'Quizzes', weight: 0.15 }, { key: 'unit_test', label: 'Unit tests', weight: 0.15 },
         { key: 'workshop', label: 'Case reports', weight: 0.2 }, { key: 'midterm', label: 'Midterm', weight: 0.2 },
         { key: 'final', label: 'Final', weight: 0.3 } ], passMark: 5, scale: 10 },
     },
     subjects: SUBJECTS,
-    framework: { id: 'FW1', title: 'UEH English for Economics & Business · Level 1', capacity: 16, unitIds: FRAMEWORK, requiredUnitIds: REQUIRED, minPerCoreSubject: 2, coreSubjects: ['ECO', 'ACC', 'FIN', 'MGT'] },
+    framework: { id: 'FW1', title: 'UEH English for Economics & Business, Level 1', capacity: 16, unitIds: FRAMEWORK, requiredUnitIds: REQUIRED, minPerCoreSubject: 2, coreSubjects: ['ECO', 'ACC', 'FIN', 'MGT'] },
     staffing: { hoursPerUnit: 3, maxHours: 48 },
     license: { seats: 2000, product: 'UEH Learning — campus licence', expiresAt: '2027-08-31T00:00:00' },
     orgUnits, programs, users, sections, units, lessons, assessments, questions, attempts, rubricGrades, activity,

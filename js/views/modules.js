@@ -17,7 +17,7 @@ export function modulesView(s, id, me) {
   const row = (m) => {
     const planned = m.weeks.filter(w => w.lessonId).length;
     return `<a class="list-item" href="#/instructor/modules/${m.id}"><span class="li-icon accent">${icon('calendar-range')}</span><div class="grow"><div class="title">${esc(m.title)}</div>
-      <div class="meta">${esc(S.orgById(s, m.programId).name)} · ${planned}/16 weeks planned · ${m.weeks.reduce((t, w) => t + w.extras.length, 0)} add-ons${m.sectionIds.length ? ` · ${m.sectionIds.map(x => S.sectionById(s, x).code).join(', ')}` : ''}${m.ownerId !== me.id ? ` · by ${esc(S.userById(s, m.ownerId).name)}` : ''}</div></div>${badge(m.status)}</a>`;
+      <div class="meta">${esc(S.orgById(s, m.programId).name)}, ${planned}/16 weeks planned, ${m.weeks.reduce((t, w) => t + w.extras.length, 0)} add-ons${m.sectionIds.length ? `, ${m.sectionIds.map(x => S.sectionById(s, x).code).join(', ')}` : ''}${m.ownerId !== me.id ? `, by ${esc(S.userById(s, m.ownerId).name)}` : ''}</div></div>${badge(m.status)}</a>`;
   };
   return {
     title: 'Modules',
@@ -32,7 +32,7 @@ export function modulesView(s, id, me) {
 function lessonCard(s, l, { week = null, removable = false, draggable = false } = {}) {
   const lib = l.blocks.filter(b => b.type === 'material' || b.type === 'resource').length;
   return `<div class="ucard s-${S.unitById(s, l.unitId).subject}" ${draggable ? 'draggable="true"' : ''} data-lesson="${l.id}" ${week ? `data-week="${week}"` : ''}>
-    <div class="grow"><div class="ut">${esc(l.title)}</div><div class="um">${esc(S.userById(s, l.authorId).name)} · ${l.blocks.length} blocks${lib ? ` · ${lib} library` : ''} · ${S.lessonMinutes(l)} min</div></div>
+    <div class="grow"><div class="ut">${esc(l.title)}</div><div class="um">${esc(S.userById(s, l.authorId).name)}, ${l.blocks.length} blocks${lib ? `, ${lib} library` : ''}, ${S.lessonMinutes(l)} min</div></div>
     ${removable ? `<button class="btn btn-ghost btn-sm btn-icon x" data-action="mod-clear" data-week="${week}" aria-label="Remove lesson">${icon('x')}</button>` : ''}</div>`;
 }
 
@@ -63,9 +63,9 @@ function planner(s, id, me) {
   const resources = s.resources.filter(r => (!ui.resType || r.type === ui.resType)).sort((a, b) => units.has(b.unitId) - units.has(a.unitId) || ['practical', 'case_study', 'activity', 'worksheet'].indexOf(a.type) - ['practical', 'case_study', 'activity', 'worksheet'].indexOf(b.type));
   const side = card({ title: 'Drag into the plan', flush: true, body: `<div class="tabs" style="padding:0 12px"><button class="${ui.side === 'bank' ? 'active' : ''}" data-action="mod-side" data-tab="bank">Lesson bank</button><button class="${ui.side === 'extras' ? 'active' : ''}" data-action="mod-side" data-tab="extras">Add-ons</button></div>
     <div class="card-body lib-list" style="max-height:640px">${ui.side === 'bank'
-      ? bank.map(l => `<div><div class="small faint" style="margin:2px 0">${l.unitId} · week ${cur.indexOf(l.unitId) + 1}</div>${lessonCard(s, l, { draggable: editable })}</div>`).join('') || empty('book-copy', 'No bank lessons for this programme')
+      ? bank.map(l => `<div><div class="small faint" style="margin:2px 0">${l.unitId}, week ${cur.indexOf(l.unitId) + 1}</div>${lessonCard(s, l, { draggable: editable })}</div>`).join('') || empty('book-copy', 'No bank lessons for this programme')
       : `<select class="select select-sm" data-change="mod-res-type" style="margin-bottom:8px"><option value="">All add-ons</option>${S.RESOURCE_TYPES.map(t => `<option value="${t}" ${ui.resType === t ? 'selected' : ''}>${RES_META[t].plural}</option>`).join('')}</select>
-        ${resources.map(r => `<div class="ucard s-${S.unitById(s, r.unitId)?.subject || 'ECO'}" ${editable ? 'draggable="true"' : ''} data-resource="${r.id}"><div class="grow"><div class="row gap-2">${icon(RES_META[r.type].icon)}<span class="small faint">${RES_META[r.type].label} · ${r.unitId}${units.has(r.unitId) ? ` · W${cur.indexOf(r.unitId) + 1}` : ''}</span></div><div class="ut mt-2">${esc(r.title)}</div><div class="um">${r.minutes} min</div></div></div>`).join('')}`}</div>` });
+        ${resources.map(r => `<div class="ucard s-${S.unitById(s, r.unitId)?.subject || 'ECO'}" ${editable ? 'draggable="true"' : ''} data-resource="${r.id}"><div class="grow"><div class="row gap-2">${icon(RES_META[r.type].icon)}<span class="small faint">${RES_META[r.type].label}, ${r.unitId}${units.has(r.unitId) ? `, W${cur.indexOf(r.unitId) + 1}` : ''}</span></div><div class="ut mt-2">${esc(r.title)}</div><div class="um">${r.minutes} min</div></div></div>`).join('')}`}</div>` });
 
   const statusNote = {
     submitted: `<div class="note note-info">${icon('hourglass')}<div>Finalised for ${m.sectionIds.map(x => esc(S.sectionById(s, x).code)).join(', ')} — waiting for the Dean to approve and lock.</div></div>`,
@@ -75,7 +75,7 @@ function planner(s, id, me) {
 
   return {
     title: m.title,
-    html: `<div class="page">${pageHead(esc(m.title), `${esc(S.orgById(s, m.programId).name)} · curriculum ${esc(S.programById(s, m.programId).versions.find(v => v.id === m.versionId)?.label || '')} · owner ${esc(S.userById(s, m.ownerId).name)}`, `<a class="btn" href="#/instructor/modules">${icon('arrow-left')} Modules</a>${editable ? `<button class="btn btn-primary" data-action="mod-finalise" data-id="${m.id}" ${issues.length ? 'disabled' : ''}>${icon('lock')} Finalise module</button>` : ''}`)}
+    html: `<div class="page">${pageHead(esc(m.title), `${esc(S.orgById(s, m.programId).name)}, curriculum ${esc(S.programById(s, m.programId).versions.find(v => v.id === m.versionId)?.label || '')}, owner ${esc(S.userById(s, m.ownerId).name)}`, `<a class="btn" href="#/instructor/modules">${icon('arrow-left')} Modules</a>${editable ? `<button class="btn btn-primary" data-action="mod-finalise" data-id="${m.id}" ${issues.length ? 'disabled' : ''}>${icon('lock')} Finalise module</button>` : ''}`)}
       ${statusNote}
       <div class="row gap-3 wrap">${badge(m.status)}<span class="chip">${icon('calendar-check')} ${planned}/16 weeks planned</span><span class="chip">${icon('clock')} ${hours} teaching hours</span><span class="chip">${icon('puzzle')} ${m.weeks.reduce((t, w) => t + w.extras.length, 0)} add-ons</span>${issues.length ? `<span class="small t-warn">${icon('triangle-alert')} ${esc(issues[0])}</span>` : `<span class="small t-ok">${icon('circle-check')} Ready to finalise</span>`}</div>
       <div class="planner"><div class="stack gap-2" id="plan-weeks">${weeks}</div><div class="stack gap-4">${side}${m.history.length ? card({ title: 'History', body: lessonHistory(s, m) }) : ''}</div></div>
@@ -133,8 +133,8 @@ export const actions = {
     const mineProgs = [...new Set(S.sectionsForUser(s, me).map(x => x.programId))];
     openModal(`${modalHead('New module plan', 'Weeks follow the programme curriculum. Lessons come from the shared lesson bank.')}
       <form data-submit="mod-create"><div class="modal-body"><div class="form-grid">
-        <label class="field full"><span>Programme</span><select class="select" name="programId">${s.programs.map(p => `<option value="${p.id}" ${mineProgs[0] === p.id ? 'selected' : ''}>${esc(S.orgById(s, p.id).name)} · ${esc(S.activeVersion(p).label)}</option>`).join('')}</select></label>
-        <label class="field full"><span>Title</span><input class="input" name="title" placeholder="e.g. Bachelor of Economics · Year 1 · Term 1"></label>
+        <label class="field full"><span>Programme</span><select class="select" name="programId">${s.programs.map(p => `<option value="${p.id}" ${mineProgs[0] === p.id ? 'selected' : ''}>${esc(S.orgById(s, p.id).name)}, ${esc(S.activeVersion(p).label)}</option>`).join('')}</select></label>
+        <label class="field full"><span>Title</span><input class="input" name="title" placeholder="e.g. Bachelor of Economics, Year 1, Term 1"></label>
         <label class="opt full" style="margin:0"><input type="checkbox" name="autofill" checked> Pre-fill each week with a matching bank lesson (mine first)</label>
       </div></div><footer class="modal-foot"><button type="button" class="btn btn-ghost" data-action="modal-close">Cancel</button><button class="btn btn-primary">${icon('plus')} Create</button></footer></form>`);
   },
@@ -167,7 +167,7 @@ export const actions = {
     openModal(`${modalHead('Finalise module', 'Choose who takes this module. The Dean of the school approves and locks it.')}
       <form data-submit="mod-submit"><input type="hidden" name="id" value="${m.id}"><div class="modal-body">
         <div class="form-grid"><div class="field"><span>School</span><div class="chip">${icon('building-2')} ${esc(school.name)}</div></div><div class="field"><span>Programme</span><div class="chip">${esc(S.orgById(s, prog.id).name)}</div></div></div>
-        <div class="field"><span>Classes</span>${secs.map(x => `<label class="opt" style="margin:0 0 6px"><input type="checkbox" name="sectionIds" value="${x.id}" ${m.sectionIds.includes(x.id) ? 'checked' : ''}> <strong>${esc(x.code)}</strong> <span class="small muted">· ${x.studentIds.length} students · lecturer ${esc(x.instructorIds.map(i => S.userById(s, i).name).join(', '))}</span></label>`).join('') || '<span class="small faint">No classes on this curriculum version.</span>'}</div>
+        <div class="field"><span>Classes</span>${secs.map(x => `<label class="opt" style="margin:0 0 6px"><input type="checkbox" name="sectionIds" value="${x.id}" ${m.sectionIds.includes(x.id) ? 'checked' : ''}> <strong>${esc(x.code)}</strong> <span class="small muted">${x.studentIds.length} students, lecturer ${esc(x.instructorIds.map(i => S.userById(s, i).name).join(', '))}</span></label>`).join('') || '<span class="small faint">No classes on this curriculum version.</span>'}</div>
         <div class="note note-info">${icon('info')}<div>When locked, each class receives the planned lessons and add-ons. Weeks that are already running (published or scheduled) are kept as they are.</div></div>
       </div><footer class="modal-foot"><button type="button" class="btn btn-ghost" data-action="modal-close">Cancel</button><button class="btn btn-primary">${icon('send')} Finalise & send to Dean</button></footer></form>`);
   },
