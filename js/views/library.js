@@ -56,9 +56,9 @@ function booksGrid(s) {
   return `<div class="book-grid">${list.map(b => {
     const n = s.library.extracts.filter(x => x.bookId === b.id).length;
     return `<a class="book" href="${base}/${b.id}">${bookCover(s, b)}
-      <div class="book-meta"><div class="title">${esc(b.title)}</div><div class="mt-2">${srcChip('book')}</div>
-        <div class="row gap-1 wrap mt-2">${b.unitIds.map(u => `<span class="chip">${u}</span>`).join('')}</div>
-        <div class="small mt-2 ${bookHasFile(b) ? 't-ok' : 'faint'}">${bookHasFile(b) ? `${icon('file-check')} PDF, ${b.file.pages} pages` : b.file ? `${icon('cloud-off')} PDF on another device` : `${icon('upload')} No PDF yet`}${n ? `, ${n} extract${n > 1 ? 's' : ''}` : ''}</div></div></a>`;
+      <div class="book-title">${esc(b.title)}</div><div class="book-src">${srcChip('book')}</div>
+      <div class="book-units row gap-1 wrap">${b.unitIds.map(u => `<span class="chip">${u}</span>`).join('')}</div>
+      <div class="book-pdf small ${bookHasFile(b) ? 't-ok' : 'faint'}">${bookHasFile(b) ? `${icon('file-check')} PDF, ${b.file.pages} pages` : b.file ? `${icon('cloud-off')} PDF on another device` : `${icon('upload')} No PDF yet`}${n ? `, ${n} extract${n > 1 ? 's' : ''}` : ''}</div></a>`;
   }).join('')}</div>`;
 }
 
