@@ -17,8 +17,9 @@ export const READ = (id, title, text, qs) => esp('R', qs.map(e => ({ ...e, scena
 /** Listening: `audio` is the transcript, read aloud by the browser; students do not see it. */
 export const LISTEN = (id, title, audio, qs) => esp('L', qs.map(e => ({ ...e, scenario: { id, title, audio } })));
 /** Speaking: recorded for about a minute, marked by the lecturer. `content` is the first marking point. */
-export const SPEAK = (unitId, title, prompt, model, content) => esp('S', [{ ...W(unitId, title, prompt, model, [content, 'Language: unit vocabulary and simple linking words (because, so, however)', 'Delivery: clear, steady pace, understandable pronunciation'], 90), speak: true, seconds: 60 }]);
+// `content` may be a full marking list (language criteria first), or one string that is followed by the generic criteria.
+export const SPEAK = (unitId, title, prompt, model, content) => esp('S', [{ ...W(unitId, title, prompt, model, Array.isArray(content) ? content : [content, 'Language: unit vocabulary and simple linking words (because, so, however)', 'Delivery: clear, steady pace, understandable pronunciation'], 90), speak: true, seconds: 60 }]);
 /** Writing: email, memo or short report, marked by the lecturer. `content` is the first marking point. */
-export const WRITE = (unitId, title, prompt, model, content, words = 100) => esp('W', [W(unitId, title, prompt, model, [content, 'Organisation: clear purpose, short paragraphs, suitable opening and closing', 'Language: B1 grammar and unit vocabulary used accurately; polite business tone'], words)]);
+export const WRITE = (unitId, title, prompt, model, content, words = 100) => esp('W', [W(unitId, title, prompt, model, Array.isArray(content) ? content : [content, 'Organisation: clear purpose, short paragraphs, suitable opening and closing', 'Language: B1 grammar and unit vocabulary used accurately; polite business tone'], words)]);
 /** Vocabulary & grammar (use of English): USE([C(...), M(...), O(...)]) */
 export const USE = (list) => esp('U', list);

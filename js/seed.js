@@ -57,7 +57,8 @@ export function blocksForUnit(unit, ctx) {
 
   out.push(page(`Lead-in: ${unit.title}`, m.leadIn, [
     PHOTOS[unit.id] ? tile('image', 4, 2, { src: `assets/lessons/${unit.id}.jpg`, caption: PHOTOS[unit.id], fit: 'cover' }) : null,
-    tile('text', 4, 1, { title: 'Today', body: `**By the end of this lesson:** ${unit.summary}\n\n${P.leadIn || ''}` }),
+    // ESP: the English target comes first; marketing is the context it is practised in.
+    tile('text', 4, 1, { title: 'Today', body: `**By the end of this lesson:** ${unit.summary}\n\n- **Language focus:** ${g ? `${g.name} (${g.form})` : unit.example || 'review of the language of earlier units'}\n- **Text type:** ${genre}\n\n${P.leadIn || ''}` }),
     P.discussion?.length ? tile('text', 4, 1, { title: 'Talk in pairs (5 minutes)', body: P.discussion.map((q, i) => `${i + 1}. ${q}`).join('\n') }) : null,
   ]));
   out.push(b('vocabulary', 'Key words and chunks (EN–VI)', m.vocab));
@@ -284,7 +285,7 @@ export function buildSeed() {
   ];
 
   const st = {
-    version: 21,
+    version: 22,
     clock: { week: CURRENT_WEEK, setAt: Date.now() },
     session: { userId: null },
     ui: { theme: 'light', orgFilter: null },

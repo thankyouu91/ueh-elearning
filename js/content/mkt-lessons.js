@@ -7,11 +7,11 @@
 export const LESSONS = {
   MK1: {
     minutes: { leadIn: 8, vocab: 8, model: 12, genre: 8, language: 12, listening: 10, speaking: 12, writing: 18, check: 5 },
-    leadIn: "It is your first week as a marketing assistant at Green Leaf Tea. The founder, Mr Minh, says: 'We do not grow alone.' Before you can write any message, you need to know who the company works with and who cares about its success. Today you will learn how to name and classify these groups, and at the end of the class you will write a stakeholder description for a new business.",
+    leadIn: "It is your first week as a marketing assistant at Green Leaf Tea. The founder, Mr Minh, says: 'We do not grow alone.' Before you can write any message, you need to know who the company works with and who cares about its success. Today you will learn how to describe the way a business and its groups are organised, and at the end of the class you will write a stakeholder description for a new business. Today's language: consist of, include, be divided into (present simple).",
     discussion: [
-      "Think of a shop or cafe you often visit. Which people work inside it?",
-      "Which people or groups outside the business are affected by what it does?",
-      "Which of these groups do you think is the most important? Why?",
+      "Think of a cafe you often visit. What does its team consist of? Start with 'The team consists of ...'",
+      "Which people or groups outside the cafe are affected by it? Answer with 'They include ...'",
+      "How can you divide all these people into two groups? Use 'They are divided into ... and ...'",
     ],
     genreMoves: [
       ["Introduce the business", "Tell the reader what the company is and what it does", "X is a small ... company from ..., It sells ..., It opened in ..."],
@@ -21,7 +21,7 @@ export const LESSONS = {
       ["Explain why they matter", "End with the reason the reader should care", "All these groups matter because ..., The company needs their support to ..."],
     ],
     genreNote: "A stakeholder description is a short, factual text, often part of a company profile or a loan application. It uses the present simple and a neutral, slightly formal tone. Move from general to specific: the business first, then the two groups, then each group in turn. Use one short paragraph per move and avoid personal opinions until the final sentence.",
-    speakingPrep: "You have 2 minutes to plan. Draw two circles, internal and external, and write at least two stakeholders inside and three outside. Put a star next to the most important group and write one reason. Do not write full sentences. Useful language: Its stakeholders are divided into ..., The internal group consists of ..., External stakeholders include ..., In my opinion, ... is the most important because ...",
+    speakingPrep: "You have 2 minutes to plan. Write the three classifying frames as headings: are divided into, consists of, include. Under each frame, note the words you will use: the two groups, at least two internal stakeholders, at least three external ones. Add one reason with because. Do not write full sentences. Useful language: Its stakeholders are divided into ..., The internal group consists of ..., External stakeholders include ..., They matter because ...",
     speakingFollowUp: "Listen to your partner again and note every verb they used to classify. Did they say 'consists of' and 'include' correctly, with -s for a singular subject? Correct one sentence together and say it again.",
     writingFrame: [
       "Para 1 - the business: Mai Spa is a ... in Thu Duc City. It opened in ... and offers ...",
@@ -31,21 +31,21 @@ export const LESSONS = {
       "Para 5 - why they matter: All of these groups matter because the spa needs their ... to ...",
     ],
     checklist: [
-      "I introduced the business before I described the stakeholders.",
-      "I put every stakeholder in the correct group, internal or external.",
-      "I used consist of, include and be divided into with the correct verb forms.",
-      "I ended with a clear reason why the groups matter to the bank manager.",
-      "My text is about 120 words and has short paragraphs.",
+      "I used are divided into, consists of and include, each at least once.",
+      "I added -s to consist and include after a singular subject (The group consists of ...).",
+      "I did not write 'consist from', 'is consisted of' or 'include of'.",
+      "My paragraphs follow the moves in order: business, groups, internal, external, why they matter.",
+      "My text is about 120 words, in the present simple with a neutral tone.",
     ],
   },
 
   MK2: {
     minutes: { leadIn: 8, vocab: 8, model: 12, genre: 8, language: 12, listening: 10, speaking: 12, writing: 18, check: 5 },
-    leadIn: "Mr Tran, who supplies most of Green Leaf Tea's leaves, is unhappy with late payments. New staff want more training, and neighbours of the new District 3 shop worry about the busy pavement. Ms Ha, the marketing manager, must tell everyone what will change. She cannot call every person, so she writes an internal memo. Today you will study her memo and learn how to give clear rules and advice at work.",
+    leadIn: "Mr Tran, who supplies most of Green Leaf Tea's leaves, is unhappy with late payments. New staff want more training, and neighbours of the District 3 shop, which is reopening after a refit, worry about the busy pavement. Ms Ha, the marketing manager, must tell everyone what will change. She cannot call every person, so she writes an internal memo. Today you will study her memo and learn how to give clear rules and advice at work. Today's language: must and have to for rules, don't have to for things that are not necessary, should for advice.",
     discussion: [
-      "What do you think a supplier expects from a company that buys from it?",
-      "What do new staff usually expect from their employer in the first month?",
-      "Why should a shop care about the people who live on the same street?",
+      "What must you do when you start a new part-time job? Give two rules with must or have to.",
+      "What don't new staff have to do in their first week? Answer with don't have to.",
+      "What should a new shop do to be a good neighbour? Give one piece of advice with should.",
     ],
     genreMoves: [
       ["Header", "Show who the memo is for, who sent it, the date and the topic", "To: All shop staff, From: ..., Date: ..., Subject: ..."],
@@ -66,54 +66,54 @@ export const LESSONS = {
       "Closing: If you have any questions, please contact me on extension ...",
     ],
     checklist: [
-      "My memo has a full header with a specific subject line.",
-      "The first sentence states the purpose of the memo.",
-      "I gave two obligations with must or have to and one piece of advice with should.",
+      "I used must or have to for two rules and should for one piece of advice.",
+      "I used don't have to for something that is not necessary, not mustn't.",
       "I did not write 'must to' or 'should to'.",
-      "My memo is about 120 words and ends with a contact line.",
+      "My memo follows the moves in order: header, purpose, background, actions, contact.",
+      "My tone is direct but polite, with a specific subject line and no 'Dear'.",
     ],
   },
 
   MK3: {
     minutes: { leadIn: 8, vocab: 8, model: 12, genre: 8, language: 12, listening: 10, speaking: 12, writing: 18, check: 5 },
-    leadIn: "Green Leaf Tea sells the same tea to very different people: students who order at night, office workers who want a quick drink, and families who buy gift boxes for Tet. A message that works for one group may not work for another. Before the team plans any advert, Ms Ha wants a clear picture of each group. Today you will read a customer profile and learn how culture and habits shape what people buy.",
+    leadIn: "Green Leaf Tea sells the same tea to very different people: students who order at night, office workers who want a quick drink, and families who buy gift boxes for Tet. A message that works for one group may not work for another. Before the team plans any advert, Ms Ha wants a clear picture of each group. Today you will read a customer profile and learn the language for describing a customer group and its habits precisely. Today's language: defining relative clauses (who, which, that) and the present simple with frequency adverbs (usually, often, rarely).",
     discussion: [
-      "When and how do you usually buy drinks? Online, in a shop, alone or with friends?",
-      "Name one product that Vietnamese families often buy for Tet. Why that product?",
-      "Do your parents and your friends choose drinks in the same way? What is different?",
+      "When do you usually buy drinks? Answer with always, usually, often, sometimes or rarely.",
+      "Describe one product that Vietnamese families often buy for Tet. Use 'It is a gift which ...'",
+      "Describe your friends as customers. Use 'My friends are people who ...'",
     ],
     genreMoves: [
       ["Name the group", "Give the group a short, memorable label", "Customer group: the young cold-brew drinker, The Tet gift buyer"],
       ["Who they are", "Give the demographics: age, job, place, income", "These are people aged ... who ..., Most earn ..."],
       ["Culture and values", "Explain what they believe and how culture influences them", "They care about ..., They belong to a subculture which values ..."],
       ["Buying habits", "Say when, where, how often and how they buy", "They usually buy ..., More than half of them order ..."],
-      ["How to reach them", "Recommend the channels and messages that will work", "The best channels are ..., Messages that show ... work better than ..."],
+      ["Summarise the group", "End with one sentence that brings the profile together, using a relative clause", "In short, they are customers who ..., They want products which ..."],
     ],
-    genreNote: "A customer profile is an internal planning document for a marketing team. It uses short headed sections, the present simple and a neutral tone. Every sentence should help the team choose a message or a channel, so give specific facts and numbers, not general ideas such as 'people who like tea'. Defining relative clauses help you describe the group precisely.",
-    speakingPrep: "You have 2 minutes to plan. Choose ONE product and ONE group. Make four quick notes: who (age, job, place), values and culture, how and when they buy, one channel to reach them. Prepare at least two sentences with who or which. Useful language: I want to describe the customers who ..., They want a box which ..., In Vietnamese culture, ..., The best way to reach them is ...",
+    genreNote: "A customer profile is an internal planning document for a marketing team. It uses short headed sections, the present simple and a neutral tone. Describe the group precisely: defining relative clauses (customers who ..., a box which ...) say exactly which people or products you mean, and frequency adverbs (usually, often, rarely) go before the main verb to describe habits. Give specific facts and numbers, not vague phrases such as 'people who like tea'.",
+    speakingPrep: "You have 2 minutes to plan. Choose ONE product and ONE group. Make four quick notes: who (age, job, place), values and culture, how often and when they buy, one summary sentence. Prepare at least two sentences with who or which and two with a frequency adverb. Useful language: I want to describe the customers who ..., They want a box which ..., They usually ..., They rarely ..., In short, they are people who ...",
     speakingFollowUp: "Count the relative clauses your partner used. Were who and which used correctly, with no extra 'they' or 'it' inside the clause? Suggest one more precise detail for their profile.",
     writingFrame: [
       "Title: Customer group: the young international tourist",
       "Who they are: These are tourists aged ... who come mainly from ... Most of them visit ...",
       "Values and habits: They want food which ... They like products that ... They usually shop ...",
-      "How to reach them: We should sell in ... and ask ...",
+      "Summary: In short, they are tourists who ... and want products which ...",
     ],
     checklist: [
-      "I used the four parts of a profile in the usual order, with headings.",
-      "I gave specific details (ages, places, times), not general ideas.",
-      "I used at least two relative clauses with who, which or that correctly.",
-      "I recommended at least one clear channel to reach the tourists.",
-      "My profile is about 120 words.",
+      "I used at least two defining relative clauses: who for people, which or that for things.",
+      "I did not add an extra pronoun inside the clause (not 'tourists who they visit').",
+      "I used the present simple with at least two frequency adverbs before the main verb (They usually buy ...).",
+      "My profile has headed parts in the usual order: who they are, values and habits, summary.",
+      "I gave specific details (ages, places, times), and my profile is about 120 words.",
     ],
   },
 
   MK4: {
     minutes: { leadIn: 8, vocab: 8, model: 12, genre: 8, language: 12, listening: 10, speaking: 12, writing: 18, check: 5 },
-    leadIn: "The design agency has sent Green Leaf Tea a new poster for its cold-brew bottles. It looks modern, but the slogan says 'Not your grandma's tea' and the photo shows only young, slim men. Many loyal customers are over 50 and many online buyers are women. Linh must tell the designer about the problem without upsetting him. Today you will learn how to criticise an advert politely and suggest a fairer version.",
+    leadIn: "The design agency has sent Green Leaf Tea a new poster for its cold-brew bottles. It looks modern, but the slogan says 'Not your grandma's tea' and the photo shows only young, slim men. Many loyal customers are over 50 and many online buyers are women. Linh must tell the designer about the problem without upsetting him. Today you will learn how to criticise an advert politely and suggest a fairer version. Today's language: could, might, it might be better to, why don't we ...?",
     discussion: [
-      "Think of an advert you have seen recently. Who was in it, and who was missing?",
-      "Have you ever seen an advert that made a group of people look silly? How did you feel?",
-      "Is it easy for you to tell a classmate that their work has a problem? Why or why not?",
+      "Think of an advert you have seen recently. Say one thing you like about it: 'I really like ...'",
+      "Who was missing from the advert? Suggest a change with 'It could show ...' or 'It might be better to ...'",
+      "A classmate's slide has too much text. How can you tell them politely? Start with 'Why don't we ...?'",
     ],
     genreMoves: [
       ["Thank and name the advert", "Show which draft you are discussing and keep a friendly tone", "Thank you for sending ..., I have looked at the draft ..."],
@@ -135,21 +135,21 @@ export const LESSONS = {
       "Closing: I hope this is helpful. Best regards, ...",
     ],
     checklist: [
-      "I praised at least one real strength before I criticised.",
-      "I explained the stereotype politely and said why it matters.",
-      "I suggested a fairer slogan and a fairer image.",
-      "I used could, might, it might be better to or why don't we correctly.",
+      "I praised one strength before the criticism (I really like ..., The design is ...).",
+      "I softened the criticism with However, I'm not sure about ... or It might suggest that ...",
+      "I made two suggestions with could, might, it might be better to or why don't we.",
+      "I used the base verb after could, might and be better to (could show, not 'could shows' or 'to using').",
       "My email is about 120 words with a suitable greeting and closing.",
     ],
   },
 
   MK5: {
     minutes: { leadIn: 7, vocab: 8, model: 12, genre: 8, language: 12, listening: 10, speaking: 14, writing: 17, check: 5 },
-    leadIn: "Green Leaf Tea has a new product, a cold-brew bottled tea, and Linh has ten minutes with the buyers from Sao Mai Mart, a chain of fifty stores. If they say yes, the tea will be on shelves across the city. Linh must explain the product, its price, where it will be sold and how it will be promoted, and she must show why it is better than other drinks. Today you will learn how to pitch.",
+    leadIn: "Green Leaf Tea has a new product, a cold-brew bottled tea, and Linh has ten minutes with the buyers from Sao Mai Mart, a chain of fifty stores. If they say yes, the tea will be on shelves across the city. Linh must explain the product, its price, where it will be sold and how it will be promoted, and she must show why it is better than other drinks. Today you will learn how to pitch. Today's language: comparatives and superlatives (lighter than, less sweet than, the most popular, better), a hook question and a call to action.",
     discussion: [
-      "What makes you choose one bottled drink instead of another: price, taste, health or design?",
-      "Think of a product you love. How would you describe it to a friend in one sentence?",
-      "Have you ever been persuaded to buy something by a salesperson? What did they say?",
+      "Compare two bottled drinks you know. Which is cheaper, healthier or tastier? Use -er than or more / less ... than.",
+      "What is the best product you have bought this year? Why is it the best?",
+      "Ask your partner a hook question about a product, for example 'Have you ever wanted ...?'",
     ],
     genreMoves: [
       ["Hook", "Get attention with a question or a problem the listener knows", "Have you ever wanted ...?, Do your customers want ...?"],
@@ -158,7 +158,7 @@ export const LESSONS = {
       ["Price and place", "Give the cost and where customers can buy it", "A 330 ml bottle costs ..., You can buy it in ..."],
       ["Call to action", "Ask the listener to do one clear thing now", "Shall we start with a trial order of ...?, Why don't you try ...?"],
     ],
-    genreNote: "A pitch is short, spoken and persuasive, but it must still sound honest. Use the second person (you, your customers), short sentences and concrete numbers. Comparisons should be fair and checkable, not exaggerated. Organise the pitch around the 4Ps: product, price, place and promotion. A written pitch email follows the same moves in a polite business-email layout.",
+    genreNote: "A pitch is short, spoken and persuasive, but it must still sound honest. Use the second person (you, your customers), short sentences and concrete numbers. Comparisons should be fair and checkable, not exaggerated. Organise the pitch by its language: a hook question (Have you ever ...?), an introduction (Let me introduce ...), comparatives and superlatives with a reason (because, so), and a call to action with an imperative or Why don't you ...? (Try ..., Order ...). A written pitch email follows the same moves in a polite business-email layout.",
     speakingPrep: "You have 2 minutes to plan. Choose ONE product. Write five notes only: hook, product, two comparisons, price and place, request. Check each comparison: -er or more/less + than, the most for the top choice, and better (not 'more good'). Useful language: Do your customers want ...?, Let me introduce ..., ... is lighter than ..., It is the most popular ..., Why don't you try ...?",
     speakingFollowUp: "Vote for the most persuasive pitch in your group and explain why. Note one comparison that was wrong, for example 'more cheaper', and correct it together.",
     writingFrame: [
@@ -170,17 +170,17 @@ export const LESSONS = {
       "Closing: I look forward to hearing from you. Best regards, Linh",
     ],
     checklist: [
-      "I introduced the product and gave a reason why it suits students.",
-      "I made at least one correct comparison with a comparative or superlative.",
-      "I gave the price and a clear next step.",
-      "My tone is persuasive but polite, with a suitable opening and closing.",
-      "My email is about 120 words.",
+      "I used at least two correct comparatives (-er than, more / less ... than) and one superlative (the most ..., the best).",
+      "I wrote better and cheaper, not 'more good' or 'more cheaper'.",
+      "I gave a reason with because or so after a comparison.",
+      "I ended with a clear call to action (Would you like ...?, Why don't you ...?).",
+      "My email follows the moves in order, with a polite opening and closing, in about 120 words.",
     ],
   },
 
   RV1: {
     minutes: { leadIn: 5, vocab: 10, model: 12, genre: 8, language: 12, listening: 10, speaking: 12, writing: 18, check: 5 },
-    leadIn: "This week you review Units 1 to 5: stakeholders, memos, customer profiles, fair adverts and pitches. Work through the stages in order and treat each task as a short test: do it first without notes, then check the answer and read the explanation. Write down every mistake in a personal error log with the correct form. At the end, choose the two areas you will revise before the midterm.",
+    leadIn: "This week you review Units 1 to 5: stakeholders, memos, customer profiles, fair adverts and pitches. Work through the stages in order and treat each task as a short test: do it first without notes, then check the answer and read the explanation. Write down every mistake in a personal error log with the correct form. At the end, choose the two areas you will revise before the midterm. Today's language: the forms of Units 1 to 5 (consist of / include, must / should, who / which, could / might, comparatives).",
     discussion: [
       "Which unit from 1 to 5 was the easiest for you? Which was the hardest?",
       "Which grammar point do you still mix up: must or should, who or which, -er or more?",
@@ -196,7 +196,7 @@ export const LESSONS = {
     ],
     genreNote: "Review tasks mix the genres of Units 1 to 5. For each one, identify the reader and the purpose first: a memo is internal and direct, an email to a manager is polite and structured, a pitch is persuasive. Many test errors come from missing a bullet point in the task, not from grammar, so plan against the task before writing.",
     speakingPrep: "You have 2 minutes to plan your one-minute talk for visiting students. Make three notes: stakeholders (two internal, two external), target customers with one who or which sentence, and two products to compare. Useful language: Our stakeholders are divided into ..., Our main customers are ... who ..., We also sell ... which ..., ... is lighter and less sweet than ...",
-    speakingFollowUp: "Use the three marking points (content, language, delivery) to give your partner one strength and one tip. Add any repeated error to your error log.",
+    speakingFollowUp: "Use the three marking points (language, task, delivery) to give your partner one strength and one tip. Add any repeated error to your error log.",
     writingFrame: [
       "Greeting and praise: Dear Ms Ha, Thank you for sharing ... The photo is ...",
       "Problem: However, I think the poster could be fairer. It shows only ...",
@@ -208,18 +208,18 @@ export const LESSONS = {
       "I covered all three bullet points in the task.",
       "I criticised politely with could, might or it might be better to.",
       "I used at least one correct comparative.",
+      "I checked my verbs: no 'must to', 'more cheaper' or 'could shows'.",
       "My email has a clear opening, short paragraphs and a polite closing.",
-      "I added my repeated errors to my error log.",
     ],
   },
 
   MK6: {
     minutes: { leadIn: 7, vocab: 8, model: 12, genre: 8, language: 12, listening: 12, speaking: 11, writing: 17, check: 5 },
-    leadIn: "Sunrise Hotel wants 500 Tet gift boxes, and Linh and Ms Ha have just left the client briefing. There were many numbers, dates and small requests. If Linh forgets one detail, the boxes may arrive late or with the wrong logo. Professional teams always confirm what was agreed in writing on the same day. Today you will practise taking notes at a briefing and writing a follow-up email that confirms tasks and deadlines.",
+    leadIn: "Sunrise Hotel wants 500 Tet gift boxes, and Linh and Ms Ha have just left the client briefing. There were many numbers, dates and small requests. If Linh forgets one detail, the boxes may arrive late or with the wrong logo. Professional teams always confirm what was agreed in writing on the same day. Today you will practise taking notes at a briefing and writing a follow-up email that confirms tasks and deadlines. Today's language: will for promises and decisions, be going to for plans, the present continuous for fixed arrangements.",
     discussion: [
-      "When someone gives you instructions quickly, how do you remember them?",
-      "Have you ever missed a deadline? What happened, and what did you learn?",
-      "Why do you think companies confirm agreements in writing after a meeting?",
+      "What are you doing this weekend? Use the present continuous for an arrangement (I'm meeting ...).",
+      "What are you going to do after this course? Use be going to for your plan.",
+      "A friend missed today's class. What do you promise to do? Use I'll ...",
     ],
     genreMoves: [
       ["Subject line", "Name the meeting and the topic so the email is easy to find", "Subject: Follow-up, gift box briefing on ..."],
@@ -240,21 +240,21 @@ export const LESSONS = {
       "Check and close: Please check these details and let me know if ... Best regards, Linh",
     ],
     checklist: [
-      "I thanked the client and confirmed what he needs.",
+      "I used will for promises (I'll send ...) and be going to for plans.",
+      "I used the present continuous for arrangements with a fixed time (Our driver is delivering ... on ...).",
+      "Every next step has a person, a verb and a time phrase (by Friday, on 3 May).",
+      "I used polite follow-up phrases: I am writing to confirm ..., Please let me know if ...",
       "All numbers, prices and dates match the briefing.",
-      "Every next step has a person and a date.",
-      "I used will, be going to and the present continuous correctly.",
-      "My email is about 120 words and asks the client to check the details.",
     ],
   },
 
   MK7: {
     minutes: { leadIn: 6, vocab: 7, model: 12, genre: 7, language: 12, listening: 10, speaking: 12, writing: 22, check: 5 },
-    leadIn: "Last year only 15% of Green Leaf Tea's Mid-Autumn gift boxes went to companies, but many firms in District 1 buy gifts for their partners. Ms Ha has an idea for a campaign, but Mr Minh, the founder, will only spend money on a plan that is clear, costed and realistic. Today you will study a one-page proposal and learn how to show the results of a plan with if and unless.",
+    leadIn: "Last year only 15% of Green Leaf Tea's Mid-Autumn gift boxes went to companies, but many firms in District 1 buy gifts for their partners. Ms Ha has an idea for a campaign, but Mr Minh, the founder, will only spend money on a plan that is clear, costed and realistic. Today you will study a one-page proposal and learn how to show the results of a plan with if and unless. Today's language: to + verb + number + by + date for objectives, and the first conditional with if and unless for results.",
     discussion: [
-      "If you had 40 million VND to promote a product, what would you spend it on?",
-      "Why do managers want a written plan before they approve a campaign?",
-      "What makes a goal clear? Compare 'sell more tea' with 'sell 1,500 boxes by 15 September'.",
+      "If it rains tomorrow, what will you do? Answer with If + present simple, ... will ...",
+      "Finish this sentence in two different ways: 'Unless I study this week, ...'",
+      "Turn 'sell more tea' into an objective with the pattern To + verb + number + by + date.",
     ],
     genreMoves: [
       ["Header and title", "Show who the proposal is for and what it is about", "To: ..., From: ..., Subject: Proposal, ..."],
@@ -264,33 +264,33 @@ export const LESSONS = {
       ["Budget", "Show the cost of each action and the total", "Catalogue and photos: ..., Total: ... million VND"],
       ["Expected results", "Say what will happen if the plan works, and the risk of not acting", "If we reach our objective, ... will grow to ..., Unless we start ..., ..."],
     ],
-    genreNote: "A campaign proposal asks a decision-maker for approval, so it must be easy to scan. Use numbered headings, short bullet points and exact figures. The tone is confident and formal but not exaggerated. Objectives must be measurable. The first conditional links actions to results; 'unless' shows the risk of doing nothing. End by asking for approval.",
+    genreNote: "A campaign proposal asks a decision-maker for approval, so it must be easy to scan. Use numbered headings, short bullet points and exact figures. The tone is confident and formal but not exaggerated. Write each objective with one pattern: to + verb + number + by + date (To sell 1,500 boxes by 15 September), and each action with we will. The first conditional (If + present simple, will + verb) links actions to results; unless (= if not) shows the risk of doing nothing. End with a polite request: I hope you can approve this plan.",
     speakingPrep: "You have 2 minutes to plan. Write one objective with a number, two actions, a budget figure and one expected result. Prepare one if sentence and one unless sentence: present simple after if and unless, will in the result. Useful language: I'd like to suggest a campaign for ..., Our objective is to ..., First, ..., Second, ..., The budget is ..., Unless we ..., we will ...",
     speakingFollowUp: "Ask the speaker one question as Mr Minh, for example about the budget. Then check: did anyone say 'If we will ...'? Correct it and repeat the sentence.",
     writingFrame: [
       "Header: To: Ms Nguyen Thu Ha, From: Linh, Subject: Proposal, weekend cold brew campaign in Phu My Hung",
-      "Objective: To sell ... bottles of cold brew to families at ... in ...",
+      "Objective: To sell ... bottles of cold brew to families at ... by ... (date)",
       "Actions: - We will give free tastings ... - We will offer ... - We will post ...",
       "Budget: ...: ... million VND. ...: ... million VND. Total: ... million VND.",
       "Expected results: If the campaign works, ... will rise by ... Unless we start ..., we will miss ...",
       "Closing: I hope you can approve this plan.",
     ],
     checklist: [
-      "I used the four headings: Objective, Actions, Budget, Expected results.",
-      "My objective has a number and a time.",
-      "My budget items add up to the total.",
-      "I used if or unless with the present simple, and will in the result.",
-      "My proposal is about 150 words and asks for approval.",
+      "My objective follows the pattern to + verb + number + by + date.",
+      "I wrote my actions with We will + verb.",
+      "I used if or unless with the present simple, and will in the result (not 'If we will ...').",
+      "I used unless to mean if not, with no extra not (not 'Unless we don't ...').",
+      "My proposal uses the four headings in order and ends with a polite request for approval.",
     ],
   },
 
   MID: {
     minutes: { leadIn: 5, vocab: 8, model: 12, genre: 6, language: 12, listening: 10, speaking: 12, writing: 18, check: 5 },
-    leadIn: "This is your midterm practice under exam conditions. Do each section once, without notes or a dictionary, and keep to the time for each stage. Do not stop to check answers until the stage is finished. Afterwards, compare your answers with the key and read every explanation, even for answers you got right. Your aim is to find out which skills from Units 1 to 7 are secure and which need more work.",
+    leadIn: "This is your midterm practice under exam conditions. Do each section once, without notes or a dictionary, and keep to the time for each stage. Do not stop to check answers until the stage is finished. Afterwards, compare your answers with the key and read every explanation, even for answers you got right. Your aim is to find out which skills from Units 1 to 7 are secure and which need more work. Today's language: the forms of Units 1 to 7, especially future forms, polite suggestions and if / unless sentences.",
     discussion: [
       "Which part of an English exam makes you most nervous, and why?",
       "What do you usually do when you do not know a word in a reading text?",
-      "How do you plan your time in a writing test?",
+      "Which forms will you check first in your writing: future forms, if sentences or polite suggestions?",
     ],
     genreMoves: [
       ["Use of English: read the whole sentence", "Find the clue words (time, subject, if or unless) before you choose", "plural subject, on Monday at 10 a.m., unless"],
@@ -302,7 +302,7 @@ export const LESSONS = {
     ],
     genreNote: "The midterm mixes genres from Units 1 to 7: memos, emails, profiles, pitches and proposals. In every writing task, decide the reader, the purpose and the right tone before you write. A follow-up email needs a greeting, a short summary, clear tasks with deadlines, a suggestion and a polite closing. Short paragraphs make your organisation visible to the marker.",
     speakingPrep: "You have 1 minute to plan under exam conditions. Note: who the customer group is, two things they like, one way they differ from another group, and one polite suggestion for an advert. Useful language: I'd like to talk about ... who ..., They are busier than ..., On the other hand, ..., It might be better to ..., We could also ...",
-    speakingFollowUp: "Mark your partner with the three marking points: content, language, delivery. Give one score for each and one sentence of advice for the final exam.",
+    speakingFollowUp: "Mark your partner with the three marking points: language, task, delivery. Give one score for each and one sentence of advice for the final exam.",
     writingFrame: [
       "Greeting and thanks: Dear Ms Ha, Thank you for the meeting ...",
       "Summary of the plan: Here is a short summary of our plan. We are going to ...",
@@ -313,8 +313,8 @@ export const LESSONS = {
     ],
     checklist: [
       "I covered all three numbered points in the task.",
-      "Both tasks have clear deadlines.",
-      "I used future forms and at least one if sentence correctly.",
+      "Each task has a future form and a time phrase (I will ... by Friday, We're meeting ... on Monday).",
+      "I used at least one if sentence correctly, with the present simple after if.",
       "My email has a greeting, short paragraphs and a polite closing.",
       "My email is 100-120 words.",
     ],
@@ -322,11 +322,11 @@ export const LESSONS = {
 
   MK8: {
     minutes: { leadIn: 7, vocab: 8, model: 12, genre: 8, language: 12, listening: 10, speaking: 14, writing: 16, check: 5 },
-    leadIn: "Mr Minh liked the cold-brew proposal, and now he wants Linh to present it to the whole management team on Monday. She has a slide of sales figures, a problem with online visits and a plan for the summer. A good presentation helps the audience follow every step and understand the numbers quickly. Today you will learn how to signpost a talk and describe figures and trends clearly.",
+    leadIn: "Mr Minh liked the cold-brew proposal, and now he wants Linh to present it to the whole management team on Monday. She has a slide of sales figures, a problem with online visits and a plan for the summer. A good presentation helps the audience follow every step and understand the numbers quickly. Today you will learn how to signpost a talk and describe figures and trends clearly. Today's language: signposting (First, ..., Now let's turn to ...) and trend verbs with prepositions (rise by, increase to, fall from ... to, reach a peak).",
     discussion: [
-      "Think of a good presentation you have seen. What made it easy to follow?",
-      "What problems do you have when you talk about numbers in English?",
-      "Do you prefer slides with many words or with one chart? Why?",
+      "How has the price of something you buy changed this year? Use rose by ... or fell from ... to ...",
+      "What phrases can a speaker use to move to the next slide? Give two examples.",
+      "Think about your phone use last week. On which day did it reach a peak?",
     ],
     genreMoves: [
       ["Opening", "Greet the audience and state the topic", "Good morning, everyone, Today I'm going to present ..."],
@@ -349,19 +349,19 @@ export const LESSONS = {
     ],
     checklist: [
       "I opened with a signpost and closed with a link to the next part.",
-      "All four figures are correct.",
-      "I used rise by, fall from ... to and reach a peak correctly, in the past simple.",
-      "I gave one clear recommendation.",
-      "My notes are 100-120 words.",
+      "I used rise by, increase to, fall from ... to and reach a peak with the correct prepositions.",
+      "I used the past simple for past figures (rose, fell, reached), not 'rised' or 'falled'.",
+      "I gave a reason with because or mainly because.",
+      "All four figures are correct, and my notes are 100-120 words.",
     ],
   },
 
   MK9: {
     minutes: { leadIn: 8, vocab: 8, model: 12, genre: 8, language: 12, listening: 10, speaking: 12, writing: 18, check: 5 },
-    leadIn: "Green Leaf Tea writes many kinds of documents: memos to staff, letters to suppliers and short reports for the founder. Last week Linh wrote her first letter to a new packaging company, and Ms Ha said it was too informal. Choosing the right format and style shows respect for the reader and protects the company's image. Today you will read a short report and learn how the passive makes business writing formal and concise.",
+    leadIn: "Green Leaf Tea writes many kinds of documents: memos to staff, letters to suppliers and short reports for the founder. Last week Linh wrote her first letter to a new packaging company, and Ms Ha said it was too informal. Choosing the right format and style shows respect for the reader and protects the company's image. Today you will read a short report and learn how the passive makes business writing formal and concise. Today's language: the passive (was sent, were delivered, will be replaced) and formal phrases (I am writing about ..., We would be grateful if ...).",
     discussion: [
       "How is a message to a friend different from an email to a lecturer?",
-      "When would a company send a letter instead of a quick message?",
+      "How can you make this sentence more formal: 'Hi, your boxes came late'?",
       "Why do you think reports often say 'The survey was completed' instead of 'We completed the survey'?",
     ],
     genreMoves: [
@@ -385,20 +385,20 @@ export const LESSONS = {
     ],
     checklist: [
       "I used a formal greeting and 'Yours sincerely' with my name and job title.",
-      "I gave the problem with correct dates and numbers.",
-      "I used the passive where the action matters more than the person.",
-      "I made a polite request with a date.",
-      "My letter is 100-130 words, with no contractions or informal words.",
+      "I used the passive at least three times, with be + past participle (were delivered, not 'delivered').",
+      "I made a polite request with We would be grateful if ... could ...",
+      "I used full forms and formal words, with no contractions or informal words.",
+      "I gave the problem with correct dates and numbers, in 100-130 words.",
     ],
   },
 
   MK10: {
     minutes: { leadIn: 7, vocab: 8, model: 12, genre: 8, language: 12, listening: 10, speaking: 12, writing: 20, check: 5 },
-    leadIn: "Green Leaf Tea's cold-brew bottles are now on sale in Sao Mai Mart supermarkets, and the company wants journalists to write about it. On the same day, a customer posts a one-star review because her bottles arrived warm and late. Online, good news and bad news travel fast, and both need a quick, professional answer. Today you will read a press release, practise replying to a complaint and learn when to use the present perfect and the past simple.",
+    leadIn: "Green Leaf Tea's cold-brew bottles are now on sale in Sao Mai Mart supermarkets, and the company wants journalists to write about it. On the same day, a customer posts a one-star review because her bottles arrived warm and late. Online, good news and bad news travel fast, and both need a quick, professional answer. Today you will read a press release, practise replying to a complaint and learn when to use the present perfect and the past simple. Today's language: the present perfect for news with no finished time (has launched, have received) and the past simple with exact times (opened on 12 September).",
     discussion: [
-      "Do you read online reviews before you buy? Which ones do you trust?",
-      "Have you ever complained to a company? How did they answer?",
-      "Where do you usually see news about new products: news sites, social media or friends?",
+      "What new product or store has a brand near you launched recently? Use has launched or has opened.",
+      "When did you last read or write an online review? Use the past simple with a time (last week, in May).",
+      "Have you ever complained to a company? What did they say to you?",
     ],
     genreMoves: [
       ["Release line and headline", "Show the text is ready to publish and state the news in a few words", "FOR IMMEDIATE RELEASE, Green Leaf Tea launches ..."],
@@ -420,21 +420,21 @@ export const LESSONS = {
       "Media contact: For media enquiries, contact: Linh, Marketing Assistant, ...",
     ],
     checklist: [
-      "My press release has a headline, a dateline and the key facts in the first paragraph.",
-      "I used the present perfect for the news and the past simple with exact dates.",
-      "I included a short quote and media contact details.",
-      "I wrote in the third person with a neutral, factual tone.",
+      "I used the present perfect for the news (has opened) and the past simple with exact dates (opened on ...).",
+      "I did not use the present perfect with a finished time (not 'has opened on 12 September').",
+      "I wrote in the third person and punctuated the quote correctly: '...,' said ...",
+      "My press release follows the moves in order: headline, dateline and opening, details, quote, background, contact.",
       "My press release is 120-150 words.",
     ],
   },
 
   PJ1: {
     minutes: { leadIn: 5, vocab: 6, model: 10, genre: 10, language: 6, listening: 8, speaking: 15, writing: 25, check: 5 },
-    leadIn: "Your team is now a small marketing agency, and Green Leaf Tea is your client. In this workshop you will plan and draft your own campaign proposal. Use the class time for teamwork: divide the sections, agree on numbers and give each other honest, polite feedback. Read Team 4's draft as a model, then write your own section. By the end of class, your team should have a complete first draft ready for peer review.",
+    leadIn: "Your team is now a small marketing agency, and Green Leaf Tea is your client. In this workshop you will plan and draft your own campaign proposal. Use the class time for teamwork: divide the sections, agree on numbers and give each other honest, polite feedback. Read Team 4's draft as a model, then write your own section. By the end of class, your team should have a complete first draft ready for peer review. Today's language: suggesting, agreeing and disagreeing in a team (Let's ..., How about ...?, I agree, I see your point, but ...) and giving feedback (I really like ..., However, ..., You could ...).",
     discussion: [
-      "Which product and which customer group will your team choose? Why?",
-      "How will your team divide the work fairly?",
-      "How do you like to receive feedback on your work: written notes or a short talk?",
+      "Suggest a product for your team's campaign. Use Let's ... or How about ...?",
+      "Disagree politely with a suggestion. Use I see your point, but ... or I'm not sure that ...",
+      "Give feedback on a classmate's idea: one strength with I really like ... and one tip with You could ...",
     ],
     genreMoves: [
       ["Title and summary", "Tell the reader in one or two sentences what you propose", "We propose a four-week campaign to ..."],
@@ -456,21 +456,21 @@ export const LESSONS = {
       "Expected result: If companies ..., we will ... Unless we ..., ...",
     ],
     checklist: [
-      "Both objectives have a number and a deadline.",
-      "I listed three clear actions, with who does what.",
+      "My objectives follow the pattern to + verb + number + by + date.",
+      "I wrote the actions with We will + verb and the sequencers First, Second, Third.",
       "I wrote one correct if or unless sentence about the result.",
+      "In feedback I used I really like ... because ..., However, ... and You could ...",
       "My section uses the same headings and figures as the rest of the team's draft.",
-      "My section is about 150 words.",
     ],
   },
 
   PJ2: {
     minutes: { leadIn: 5, vocab: 6, model: 10, genre: 8, language: 6, listening: 8, speaking: 20, writing: 22, check: 5 },
-    leadIn: "Today your team pitches its campaign to Mr Minh, the founder, and the class, and then writes the press release that will announce the launch. A strong pitch is clear, well signposted and ready for difficult questions. A strong press release gives journalists the news in the first lines. Rehearse once, pitch for about two minutes, answer questions politely, and then turn your plan into news.",
+    leadIn: "Today your team pitches its campaign to Mr Minh, the founder, and the class, and then writes the press release that will announce the launch. A strong pitch is clear, well signposted and ready for difficult questions. A strong press release gives journalists the news in the first lines. Rehearse once, pitch for about two minutes, answer questions politely, and then turn your plan into news. Today's language: signposting for a pitch (First, ..., Moving on to ..., Finally, ...), phrases for handling questions, and the present perfect for news in the press release.",
     discussion: [
-      "What questions do you think Mr Minh will ask about your campaign?",
-      "How do you feel when someone asks you a question you cannot answer? What can you say?",
-      "What is the single most important piece of news about your campaign?",
+      "What questions will Mr Minh ask about your campaign? Write two, for example 'How will you ...?'",
+      "Someone asks a question you cannot answer. What can you say? Try 'That's a good question. Can I check and get back to you?'",
+      "Say the main news of your campaign in one sentence with has launched.",
     ],
     genreMoves: [
       ["Pitch: open and state the problem", "Greet the audience, name the campaign and the problem it solves", "Today our team is going to present ..., First, the problem: ..."],
@@ -491,21 +491,21 @@ export const LESSONS = {
       "About and contact: About Green Leaf Tea ... Media contact: Linh, Marketing Assistant, Green Leaf Tea",
     ],
     checklist: [
-      "My headline is short and states the news.",
-      "The opening paragraph answers who, what, where and when.",
-      "I included a quote from the founder, an About paragraph and a media contact.",
+      "My headline is short and in the present simple (Green Leaf Tea Launches ...).",
+      "My opening uses the present perfect for the news and the past simple with dates.",
+      "I punctuated the quote correctly ('...,' said ...) and wrote the rest in the third person.",
+      "My press release follows the moves in order: headline, opening, details, quote, About, contact.",
       "The figures match my team's pitch and proposal.",
-      "My press release is about 150 words, in the third person.",
     ],
   },
 
   RV2: {
     minutes: { leadIn: 5, vocab: 10, model: 12, genre: 8, language: 12, listening: 10, speaking: 12, writing: 18, check: 5 },
-    leadIn: "This is your final review of Units 6 to 10: briefings and follow-up emails, proposals, presentations, formal letters and reports, and digital communication. Treat each stage as practice for the final exam. Try every task first without notes, then check the key and read the explanations. Add each mistake to your error log. At the end, choose your two weakest areas and plan how you will revise them before the exam.",
+    leadIn: "This is your final review of Units 6 to 10: briefings and follow-up emails, proposals, presentations, formal letters and reports, and digital communication. Treat each stage as practice for the final exam. Try every task first without notes, then check the key and read the explanations. Add each mistake to your error log. At the end, choose your two weakest areas and plan how you will revise them before the exam. Today's language: the forms of Units 6 to 10 (future forms, if / unless, trend verbs, the passive, present perfect and past simple).",
     discussion: [
       "Which genre from Units 6 to 10 do you find most useful for your future job?",
       "Which tense or form is still difficult for you: future forms, conditionals, passive or present perfect?",
-      "What is your plan for revising before the final exam?",
+      "Which time words tell you to use the past simple, and which tell you to use the present perfect?",
     ],
     genreMoves: [
       ["Find the time clue", "Choose the tense from words like yesterday, on 3 June, next Tuesday or no time", "on 3 June = past simple, no time = present perfect"],
@@ -526,21 +526,21 @@ export const LESSONS = {
       "Closing: Thank you for your patience. We hope ... Best regards, Linh",
     ],
     checklist: [
-      "I thanked the customer and apologised in the first paragraph.",
+      "I thanked and apologised in the first paragraph (Thank you for ..., We are very sorry that ...).",
       "I explained what happened, using the passive at least twice.",
-      "I offered a clear solution and said what will happen next.",
-      "I used the present perfect and past simple correctly.",
-      "My reply is about 120 words with a polite, friendly tone.",
+      "I used the present perfect for what we have done and the past simple for finished times.",
+      "I used will be + past participle for what will happen next (will be delivered).",
+      "I covered every point in the task in about 120 words.",
     ],
   },
 
   FX: {
     minutes: { leadIn: 5, vocab: 8, model: 12, genre: 6, language: 12, listening: 10, speaking: 12, writing: 20, check: 5 },
-    leadIn: "This is your final exam practice, covering all ten units. Work under exam conditions: no notes, no phone and strict timing for each stage. Answer every question, because a blank answer always scores zero. When you finish a section, do not go back to it. After the session, check the key, read the explanations and look at your error log one last time. Focus your final revision on the patterns you still get wrong.",
+    leadIn: "This is your final exam practice, covering all ten units. Work under exam conditions: no notes, no phone and strict timing for each stage. Answer every question, because a blank answer always scores zero. When you finish a section, do not go back to it. After the session, check the key, read the explanations and look at your error log one last time. Focus your final revision on the patterns you still get wrong. Today's language: all course forms, especially to + verb objectives, if / unless, future forms and polite email phrases.",
     discussion: [
       "Which of the four skills do you feel strongest in now? Which needs the most work?",
       "What will you do in the last two minutes of the writing test?",
-      "What is one piece of advice you would give a new student starting this course?",
+      "Which grammar mistake do you make most often? Say one correct example now.",
     ],
     genreMoves: [
       ["Use of English: check form and meaning", "Look at the subject, the time and the clue words before choosing", "plural subject = are, no time = present perfect, unless = if not"],
@@ -552,7 +552,7 @@ export const LESSONS = {
     ],
     genreNote: "The final exam can ask for any course genre. Before writing, name the genre, the reader and the purpose, then use its moves as your paragraph plan. A proposal email to a manager is semi-formal: a clear subject line, a purpose sentence, a measurable objective, actions with if or unless, the budget and expected result, and a polite closing.",
     speakingPrep: "You have 1 minute to plan, as in the exam. Write four short notes: stakeholders (internal and external), target customers, best-selling product and a reason, one piece of advice. Useful language: Our stakeholders are divided into ..., Our target customers are ... who ..., Our best seller is ... because it is ... than ..., One piece of advice: you have to ...",
-    speakingFollowUp: "Score your partner on content, language and delivery, from 1 to 5 each. Tell them the one thing that would raise their score most in the real exam.",
+    speakingFollowUp: "Score your partner on language, task and delivery, from 1 to 5 each. Tell them the one thing that would raise their score most in the real exam.",
     writingFrame: [
       "Subject: Proposal for a student campaign at the Thu Duc store",
       "Greeting and purpose: Dear Ms Ha, I am writing to propose ...",
@@ -562,11 +562,11 @@ export const LESSONS = {
       "Closing: I would be happy to discuss this at ... Best regards, ...",
     ],
     checklist: [
-      "My objective has a number and a deadline.",
-      "I described two actions and used if or unless correctly.",
-      "I gave a budget and an expected result.",
-      "My email has a subject line, a clear purpose and a polite closing.",
-      "My email is about 130 words.",
+      "My objective follows the pattern to + verb + number + by + date (or Our objective is to ...).",
+      "I used if or unless with the present simple and will in the result.",
+      "I used will or be going to for the actions.",
+      "My email has a subject line, a purpose sentence (I am writing to propose ...) and a polite closing.",
+      "I covered every task point, including the budget, in about 130 words.",
     ],
   },
 };
