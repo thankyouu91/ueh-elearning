@@ -315,7 +315,7 @@ Date: 30 May
 This report describes the results of the free sampling campaign and makes two recommendations.
 
 2. Method
-The campaign was held at two universities in Ho Chi Minh City from 13 to 24 May. A total of 3,000 free bottles were given to students. A short survey was completed by 450 students after they tried the drink.
+The campaign was held at two universities in Ho Chi Minh City from 20 April to 17 May. A total of 3,000 free bottles were given to students. A short survey was completed by 450 students after they tried the drink.
 
 3. Findings
 The cold-brew taste was rated "good" or "very good" by 82% of students. However, the price of 25,000 VND was considered too high by more than half of them. In addition, most students said that a smaller bottle would be preferred. Online orders from student addresses rose by 35% in the two weeks after the campaign.
