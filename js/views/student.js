@@ -520,7 +520,13 @@ export const actions = {
   'exam-submit': async () => {
     const s = getState(); const a = S.assessmentById(s, exam.id);
     const missing = a.questionIds.length - Object.keys(exam.answers).length;
-    const ok = await confirmDialog({ title: 'Submit your answers?', body: missing ? `<div class="note note-warn">${icon('triangle-alert')}<div>${missing} question${missing > 1 ? 's are' : ' is'} unanswered and will be marked incorrect.</div></div>` : '<p>All questions answered. You cannot change answers after submitting.</p>', confirmLabel: 'Submit' });
+    const me = S.currentUser(s);
+    const unsaved = S.examTaskIds(a).filter(id => !S.answerOf(s, me.id, id)).length;
+    const warn = (text) => `<div class="note note-warn">${icon('triangle-alert')}<div>${text}</div></div>`;
+    const body = missing || unsaved
+      ? `${missing ? warn(`${missing} question${missing > 1 ? 's are' : ' is'} unanswered and will be marked incorrect.`) : ''}${unsaved ? warn(`${unsaved} writing or speaking task${unsaved > 1 ? 's are' : ' is'} not saved and will get 0 points. Save each task before you submit.`) : ''}`
+      : '<p>All questions answered. You cannot change answers after submitting.</p>';
+    const ok = await confirmDialog({ title: 'Submit your answers?', body, confirmLabel: 'Submit' });
     if (ok) submitExam();
   },
   'fc-step': () => { fc.step = Math.min(fc.step + 1, VOCAB_STEPS.length); rerender(); },
