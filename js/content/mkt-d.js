@@ -29,7 +29,7 @@ export const EXTRA = [
   ...READ('PJ1-r', 'Reading, A peer team\'s draft proposal',
     'Draft proposal, Team 4: Cold Brew on Campus\n\n' +
     'Summary: We propose a four-week campaign to introduce Green Leaf Tea cold-brew bottles to university students in Ho Chi Minh City.\n\n' +
-    'Background: Green Leaf Tea launched its cold-brew line in March. Sales in shops are good, but only 12% of buyers are under 25. Students drink a lot of milk tea, but many of them say they want a healthier choice.\n\n' +
+    'Background: Green Leaf Tea launched its cold-brew line in January. Sales in shops are good, but only 12% of buyers are under 25. Students drink a lot of milk tea, but many of them say they want a healthier choice.\n\n' +
     'Objectives: We want to sell 6,000 bottles to students and get 2,000 new followers on the brand\'s social media page by the end of the campaign.\n\n' +
     'Actions: We will set up sampling stands at three universities in District 3 and Binh Thanh. Student ambassadors will post short videos about the drink. If students share a photo with the bottle, they will get a 10% discount code.\n\n' +
     'Budget: The total budget is 45 million VND. Most of the money goes to the stands and the free samples.\n\n' +
@@ -187,7 +187,7 @@ export const EXTRA = [
   ...READ('RV2-r', 'Review, Reading: A short sales report',
     'To: Mr Le Quang Minh, Founder\nFrom: Linh, Marketing Assistant\nDate: 5 July\nSubject: Cold-brew sales report, January to June\n\n' +
     'Purpose\nThis report describes cold-brew bottle sales in the first half of the year and makes one recommendation.\n\n' +
-    'Findings\nSales started slowly. In January, 1,500 bottles were sold. After the product was promoted on social media in March, sales rose by 60% to 2,400 bottles. They reached a peak in May, at 4,100 bottles, when the student campaign was run at two universities. However, sales fell slightly to 3,700 in June because many students went home for the summer.\n\n' +
+    'Findings\nSales started slowly. In January, 1,500 bottles were sold. After the product was promoted on social media in March, sales rose by 60% to 2,400 bottles. They reached a peak in May, at 4,200 bottles, when the student campaign was run at two universities. However, sales fell slightly to 3,700 in June because many students went home for the summer.\n\n' +
     'Online reviews have also improved. Since March, 85 new reviews have been posted, and most of them give the drink four or five stars. Two customers complained that the bottle was hard to open. Their emails were answered within one day.\n\n' +
     'Recommendation\nThe bottle cap should be changed before the next order is placed with the supplier. If we change it in August, customers will have the new bottle by October.',
     [
@@ -196,7 +196,7 @@ export const EXTRA = [
         'The "Purpose" section says it describes sales in the first half of the year and makes one recommendation.'),
       M('RV2', 'Reading, Detail', 'When did cold-brew sales reach a peak?',
         ['In May', 'In March', 'In June', 'In January'], 0,
-        'The report says sales "reached a peak in May, at 4,100 bottles".'),
+        'The report says sales "reached a peak in May, at 4,200 bottles".'),
       M('RV2', 'Reading, Vocabulary in context', 'In the text, "After the product was promoted on social media", "promoted" means ...',
         ['made cheaper for a short time', 'moved to a different shop', 'made in a new factory', 'advertised to make people buy it'], 3,
         'Promotion is the part of the marketing mix that tells people about a product; after the social media posts, sales rose.'),
@@ -206,7 +206,7 @@ export const EXTRA = [
     'Linh: Great news! What do they need from us? ' +
     'Ha: First, a short proposal with prices and a delivery plan. They need it by the twelfth of August, so that\'s our deadline. ' +
     'Linh: OK. I\'ll start the draft today. ' +
-    'Ha: Thanks. And I\'m meeting their manager, Mr Phong, next Monday at ten. Can you come too? ' +
+    'Ha: Thanks. And I\'m meeting their manager, Mr Khang, next Monday at ten. Can you come too? ' +
     'Linh: Yes, I\'m free on Monday morning. Should I prepare anything? ' +
     'Ha: Please bring the sales figures for last year\'s gift boxes. Last year we sold around two thousand boxes in September. ' +
     'Linh: No problem. I\'ll send you a follow-up email this afternoon with all the tasks and dates.',
@@ -218,12 +218,12 @@ export const EXTRA = [
         ['Next Monday', 'This afternoon', 'September', '12 August'], 3,
         'Ha says, "They need it by the twelfth of August, so that\'s our deadline."'),
       M('RV2', 'Listening, Next step', 'What will Linh do this afternoon?',
-        ['Send a follow-up email with the tasks and dates', 'Meet Mr Phong', 'Visit Sunrise Bakery', 'Count last year\'s gift boxes'], 0,
+        ['Send a follow-up email with the tasks and dates', 'Meet Mr Khang', 'Visit Moon River Bakery', 'Count last year\'s gift boxes'], 0,
         'Linh promises, "I\'ll send you a follow-up email this afternoon with all the tasks and dates."'),
     ]),
   ...SPEAK('RV2', 'Review, Speaking: Report sales figures',
-    'You are Linh. Give a short spoken update to Mr Le Quang Minh about cold-brew sales from January to June (January 1,500 bottles; March 2,400; May 4,100, the peak; June 3,700). Describe the trend, mention one problem from customer reviews, and give one recommendation. Speak for about 1 minute.',
-    'Good morning, Mr Minh. I\'d like to give you a quick update on cold-brew sales. In January we sold 1,500 bottles. After our social media promotion in March, sales rose by 60% to 2,400 bottles. They reached a peak in May, at 4,100 bottles, because of the student campaign. In June they fell slightly to 3,700, because students went home for the summer. Most online reviews are very good, but two customers said the bottle was hard to open. So I recommend that we change the bottle cap. If we change it in August, customers will have the new bottle by October.',
+    'You are Linh. Give a short spoken update to Mr Le Quang Minh about cold-brew sales from January to June (January 1,500 bottles; March 2,400; May 4,200, the peak; June 3,700). Describe the trend, mention one problem from customer reviews, and give one recommendation. Speak for about 1 minute.',
+    'Good morning, Mr Minh. I\'d like to give you a quick update on cold-brew sales. In January we sold 1,500 bottles. After our social media promotion in March, sales rose by 60% to 2,400 bottles. They reached a peak in May, at 4,200 bottles, because of the student campaign. In June they fell slightly to 3,700, because students went home for the summer. Most online reviews are very good, but two customers said the bottle was hard to open. So I recommend that we change the bottle cap. If we change it in August, customers will have the new bottle by October.',
     'Content: describes the trend with correct figures, the review problem and a clear recommendation'),
   ...WRITE('RV2', 'Review, Writing: Reply to a complaint',
     'A customer, Ms Vo Thanh Tam, wrote to Green Leaf Tea. Her online order of two gift boxes arrived three days late, and one box was damaged. Write a reply from Linh. Include: (1) thanks and an apology, (2) what has happened and what was done (use the passive), (3) a solution and what will happen next. Write about 120 words.',
@@ -269,7 +269,7 @@ export const EXTRA = [
   ...READ('FX-r', 'Exam practice, Reading: A press release',
     'FOR IMMEDIATE RELEASE\n\n' +
     'Green Leaf Tea Opens Its Tenth Store in Ho Chi Minh City\n\n' +
-    'Ho Chi Minh City, 2 June – Green Leaf Tea, the tea-and-snack company from Da Lat, has opened its tenth store. The new store opened on 1 June in Thu Duc City, near several universities and offices.\n\n' +
+    'Ho Chi Minh City, 15 September – Green Leaf Tea, the tea-and-snack company from Da Lat, has opened its tenth store. The new store opened on 12 September in Thu Duc City, near several universities and offices.\n\n' +
     'The store is larger than the other nine. It has a tasting bar where customers can try four kinds of tea before they buy. It also sells the company\'s cold-brew bottles, which became the best-selling product in May.\n\n' +
     'Since the company came to Ho Chi Minh City in 2021, it has served more than 300,000 customers. Online sales have also grown, and they now make up 35% of total sales.\n\n' +
     '"Our customers have asked us for a store in Thu Duc for a long time," said Mr Le Quang Minh, founder of Green Leaf Tea. "We are proud to bring fresh tea from Da Lat closer to them."\n\n' +
@@ -338,7 +338,7 @@ export const Q = [
   ['RV2', 'Which word means "the latest time or date by which something must be done"?', ['deadline', 'brief', 'budget', 'target'], 'Remember'],
   ['RV2', '"Unless the client replies by Friday, we will not print the boxes." What does this mean?', ['We will print the boxes only if the client replies by Friday', 'We have already printed the boxes', 'We will print the boxes after Friday anyway', 'The client does not need any boxes'], 'Understand'],
   ['RV2', 'Why is the passive used in "The samples were sent on 3 May"?', ['The action is more important than who did it', 'The sender is the main topic', 'It describes a future plan', 'It makes the sentence less formal'], 'Understand'],
-  ['RV2', 'Complete: "Sales ___ a peak of 4,100 bottles in May."', ['reached', 'rose by', 'fell from', 'increased'], 'Apply'],
+  ['RV2', 'Complete: "Sales ___ a peak of 4,200 bottles in May."', ['reached', 'rose by', 'fell from', 'increased'], 'Apply'],
   ['RV2', 'Complete the reply: "We ___ your email yesterday, and we are checking your order now."', ['received', 'have received', 'receive', 'are receiving'], 'Apply'],
 
   ['FX', 'Which phrase is used for classifying: "Our staff ___ three teams."', ['are divided into', 'are dividing at', 'divide in', 'is divided'], 'Remember'],

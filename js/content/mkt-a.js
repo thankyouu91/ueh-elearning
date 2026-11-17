@@ -143,7 +143,7 @@ export const EXTRA = [
       'A stakeholder description introduces the company, states the groups, describes each group in turn and ends with why they matter.'),
   ]),
   ...READ('MK1-r', 'Reading, The stakeholders of Green Leaf Tea',
-    `Green Leaf Tea is a small tea-and-snack company from Da Lat. It sells tea, dried fruit and gift boxes in Ho Chi Minh City through three shops and an online store. Like every business, it has stakeholders: people and groups who are affected by the company and care about its success.
+    `Green Leaf Tea is a small tea-and-snack company from Da Lat. It sells tea, dried fruit and gift boxes in Ho Chi Minh City through eight shops and an online store. Like every business, it has stakeholders: people and groups who are affected by the company and care about its success.
 
 The stakeholders of Green Leaf Tea are divided into two groups. The internal group consists of the founder, Mr Le Quang Minh, the managers and about 40 staff. They work inside the company every day. Their decisions and their work create the product and the service that customers see.
 
@@ -161,15 +161,15 @@ Mr Minh often says, "We do not grow alone." For this reason, the marketing team 
         'The company "depends on" the farmers because it needs their tea leaves to make its products.'),
     ]),
   ...LISTEN('MK1-l', 'Listening, A first-day briefing',
-    `Hi Nam, welcome to Green Leaf Tea. I'm Linh, and I'm the marketing assistant. Before you start, let me explain who we work with. Inside the company, we have about forty staff. That includes the people in our three shops, the warehouse team and the office. Outside the company, our most important partners are the farmers. We buy tea from twelve farms in Bao Loc, and Mr Tran manages most of them. Then of course there are customers, and also the people who live near our shops. They're stakeholders too, because our delivery bikes park on their street! Honestly, I think the farmers are the group we forget most often, and that's a mistake. So this Thursday, you and I are going to call Mr Tran and introduce you. Can you read the supplier file before then?`, [
+    `Hi Nam, welcome to Green Leaf Tea. I'm Linh, and I'm the marketing assistant. Before you start, let me explain who we work with. Inside the company, we have about forty staff. That includes the people in our eight shops, the warehouse team and the office. Outside the company, our most important partners are the farmers. We buy tea from twelve farms in Bao Loc, and Mr Tran manages most of them. Then of course there are customers, and also the people who live near our shops. They're stakeholders too, because our delivery bikes park on their street! Honestly, I think the farmers are the group we forget most often, and that's a mistake. So this Thursday, you and I are going to call Mr Tran and introduce you. Can you read the supplier file before then?`, [
       M('MK1', 'Gist', 'What is Linh mainly doing?',
         ['Explaining the company\'s stakeholders to a new colleague', 'Asking Nam to deliver tea to customers', 'Complaining about the delivery bikes', 'Selling tea to a new supplier'], 0,
         'She welcomes Nam and says "let me explain who we work with", then lists internal and external groups.'),
       M('MK1', 'Detail', 'How many farms does Green Leaf Tea buy tea from?',
-        ['Three', 'Forty', 'Twelve', 'Two'], 2,
-        '"We buy tea from twelve farms in Bao Loc." Three is the number of shops and forty is the number of staff.'),
+        ['Eight', 'Forty', 'Twelve', 'Two'], 2,
+        '"We buy tea from twelve farms in Bao Loc." Eight is the number of shops and forty is the number of staff.'),
       M('MK1', 'Next step', 'What will Linh and Nam do on Thursday?',
-        ['Visit the three shops', 'Call Mr Tran', 'Meet the people who live near the shops', 'Read the customer survey'], 1,
+        ['Visit all eight shops', 'Call Mr Tran', 'Meet the people who live near the shops', 'Read the customer survey'], 1,
         '"This Thursday, you and I are going to call Mr Tran and introduce you."'),
     ]),
   ...SPEAK('MK1', 'Speaking, Introduce the stakeholders of a business',

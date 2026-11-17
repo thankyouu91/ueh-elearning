@@ -162,7 +162,7 @@ export const LESSONS = {
     speakingPrep: "You have 2 minutes to plan. Choose ONE product. Write five notes only: hook, product, two comparisons, price and place, request. Check each comparison: -er or more/less + than, the most for the top choice, and better (not 'more good'). Useful language: Do your customers want ...?, Let me introduce ..., ... is lighter than ..., It is the most popular ..., Why don't you try ...?",
     speakingFollowUp: "Vote for the most persuasive pitch in your group and explain why. Note one comparison that was wrong, for example 'more cheaper', and correct it together.",
     writingFrame: [
-      "Greeting and purpose: Dear Ms Mai, I am writing to introduce ...",
+      "Greeting and purpose: Dear Ms Hoa, I am writing to introduce ...",
       "Why it suits students: Many students in Thu Duc ... Our oolong ...",
       "Comparison: It is lighter than ... and ... It is also the most ... in our shops.",
       "Price: A 500-gram bag costs ... and makes about ... cups, so it is cheaper per cup than ...",
@@ -394,7 +394,7 @@ export const LESSONS = {
 
   MK10: {
     minutes: { leadIn: 7, vocab: 8, model: 12, genre: 8, language: 12, listening: 10, speaking: 12, writing: 20, check: 5 },
-    leadIn: "Green Leaf Tea's new cold-brew line is on sale, and the company wants journalists to write about it. On the same day, a customer posts a one-star review because her bottles arrived warm and late. Online, good news and bad news travel fast, and both need a quick, professional answer. Today you will read a press release, practise replying to a complaint and learn when to use the present perfect and the past simple.",
+    leadIn: "Green Leaf Tea's cold-brew bottles are now on sale in Sao Mai Mart supermarkets, and the company wants journalists to write about it. On the same day, a customer posts a one-star review because her bottles arrived warm and late. Online, good news and bad news travel fast, and both need a quick, professional answer. Today you will read a press release, practise replying to a complaint and learn when to use the present perfect and the past simple.",
     discussion: [
       "Do you read online reviews before you buy? Which ones do you trust?",
       "Have you ever complained to a company? How did they answer?",

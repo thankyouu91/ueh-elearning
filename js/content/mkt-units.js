@@ -24,7 +24,7 @@ export const UNITS = [
   ['MK9', 'Business Writing Formats: Memos, Letters and Reports', 'Can understand routine business letters, memos and short reports, and can choose the right format and write in a formal, concise style.',
     'The passive voice in formal writing: "The samples were sent on 3 May." "Your order will be delivered within two days."', 'Business letter and short report'],
   ['MK10', 'Digital Marketing Communication', 'Can understand customer emails, online reviews and press releases, and can write a polite reply to a complaint and a short press release.',
-    'Present perfect and past simple: "We have received your email." "Green Leaf Tea has opened its tenth store." "The store opened on 2 June."', 'Complaint reply and press release'],
+    'Present perfect and past simple: "We have received your email." "Green Leaf Tea has opened its tenth store." "The store opened on 12 September."', 'Complaint reply and press release'],
   ['RV1', 'Review and Progress Test 1 (Units 1–5)', 'Can use the vocabulary and language of Units 1–5 accurately and can complete a short reading, listening, speaking and writing task on stakeholders, culture and the marketing mix.', null, 'Review'],
   ['MID', 'Midterm Week: Review of Units 1–7', 'Can show B1 control of the reading, listening, speaking and writing skills taught in Units 1–7 under exam conditions.', null, 'Midterm'],
   ['PJ1', 'Project Workshop 1: Drafting the Campaign Proposal', 'Can plan and draft a team campaign proposal for Green Leaf Tea, and can give and respond to peer feedback in English.', null, 'Project: proposal draft'],

@@ -30,7 +30,7 @@ export const Q = [
   ['MK10', 'Which time phrase goes with the past simple?', ['on 2 June', 'already', 'ever', 'so far'], 'Remember'],
   ['MK10', 'In a reply to a complaint, what usually comes first?', ['Thanks for the message and an apology', 'The price list', 'The company history', 'A new product offer'], 'Understand'],
   ['MK10', 'Why does a press release say "Green Leaf Tea has opened its tenth store"?', ['The news is recent and important now.', 'The store closed a long time ago.', 'The store will open next year.', 'The writer does not know when it happened.'], 'Understand'],
-  ['MK10', 'Complete the sentence: "The new store ___ on 2 June."', ['opened', 'has opened', 'has open', 'opens yesterday'], 'Apply'],
+  ['MK10', 'Complete the sentence: "The new store ___ on 12 September."', ['opened', 'has opened', 'has open', 'opens yesterday'], 'Apply'],
   ['MK10', 'Find the error: "We have sent the replacement box last Monday."', ['"have sent" should be "sent" because of "last Monday"', '"replacement" should be "replace"', '"last Monday" should be "on last Monday"', 'There is no error.'], 'Analyze'],
 ];
 
@@ -78,7 +78,7 @@ export const GRAMMAR = [
     'present perfect: have, has + past participle; past simple: verb + -ed or irregular past form',
     'Use the present perfect for recent news or results that matter now, with no exact time. Use the past simple when you give a finished time (yesterday, on 2 June, last week).',
     'Dùng hiện tại hoàn thành cho tin mới hoặc kết quả còn liên quan đến hiện tại, không nêu thời gian cụ thể. Dùng quá khứ đơn khi có thời gian cụ thể đã kết thúc.',
-    ['We have received your email.', 'Green Leaf Tea has opened its tenth store.', 'The store opened on 2 June.'],
+    ['We have received your email.', 'Green Leaf Tea has opened its tenth store.', 'The store opened on 12 September.'],
     'Never use the present perfect with a finished time: say "We sent it last Monday", not "We have sent it last Monday".'],
 ];
 
@@ -136,7 +136,7 @@ From: Nguyen Thu Ha, Marketing Manager
 Date: 10 April
 Subject: Summer campaign for cold-brew bottles
 
-Our company consists of two sales channels: our six shops in Ho Chi Minh City and our online store. This summer we want to grow both channels with the new cold-brew bottles.
+Our company consists of two sales channels: our nine shops in Ho Chi Minh City and our online store. This summer we want to grow both channels with the new cold-brew bottles.
 
 Our main target customers are students who study near District 3 and young office workers who want a healthy drink after lunch. Cold-brew tea is lighter and less sweet than most bottled drinks, and it is cheaper than coffee from a cafe.
 
@@ -223,7 +223,7 @@ Linh`,
 
 I'll talk about three things. First, our sales so far. Second, the problem we found. Finally, our plan for June and July.
 
-Let's start with sales. As you can see on this slide, cold-brew sales grew quickly this spring. In March we sold 2,000 bottles. Sales rose by 50% in April, to 3,000 bottles, and they reached a peak of 4,200 bottles in May.
+Let's start with sales. As you can see on this slide, cold-brew sales grew quickly this spring. In March we sold 2,400 bottles. Sales rose by 25% in April, to 3,000 bottles, and they reached a peak of 4,200 bottles in May.
 
 Now let's turn to the problem. Our online shop is popular, but visits fell from 6,000 in April to 4,500 in May. We think this is because our social media posts were not regular.
 
@@ -235,8 +235,8 @@ To sum up, sales are strong, but we need to bring customers back online. Thank y
         ['To present sales results and a plan for the summer campaign', 'To explain how cold-brew tea is made', 'To introduce a new supplier', 'To ask for a new job'], 0,
         'She describes sales, a problem and a plan, which is a proposal presentation.'),
       M('MK8', 'Detail', 'How many bottles were sold in April?',
-        ['2,000', '4,200', '3,000', '4,500'], 2,
-        'Sales rose by 50% in April, to 3,000 bottles.'),
+        ['2,400', '4,200', '3,000', '4,500'], 2,
+        'Sales rose by 25% in April, to 3,000 bottles.'),
       M('MK8', 'Vocabulary in context', 'In the text, "reached a peak" means sales ___.',
         ['stopped at a very low level', 'went down a little in May', 'stayed at the same level', 'arrived at their highest point'], 3,
         'May was the best month, with 4,200 bottles, the highest figure in the text.'),
@@ -259,12 +259,12 @@ To sum up, sales are strong, but we need to bring customers back online. Thank y
     `Now let's look at our online orders for the first four months of the year. As you can see on this slide, the trend is mostly upward. In January we had 800 orders. In February orders rose by 400, to 1,200, mainly because of Tet gifts. In March they fell slightly, to 1,000. However, in April orders increased again and reached a peak of 1,500. I think this is because we started free delivery in April. So my recommendation is to keep free delivery for the summer. That brings me to the end of this slide. Next, I'll talk about the budget.`,
     'Content: opens with a signpost, describes the trend with at least three correct figures and gives one reason or recommendation'),
   ...WRITE('MK8', 'Writing, Presentation summary slide notes',
-    'After your presentation, Mr Minh asks for your speaker notes for the results slide. Write the notes for the slide "Cold-brew sales, March to June": March 2,000 bottles, April 2,600, May 3,500, June 3,100. Include (1) a signpost to open, (2) a description of the trend with figures (rise by, fall from ... to, reach a peak), and (3) a short conclusion with one recommendation. Write 100–120 words.',
+    'After your presentation, Mr Minh asks for your speaker notes for the results slide. Write the notes for the slide "Cold-brew sales, March to June": March 2,400 bottles, April 3,000, May 4,200, June 3,700. Include (1) a signpost to open, (2) a description of the trend with figures (rise by, fall from ... to, reach a peak), and (3) a short conclusion with one recommendation. Write 100–120 words.',
     `Now let's move on to our cold-brew sales from March to June.
 
-As you can see, sales grew strongly in spring. In March we sold 2,000 bottles. In April sales rose by 600, to 2,600 bottles. They increased again in May and reached a peak of 3,500 bottles, mainly because of the hot weather and our university samples.
+As you can see, sales grew strongly in spring. In March we sold 2,400 bottles. In April sales rose by 600, to 3,000 bottles. They increased again in May and reached a peak of 4,200 bottles, mainly because of the hot weather and our university samples.
 
-However, in June sales fell from 3,500 to 3,100 bottles. We think this is because students went home for the summer holiday.
+However, in June sales fell from 4,200 to 3,700 bottles. We think this is because students went home for the summer holiday.
 
 To sum up, the overall trend is upward, but we depend too much on students. My recommendation is to target office workers in June and July with a lunch-time offer.
 
@@ -372,9 +372,9 @@ Marketing Manager, Green Leaf Tea`,
     M('MK10', 'Language focus, Present perfect for news', 'Complete the sentence: "Green Leaf Tea ___ its tenth store in Ho Chi Minh City."',
       ['has opened', 'have opened', 'opening', 'has open'], 0,
       'For recent news with no time given, use has/have + past participle. "Green Leaf Tea" is singular, so "has opened".'),
-    M('MK10', 'Language focus, Past simple with a time', 'Complete the sentence: "The new store ___ on 2 June."',
+    M('MK10', 'Language focus, Past simple with a time', 'Complete the sentence: "The new store ___ on 12 September."',
       ['has opened', 'opened', 'has been open', 'opens'], 1,
-      '"On 2 June" is a finished time, so we use the past simple.'),
+      '"On 12 September" is a finished time, so we use the past simple.'),
     M('MK10', 'Language focus, Choose the correct pair', 'Complete the reply: "We ___ your order, and we ___ a new box yesterday."',
       ['checked, have sent', 'have checked, have sent', 'have checked, sent', 'check, have send'], 2,
       'The first action is recent with no time (present perfect); the second has "yesterday" (past simple).'),
@@ -389,25 +389,25 @@ Marketing Manager, Green Leaf Tea`,
   ...READ('MK10-r', 'Reading, Press release: cold-brew launch',
     `FOR IMMEDIATE RELEASE
 
-Green Leaf Tea launches cold-brew tea for busy city life
+Green Leaf Tea brings its cold-brew tea to supermarkets
 
-Ho Chi Minh City, 5 June – Green Leaf Tea (Tra La Xanh), a tea-and-snack company from Da Lat, has launched a new line of cold-brew tea in bottles. The drinks went on sale on 2 June in all ten Green Leaf Tea stores and on the company's online shop.
+Ho Chi Minh City, 5 June – Green Leaf Tea (Tra La Xanh), a tea-and-snack company from Da Lat, has launched its cold-brew tea in supermarkets. The drinks went on sale on 2 June in all 40 Sao Mai Mart stores. Since January they have been sold in the company's nine shops and its online shop.
 
 The new line has three flavours: oolong, jasmine and green tea with lemongrass. All the tea comes from a family farm in Bao Loc and is brewed slowly in cold water for twelve hours. The drinks contain no added sugar.
 
 "Young people in the city have told us they want a healthy drink they can carry to work or class," said Mr Le Quang Minh, founder of Green Leaf Tea. "We have worked for a year to create a fresh, natural taste."
 
-Since the launch, the company has sold more than 5,000 bottles. Each bottle costs 25,000 VND.
+In the first three days, Sao Mai Mart sold more than 5,000 bottles. Each bottle costs 25,000 VND.
 
-Green Leaf Tea opened its first store in Da Lat in 2016 and has grown to ten stores in Ho Chi Minh City.
+Green Leaf Tea opened its first store in Da Lat in 2016 and has grown to nine stores in Ho Chi Minh City.
 
 For media enquiries, contact:
 Linh, Marketing Assistant, Green Leaf Tea
 press@greenleaftea.vn`,
     [
       M('MK10', 'Main idea', 'What is the main news in the press release?',
-        ['Green Leaf Tea has opened its first store.', 'Green Leaf Tea has launched a cold-brew tea line.', 'Mr Minh has bought a new farm.', 'The price of tea has gone up.'], 1,
-        'The headline and first paragraph announce the launch of the cold-brew line.'),
+        ['Green Leaf Tea has opened its first store.', 'Green Leaf Tea cold-brew tea is now sold in supermarkets.', 'Mr Minh has bought a new farm.', 'The price of tea has gone up.'], 1,
+        'The headline and first paragraph announce that the cold-brew bottles are now on sale in supermarkets.'),
       M('MK10', 'Detail', 'When did the drinks go on sale?',
         ['On 5 June', 'In 2016', 'On 2 June', 'Twelve hours ago'], 2,
         'The press release says "The drinks went on sale on 2 June". 5 June is the date of the press release.'),
@@ -430,7 +430,7 @@ press@greenleaftea.vn`,
     ]),
   ...SPEAK('MK10', 'Speaking, Reply to a complaint by phone',
     'You work in customer care at Green Leaf Tea. A customer has left a one-star online review: her cold-brew bottles arrived warm and two days late. Call her. Thank her, apologise, explain what has happened (present perfect), give the facts with past times (past simple), and offer a solution. Speak for about 1 minute.',
-    `Hello, Ms Mai. This is Linh from Green Leaf Tea. Thank you for your review, and I'm very sorry about your order. I have checked the details. You ordered six bottles on Saturday, and they arrived on Tuesday, two days late. Our delivery partner had a problem with their cold truck last weekend, so the bottles were not kept cold. We have now changed to a new delivery partner for cold drinks. To say sorry, we have already sent you six new bottles, and they will arrive before five o'clock today. We will also refund your delivery fee. Thank you for your patience.`,
+    `Hello, Ms Thao. This is Linh from Green Leaf Tea. Thank you for your review, and I'm very sorry about your order. I have checked the details. You ordered six bottles on Saturday, and they arrived on Tuesday, two days late. Our delivery partner had a problem with their cold truck last weekend, so the bottles were not kept cold. We have now changed to a new delivery partner for cold drinks. To say sorry, we have already sent you six new bottles, and they will arrive before five o'clock today. We will also refund your delivery fee. Thank you for your patience.`,
     'Content: thanks and apologises, explains what has happened and when, and offers a clear solution'),
   ...WRITE('MK10', 'Writing, A short press release',
     'Green Leaf Tea has just opened a new store near a university in Thu Duc City. Write a short press release for local news websites. Include (1) a headline and the place and date, (2) the key facts: what has happened, when it opened, what is special about the store, and (3) a short quote from Ms Nguyen Thu Ha and media contact details. Use the present perfect and the past simple correctly. Write 120–150 words.',
@@ -438,13 +438,13 @@ press@greenleaftea.vn`,
 
 Green Leaf Tea opens a student-friendly store in Thu Duc
 
-Thu Duc City, 15 September – Green Leaf Tea, the tea-and-snack company from Da Lat, has opened its eleventh store. The new store opened on 12 September, five minutes from the university area.
+Thu Duc City, 15 September – Green Leaf Tea, the tea-and-snack company from Da Lat, has opened its tenth store. The new store opened on 12 September, five minutes from the university area.
 
 The store has a quiet study corner with free Wi-Fi and power sockets. Students can buy cold-brew tea for 18,000 VND with a student card. In its first three days, the store welcomed more than 1,200 customers.
 
 "Students have always been some of our best customers," said Ms Nguyen Thu Ha, marketing manager. "We wanted to give them a calm, healthy place to study."
 
-Green Leaf Tea started in Da Lat in 2016 and now has eleven stores in Ho Chi Minh City.
+Green Leaf Tea started in Da Lat in 2016 and now has ten stores in Ho Chi Minh City.
 
 For media enquiries, contact:
 Linh, Marketing Assistant
