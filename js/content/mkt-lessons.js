@@ -85,7 +85,7 @@ export const LESSONS = {
     genreMoves: [
       ["Name the group", "Give the group a short, memorable label", "Customer group: the young cold-brew drinker, The Tet gift buyer"],
       ["Who they are", "Give the demographics: age, job, place, income", "These are people aged ... who ..., Most earn ..."],
-      ["Culture and values", "Explain what they believe and how culture influences them", "They care about ..., They belong to a subculture which values ..."],
+      ["Culture and values", "Describe what the group values, using care about / value / belong to and a relative clause", "They care about ..., They belong to a subculture which values ..."],
       ["Buying habits", "Say when, where, how often and how they buy", "They usually buy ..., More than half of them order ..."],
       ["Summarise the group", "End with one sentence that brings the profile together, using a relative clause", "In short, they are customers who ..., They want products which ..."],
     ],
@@ -145,7 +145,7 @@ export const LESSONS = {
 
   MK5: {
     minutes: { leadIn: 7, vocab: 8, model: 12, genre: 8, language: 12, listening: 10, speaking: 14, writing: 17, check: 5 },
-    leadIn: "Green Leaf Tea has a new product, a cold-brew bottled tea, and Linh has ten minutes with the buyers from Sao Mai Mart, a chain of fifty stores. If they say yes, the tea will be on shelves across the city. Linh must explain the product, its price, where it will be sold and how it will be promoted, and she must show why it is better than other drinks. Today you will learn how to pitch. Today's language: comparatives and superlatives (lighter than, less sweet than, the most popular, better), a hook question and a call to action.",
+    leadIn: "Green Leaf Tea has a new product, a cold-brew bottled tea, and Linh has ten minutes with the buyers from Sao Mai Mart, a chain of forty stores. If they say yes, the tea will be on shelves across the city. Linh must open with a question, give the key facts in short, clear sentences, compare the tea with other drinks and finish with a polite request. Today you will learn the language of a short pitch. Today's language: comparatives and superlatives (lighter than, less sweet than, the most popular, better), a hook question and a call to action.",
     discussion: [
       "Compare two bottled drinks you know. Which is cheaper, healthier or tastier? Use -er than or more / less ... than.",
       "What is the best product you have bought this year? Why is it the best?",
@@ -155,7 +155,7 @@ export const LESSONS = {
       ["Hook", "Get attention with a question or a problem the listener knows", "Have you ever wanted ...?, Do your customers want ...?"],
       ["Introduce the product", "Name the product and say what it is", "Let me introduce ..., Today I would like to introduce ..."],
       ["Compare its features", "Show why it is better than other choices", "It is smoother and less bitter than ..., It is the most ... in our range"],
-      ["Price and place", "Give the cost and where customers can buy it", "A 330 ml bottle costs ..., You can buy it in ..."],
+      ["Key facts", "Give size, cost and where to buy it in short present simple sentences", "A 330 ml bottle costs ..., You can buy it in ..."],
       ["Call to action", "Ask the listener to do one clear thing now", "Shall we start with a trial order of ...?, Why don't you try ...?"],
     ],
     genreNote: "A pitch is short, spoken and persuasive, but it must still sound honest. Use the second person (you, your customers), short sentences and concrete numbers. Comparisons should be fair and checkable, not exaggerated. Organise the pitch by its language: a hook question (Have you ever ...?), an introduction (Let me introduce ...), comparatives and superlatives with a reason (because, so), and a call to action with an imperative or Why don't you ...? (Try ..., Order ...). A written pitch email follows the same moves in a polite business-email layout.",

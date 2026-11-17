@@ -285,7 +285,7 @@ export function buildSeed() {
   ];
 
   const st = {
-    version: 22,
+    version: 23,
     clock: { week: CURRENT_WEEK, setAt: Date.now() },
     session: { userId: null },
     ui: { theme: 'light', orgFilter: null },
