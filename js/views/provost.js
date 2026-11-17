@@ -78,7 +78,7 @@ function framework(s) {
   const usage = (id) => s.programs.filter(p => S.activeVersion(p).unitIds.includes(id)).map(p => p.code);
   return {
     title: 'Framework & units',
-    html: `<div class="page">${pageHead(esc(fw.title), `${fw.capacity} units per year, ${fw.coreSubjects.length} core subjects × 4 units, every programme starts from this skeleton`)}
+    html: `<div class="page">${pageHead(esc(fw.title), `${fw.capacity} weeks, one unit per week, every class starts from this skeleton`)}
       <div class="grid"><div class="span-8">${card({ title: 'Standard year plan', subtitle: 'Locked units are required in every programme', body: slotGrid(s, fw.unitIds, { editable: false }) })}</div>
       <div class="span-4">${card({ title: 'Rules for programmes', body: `<ul style="margin:0;padding-left:18px;line-height:1.8">
         <li>Exactly ${fw.capacity} units, one per teaching week</li>

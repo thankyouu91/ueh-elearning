@@ -5,7 +5,7 @@ import { getState } from '../store.js';
 import { esc, icon, badge, card, empty, subjectChip, confirmDialog, toast, openModal, modalHead, TYPE_META } from '../ui.js';
 import { lessonHistory, lessonBlocks } from './shared.js';
 
-const SUBJ_ORDER = ['ECO', 'ACC', 'FIN', 'MGT', 'MKT'];
+const subjOrder = () => Object.keys(getState().subjects);
 const draft = { programId: null, unitIds: null, rationale: '', dirty: false, libSubject: '', libQuery: '' };
 
 export function resetDraft() { draft.programId = null; }
@@ -44,8 +44,8 @@ export function slotGrid(s, unitIds, { editable = false, compareTo = null } = {}
 export function balancePanel(s, unitIds) {
   const counts = S.subjectCounts(s, unitIds.filter(Boolean));
   const fw = S.subjectCounts(s, s.framework.unitIds);
-  const max = 8;
-  return `<div class="stack gap-2">${SUBJ_ORDER.map(k => {
+  const max = Math.max(8, ...Object.values(counts), ...Object.values(fw));
+  return `<div class="stack gap-2">${subjOrder().map(k => {
     const d = counts[k] - fw[k];
     return `<div class="balance-row">${subjectChip(s, k)}
       <div class="bar" title="${counts[k]} units (framework ${fw[k]})"><span style="width:${(counts[k] / max) * 100}%;background:var(--s-${k})"></span>${fw[k] ? `<span class="fw" style="width:${(fw[k] / max) * 100}%"></span>` : ''}</div>
@@ -65,7 +65,7 @@ export function diffList(s, from, to) {
 
 export function compareMatrix(s, programs) {
   const used = new Set([...s.framework.unitIds, ...programs.flatMap(p => [...S.activeVersion(p).unitIds, ...(p.proposal?.unitIds || [])])]);
-  const units = s.units.filter(u => used.has(u.id)).sort((a, b) => SUBJ_ORDER.indexOf(a.subject) - SUBJ_ORDER.indexOf(b.subject) || a.id.localeCompare(b.id));
+  const units = s.units.filter(u => used.has(u.id)).sort((a, b) => subjOrder().indexOf(a.subject) - subjOrder().indexOf(b.subject) || a.id.localeCompare(b.id));
   const cell = (list, id) => { const i = list.indexOf(id); return i >= 0 ? `<span class="small"><span class="dot-on" style="background:var(--s-${S.unitById(s, id).subject})"></span> W${i + 1}</span>` : '<span class="faint">—</span>'; };
   return `<div class="table-wrap"><table class="table matrix"><thead><tr><th>Unit</th><th class="mark">Framework</th>${programs.map(p => `<th class="mark">${esc(p.code)}</th>`).join('')}</tr></thead><tbody>
     ${units.map(u => `<tr><td><div class="row gap-2">${subjectChip(s, u.subject)}<span>${esc(u.title)}</span>${s.framework.requiredUnitIds.includes(u.id) ? `<span class="faint" title="Required">${icon('lock')}</span>` : ''}</div></td>
@@ -73,7 +73,7 @@ export function compareMatrix(s, programs) {
     <tr><td><strong>Units per subject</strong></td><td class="mark small">${countLine(s, s.framework.unitIds)}</td>${programs.map(p => `<td class="mark small">${countLine(s, S.activeVersion(p).unitIds)}</td>`).join('')}</tr>
   </tbody></table></div>`;
 }
-const countLine = (s, ids) => { const c = S.subjectCounts(s, ids); return SUBJ_ORDER.filter(k => c[k]).map(k => `${s.subjects[k].short} ${c[k]}`).join(', '); };
+const countLine = (s, ids) => { const c = S.subjectCounts(s, ids); return subjOrder().filter(k => c[k]).map(k => `${s.subjects[k].short} ${c[k]}`).join(', '); };
 
 /* ---------------- designer page ---------------- */
 export function designerView(s, prog, me) {
@@ -86,7 +86,7 @@ export function designerView(s, prog, me) {
   const issues = S.validateCurriculum(s, draft.unitIds);
   const inPlan = new Set(draft.unitIds.filter(Boolean));
   const lib = s.units.filter(u => !inPlan.has(u.id) && (!draft.libSubject || u.subject === draft.libSubject) && (!draft.libQuery || `${u.title} ${u.id}`.toLowerCase().includes(draft.libQuery.toLowerCase())))
-    .sort((a, b) => SUBJ_ORDER.indexOf(a.subject) - SUBJ_ORDER.indexOf(b.subject) || a.id.localeCompare(b.id));
+    .sort((a, b) => subjOrder().indexOf(a.subject) - subjOrder().indexOf(b.subject) || a.id.localeCompare(b.id));
 
   const statusNote = !pr ? '' : {
     draft: `<div class="note note-info">${icon('pencil')}<div>Draft saved ${S.relTime(s, pr.updatedAt)} — not yet submitted.</div></div>`,
@@ -97,7 +97,7 @@ export function designerView(s, prog, me) {
   const library = card({ title: 'Unit library', subtitle: 'Drag into a week, or drag a week back here to remove it', body: `
     <div class="stack gap-2" style="margin-bottom:10px">
       <input class="input" placeholder="Search units…" value="${esc(draft.libQuery)}" data-change="cur-lib-q" aria-label="Search units">
-      <select class="select" data-change="cur-lib-subject"><option value="">All subjects</option>${SUBJ_ORDER.map(k => `<option value="${k}" ${draft.libSubject === k ? 'selected' : ''}>${s.subjects[k].label}</option>`).join('')}</select>
+      <select class="select" data-change="cur-lib-subject"><option value="">All subjects</option>${subjOrder().map(k => `<option value="${k}" ${draft.libSubject === k ? 'selected' : ''}>${s.subjects[k].label}</option>`).join('')}</select>
     </div>
     <div class="lib-list lib-zone" id="cur-lib">${lib.length ? lib.map(u => `<div class="row gap-1">${unitCard(s, u, { draggable: editable })}${editable ? `<button class="btn btn-ghost btn-sm btn-icon" data-action="cur-add" data-unit="${u.id}" aria-label="Add ${esc(u.title)}">${icon('plus')}</button>` : ''}</div>`).join('') : empty('library', 'No units', 'Every matching unit is already in the plan.')}</div>` });
 

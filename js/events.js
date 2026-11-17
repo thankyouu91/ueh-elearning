@@ -133,7 +133,7 @@ const H = {
     if (p.bank) {
       const unit = S.unitById(s, p.unitId) || fail('Choose a unit');
       const src = p.copyFrom ? S.lessonById(s, p.copyFrom) : null;
-      const l = { id: newId('T'), sectionId: null, unitId: unit.id, authorId: a.id, week: null, title: p.title?.trim() || src?.title || unit.title, summary: src?.summary || unit.summary, status: 'template', shared: true, blocks: src ? src.blocks.map(b => ({ ...b, id: newId('B') })) : (p.template ? blocksForUnit(unit) : []), history: [{ at: S.now(s).toISOString(), by: a.id, action: src ? `Duplicated from ${S.userById(s, src.authorId).name}'s lesson` : 'Created in lesson bank' }], submittedAt: null, reviewedBy: null, reviewNote: null, publishedAt: null, updatedAt: S.now(s).toISOString() };
+      const l = { id: newId('T'), sectionId: null, unitId: unit.id, authorId: a.id, week: null, title: p.title?.trim() || src?.title || unit.title, summary: src?.summary || unit.summary, status: 'template', shared: true, blocks: src ? src.blocks.map(b => ({ ...b, id: newId('B') })) : (p.template ? blocksForUnit(unit, s) : []), history: [{ at: S.now(s).toISOString(), by: a.id, action: src ? `Duplicated from ${S.userById(s, src.authorId).name}'s lesson` : 'Created in lesson bank' }], submittedAt: null, reviewedBy: null, reviewNote: null, publishedAt: null, updatedAt: S.now(s).toISOString() };
       s.lessons.push(l);
       return { result: l.id, audit: [`Created bank lesson "${l.title}" (${unit.id})`, 'lesson', l.id], toast: src ? 'Copied to your lesson bank' : null };
     }
@@ -142,7 +142,7 @@ const H = {
     const week = Number(p.week) || null;
     const unit = week ? S.unitForWeek(s, sec.id, week) : null;
     if (unit && !S.teachesUnit(s, a.id, sec.id, unit.id)) fail(`You are not assigned to ${S.subjectLabel(s, unit.subject)} in ${sec.code}`);
-    const l = { id: newId('L'), sectionId: sec.id, unitId: unit?.id || null, authorId: a.id, week, title: p.title?.trim() || unit?.title || 'Untitled lesson', summary: unit?.summary || '', status: 'draft', blocks: p.template && unit ? blocksForUnit(unit) : [], history: [{ at: S.now(s).toISOString(), by: a.id, action: 'Created draft' }], submittedAt: null, reviewedBy: null, reviewNote: null, publishedAt: null };
+    const l = { id: newId('L'), sectionId: sec.id, unitId: unit?.id || null, authorId: a.id, week, title: p.title?.trim() || unit?.title || 'Untitled lesson', summary: unit?.summary || '', status: 'draft', blocks: p.template && unit ? blocksForUnit(unit, s) : [], history: [{ at: S.now(s).toISOString(), by: a.id, action: 'Created draft' }], submittedAt: null, reviewedBy: null, reviewNote: null, publishedAt: null };
     s.lessons.push(l);
     return { result: l.id, audit: [`Created draft "${l.title}"`, 'lesson', l.id] };
   },
@@ -158,9 +158,9 @@ const H = {
       // Moving to another unit: swap the untouched ready-made blocks, title and summary for the new unit's.
       // Blocks the lecturer added or renamed are kept.
       if (old && u && old.id !== u.id) {
-        const tpl = blocksForUnit(old);
+        const tpl = blocksForUnit(old, s);
         const isTpl = (b) => tpl.some(t => t.type === b.type && t.title === b.title && t.minutes === b.minutes);
-        if (l.blocks.some(isTpl)) l.blocks = [...blocksForUnit(u), ...l.blocks.filter(b => !isTpl(b))];
+        if (l.blocks.some(isTpl)) l.blocks = [...blocksForUnit(u, s), ...l.blocks.filter(b => !isTpl(b))];
         if (l.title === old.title) l.title = u.title;
         if (l.summary === old.summary) l.summary = u.summary;
       }
@@ -405,7 +405,7 @@ const H = {
   /* ---------------- library ---------------- */
   BOOK_ADDED(s, a, p) {
     if (!p.title?.trim()) fail('Add a title');
-    const b = { id: newId('BK'), title: p.title.trim(), subject: p.subject || 'ECO', unitIds: p.unitIds || [], description: p.description?.trim() || '', file: null, addedBy: a.id, addedAt: S.now(s).toISOString() };
+    const b = { id: newId('BK'), title: p.title.trim(), subject: p.subject || 'MKT', unitIds: p.unitIds || [], description: p.description?.trim() || '', file: null, addedBy: a.id, addedAt: S.now(s).toISOString() };
     s.library.books.push(b);
     return { result: b.id, audit: [`Added "${b.title}" to the library`, 'book', b.id], toast: p.quiet ? null : 'Book added to the library' };
   },

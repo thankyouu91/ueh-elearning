@@ -11,7 +11,7 @@ export const CASE = (id, title, text, exercises) => exercises.map(e => ({ ...e, 
 
 /* ---------- ESP (English for Specific Purposes) helpers: the subject is the context, English is the goal ---------- */
 // Every item is tagged with a skill (R reading, L listening, S speaking, W writing, U vocabulary & grammar), a CEFR level and its source.
-const esp = (skill, list) => list.map(e => ({ ...e, pack: 'ESP-B1', level: 'B1', skill, source: 'ueh' }));
+const esp = (skill, list) => list.map(e => ({ ...e, pack: 'ESP-MKT', level: 'B1', skill, source: 'ueh' }));
 /** Reading: one text (150–200 words) with its questions. READ('E2-r1', 'Title', 'Text…', [M(...), M(...)]) */
 export const READ = (id, title, text, qs) => esp('R', qs.map(e => ({ ...e, scenario: { id, title, text } })));
 /** Listening: `audio` is the transcript, read aloud by the browser; students do not see it. */
