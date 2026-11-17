@@ -30,8 +30,9 @@ export function loginView(s) {
   const groups = [
     ['University leadership', s.users.filter(u => u.role === 'provost')],
     ['Deans', s.users.filter(u => u.role === 'director')],
-    ['Lecturers', s.users.filter(u => u.role === 'instructor')],
-    ['Students (one per class)', s.users.filter(u => u.role === 'student').filter((_, i) => i % 6 === 0)],
+    // One demo account per role; the class still has all its students for dashboards and marking.
+    ['Lecturer', s.users.filter(u => u.role === 'instructor').slice(0, 1)],
+    ['Student', s.users.filter(u => u.role === 'student').slice(0, 1)],
     ['Administrator', s.users.filter(u => u.role === 'admin')],
   ];
   return `<div class="login">

@@ -15,11 +15,13 @@ Dashboard: tiến độ học kỳ, tỉ lệ đạt, sinh viên có nguy cơ. *
 - **Chuẩn bị bài**: mỗi bài gồm Building the field → Key words → Model text → Language focus → Speaking task → Practice check.
 - **Sách bài tập → Ngân hàng 4 kỹ năng**: 230 bài, lọc theo kỹ năng và unit; điểm của lớp theo từng kỹ năng.
 
-## 4. Sinh viên học và làm bài (5 phút): *Nguyen Ha My*
+## 4. Sinh viên học và làm bài (5 phút): *Dang Hoang Minh*
 - **Khoá học của tôi**: mở bài tuần 1 *Who Are Our Stakeholders?*, đi qua từng bước.
 - **Sách bài tập**, unit MK1–MK7: đọc văn bản mẫu, nghe (trình duyệt đọc to), ghi âm phần nói 1 phút, viết theo đúng thể loại văn bản.
 - **Từ vựng** (4 bước cho mỗi từ) và **Ngữ pháp** (1 điểm ngữ pháp mỗi unit).
-- **Bài kiểm tra**: Midterm đang mở.
+- **Bài kiểm tra**: Midterm đang mở (120 phút, 5 phần: Nghe, Đọc, Từ vựng & Ngữ pháp, Viết, Nói). Sinh viên này chưa thi, nên có thể làm thử từ đầu; phần trắc nghiệm có điểm ngay, Viết/Nói chờ giảng viên chấm.
+
+Trang đăng nhập chỉ hiện một giảng viên và một sinh viên để demo; lớp vẫn có đủ 30 sinh viên cho dashboard, sổ điểm và hàng đợi chấm.
 
 ## 5. Giảng viên chấm nói và viết (3 phút): *Michael Nguyen*
 **Chấm bài**: chấm bài nói/viết theo rubric 0–4, kèm nhận xét; sổ điểm tự tính điểm học phần.
