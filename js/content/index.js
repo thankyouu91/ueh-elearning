@@ -4,7 +4,7 @@ import * as a from './mkt-a.js';
 import * as b from './mkt-b.js';
 import * as c from './mkt-c.js';
 import * as d from './mkt-d.js';
-export { UNITS, WEEKS } from './mkt-units.js';
+export { UNITS, WEEKS, PHOTOS } from './mkt-units.js';
 export { LESSONS } from './mkt-lessons.js';
 
 const parts = [a, b, c, d];

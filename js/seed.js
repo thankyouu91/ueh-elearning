@@ -2,7 +2,7 @@
 // Every number shown in the UI is derived from this data by selectors.js.
 import { addLibrarySeed } from './seed-library.js';
 import { addWorkbookSeed } from './seed-workbook.js';
-import { UNITS, WEEKS, Q, VOCAB, GRAMMAR, LESSONS } from './content/index.js';
+import { UNITS, WEEKS, Q, VOCAB, GRAMMAR, LESSONS, PHOTOS } from './content/index.js';
 import { unitExercises } from './seed-workbook.js';
 
 export const TERM_START = '2026-09-07T00:00:00'; // Monday of week 1
@@ -55,6 +55,7 @@ export function blocksForUnit(unit, ctx) {
   const out = [];
 
   out.push(page(`Lead-in: ${unit.title}`, m.leadIn, [
+    PHOTOS[unit.id] ? tile('image', 4, 2, { src: `assets/lessons/${unit.id}.jpg`, caption: PHOTOS[unit.id], fit: 'cover' }) : null,
     tile('text', 4, 1, { title: 'Today', body: `**By the end of this lesson:** ${unit.summary}\n\n${P.leadIn || ''}` }),
     P.discussion?.length ? tile('text', 4, 1, { title: 'Talk in pairs (5 minutes)', body: P.discussion.map((q, i) => `${i + 1}. ${q}`).join('\n') }) : null,
   ]));
@@ -282,7 +283,7 @@ export function buildSeed() {
   ];
 
   const st = {
-    version: 18,
+    version: 19,
     clock: { week: CURRENT_WEEK, setAt: Date.now() },
     session: { userId: null },
     ui: { theme: 'light', orgFilter: null },
