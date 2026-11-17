@@ -61,7 +61,7 @@ Tuan: Of course. I'll send it within the hour.`,
           items: [
             ["What is the news item mainly about?", ["A new product for children", "A dairy company's twentieth birthday", "A new shop opening in Da Nang", "The amount of sugar in school lunches"], "Hai Van Dairy 'has launched a new range of yoghurt drinks for children'."],
             ["Where can people buy the drinks now?", ["In shops in central Vietnam", "In shops in Ho Chi Minh City", "Only at schools in Da Nang", "Only on the company's website"], "They 'went on sale yesterday in two hundred shops across central Vietnam'. Ho Chi Minh City may come next March."],
-            ["Why did the company develop the new drinks?", ["Parents wanted drinks with less sugar.", "Children asked for a pumpkin flavour.", "Its older drinks were too expensive.", "Schools stopped selling sweet drinks."], "'Parents kept telling us that most children's drinks are far too sweet.'"],
+            ["How long did the company spend developing the new drinks?", ["Two years", "More than twenty years", "One month", "Four years"], "'We've spent two years developing these.' Twenty years is how long the company has sold yoghurt; one month is the special offer."],
             ["How much do four bottles cost during the first month?", ["40,000 VND", "48,000 VND", "12,000 VND", "15,000 VND"], "'For the first month, shoppers can buy four for forty thousand.' 12,000 VND is the price of one bottle."],
             ["What might happen next March?", ["The drinks may go on sale in Ho Chi Minh City.", "The company will add a fourth flavour.", "The price of one bottle will go up.", "The special offer for shoppers will start."], "The range 'could reach shops in Ho Chi Minh City next March, if sales go well'."],
           ],
@@ -95,7 +95,7 @@ Media contact: Duy Pham, Press Office, River Craft`,
           items: [
             ["What is the main purpose of the text?", ["To tell journalists about a new product", "To ask cafés to stop using plastic straws", "To advertise jobs at the Phong Dien workshop", "To reply to a complaint about short straws"], "A press release shares company news with the media: the launch of the straws."],
             ["What does the text say about how the straws are made?", ["Workers make them by hand.", "They are dried in a machine.", "They are made in Ninh Kieu District.", "They are cut from metal and bamboo."], "'The straws are made by hand in the company's workshop.' They are dried in the sun; Ninh Kieu is where they were tested."],
-            ["Why did River Craft develop the straws?", ["Café owners asked for something to replace plastic.", "Metal straws were too difficult to clean.", "The company had too much bamboo in stock.", "Customers complained about its baskets."], "It received 'more than 40 requests from café owners who want to stop using plastic'."],
+            ["How many requests from café owners has River Craft received since the start of the year?", ["More than 40", "35", "About 100", "200"], "'More than 40 requests from café owners.' 35 is the number of workers, 100 the number of uses and 200 the straws in a box."],
             ["What will a café get if it orders six boxes in November?", ["A lower price", "Only a free cleaning brush", "Free delivery to the café", "200 extra straws"], "Orders of 'five boxes or more' get a 15% discount. Every box has a brush, so the brush is not the only benefit."],
             ["What happened during the test in August?", ["Most feedback was positive.", "Three cafés stopped using the straws.", "Many customers said the straws were too short.", "The straws were tested in 35 cafés."], "Customers 'have responded well, and only one complaint has been received'."],
           ],
@@ -207,7 +207,7 @@ Vy, Owner`,
         {
           title: 'Vocabulary',
           items: [
-            ["Staff and managers are ___ stakeholders because they work inside the company.", ["internal", "external", "loyal", "neutral"], "Internal stakeholders are inside the business. External ones, such as suppliers and the bank, are outside it."],
+            ["Because of the floods, our supplier was ___ to deliver on time, so we emailed all our stakeholders.", ["unable", "disable", "inable", "nonable"], "The negative of the adjective 'able' takes the prefix un-: 'unable to + verb'. 'Disable' is a verb; 'inable' and 'nonable' are not words."],
             ["Two days after the briefing, I'll ___ with the client to check that she is happy with the plan.", ["follow up", "set up", "bring up", "take up"], "To follow up is to contact someone again after a meeting to check or confirm something."],
             ["The director will only ___ the plan if the objective has a clear number and date.", ["approve", "launch", "reach", "attend"], "To approve is to officially agree to a plan."],
             ["Visits to our page have gone up every month this year. If this ___ continues, we will reach 50,000 visits by December.", ["trend", "audience", "signpost", "draft"], "A trend is the general direction in which figures change over time."],
@@ -237,7 +237,7 @@ Vy, Owner`,
       tasks: [
         {
           title: 'Task 1: A reply to a customer complaint',
-          prompt: 'You work in customer service at Green Leaf Tea. A customer, Mr Kien, ordered two oolong gift boxes on the Green Leaf Tea website as a birthday present for his mother. He has written to complain: the boxes arrived one day late, and the lid of one box was broken. Write a reply to Mr Kien. In your reply: 1) apologise and briefly explain what went wrong; 2) offer a replacement box or a refund, and ask him which he prefers; 3) say what Green Leaf Tea has done to stop this happening again. Write about 100 words.',
+          prompt: 'You work in customer service at Green Leaf Tea. A customer, Mr Kien, ordered two oolong gift boxes on the Green Leaf Tea website as a birthday present for his mother. He has written to complain: the boxes arrived one day late, and the lid of one box was broken. Notes: reason: the delivery company had a problem with one of its vans, and the boxes were not packed carefully enough; offer: a new box free of charge or a full refund for the broken one; action taken: all gift boxes are now packed in stronger cartons. Write a reply to Mr Kien. In your reply: 1) apologise and briefly explain what went wrong; 2) offer a replacement box or a refund, and ask him which he prefers; 3) say what Green Leaf Tea has done to stop this happening again. Use: I am very sorry that... / We apologise for...; We would like to... / Could you let me know...?; the present perfect and the passive for the action taken. Write about 100 words.',
           words: 100,
           model: `Subject: Your oolong gift box order
 
@@ -253,14 +253,14 @@ Best regards,
 Linh
 Green Leaf Tea`,
           marking: [
-            'Content: all three points are covered clearly (apology with a short reason; a choice of replacement or refund with a question; the action the company has taken).',
-            'Organisation: email format with a subject line, greeting, one idea per paragraph and a polite closing; the tone is polite and positive throughout.',
-            'Language: apology phrases (I am very sorry that..., We apologise for...), polite offers and questions (We would like to..., Could you let me know...?), the present perfect and the passive for actions taken (We have changed..., boxes are packed...); mistakes do not stop understanding.',
+            'Language: apology phrases (I am very sorry that..., We apologise for...), polite offers and questions (We would like to..., Could you let me know...?), the present perfect and the passive for the action taken (We have changed..., boxes are packed...), accurate.',
+            'Task: includes all the points in the notes (apology with the reason; replacement or refund with a question; the action taken).',
+            'Organisation: email format with a subject line, greeting, one idea per paragraph and a polite closing; polite tone throughout.',
           ],
         },
         {
           title: 'Task 2: A short report',
-          prompt: 'Bamboo Wheels rents bicycles to visitors in Hoi An. In October it ran a campaign called "Ride the Old Town", with a 20% discount for online bookings. The owner, Mr Tuyen, asks you to write a short report about the campaign. Notes: objective: 300 rentals in October; result: 340 rentals; 60% of customers were foreign tourists; 45% of bookings were made online; 25 families asked for child seats, but the shop has none; several customers said the maps were hard to read. Write a report with three headings: Introduction, Findings and Recommendations. Include: 1) the purpose of the report; 2) at least three findings with figures; 3) two recommendations. Use the passive at least twice. Write about 150 words.',
+          prompt: 'Bamboo Wheels rents bicycles to visitors in Hoi An. In October it ran a campaign called "Ride the Old Town", with a 20% discount for online bookings. The owner, Mr Tuyen, asks you to write a short report about the campaign. Notes: objective: 300 rentals in October; result: 340 rentals; 60% of customers were foreign tourists; 45% of bookings were made online; 25 families asked for child seats, but the shop has none; several customers said the maps were hard to read; recommendations: buy ten child seats before the busy season in December, and redesign the maps with larger text and clear symbols. Write a report with three headings: Introduction, Findings and Recommendations. Include: 1) the purpose of the report; 2) at least three findings with figures; 3) two recommendations. Use the passive at least twice. Write about 150 words.',
           words: 150,
           model: `Introduction
 This report presents the results of the "Ride the Old Town" campaign, which was run in October. A 20% discount was offered to customers who booked online.
@@ -274,9 +274,9 @@ Findings
 Recommendations
 First, it is recommended that ten child seats are bought before the busy season in December, as families are an important group for us. Second, the maps should be redesigned with larger text and clear symbols. If we make these changes, I believe more families will rent from us.`,
           marking: [
-            'Content: states the purpose; reports at least three findings with accurate figures from the notes (340 against 300, 45% online, 60% tourists, 25 families); makes two clear recommendations linked to the findings.',
-            'Organisation: the three headings Introduction, Findings and Recommendations; numbered or clearly separated findings; links such as However, First, Second.',
-            'Language: formal, concise style; at least two correct passives (was run, were rented, should be redesigned); accurate report vocabulary (findings, objective, recommend) and figures.',
+            'Language: at least two correct passives (was run, were rented, should be redesigned, it is recommended that...) and report phrases (This report presents..., The findings show...), accurate, with figures written correctly.',
+            'Task: transfers the purpose, at least three findings with the figures in the notes (340 against 300, 45% online, 60% tourists, 25 families) and the two recommendations accurately.',
+            'Organisation: the three headings Introduction, Findings and Recommendations; numbered or clearly separated findings; links such as However, First, Second; formal, concise tone.',
           ],
         },
       ],
@@ -287,23 +287,23 @@ First, it is recommended that ten child seats are bought before the busy season 
       tasks: [
         {
           title: 'Task 1: Describe a sales trend',
-          prompt: 'Sunrise Coconut Water sells drinks through its online shop. Describe the trend in its online orders from July to December to your team, and give one possible reason for the change in November. Figures (orders per month): July 1,200; August 1,500; September 2,100; October 2,100; November 1,600; December 1,900. Use verbs such as rise, increase, fall, drop, reach a peak and stay the same, with from, to and by.',
+          prompt: 'Sunrise Coconut Water sells drinks through its online shop. Describe the trend in its online orders from July to December to your team, and give the reasons in the notes. Figures (orders per month): July 1,200; August 1,500; September 2,100; October 2,100; November 1,600; December 1,900. Notes: November was cooler, so people drank less coconut water; December went up because of the holidays. Use verbs such as rise, increase, fall, drop, reach a peak and stay the same, with from, to and by.',
           seconds: 60,
           model: `I'd like to show you our online orders from July to December. In July we had one thousand two hundred orders. In August, orders rose by three hundred, to one thousand five hundred, and in September they increased sharply to two thousand one hundred. That was our peak, and orders stayed the same in October. However, in November they fell by five hundred, to one thousand six hundred. One possible reason is the weather: November is cooler, so people drink less coconut water. Finally, in December orders went up again, to one thousand nine hundred, probably because of the holidays. So overall, the trend from July to December was upward.`,
           marking: [
-            'Task fulfilment: describes the whole period with accurate figures, identifies the peak and the fall in November, and gives a reason.',
-            'Language: correct trend verbs in the past simple (rose, increased, fell, stayed the same, reached a peak) and correct use of by, to and from ... to.',
+            'Language: trend verbs in the past simple (rose, increased, fell, stayed the same, reached a peak) with by, to and from ... to, used accurately at least four times.',
+            'Task: describes the whole period with the figures on the card, the peak and the fall in November, and gives the reasons in the notes.',
             'Delivery: speaks for about one minute with clear signposting (In July..., However..., Finally..., So overall...) and numbers that a listener can understand.',
           ],
         },
         {
           title: 'Task 2: Respond to a customer complaint',
-          prompt: 'You are the manager of Blue Coast Hotel in Nha Trang. A guest comes to reception and complains: "I booked a sea-view room, but I\'ve got a room that looks at the car park. The air conditioner is very noisy, and my room wasn\'t cleaned yesterday." Respond to the guest. Apologise, explain what you have done or will do about each problem, and offer something to say sorry. Use the present perfect, will and polite language.',
+          prompt: 'You are the manager of Blue Coast Hotel in Nha Trang. A guest comes to reception and complains: "I booked a sea-view room, but I\'ve got a room that looks at the car park. The air conditioner is very noisy, and my room wasn\'t cleaned yesterday." Notes: a sea-view room on the 8th floor became free this morning; staff will move the bags within the hour; you have already called the engineer; you have spoken to housekeeping, and the new room will be cleaned every morning before 10; offer: a free dinner in the restaurant tonight. Respond to the guest. Apologise, explain what you have done or will do about each problem, and offer something to say sorry. Use the present perfect, will and polite language.',
           seconds: 60,
           model: `I'm really sorry about this, and thank you for telling me. First, the room. You're right, you booked a sea view, and we made a mistake. I've just checked, and a sea-view room on the eighth floor has become free this morning. Our staff will move your bags there in the next hour. Second, the air conditioner. I've already called our engineer, but you won't need that room any more. And I apologise that your room wasn't cleaned yesterday. I've spoken to our housekeeping team, and your new room will be cleaned every morning before ten. To say sorry, we'd like to offer you a free dinner in our restaurant tonight. Is that all right?`,
           marking: [
-            'Task fulfilment: apologises, deals with all three problems with a clear action for each, and offers something to say sorry.',
-            'Language: apologies (I\'m really sorry, I apologise), the present perfect for actions just done (I\'ve checked, I\'ve called), will for promises, polite offers (we\'d like to offer).',
+            'Language: apologies (I\'m really sorry, I apologise), the present perfect for actions just done (I\'ve checked, I\'ve called), will for promises and polite offers (we\'d like to offer), used accurately.',
+            'Task: apologises, gives the action in the notes for each of the three problems, and makes the offer.',
             'Delivery: speaks for about one minute in a calm, polite tone, deals with the problems in order (first, second) and is easy to follow.',
           ],
         },
@@ -313,8 +313,8 @@ First, it is recommended that ten child seats are bought before the busy season 
           seconds: 60,
           model: `I'd like to present two ways to promote our cold brew in December. Option A is a student loyalty card in all ten shops. It costs eight million dong, and we expect about six hundred new members. Option B is tasting stands in five Sao Mai Mart supermarkets. It's more expensive, at eighteen million, but it reaches more people: about three thousand shoppers. However, we don't know how many of them will buy again. I recommend Option A because it's much cheaper and it brings customers back again and again. If we choose it, we'll still have twelve million left for social media posts. Unless we build loyal customers, our sales won't stay high after the holidays.`,
           marking: [
-            'Task fulfilment: presents both options with their key figures, makes a clear recommendation and gives at least two reasons.',
-            'Language: comparatives (cheaper, more expensive, more people), at least one correct if or unless sentence, and recommending language (I recommend... because...).',
+            'Language: comparatives (cheaper, more expensive, more people), at least one correct if or unless sentence, and recommending language (I recommend... because...), used accurately.',
+            'Task: presents both options with the figures on the card, recommends one and gives two reasons from the card.',
             'Delivery: speaks for about one minute with a clear structure (introduction, options, recommendation) and signposting (However, so, because).',
           ],
         },
