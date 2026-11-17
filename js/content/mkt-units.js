@@ -35,3 +35,23 @@ export const UNITS = [
 
 // Teaching order: 10 units, two review weeks, midterm, two project workshops and the final.
 export const WEEKS = ['MK1', 'MK2', 'MK3', 'MK4', 'MK5', 'RV1', 'MK6', 'MK7', 'MID', 'MK8', 'MK9', 'MK10', 'PJ1', 'PJ2', 'RV2', 'FX'];
+
+// Lesson photos (assets/lessons/<unit id>.jpg, 1600x900), generated in Canva for UEH; alt text for screen readers.
+export const PHOTOS = {
+  MK1: 'Green Leaf Tea shop in Ho Chi Minh City: staff, a tea farmer, customers and a delivery motorbike',
+  MK2: 'A tea farmer and a marketing manager shake hands in the Bao Loc tea hills',
+  MK3: 'A Vietnamese family chooses Tet tea gift boxes in a tea shop',
+  MK4: 'A marketing team reviews advertisement posters together',
+  MK5: 'A marketer presents tea products to colleagues in a shop',
+  RV1: 'University students review English in pairs in a classroom',
+  MK6: 'A client briefing meeting in a Ho Chi Minh City office',
+  MK7: 'A marketing assistant writes a campaign proposal at her desk',
+  MID: 'University students take a midterm exam in a lecture hall',
+  MK8: 'A young woman presents a sales chart to managers',
+  MK9: 'Signing a formal business letter at an office desk',
+  MK10: 'A customer checks online reviews next to cold-brew tea in a supermarket',
+  PJ1: 'A student team brainstorms a campaign with sticky notes',
+  PJ2: 'A student team pitches its campaign to a panel of lecturers',
+  RV2: 'Students revise English together in a Saigon cafe',
+  FX: 'Students take a computer-based English exam with headphones',
+};
