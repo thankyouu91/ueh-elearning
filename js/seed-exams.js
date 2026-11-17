@@ -1,22 +1,25 @@
-// The 4-skill midterm: 55 auto-checked items (listening, reading, vocabulary & grammar) and 5 lecturer-marked tasks
-// (2 writing, 3 recorded speaking), 120 minutes. The paper lives in js/content/mkt-midterm.js; this file turns it into
-// questions, exam tasks and demo attempts for the students who have already sat it.
+// 4-skill exam papers (midterm and final): 55 auto-checked items (listening, reading, vocabulary & grammar) and
+// 5 lecturer-marked tasks (2 writing, 3 recorded speaking), 120 minutes. Papers live in js/content/mkt-midterm.js and
+// mkt-final.js; this file turns a paper into questions, exam tasks and demo attempts for students who have already sat it.
 import { MIDTERM } from './content/mkt-midterm.js';
+import { FINAL } from './content/mkt-final.js';
+
+export const PAPERS = [{ type: 'midterm', unitId: 'MID', paper: MIDTERM }, { type: 'final', unitId: 'FX', paper: FINAL }];
 
 const BLOOM = { L: 'Understand', R: 'Understand', U: 'Apply' };
 
-export function addMidterm(st, { rng, iso, at, CURRENT_WEEK, profiles }) {
-  const a = st.assessments.find(x => x.type === 'midterm');
+export function addExamPaper(st, { type, unitId, paper }, { rng, iso, at, CURRENT_WEEK, profiles }) {
+  const a = st.assessments.find(x => x.type === type);
   if (!a) return;
-  const r = rng(909090);
+  const r = rng(type === 'final' ? 919191 : 909090);
   const caseId = `EXAM:${a.id}`;
   let qn = 0;
-  const parts = MIDTERM.parts.map(p => {
+  const parts = paper.parts.map(p => {
     const base = { id: p.id, title: p.title, minutes: p.minutes, weight: p.weight, instructions: p.instructions };
     if (p.tasks) {
       const taskIds = p.tasks.map((t, i) => {
         const id = `EX-${a.id}-${p.id}${i + 1}`;
-        st.exercises.push({ id, unitId: 'MID', caseId, type: 'written', title: t.title, prompt: t.prompt, model: t.model, marking: t.marking,
+        st.exercises.push({ id, unitId, caseId, type: 'written', title: t.title, prompt: t.prompt, model: t.model, marking: t.marking,
           words: t.words || 90, skill: p.id, level: 'B1', pack: 'ESP-MKT', source: 'ueh', ...(p.id === 'S' ? { speak: true, seconds: t.seconds || 60 } : {}) });
         return id;
       });
@@ -25,14 +28,14 @@ export function addMidterm(st, { rng, iso, at, CURRENT_WEEK, profiles }) {
     const groups = p.groups.map(g => ({ title: g.title, text: g.text || null, audio: g.audio || null,
       questionIds: g.items.map(([stem, opts, explanation]) => {
         const order = opts.map((o, k) => ({ o, k, s: r() })).sort((x, y) => x.s - y.s);
-        const id = `MQ-${p.id}${++qn}`;
-        st.questions.push({ id, unitId: 'MID', stem, options: order.map(x => x.o), answerIndex: order.findIndex(x => x.k === 0), explanation,
+        const id = `${a.id}-${p.id}${++qn}`;
+        st.questions.push({ id, unitId, stem, options: order.map(x => x.o), answerIndex: order.findIndex(x => x.k === 0), explanation,
           competencyTag: 'Marketing', bloomLevel: BLOOM[p.id], points: 1, skill: p.id, examOnly: true });
         return id;
       }) }));
     return { ...base, groups };
   });
-  Object.assign(a, { title: MIDTERM.title, parts, questionIds: parts.flatMap(p => (p.groups || []).flatMap(g => g.questionIds)), timeLimitMin: MIDTERM.minutes, maxAttempts: 1 });
+  Object.assign(a, { title: paper.title, parts, questionIds: parts.flatMap(p => (p.groups || []).flatMap(g => g.questionIds)), timeLimitMin: paper.minutes, maxAttempts: 1 });
 
   /* demo: the students who have already sat the midterm this week */
   const sat = [...new Set(st.attempts.filter(t => t.assessmentId === a.id).map(t => t.studentId))];
