@@ -405,7 +405,7 @@ const H = {
   /* ---------------- library ---------------- */
   BOOK_ADDED(s, a, p) {
     if (!p.title?.trim()) fail('Add a title');
-    const b = { id: newId('BK'), title: p.title.trim(), subject: p.subject || 'ECO', unitIds: p.unitIds || [], description: p.description?.trim() || '', file: null, addedBy: a.id, addedAt: S.now(s).toISOString() };
+    const b = { id: newId('BK'), title: p.title.trim(), subject: p.subject || 'MKT', unitIds: p.unitIds || [], description: p.description?.trim() || '', file: null, addedBy: a.id, addedAt: S.now(s).toISOString() };
     s.library.books.push(b);
     return { result: b.id, audit: [`Added "${b.title}" to the library`, 'book', b.id], toast: p.quiet ? null : 'Book added to the library' };
   },

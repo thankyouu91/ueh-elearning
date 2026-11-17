@@ -518,3 +518,9 @@ PATTERNS.unshift(
   [/^Practice opens when your class reaches (\S+)\.$/, 'Phần luyện tập mở khi lớp học đến unit $1.'],
 );
 Object.assign(VI, { 'Dark block': 'Ô tô đậm', '= write this word exactly.': '= viết đúng từ này.', 'Dashed block': 'Ô nét đứt', '= put your own word here.': '= thay bằng từ của bạn.' });
+Object.assign(VI, {
+  'English for Marketing Communication (ESP, B1–B1+)': 'Tiếng Anh Truyền thông Marketing (ESP, B1–B1+)',
+  'English for Marketing Communication (CEFR B1–B1+)': 'Tiếng Anh Truyền thông Marketing (CEFR B1–B1+)',
+  'UEH English for Marketing Communication (ESP)': 'Khung Tiếng Anh Truyền thông Marketing UEH (ESP)',
+  'Writing portfolio': 'Hồ sơ bài viết',
+});

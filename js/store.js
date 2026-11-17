@@ -9,7 +9,7 @@ export function load() {
     const raw = localStorage.getItem(BRAND.storageKey);
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (parsed && parsed.version === 15) { state = parsed; state.clock.setAt = Date.now(); return state; }
+      if (parsed && parsed.version === 16) { state = parsed; state.clock.setAt = Date.now(); return state; }
     }
   } catch { /* storage unavailable or corrupt: fall back to seed */ }
   state = buildSeed();

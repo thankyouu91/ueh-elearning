@@ -1,55 +1,38 @@
-# Kịch bản demo UEH Learning (khoảng 20 phút)
+# Kịch bản demo UEH Learning: lớp ESP Marketing (khoảng 20 phút)
 
-Chạy `node server.js`, mở `http://localhost:3000`. Trước khi demo bấm **Reset demo** (cuối thanh bên trái) để dữ liệu về trạng thái gốc. Đổi người dùng bằng **Switch account**.
+Lớp demo: **MKT-K50-ESP01**, học phần *English for Marketing Communication (ESP, CEFR B1–B1+)*, 30 sinh viên, 16 tuần. Demo đang ở **tuần 9** (tuần thi giữa kỳ). Mở trang đăng nhập và chọn tài khoản. Dữ liệu chỉ lưu trong trình duyệt; muốn làm lại từ đầu thì xoá dữ liệu trang (localStorage).
 
-> Mẹo: chuẩn bị sẵn 1 file PDF sách (ví dụ *Consumer Behaviour*) trên máy để tải lên ở bước 3.
+Phương pháp: **genre-based** (chu trình dạy–học: xây nền kiến thức → phân tích văn bản mẫu → viết cùng nhau → tự viết) kết hợp **task-based** cho phần nói. Mỗi unit có đủ 4 kỹ năng: đọc, nghe, nói, viết, cộng từ vựng & ngữ pháp. Case xuyên suốt: công ty hư cấu **Green Leaf Tea (Trà Lá Xanh)**.
 
-## 1. Ban Giám hiệu nhìn toàn trường (2 phút) — *Dr. Tran Minh Quan*
-- **Dashboard**: KPI toàn trường → bấm *School of Marketing* → *Bachelor of Marketing* → một lớp → một sinh viên. Cùng một bộ chỉ số ở mọi tầng.
-- **Curricula** → bảng so sánh 3 ngành theo từng unit → mở đề xuất của khoa Marketing → xem thay đổi, cân đối môn, quy tắc.
+## 1. Ban Giám hiệu nhìn toàn cảnh (2 phút): *Dr. Tran Minh Quan*
+Dashboard: tiến độ học kỳ, tỉ lệ đạt, sinh viên có nguy cơ. **Khung chương trình**: 16 tuần, mỗi tuần một unit.
 
-## 2. Trưởng khoa thiết kế chương trình (2 phút) — *Dr. Pham Thu Ha*
-- **Curriculum**: kéo một unit Quản trị về thư viện, kéo *Capital Structure* vào tuần trống. Unit bắt buộc không kéo ra được; bảng cân đối và quy tắc cập nhật ngay.
+## 2. Trưởng khoa duyệt bài giảng (3 phút): *Dr. Le Hoang Nam*
+**Xem phê duyệt**: bài tuần 11 (*Business Writing Formats*) đang chờ duyệt. Duyệt hoặc yêu cầu sửa kèm ghi chú. **Chương trình**: 16 unit của Bachelor of Marketing; kéo thả để đề xuất thay đổi cho khoá sau.
 
-- **Teaching staff** (Phân công giảng dạy): lớp MKT-K50-02 chưa có người dạy Tài chính (ô đỏ) → chọn *Hoang Duc Minh*. Hệ thống báo vượt định mức 48h; *Nguyen Thi Mai* đang 51h. Giảng viên được giao/gỡ nhận thông báo; bài giảng, chấm bài, nhắc việc của môn đó chuyển cho đúng người. (Phòng Đào tạo xem cùng trang ở chế độ chỉ xem cho toàn trường.)
+## 3. Giảng viên chuẩn bị bài (4 phút): *Michael Nguyen*
+- **Hôm nay**: việc cần làm (bài tuần 12 bị yêu cầu sửa, bài cần chấm).
+- **Chuẩn bị bài**: mỗi bài gồm Building the field → Key words → Model text → Language focus → Speaking task → Practice check.
+- **Sách bài tập → Ngân hàng 4 kỹ năng**: 230 bài, lọc theo kỹ năng và unit; điểm của lớp theo từng kỹ năng.
 
-## 3. Giảng viên: Thư viện → Nghiên cứu → Bài học (4 phút) — *Michael Nguyen*
-- **Library** → sách *Consumer Behaviour* → tải PDF lên → mục lục hiện ở bên trái.
-- Chọn chương → **Start here** / **End here** → đặt tên, chọn unit → **Save extract**.
-- Bấm **+** cạnh đoạn trích → *New bank lesson* → bài học có sẵn đoạn trích; thêm *Activity / Worksheet / Practical* từ palette "From the library".
+## 4. Sinh viên học và làm bài (5 phút): *Nguyen Ha My*
+- **Khoá học của tôi**: mở bài tuần 1 *Who Are Our Stakeholders?*, đi qua từng bước.
+- **Sách bài tập**, unit MK1–MK7: đọc văn bản mẫu, nghe (trình duyệt đọc to), ghi âm phần nói 1 phút, viết theo đúng thể loại văn bản.
+- **Từ vựng** (4 bước cho mỗi từ) và **Ngữ pháp** (1 điểm ngữ pháp mỗi unit).
+- **Bài kiểm tra**: Midterm đang mở.
 
-## 4. Giảng viên: sắp xếp học phần và chốt (3 phút)
-- **Modules** → *Bachelor of Marketing · Year 1 · Term 1*: 16 tuần theo chương trình.
-- Tuần 14 còn trống → kéo bài K6 vừa tạo vào. Thử kéo sai tuần → bị chặn.
-- Tab **Add-ons** → kéo một *Practical* hoặc *Case study* vào một tuần.
-- **Finalise module** → chọn lớp → gửi Trưởng khoa.
-- Đổi sang *Dr. Le Hoang Nam* → **Approvals** → **Approve & lock** → các tuần chưa dạy được lên lịch, tuần đang chạy giữ nguyên.
+## 5. Giảng viên chấm nói và viết (3 phút): *Michael Nguyen*
+**Chấm bài**: chấm bài nói/viết theo rubric 0–4, kèm nhận xét; sổ điểm tự tính điểm học phần.
 
-## 5. Sinh viên học và làm bài (4 phút) — *Nguyen Ha My* (MKT-K50-01)
-- **Workbook** → K3: bài sắp xếp AIDA, phân loại công cụ xúc tiến, tính ngân sách (thử nhập sai để thấy gợi ý, sai lần 2 hiện lời giải), viết bài nộp giảng viên.
-- **Case studies** → *Launching a bubble-tea brand*: đọc tình huống + bảng số liệu → làm nhiệm vụ.
-- **My course** → tuần 5 → *Market simulator*: tăng cầu, thêm giá trần hoặc thuế.
-- **Assessments** → làm Midterm → điểm tính từ đáp án thật.
-
-## 6. Giảng viên chấm và xem bản giảng viên (2 phút) — *Michael Nguyen*
-- **Grades & marking** (Điểm & chấm bài): mỗi lớp gập/mở; cột **To mark** trên từng sinh viên hoặc nút **Mark next** → xem bài cạnh đáp án mẫu và tiêu chí → chọn điểm, phản hồi nhanh → *Save & next* (đi tiếp trong cùng lớp).
-- **Workbook & cases** → tab *Workbook* → mở một unit: bản giảng viên có đáp án, lời giải, % lớp làm đúng.
-- Tab *Case studies* → mở case dạng bento (hình, âm thanh, bảng số liệu, trắc nghiệm) + teaching notes → **Edit layout** để kéo thả, đổi kích thước, thêm hình/âm thanh/câu hỏi.
-- Nút **Print** → bản in sinh viên / bản giảng viên (Save as PDF).
-
-## 7. Studio đề thi (3 phút) — *Dr. Le Hoang Nam*
-- **Exam studio** → *Final Examination · Bachelor of Marketing* (bản nháp cùng 2 giảng viên).
-- **Invite** thêm người → đổi sang *Michael Nguyen* → **Add from bank** / **Write new** → bình luận.
-- Về Trưởng khoa → **Send for review** → các đồng biên tập **Sign off** → **Lock paper** → **Schedule**.
-- Mở *Final · Bachelor of Economics* (đề hoàn chỉnh, đã khóa) → **Paper** và **Answer key** để in.
+## 6. Studio đề thi (3 phút): *Dr. Le Hoang Nam*
+Final đã khoá (16 câu, mỗi unit một câu), đề resit đang soạn cùng giảng viên, Progress Test Units 1–5 đang review. In đề và đáp án.
 
 ## Có gì trong bộ học liệu
 | Phần | Nội dung |
 |---|---|
-| Workbook | 92 bài cho 24 unit: phân loại, sắp thứ tự, tính toán (tự chấm), bài viết (giảng viên chấm, có đáp án mẫu + tiêu chí 4 điểm) |
-| Case study | 8 case đầy đủ: bối cảnh Việt Nam, bảng số liệu, 26 nhiệm vụ, teaching notes |
-| Ngân hàng câu hỏi | 72 câu trắc nghiệm theo unit, môn và cấp độ Bloom |
-| Bộ đề | Final Kinh tế và Final Kế toán – Tài chính (16 câu, đã khóa); Final Marketing (nháp để demo cùng soạn); Common Quiz Kinh tế (đang review) |
-| Bản in | Đề thi + đáp án, workbook từng unit hoặc cả ngành, case study + teaching notes |
-
-Số liệu trong case là số liệu minh họa để giảng dạy, không phải số liệu thống kê chính thức.
+| Unit | 16 tuần: MK1–MK10 (10 unit dạy), RV1 ôn tập, MID giữa kỳ, PJ1–PJ2 dự án proposal + pitch, RV2 ôn tập, FX thi cuối kỳ |
+| Workbook | 230 bài theo 4 kỹ năng + từ vựng & ngữ pháp; đọc, nghe, từ vựng tự chấm; nói và viết giảng viên chấm |
+| Case study | 2 case marketing có bảng số liệu, audio và teaching notes |
+| Ngân hàng câu hỏi | 96 câu trắc nghiệm, mỗi unit 6 câu, gắn mức Bloom |
+| Từ vựng & ngữ pháp | 80 từ (EN–VI, collocation, ví dụ), 10 điểm ngữ pháp B1–B1+ |
+| Thư viện | 32 hoạt động lớp học, worksheet, practical, dự án nhóm; 3 giáo trình (chỉ PDF và số trang) |

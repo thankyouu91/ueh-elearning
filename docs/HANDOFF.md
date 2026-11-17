@@ -42,3 +42,10 @@ Each `VOCAB` row in `js/seed.js` is `[term, vi, def, unitId, pos, family, exampl
 ## Grammar reference (2026-11-16)
 
 `GRAMMAR` in `js/seed.js` holds one point per unit, 24 rows: `[id, unitId, name, vi, form, use, useVi, examples, watchOut]`. The student page `#/student/grammar` (sidebar, under Vocabulary) reveals it in four steps — the pattern, when to use it, three business examples with a common-mistake warning, then practice. Practice reuses the unit's own `skill: 'U'` exercises through `studentExercise`, and stays locked until the class reaches that unit. State version 14.
+
+## ESP Marketing class (2026-11-17)
+- All earlier demo content (5 subjects, 31 units, 5 classes) was removed. The platform now holds one class: **MKT-K50-ESP01**, *English for Marketing Communication (ESP, B1–B1+)*, 30 students, week 9 of 16.
+- Content lives in `js/content/`: `mkt-units.js` (16 units and week order) and `mkt-a…d.js` (workbook items, question bank `Q`, `VOCAB`, `GRAMMAR`, library `LIB`). `index.js` combines them; `js/seed.js` imports them. Spec for writing more: `docs/esp/content-spec.md`.
+- Method: genre-based teaching–learning cycle plus task-based speaking. `blocksForUnit` in `js/seed.js` builds the lesson blocks in that order.
+- Users kept: P1 (Vice Rector), D3 (Dean, Marketing), I3 and I2 (ESP lecturers), A1 (admin). State version is 16.
+- Not done: nobody has proofread the English and Vietnamese content yet; speaking recordings still live only in the browser.
