@@ -168,6 +168,31 @@ export function gradeAttempt(s, assessment, answers) {
   return { score, maxScore: max };
 }
 
+/* ---------- multi-part exams (e.g. the 4-skill midterm): auto-checked MCQ parts + lecturer-marked task parts ---------- */
+export const examTaskIds = (a) => (a.parts || []).flatMap(p => p.taskIds || []);
+/**
+ * Per-part results of an attempt and the weighted total (0–100). Task parts use the student's workbook answers (0–4 each);
+ * an unanswered task counts 0. `pending` = tasks still waiting for the lecturer.
+ */
+export function examBreakdown(s, a, at) {
+  let total = 0, pending = 0;
+  const parts = a.parts.map(p => {
+    let got, max;
+    if (p.taskIds) {
+      const ans = p.taskIds.map(id => answerOf(s, at.studentId, id));
+      pending += ans.filter(x => x?.status === 'submitted').length;
+      got = ans.reduce((t, x) => t + (x?.status === 'graded' ? x.score : 0), 0); max = p.taskIds.length * 4;
+    } else {
+      const ids = p.groups.flatMap(g => g.questionIds);
+      got = ids.filter(id => at.answers[id] === questionById(s, id).answerIndex).length; max = ids.length;
+    }
+    const pct = max ? got / max : 0;
+    total += pct * p.weight;
+    return { id: p.id, title: p.title, weight: p.weight, got, max, pct, tasks: !!p.taskIds };
+  });
+  return { parts, total: Math.round(total * 10) / 10, pending };
+}
+
 /** Score on a 0–10 scale, or null when there is nothing to grade yet. `missing` = closed with no submission. */
 export function assessmentResult(s, studentId, a) {
   if (a.type === 'workshop') {
@@ -183,6 +208,7 @@ export function assessmentResult(s, studentId, a) {
     const best = Math.max(...at.map(x => x.score / x.maxScore));
     return { value: round1(best * 10), state: 'graded', attempts: at.length };
   }
+  if (attemptsOf(s, studentId, a.id).some(x => x.status === 'pending_marking')) return { value: null, state: 'awaiting_grade' };
   const st = assessmentStatus(s, a);
   if (st === 'closed') return { value: 0, state: 'missing' };
   return { value: null, state: st };
@@ -445,7 +471,7 @@ export function autoFillPicks(s, ex) {
   const used = new Set(examQuestionIds(ex));
   const lastTerm = new Set(s.exams.filter(e => e.id !== ex.id && ['locked', 'scheduled'].includes(e.status)).flatMap(examQuestionIds));
   const units = activeVersion(programById(s, ex.programId)).unitIds;
-  const pool = s.questions.filter(q => units.includes(q.unitId) && !used.has(q.id));
+  const pool = s.questions.filter(q => units.includes(q.unitId) && !used.has(q.id) && !q.examOnly);
   const subj = { ...st.subjects }, bloom = { ...st.bloom }, picks = [];
   while (need-- > 0) {
     let best = null, bestScore = -Infinity;
@@ -579,7 +605,8 @@ export function pendingMarking(s, sections, userId = null) {
   const ids = new Set(sections.flatMap(x => x.studentIds));
   return s.workbookAnswers.filter(a => a.status === 'submitted' && ids.has(a.studentId)
     && (!userId || teachesUnit(s, userId, userById(s, a.studentId).sectionId, exerciseById(s, a.exerciseId).unitId)))
-    .sort((a, b) => new Date(a.at) - new Date(b.at));
+    // exam tasks first (they hold back a final mark), then oldest first
+    .sort((a, b) => (exerciseById(s, b.exerciseId).caseId?.startsWith('EXAM:') ? 1 : 0) - (exerciseById(s, a.exerciseId).caseId?.startsWith('EXAM:') ? 1 : 0) || new Date(a.at) - new Date(b.at));
 }
 export function exerciseStats(s, exerciseId, studentIds) {
   const e = exerciseById(s, exerciseId);

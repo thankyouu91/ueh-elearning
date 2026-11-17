@@ -4,6 +4,7 @@ import { addLibrarySeed } from './seed-library.js';
 import { addWorkbookSeed } from './seed-workbook.js';
 import { UNITS, WEEKS, Q, VOCAB, GRAMMAR, LESSONS, PHOTOS } from './content/index.js';
 import { unitExercises } from './seed-workbook.js';
+import { addMidterm } from './seed-midterm.js';
 
 export const TERM_START = '2026-09-07T00:00:00'; // Monday of week 1
 export const TERM_WEEKS = 16;
@@ -204,7 +205,7 @@ export function buildSeed() {
     A('Q2', 'quiz', 'Quiz 2, Weeks 3–4', 4, 0, 4, 6, wk(3, 4, 3), { maxAttempts: 2 });
     A('UT1', 'unit_test', 'Unit Test 1, Weeks 1–6', 6, 0, 6, 6, wk(1, 6, 2), { timeLimitMin: 25 });
     A('CR1', 'workshop', 'Writing Portfolio 1, Stakeholder memo', 6, 0, 7, 4, [], { rubric, timeLimitMin: null });
-    A('MID', 'midterm', 'Midterm Examination', CURRENT_WEEK, 0, CURRENT_WEEK + 1, 4, wk(1, 8, 2), { timeLimitMin: 30, origin: 'standardized', createdBy: deanOf[p.id] });
+    A('MID', 'midterm', 'Midterm Examination', CURRENT_WEEK, 0, CURRENT_WEEK + 1, 4, wk(1, 8, 2), { timeLimitMin: 120, origin: 'standardized', createdBy: deanOf[p.id] }); // paper and parts: js/seed-midterm.js
     A('Q3', 'quiz', 'Quiz 3, Weeks 9–10', 10, 0, 10, 6, wk(9, 10, 3), { maxAttempts: 2 });
     A('CR2', 'workshop', 'Writing Portfolio 2, Campaign proposal', 11, 0, 12, 4, [], { rubric, timeLimitMin: null });
     A('Q4', 'quiz', 'Quiz 4, Weeks 11–12', 12, 0, 12, 6, wk(11, 12, 3), { maxAttempts: 2 });
@@ -273,7 +274,7 @@ export function buildSeed() {
     { id: 'N3', userId: 'I3', title: 'Changes requested', body: `Dr. Le Hoang Nam: "${crLesson.reviewNote}"`, link: `#/instructor/builder/${crLesson.id}`, createdAt: iso(at(CURRENT_WEEK - 1, 2, 10)), readAt: null },
     { id: 'N4', userId: 'I3', title: 'Portfolio marking pending', body: '3 students in MKT-K50-ESP01 still need a rubric grade for Writing Portfolio 1.', link: '#/instructor/gradebook', createdAt: now(0, 8), readAt: null },
     { id: 'N6', userId: 'A1', title: 'Roster sync completed', body: `Simulated OneRoster sync reconciled ${students.length} student seats.`, link: '#/admin/integrations', createdAt: now(0, 6), readAt: null },
-    ...students.map((s, i) => ({ id: `NS${i}`, userId: s.id, title: 'Midterm Examination is open', body: 'The midterm closes on Friday of week 10. You have one attempt of 30 minutes.', link: `#/student/exam/${programs.find(p => p.id === sections.find(x => x.id === s.sectionId).programId).code}-MID`, createdAt: now(0, 8), readAt: midDone.includes(s.id) ? now(1, 9) : null })),
+    ...students.map((s, i) => ({ id: `NS${i}`, userId: s.id, title: 'Midterm Examination is open', body: 'The midterm closes on Friday of week 10. You have one attempt of 120 minutes: listening, reading, vocabulary and grammar, writing and speaking.', link: `#/student/exam/${programs.find(p => p.id === sections.find(x => x.id === s.sectionId).programId).code}-MID`, createdAt: now(0, 8), readAt: midDone.includes(s.id) ? now(1, 9) : null })),
   ];
 
   const auditLog = [
@@ -283,7 +284,7 @@ export function buildSeed() {
   ];
 
   const st = {
-    version: 19,
+    version: 20,
     clock: { week: CURRENT_WEEK, setAt: Date.now() },
     session: { userId: null },
     ui: { theme: 'light', orgFilter: null },
@@ -307,6 +308,7 @@ export function buildSeed() {
   addLibrarySeed(st, { blocksForUnit: (u) => blocksForUnit(u, ctx), at, iso, CURRENT_WEEK });
   st.__profiles = profile;
   addWorkbookSeed(st, { rng, iso, at, CURRENT_WEEK });
+  addMidterm(st, { rng, iso, at, CURRENT_WEEK, profiles: profile });
   delete st.__profiles;
   return st;
 }

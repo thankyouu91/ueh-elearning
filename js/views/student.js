@@ -141,7 +141,7 @@ function blockBody(s, l, b) {
     case 'page': return pageGrid(s, b, { mode: 'student', me: S.currentUser(s) });
     case 'resource': { const r = S.resourceById(s, b.resourceId); return r ? `${b.extra ? `<div class="note note-info" style="margin-bottom:12px">${icon(RES_META[r.type].icon)}<div><strong>${RES_META[r.type].label}</strong> — ${r.type === 'practical' ? 'held in the computer lab / classroom; bring your laptop.' : 'add-on activity for this week.'}</div></div>` : ''}${resourceBody(s, r)}` : '<p class="small muted">This resource was removed.</p>'; }
     case 'quiz': {
-      const qs = s.questions.filter(q => q.unitId === l.unitId).slice(0, 3);
+      const qs = s.questions.filter(q => q.unitId === l.unitId && !q.examOnly).slice(0, 3);
       const st = player.practice[b.id] || {};
       return `<p class="muted small" style="margin-bottom:10px">Practice only — not graded. You get instant feedback.</p>${qs.map((q, qi) => `<div class="q-card"><div class="q-stem">${qi + 1}. ${esc(q.stem)}</div>${q.options.map((o, oi) => {
         const picked = st[q.id];
@@ -217,24 +217,34 @@ function examPage(s, id, me) {
       title: a.title,
       html: `<div class="page" style="max-width:760px">${pageHead(esc(a.title), `${ASSESS_META[a.type].label}${a.origin === 'standardized' ? ', Standardized' : ''}`, `<a class="btn" href="#/student/assessments">${icon('arrow-left')} Assessments</a>`)}
         ${card({ body: `<div class="grid" style="gap:12px">
-          <div class="span-3"><div class="small muted">Questions</div><strong>${a.questionIds.length}</strong></div>
+          <div class="span-3"><div class="small muted">Questions</div><strong>${a.questionIds.length}${a.parts ? ` + ${S.examTaskIds(a).length} tasks` : ''}</strong></div>
           <div class="span-3"><div class="small muted">Time limit</div><strong>${a.timeLimitMin ? `${a.timeLimitMin} min` : 'None'}</strong></div>
           <div class="span-3"><div class="small muted">Attempts</div><strong>${att.length} / ${a.maxAttempts}</strong></div>
           <div class="span-3"><div class="small muted">Closes</div><strong>${S.fmtDateTime(a.closesAt)}</strong></div></div>
-          <div class="mt-4">${st === 'open' ? `<div class="note note-info">${icon('info')}<div>Answers are auto-graded when you submit. The timer starts when you press Start and cannot be paused. <span data-countdown="${a.closesAt}"></span> until the window closes.</div></div>` : st === 'scheduled' ? `<div class="note note-info">${icon('calendar')}<div>Opens ${S.fmtDateTime(a.opensAt)}.</div></div>` : `<div class="note note-warn">${icon('lock')}<div>This assessment is closed.</div></div>`}</div>
+          <div class="mt-4">${st === 'open' ? `<div class="note note-info">${icon('info')}<div>${a.parts ? `Five parts: ${a.parts.map(p => `${p.title.replace(/^Part \d+, /, '')} (${p.weight}%)`).join(', ')}. Listening, reading and language are checked when you submit; your lecturer marks writing and speaking, then your final mark appears. Save each writing and speaking task before you submit.` : 'Answers are auto-graded when you submit.'} The timer starts when you press Start and cannot be paused. <span data-countdown="${a.closesAt}"></span> until the window closes.</div></div>` : st === 'scheduled' ? `<div class="note note-info">${icon('calendar')}<div>Opens ${S.fmtDateTime(a.opensAt)}.</div></div>` : `<div class="note note-warn">${icon('lock')}<div>This assessment is closed.</div></div>`}</div>
           <div class="row gap-2 mt-4">${can ? `<button class="btn btn-primary" data-action="exam-start" data-id="${a.id}">${icon('play')} Start ${att.length ? 'new attempt' : 'assessment'}</button>` : ''}${att.length ? `<a class="btn" href="#/student/result/${att[att.length - 1].id}">Review last attempt</a>` : ''}</div>` })}
       </div>`,
     };
   }
   const qs = a.questionIds.map(qid => S.questionById(s, qid));
   const answered = Object.keys(exam.answers).length;
+  let n = 0;
+  const qCard = (q) => `<div class="q-card card" style="box-shadow:none"><div class="q-stem">${++n}. ${esc(q.stem)} <span class="faint small">(${q.points} pt)</span></div>
+        ${q.options.map((o, oi) => `<label class="opt ${exam.answers[q.id] === oi ? 'selected' : ''}"><input type="radio" name="${q.id}" value="${oi}" data-change="exam-answer" data-q="${q.id}" ${exam.answers[q.id] === oi ? 'checked' : ''}> ${esc(o)}</label>`).join('')}</div>`;
+  // Multi-part exam: sections with their reading text or recording; writing and speaking tasks are saved one by one for marking.
+  const partHtml = (p) => card({ title: p.title, subtitle: `About ${p.minutes} minutes, ${p.weight}% of the mark`, body: `<p class="small muted">${esc(p.instructions || '')}</p>
+    ${p.taskIds ? p.taskIds.map(id => { const e = S.exerciseById(s, id); return studentExercise(s, e, ++n, S.answerOf(s, me.id, e.id)); }).join('')
+      : p.groups.map(g => `<div class="stack gap-3 mt-4"><h3 class="tile-h">${esc(g.title)}</h3>
+        ${g.audio ? `<button class="btn btn-sm" data-action="bento-speak" data-text="${esc(g.audio.replace(/^[A-Z][\w .']{0,20}:\s*/gm, ''))}" style="align-self:flex-start">${icon('play')} Play recording</button>` : ''}
+        ${g.text ? `<div class="prose card card-body" style="box-shadow:none">${g.text.split(/\n\n+/).map(x => `<p>${esc(x)}</p>`).join('')}</div>` : ''}
+        ${g.questionIds.map(id => qCard(S.questionById(s, id))).join('')}</div>`).join('')}` });
+  const tasks = S.examTaskIds(a);
   return {
     title: a.title,
     html: `<div class="page" style="max-width:820px">
-      <div class="card card-body exam-bar row between gap-3 wrap"><div><strong>${esc(a.title)}</strong><div class="small muted"><span id="exam-answered">${answered}</span> of ${qs.length} answered</div></div>
+      <div class="card card-body exam-bar row between gap-3 wrap"><div><strong>${esc(a.title)}</strong><div class="small muted"><span id="exam-answered">${answered}</span> of ${qs.length} answered${tasks.length ? `, ${tasks.filter(id => S.answerOf(s, me.id, id)).length} of ${tasks.length} tasks saved` : ''}</div></div>
         <div class="row gap-3">${a.timeLimitMin ? `<span class="timer" id="exam-timer">--:--</span>` : ''}<button class="btn btn-primary" data-action="exam-submit">${icon('send')} Submit</button></div></div>
-      ${qs.map((q, i) => `<div class="q-card card" style="box-shadow:none"><div class="q-stem">${i + 1}. ${esc(q.stem)} <span class="faint small">(${q.points} pt)</span></div>
-        ${q.options.map((o, oi) => `<label class="opt ${exam.answers[q.id] === oi ? 'selected' : ''}"><input type="radio" name="${q.id}" value="${oi}" data-change="exam-answer" data-q="${q.id}" ${exam.answers[q.id] === oi ? 'checked' : ''}> ${esc(o)}</label>`).join('')}</div>`).join('')}
+      ${a.parts ? a.parts.map(partHtml).join('') : qs.map(qCard).join('')}
       <div class="row" style="justify-content:flex-end"><button class="btn btn-primary" data-action="exam-submit">${icon('send')} Submit answers</button></div>
     </div>`,
     mount: () => {
@@ -265,6 +275,17 @@ function result(s, id, me) {
   const at = s.attempts.find(x => x.id === id && x.studentId === me.id);
   if (!at) return { title: 'Result', html: card({ body: empty('file-x', 'Result not found') }) };
   const a = S.assessmentById(s, at.assessmentId);
+  if (a.parts) {
+    const b = S.examBreakdown(s, a, at);
+    const final = at.status === 'graded';
+    return {
+      title: `Result, ${a.title}`,
+      html: `<div class="page" style="max-width:820px">${pageHead(`Result: ${esc(a.title)}`, `Submitted ${S.fmtDateTime(at.submittedAt)}`, `<a class="btn" href="#/student/assessments">${icon('arrow-left')} Assessments</a>`)}
+        <div class="grid"><div class="span-6">${kpi({ label: 'Final mark', value: final ? `${S.round1(at.score / 10).toFixed(1)}<small> / 10</small>` : '—', sub: final ? 'Counts in your course grade' : `${b.pending} task(s) waiting for your lecturer`, iconName: 'award', tone: final && at.score < 50 ? 'danger' : 'ok' })}</div>
+        <div class="span-6">${kpi({ label: 'Time taken', value: `${Math.max(1, Math.round((new Date(at.submittedAt) - new Date(at.startedAt)) / 60000))} min`, sub: `Limit ${a.timeLimitMin} min`, iconName: 'timer' })}</div></div>
+        ${card({ title: 'Your parts', body: `<table class="table"><thead><tr><th>Part</th><th>Weight</th><th>Result</th></tr></thead><tbody>${b.parts.map(p => `<tr><td>${esc(p.title)}</td><td>${p.weight}%</td><td>${p.tasks && !final && b.pending ? 'Waiting for marking' : `${p.got} / ${p.max}${p.tasks ? ' points' : ' correct'}`}</td></tr>`).join('')}</tbody></table>` })}</div>`,
+    };
+  }
   const ten = S.round1((at.score / at.maxScore) * 10);
   return {
     title: `Result, ${a.title}`,
