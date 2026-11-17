@@ -11,6 +11,8 @@ const W = (unitId, title, prompt, model, marking, words = 120) => ({ unitId, typ
 
 // Workbook exercises now live in js/content/ (ESP pack).
 export const EXERCISES = [];
+/** Unit exercises with their final ids; the seed also uses them to build lesson pages before the workbook is added. */
+export const unitExercises = () => [...EXERCISES, ...EXTRA_EXERCISES].map((e, i) => ({ ...e, id: `WB-${e.unitId}-${i + 1}`, caseId: null }));
 
 /* ------------------------------------------------------------------ case studies */
 // Each case: background, exhibit table, tasks (exercises with caseId), teaching notes.
@@ -91,7 +93,7 @@ export function addWorkbookSeed(st, { rng, iso, at, CURRENT_WEEK }) {
   let seq = 0;
   const ex = [];
   // extra content comes after the original set so existing exercise ids stay the same
-  for (const e of [...EXERCISES, ...EXTRA_EXERCISES]) ex.push({ ...e, id: `WB-${e.unitId}-${++seq}`, caseId: null });
+  ex.push(...unitExercises()); seq = ex.length;
   for (const c of CASES) {
     (CASE_MCQ[c.id] || []).forEach(([stem, opts, explanation], i) => {
       const order = opts.map((o, k) => ({ o, k, s: r() })).sort((a, b) => a.s - b.s);

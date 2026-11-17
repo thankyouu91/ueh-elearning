@@ -87,7 +87,8 @@ export function pageGrid(s, b, { mode = 'student', me = null, layout = null } = 
   const tiles = layout || b.layout || [];
   if (!tiles.length) return empty('layout-panel-top', 'This page is empty', 'Add text, images, tables or a quick check.');
   const ctx = { picks: checkPicks[b.id] || {}, blockId: b.id, action: 'page-check' };
-  return `<div class="bento page-grid">${tiles.map(t => tileHtml(s, t, mode, me, 0, null, ctx)).join('')}</div>`;
+  let n = 0;
+  return `<div class="bento page-grid">${tiles.map(t => tileHtml(s, t, mode, me, t.kind === 'question' ? ++n : 0, null, ctx)).join('')}</div>`;
 }
 
 const urls = new Map();

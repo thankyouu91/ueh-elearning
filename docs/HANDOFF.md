@@ -49,3 +49,5 @@ Each `VOCAB` row in `js/seed.js` is `[term, vi, def, unitId, pos, family, exampl
 - Method: genre-based teaching–learning cycle plus task-based speaking. `blocksForUnit` in `js/seed.js` builds the lesson blocks in that order.
 - Users kept: P1 (Vice Rector), D3 (Dean, Marketing), I3 and I2 (ESP lecturers), A1 (admin). State version is 16.
 - Not done: nobody has proofread the English and Vietnamese content yet; speaking recordings still live only in the browser.
+- Lessons (2026-11-17, later): each lesson is about 90 minutes in 9 stages (lead-in, key words, model text, genre analysis, language focus, listening, speaking, writing, practice check). The stages are `page` blocks that embed the unit's real workbook items. The plan per unit (minutes, lead-in, genre moves, speaking prep, writing frame, checklist) is in `js/content/mkt-lessons.js`; `blocksForUnit(unit, ctx)` in `js/seed.js` builds the blocks from it. State version is 17.
+- Known storyline gaps (not fixed): Green Leaf Tea's shop count and the cold-brew launch date differ between units; some minor character names repeat.

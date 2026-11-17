@@ -4,8 +4,8 @@ import { C, O, M, READ, LISTEN, SPEAK, WRITE, USE } from './helpers.js';
 
 // [unitId, stem, options (FIRST option = correct answer; the seed shuffles them), bloom]
 export const Q = [
-  ['MK1', 'Choose the correct verb: "Our stakeholders ___ into two groups."', ['are divided', 'divide', 'is divided', 'are dividing'], 'Remember'],
-  ['MK1', 'Which word means a person or group that is affected by a business and cares about it?', ['stakeholder', 'competitor', 'shareholder only', 'consumer goods'], 'Remember'],
+  ['MK1', 'Choose the correct verb: "Our products ___ into three groups: tea, snacks and gift boxes."', ['are divided', 'divide', 'is divided', 'are dividing'], 'Remember'],
+  ['MK1', 'Which word means a person or group that is affected by a business and cares about it?', ['stakeholder', 'competitor', 'advertiser', 'retailer'], 'Remember'],
   ['MK1', 'Which group is an EXTERNAL stakeholder of Green Leaf Tea?', ['The tea farmers in Bao Loc', 'The shop managers', 'The marketing team', 'The founder'], 'Understand'],
   ['MK1', 'What does "The internal group consists of owners, managers and staff" mean?', ['Owners, managers and staff are the parts of the internal group.', 'Owners, managers and staff disagree with the internal group.', 'The internal group is bigger than the external group.', 'Only managers belong to the internal group.'], 'Understand'],
   ['MK1', 'Choose the correct sentence.', ['Our external stakeholders include customers and suppliers.', 'Our external stakeholders includes customers and suppliers.', 'Our external stakeholders are include customers and suppliers.', 'Our external stakeholders including customers and suppliers.'], 'Apply'],
@@ -13,7 +13,7 @@ export const Q = [
 
   ['MK2', 'Which word expresses a strong rule or obligation?', ['must', 'should', 'might', 'could'], 'Remember'],
   ['MK2', 'Which part of a memo tells the reader what the memo is about in a few words?', ['The subject line', 'The signature', 'The closing sentence', 'The date'], 'Remember'],
-  ['MK2', `What does "You don't have to bring a laptop" mean?`, ['It is not necessary to bring a laptop.', 'You are not allowed to bring a laptop.', 'You must bring a laptop.', 'You should probably bring a laptop.'], 'Understand'],
+  ['MK2', `What does "You don't have to wear a uniform on Saturday" mean?`, ['It is not necessary to wear a uniform on Saturday.', 'You are not allowed to wear a uniform on Saturday.', 'You must wear a uniform on Saturday.', 'You should probably wear a uniform on Saturday.'], 'Understand'],
   ['MK2', 'Why do memos usually use "should" for suggestions and "must" for rules?', ['To show the reader which actions are required and which are only advised', 'To make the memo longer and more formal', 'Because "must" is more polite than "should"', 'Because memos cannot use the imperative'], 'Understand'],
   ['MK2', 'Complete the memo: "All staff ___ attend the safety briefing on Monday. It is required by law."', ['have to', 'might', `don't have to`, 'could'], 'Apply'],
   ['MK2', 'Complete the sentence: "Suppliers expect ___ payment, so we must pay within 30 days."', ['on-time', 'late', 'loyal', 'external'], 'Apply'],
@@ -232,7 +232,7 @@ Thank you for your support. Please contact me if you have any questions.`, [
         'Drivers who park on the pavement "block" it: people cannot walk past.'),
     ]),
   ...LISTEN('MK2-l', 'Listening, The supplier call',
-    `Linh, can you take some notes? I've just spoken to Mr Tran. He's worried. Prices for fertiliser went up again this year, so he wants to raise the price of our green tea leaves by eight percent from June. He also says we have to pay faster. At the moment we pay after forty-five days, and that's too long for a small farm. To be honest, I think he's right. If we lose Mr Tran, we lose most of our tea. So, first, we must change the payment time to thirty days. Second, we should visit the farm. I've suggested Saturday the twelfth of April, and he's happy with that date. Could you book a car for us and prepare a short list of questions about the new harvest?`, [
+    `Linh, can you take some notes? I've just spoken to Mr Tran. He's worried. Prices for fertiliser went up again this year, so he wants to raise the price of our green tea leaves by eight per cent from June. He also says we have to pay faster. At the moment we pay after forty-five days, and that's too long for a small farm. To be honest, I think he's right. If we lose Mr Tran, we lose most of our tea. So, first, we must change the payment time to thirty days. Second, we should visit the farm. I've suggested Saturday the twelfth of April, and he's happy with that date. Could you book a car for us and prepare a short list of questions about the new harvest?`, [
       M('MK2', 'Gist', 'Why is Mr Tran worried?',
         ['His costs are rising and payment is slow', 'His farm had a bad harvest', 'He wants to stop selling tea', 'Green Leaf Tea cancelled an order'], 0,
         'Fertiliser prices "went up again" and he says "we have to pay faster".'),
@@ -294,17 +294,17 @@ How to reach them: The best channels are TikTok, Instagram and delivery apps. Me
         ['Early in the morning', 'Only at weekends', 'Late at night', 'In the afternoon'], 3,
         '"They buy drinks three or four times a week, usually in the afternoon."'),
       M('MK3', 'Vocabulary in context', 'In the second paragraph, "subculture" means…',
-        ['a type of tea', 'a smaller group with its own habits inside a bigger culture', 'a family tradition', 'a city government rule'], 1,
+        ['a type of tea that is popular in big cities', 'a smaller group with its own habits inside a bigger culture', 'a family tradition that people follow at Tet', 'a rule that the city government has made'], 1,
         'The text contrasts Vietnamese culture in general with a "city subculture" of young workers who share certain values.'),
     ]),
   ...LISTEN('MK3-l', 'Listening, Survey results',
-    `OK, so here are the results of our student survey. We asked two hundred students at three universities about drinks. The first thing we found is that students who live in dormitories buy drinks more often than students who live with their families. Almost every day, in fact. Second, sixty-four percent of them order online, and the busiest time is around nine p.m., after evening classes. Third, culture matters. During Tet and the Mid-Autumn Festival, many students buy tea as a gift for their parents, not for themselves. So I think we need two different messages: a quick, cheap drink for everyday study, and a beautiful gift box which students can take home for the holidays. I'd like to test both ideas next month at Thu Duc campus.`, [
+    `OK, so here are the results of our student survey. We asked two hundred students at three universities about drinks. The first thing we found is that students who live in dormitories buy drinks more often than students who live with their families. Almost every day, in fact. Second, sixty-four per cent of them order online, and the busiest time is around nine p.m., after evening classes. Third, culture matters. During Tet and the Mid-Autumn Festival, many students buy tea as a gift for their parents, not for themselves. So I think we need two different messages: a quick, cheap drink for everyday study, and a beautiful gift box which students can take home for the holidays. I'd like to test both ideas next month at Thu Duc campus.`, [
       M('MK3', 'Gist', 'What is the speaker talking about?',
         ['A new shop opening at a university', 'The results of a survey about students and drinks', 'The history of the Mid-Autumn Festival', 'How to write a survey'], 1,
         '"Here are the results of our student survey."'),
       M('MK3', 'Detail', 'What percentage of students order drinks online?',
         ['64%', '40%', '9%', '200%'], 0,
-        '"Sixty-four percent of them order online." Two hundred is the number of students, and nine p.m. is the busiest time.'),
+        '"Sixty-four per cent of them order online." Two hundred is the number of students, and nine p.m. is the busiest time.'),
       M('MK3', 'Next step', 'What does the speaker want to do next month?',
         ['Ask two hundred more students', 'Close the online shop', 'Test two ideas at Thu Duc campus', 'Visit students\' parents'], 2,
         '"I\'d like to test both ideas next month at Thu Duc campus."'),
@@ -369,9 +369,9 @@ Linh`, [
         'Linh worries that some customers "could find it offensive", that is, feel upset or insulted.'),
     ]),
   ...LISTEN('MK4-l', 'Listening, A meeting with the design agency',
-    `Thanks for coming, Khoa. We really like the new video for the gift boxes. The music is lovely, and the shots of Da Lat are beautiful. But we've noticed three small problems. First, in the kitchen scene, only the mother and the grandmother are making tea, and the men are watching football. Could we show the father making tea too? Second, all the people speak with a Hanoi accent. Our customers are mostly in the south, so it might be better to have a mix of voices. And third, the farmer in the video is a man, but Mr Tran's farm is actually run by his daughter. Why don't we show her? Honestly, I think these changes will make the video feel more real. Can you send the new version by Thursday?`, [
+    `Thanks for coming, Khoa. We really like the new video for the gift boxes. The music is lovely, and the shots of Da Lat are beautiful. But we've noticed three small problems. First, in the kitchen scene, only the mother and the grandmother are making tea, and the men are watching football. Could we show the father making tea too? Second, all the people speak with a Hanoi accent. Our customers are mostly in the south, so it might be better to have a mix of voices. And third, the farmer in the video is a man, but half of the farmers who work with Mr Tran in Bao Loc are women. Why don't we show one of them? Honestly, I think these changes will make the video feel more real. Can you send the new version by Thursday?`, [
       M('MK4', 'Gist', 'What is the speaker doing?',
-        ['Asking for a lower price for the video', 'Giving feedback and suggesting changes to a video', 'Explaining how to make tea', 'Introducing Mr Tran\'s daughter'], 1,
+        ['Asking for a lower price for the video', 'Giving feedback and suggesting changes to a video', 'Explaining how to make tea', 'Introducing a new tea farmer'], 1,
         'She praises the video and then lists "three small problems" with suggestions.'),
       M('MK4', 'Detail', 'How many problems does the speaker mention?',
         ['Two', 'Four', 'Three', 'One'], 2,

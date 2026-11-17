@@ -2,7 +2,8 @@
 // Every number shown in the UI is derived from this data by selectors.js.
 import { addLibrarySeed } from './seed-library.js';
 import { addWorkbookSeed } from './seed-workbook.js';
-import { UNITS, WEEKS, Q, VOCAB, GRAMMAR } from './content/index.js';
+import { UNITS, WEEKS, Q, VOCAB, GRAMMAR, LESSONS } from './content/index.js';
+import { unitExercises } from './seed-workbook.js';
 
 export const TERM_START = '2026-09-07T00:00:00'; // Monday of week 1
 export const TERM_WEEKS = 16;
@@ -26,24 +27,72 @@ const FRAMEWORK = WEEKS;
 const REQUIRED = ['MK1', 'MK2', 'MK3', 'MK4', 'MK5', 'MK6', 'MK7', 'MK8', 'MK9', 'MK10', 'MID', 'FX'];
 const CURRICULA = { 'P-MKT': WEEKS };
 const GENRE = Object.fromEntries(UNITS.map(u => [u[0], u[4]]));
+const GRAMMAR_BY_UNIT = Object.fromEntries(GRAMMAR.map(g => [g[1], { name: g[2], form: g[4], use: g[5], examples: g[7], watchOut: g[8] }]));
 
 let blkSeq = 0;
-/** Lesson blocks follow the genre-based teaching–learning cycle: build the field, study the model, language focus, practise. */
-export function blocksForUnit(unit) {
-  const b = (type, title, minutes) => ({ id: `B${++blkSeq}-${Math.random().toString(36).slice(2, 6)}`, type, title, minutes });
+const tileSeq = { n: 0 };
+const tile = (kind, w, h, extra) => ({ id: `TL-L${++tileSeq.n}`, kind, w, h, ...extra });
+const qTile = (e) => tile('question', e.type === 'written' ? 4 : 2, 1, { exerciseId: e.id });
+const bullets = (list) => list.map(x => `- ${x}`).join('\n');
+
+/**
+ * Lesson blocks for a unit, in the order of the genre-based teaching–learning cycle:
+ * lead-in, key words, model text, genre analysis, language focus, listening, speaking (task-based), writing, practice check.
+ * Each stage is a page that embeds the unit's real workbook items; minutes come from the lesson plan (js/content/mkt-lessons.js).
+ * `ctx` needs `exercises` (with ids); grammar comes from the content files.
+ */
+export function blocksForUnit(unit, ctx) {
+  const P = LESSONS[unit.id] || {};
+  const m = P.minutes || {};
+  const ex = (ctx?.exercises || []).filter(e => e.unitId === unit.id && !e.caseId);
+  const by = (skill) => ex.filter(e => e.skill === skill);
+  const R = by('R'), L = by('L'), Sp = by('S'), Wr = by('W'), U = by('U');
+  const order = U.filter(e => e.type === 'order'), lang = U.filter(e => e.type !== 'order');
   const genre = GENRE[unit.id] || 'Review';
-  return [
-    b('theory', `Building the field: ${unit.title}`, 20),
-    b('vocabulary', 'Key words and chunks (EN–VI)', 10),
-    b('case_study', `Model text: ${genre}`, 20),
-    ...(unit.example ? [b('calculation', 'Language focus', 15)] : []),
-    b('case_study', `Speaking task: ${genre}`, 20),
-    b('quiz', 'Practice check', 10),
-  ];
+  const g = GRAMMAR_BY_UNIT[unit.id];
+  const b = (type, title, minutes, extra = {}) => ({ id: `B${++blkSeq}-${Math.random().toString(36).slice(2, 6)}`, type, title, minutes: minutes || 10, ...extra });
+  const page = (title, minutes, layout) => b('page', title, minutes, { layout: layout.filter(Boolean) });
+  const out = [];
+
+  out.push(page(`Lead-in: ${unit.title}`, m.leadIn, [
+    tile('text', 4, 1, { title: 'Today', body: `**By the end of this lesson:** ${unit.summary}\n\n${P.leadIn || ''}` }),
+    P.discussion?.length ? tile('text', 4, 1, { title: 'Talk in pairs (5 minutes)', body: P.discussion.map((q, i) => `${i + 1}. ${q}`).join('\n') }) : null,
+  ]));
+  out.push(b('vocabulary', 'Key words and chunks (EN–VI)', m.vocab));
+  if (R.length) out.push(page(`Model text: ${genre}`, m.model, [
+    tile('text', 4, 2, { title: R[0].scenario.title.replace(/^[^,]+, /, ''), body: R[0].scenario.text }),
+    ...R.map(qTile),
+  ]));
+  if (P.genreMoves?.length || order.length) out.push(page(`How the ${genre.toLowerCase()} works`, m.genre, [
+    P.genreMoves?.length ? tile('text', 4, 1, { title: 'Moves of the text', body: P.genreMoves.map(([move, purpose, phrases], i) => `${i + 1}. **${move}**: ${purpose} *Useful language:* ${phrases}`).join('\n') + (P.genreNote ? `\n\n${P.genreNote}` : '') }) : null,
+    ...order.map(qTile),
+  ]));
+  out.push(page(g ? `Language focus: ${g.name}` : 'Language focus: review', m.language, [
+    g ? tile('text', 4, 1, { title: g.name, body: `**Form:** ${g.form}\n\n**Use:** ${g.use}\n\n${bullets(g.examples)}\n\n**Watch out:** ${g.watchOut}` })
+      : unit.example ? tile('text', 4, 1, { title: 'Language focus', body: unit.example }) : null,
+    ...lang.map(qTile),
+  ]));
+  if (L.length) out.push(page(`Listening: ${L[0].scenario.title.replace(/^[^,]+, /, '')}`, m.listening, [
+    tile('audio', 4, 1, { title: 'Listen twice: first for the main idea, then for detail', transcript: L[0].scenario.audio }),
+    ...L.map(qTile),
+  ]));
+  if (Sp.length) out.push(page(`Speaking task: ${Sp[0].title.replace(/^[^,]+, /, '')}`, m.speaking, [
+    P.speakingPrep ? tile('text', 4, 1, { title: 'Plan (2 minutes)', body: P.speakingPrep }) : null,
+    ...Sp.map(qTile),
+    P.speakingFollowUp ? tile('text', 4, 1, { title: 'After speaking', body: P.speakingFollowUp }) : null,
+  ]));
+  if (Wr.length) out.push(page(`Writing task: ${Wr[0].title.replace(/^[^,]+, /, '')}`, m.writing, [
+    P.writingFrame?.length ? tile('text', 2, 1, { title: 'Writing frame', body: bullets(P.writingFrame) }) : null,
+    P.checklist?.length ? tile('text', 2, 1, { title: 'Check before you submit', body: bullets(P.checklist) }) : null,
+    ...Wr.map(qTile),
+  ]));
+  out.push(b('quiz', 'Practice check', m.check || 5));
+  return out;
 }
 
 export function buildSeed() {
-  blkSeq = 0;
+  blkSeq = 0; tileSeq.n = 0;
+  const ctx = { exercises: unitExercises() };
   const r = rng(20260907);
   const units = UNITS.map(([id, title, summary, example]) => ({ id, subject: 'MKT', title, summary, example: example || null }));
   const unitMap = Object.fromEntries(units.map(u => [u.id, u]));
@@ -124,7 +173,7 @@ export function buildSeed() {
       if (!status) continue;
       const u = unitMap[cur[w - 1]];
       const authorId = sec.instructorIds[0];
-      const l = { id: `L-${++lSeq}`, sectionId: sec.id, unitId: u.id, authorId, week: w, title: u.title, summary: u.summary, status, blocks: blocksForUnit(u), history: [], submittedAt: null, reviewedBy: null, reviewNote: null, publishedAt: null };
+      const l = { id: `L-${++lSeq}`, sectionId: sec.id, unitId: u.id, authorId, week: w, title: u.title, summary: u.summary, status, blocks: blocksForUnit(u, ctx), history: [], submittedAt: null, reviewedBy: null, reviewNote: null, publishedAt: null };
       l.history.push({ at: iso(at(Math.max(1, w - 3), 1, 10)), by: authorId, action: 'Created draft' });
       if (status !== 'draft') { l.submittedAt = iso(at(Math.max(1, w - 2), 1, 15)); l.history.push({ at: l.submittedAt, by: authorId, action: 'Submitted for approval' }); }
       if (['scheduled', 'published'].includes(status)) { l.reviewedBy = deanOf[sec.programId]; l.history.push({ at: iso(at(Math.max(1, w - 2), 3, 11)), by: l.reviewedBy, action: 'Approved' }); }
@@ -233,7 +282,7 @@ export function buildSeed() {
   ];
 
   const st = {
-    version: 16,
+    version: 17,
     clock: { week: CURRENT_WEEK, setAt: Date.now() },
     session: { userId: null },
     ui: { theme: 'light', orgFilter: null },
@@ -254,7 +303,7 @@ export function buildSeed() {
     vocabulary: VOCAB.map(([term, vi, def, unitId, pos, family, example, collocations], i) => ({ id: `V${i + 1}`, term, vi, def, unitId, pos, family, example, collocations })),
     grammar: GRAMMAR.map(([id, unitId, name, vi, form, use, useVi, examples, watchOut]) => ({ id, unitId, name, vi, form, use, useVi, examples, watchOut })),
   };
-  addLibrarySeed(st, { blocksForUnit, at, iso, CURRENT_WEEK });
+  addLibrarySeed(st, { blocksForUnit: (u) => blocksForUnit(u, ctx), at, iso, CURRENT_WEEK });
   st.__profiles = profile;
   addWorkbookSeed(st, { rng, iso, at, CURRENT_WEEK });
   delete st.__profiles;

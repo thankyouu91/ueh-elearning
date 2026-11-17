@@ -5,6 +5,7 @@ import * as b from './mkt-b.js';
 import * as c from './mkt-c.js';
 import * as d from './mkt-d.js';
 export { UNITS, WEEKS } from './mkt-units.js';
+export { LESSONS } from './mkt-lessons.js';
 
 const parts = [a, b, c, d];
 export const EXTRA_EXERCISES = parts.flatMap(p => p.EXTRA);

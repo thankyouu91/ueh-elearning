@@ -43,7 +43,7 @@ export const EXTRA = [
         ['6,000', '12', '2,000', '45'], 2,
         'The objectives say "2,000 new followers". 6,000 is the number of bottles.'),
       M('PJ1', 'Reading, Vocabulary in context', 'In the text, "sampling stands" are ...',
-        ['shelves in a supermarket', 'chairs for students in class', 'boxes for storing bottles', 'small places where people can try the product for free'], 3,
+        ['shelves where a supermarket keeps its drinks', 'chairs that students use in the classroom', 'boxes that the company uses to store bottles', 'small places where people can try the product for free'], 3,
         'The stands give out "free samples", so people can try the drink before they buy it.'),
     ]),
   ...LISTEN('PJ1-l', 'Listening, Feedback in a team meeting',
@@ -84,7 +84,7 @@ export const EXTRA = [
       ['I agree with you.', 'Could you repeat that, please?', 'Moving on to our budget, ...', 'Thank you for listening.'], 2,
       '"Moving on to ..." tells the audience that you are starting a new part of the talk.'),
     M('PJ2', 'Useful phrases, Handling questions', 'A guest asks a question and you need to check the figures. Which answer is the most professional?',
-      ['I don\'t know.', 'That question is not important.', 'Ask someone else, please.', 'That\'s a good question. Can I check the figures and email you this afternoon?'], 3,
+      ['I don\'t know, and I don\'t have the figures with me today.', 'That question is not really important for our pitch.', 'Please ask someone else in my team about the figures.', 'That\'s a good question. Can I check the figures and email you this afternoon?'], 3,
       'It thanks the speaker, is honest, and promises a clear next step.'),
     M('PJ2', 'Language focus, Present perfect for news', 'Complete the press release: "Green Leaf Tea ___ a new peach cold-brew flavour this week."',
       ['has launched', 'launch', 'have launched', 'launching'], 0,
@@ -119,11 +119,11 @@ export const EXTRA = [
         ['Every day until 17 May', '10 a.m. to 2 p.m., Monday to Friday', 'Only at weekends', 'From 20 April to 20 May, all day'], 1,
         'The second paragraph gives the times: "from 10 a.m. to 2 p.m., Monday to Friday".'),
       M('PJ2', 'Reading, Vocabulary in context', 'In "The campaign has already reached more than 3,000 students", "reached" means ...',
-        ['got to or was seen by', 'travelled to', 'paid', 'asked for help from'], 0,
+        ['was seen by', 'travelled to', 'was paid by', 'asked for help from'], 0,
         'In marketing, a campaign "reaches" people when they see it or take part in it.'),
     ]),
   ...LISTEN('PJ2-l', 'Listening, A team pitch with questions',
-    'Nam: Good morning, everyone. Today our team is going to present our campaign, Cold Brew on Campus. First, the problem. Only twelve percent of our cold-brew buyers are under twenty-five. ' +
+    'Nam: Good morning, everyone. Today our team is going to present our campaign, Cold Brew on Campus. First, the problem. Only twelve per cent of our cold-brew buyers are under twenty-five. ' +
     'Moving on to our plan: sampling stands at two universities for four weeks, plus short videos by student ambassadors. Our budget is thirty-five million dong. ' +
     'Finally, the results. We expect to sell six thousand bottles. Thank you. Are there any questions? ' +
     'Mr Minh: Yes. Thank you, Nam. Why did you choose universities and not shopping malls? ' +
@@ -135,10 +135,10 @@ export const EXTRA = [
         ['Complaining about a product', 'Interviewing for a job', 'Pitching a campaign and answering questions', 'Explaining how to make cold brew'], 2,
         'Nam presents the problem, plan and results, then takes questions from Mr Minh.'),
       M('PJ2', 'Listening, Detail', 'What is the budget of the campaign?',
-        ['6,000 bottles', '12 percent', '25 million VND', '35 million VND'], 3,
+        ['6,000 bottles', '12 per cent', '25 million VND', '35 million VND'], 3,
         'Nam says, "Our budget is thirty-five million dong."'),
       M('PJ2', 'Listening, Detail', 'How will the team measure the results?',
-        ['By asking students in the street', 'By counting the discount codes used in the online shop each week', 'By counting followers once at the end', 'By visiting shopping malls'], 1,
+        ['By asking students in the street', 'By counting discount codes every week', 'By counting followers at the end', 'By visiting shopping malls'], 1,
         'Nam says they will count the discount codes every week and send a report each Friday.'),
     ]),
   ...SPEAK('PJ2', 'Speaking, Pitch your campaign',
@@ -160,8 +160,8 @@ export const EXTRA = [
   /* ---------------- RV2, Final Review (Units 6–10) — futures, conditionals, trends, passive, present perfect ---------------- */
   ...USE([
     C('RV2', 'Review, Vocabulary from Units 6–10', 'Sort the words into the correct group.', ['Briefings and deadlines', 'Proposals', 'Digital communication'],
-      [['deadline', 0], ['follow-up email', 0], ['objective', 1], ['budget', 1], ['online review', 2], ['press release', 2], ['complaint', 2]],
-      'Deadlines and follow-up emails come after a briefing; objectives and budgets are parts of a proposal; reviews, press releases and complaints are digital communication.'),
+      [['deadline', 0], ['client brief', 0], ['objective', 1], ['budget', 1], ['online review', 2], ['press release', 2], ['complaint', 2]],
+      'Deadlines and client briefs belong to briefings; objectives and budgets are parts of a proposal; reviews, press releases and complaints are digital communication.'),
     M('RV2', 'Review, Will for promises', 'The client asks, "Can you send the draft by Friday?" Linh answers, "Sure, I ___ it on Thursday."',
       ['will send', 'sent', 'have sent', 'send'], 0,
       'We use "will" for a promise made at the moment of speaking.'),
@@ -197,12 +197,12 @@ export const EXTRA = [
       M('RV2', 'Reading, Detail', 'When did cold-brew sales reach a peak?',
         ['In May', 'In March', 'In June', 'In January'], 0,
         'The report says sales "reached a peak in May, at 4,100 bottles".'),
-      M('RV2', 'Reading, Vocabulary in context', 'In the text, "reached a peak" means sales ...',
-        ['started slowly', 'stayed the same', 'fell a little', 'were at their highest point'], 3,
-        'A "peak" is the top; after May, sales fell.'),
+      M('RV2', 'Reading, Vocabulary in context', 'In the text, "After the product was promoted on social media", "promoted" means ...',
+        ['made cheaper for a short time', 'moved to a different shop', 'made in a new factory', 'advertised to make people buy it'], 3,
+        'Promotion is the part of the marketing mix that tells people about a product; after the social media posts, sales rose.'),
     ]),
   ...LISTEN('RV2-l', 'Review, Listening: A phone briefing',
-    'Ha: Hi Linh, it\'s Ha. Have you got a minute? It\'s about a new client, Sunrise Bakery in District 7. They want to sell our gift boxes in their three shops for the Mid-Autumn Festival. ' +
+    'Ha: Hi Linh, it\'s Ha. Have you got a minute? It\'s about a new client, Moon River Bakery in District 7. They want to sell our gift boxes in their three shops for the Mid-Autumn Festival. ' +
     'Linh: Great news! What do they need from us? ' +
     'Ha: First, a short proposal with prices and a delivery plan. They need it by the twelfth of August, so that\'s our deadline. ' +
     'Linh: OK. I\'ll start the draft today. ' +
@@ -213,7 +213,7 @@ export const EXTRA = [
     [
       M('RV2', 'Listening, Gist', 'What is the call mainly about?',
         ['A complaint from a customer', 'A new client and the tasks for the project', 'A problem with a delivery', 'A new flavour of tea'], 1,
-        'Ha explains what Sunrise Bakery wants and gives Linh tasks and a deadline.'),
+        'Ha explains what Moon River Bakery wants and gives Linh tasks and a deadline.'),
       M('RV2', 'Listening, Detail', 'What is the deadline for the proposal?',
         ['Next Monday', 'This afternoon', 'September', '12 August'], 3,
         'Ha says, "They need it by the twelfth of August, so that\'s our deadline."'),
@@ -237,27 +237,27 @@ export const EXTRA = [
 
   /* ---------------- FX, Final Examination Week — exam practice across Units 1–10 ---------------- */
   ...USE([
-    M('FX', 'Exam practice, Classifying (Unit 1)', 'Complete the sentence: "Our stakeholders ___ into two groups: internal and external."',
+    M('FX', 'Exam practice, Classifying (Unit 1)', 'Complete the sentence: "Our shops ___ into two groups: city-centre shops and campus shops."',
       ['divide', 'are divided', 'is divided', 'dividing'], 1,
-      'The stakeholders are divided by someone, so we use the passive; "stakeholders" is plural, so "are".'),
-    M('FX', 'Exam practice, Obligation (Unit 2)', 'Complete the sentence: "Staff ___ wear their name badges in the shop; it is a company rule."',
+      'The shops are divided by someone, so we use the passive; "shops" is plural, so "are".'),
+    M('FX', 'Exam practice, Obligation (Unit 2)', 'Complete the sentence: "Shop managers ___ send the sales figures every Monday; it is a company rule."',
       ['have to', 'might', 'could', 'would'], 0,
       '"Have to" shows an obligation from a rule. "Might" and "could" show possibility.'),
     M('FX', 'Exam practice, Relative clauses (Unit 3)', 'Complete the sentence: "Our target customers are office workers ___ want a quick, healthy snack."',
       ['which', 'where', 'who', 'whose'], 2,
       'We use "who" for people in a defining relative clause.'),
-    M('FX', 'Exam practice, Polite criticism (Unit 4)', 'Which sentence is the most polite way to criticise an advert?',
+    M('FX', 'Exam practice, Polite criticism (Unit 4)', 'A designer shows you a poster with only young people in it. Which comment is the most polite?',
       ['This advert is terrible.', 'Change the advert now.', 'Nobody likes this advert.', 'It might be better to show older customers too.'], 3,
       '"It might be better to ..." gives criticism as a soft suggestion.'),
-    M('FX', 'Exam practice, Comparatives (Unit 5)', 'Complete the sentence: "Our oolong is ___ than our green tea, so it is good for the evening."',
-      ['more light', 'lighter', 'lightest', 'the most light'], 1,
-      'Short adjectives add -er before "than": light, lighter.'),
-    M('FX', 'Exam practice, Trends (Unit 8)', 'Complete the sentence: "Visits to the website fell ___ 5,000 ___ 3,800 in July."',
+    M('FX', 'Exam practice, Comparatives (Unit 5)', 'Complete the sentence: "Our new bottle is ___ than the old one, so it fits in a small bag."',
+      ['more small', 'smaller', 'smallest', 'the most small'], 1,
+      'Short adjectives add -er before "than": small, smaller.'),
+    M('FX', 'Exam practice, Trends (Unit 8)', 'Complete the sentence: "Orders from the app fell ___ 2,400 ___ 1,900 in July."',
       ['from ... to', 'by ... at', 'to ... from', 'at ... by'], 0,
       '"Fall from A to B" gives the start and the end numbers.'),
-    M('FX', 'Exam practice, Future passive (Unit 9)', 'Complete the letter: "Your order ___ within two days."',
-      ['will deliver', 'delivers', 'will be delivered', 'is delivering'], 2,
-      'The order does not deliver itself, so we use the future passive: will be + past participle.'),
+    M('FX', 'Exam practice, Future passive (Unit 9)', 'Complete the letter: "The new labels ___ to your shop next Monday."',
+      ['will send', 'sends', 'will be sent', 'is sending'], 2,
+      'The labels do not send themselves, so we use the future passive: will be + past participle.'),
     O('FX', 'Exam practice, Order a reply to a complaint (Unit 10)', 'Put the parts of a reply to a customer complaint in the correct order.',
       ['Dear Mr Hung,',
         'Thank you for your email, and we are sorry that your tea arrived late.',
@@ -287,7 +287,7 @@ export const EXTRA = [
         '"Make up" here means "form a part of": online sales are 35% of all sales.'),
     ]),
   ...LISTEN('FX-l', 'Exam practice, Listening: A short presentation',
-    'Linh: Good afternoon, everyone. I\'m going to talk about our gift box sales for the last quarter. First, the overall picture. Sales rose from four thousand boxes in July to six thousand five hundred in September. That\'s an increase of more than sixty percent. The main reason was the Mid-Autumn Festival. ' +
+    'Linh: Good afternoon, everyone. I\'m going to talk about our gift box sales for the last quarter. First, the overall picture. Sales rose from four thousand boxes in July to six thousand five hundred in September. That\'s an increase of more than sixty per cent. The main reason was the Mid-Autumn Festival. ' +
     'Moving on to our channels. Shops sold the most boxes, but online sales grew faster. They doubled, from eight hundred to one thousand six hundred boxes. ' +
     'However, we had a problem. About fifty boxes were damaged during delivery, so we\'ve changed our delivery company. ' +
     'Finally, my recommendation. I think we should start the Tet campaign earlier this year, in November, because customers buy gifts early. If we start in November, we\'ll reach more office workers. Thank you. I\'m happy to take questions.',
@@ -336,16 +336,16 @@ export const Q = [
 
   ['RV2', 'Which form do we use for a fixed arrangement with a time and place?', ['Present continuous', 'Past simple', 'Present perfect', 'Will for a sudden decision'], 'Remember'],
   ['RV2', 'Which word means "the latest time or date by which something must be done"?', ['deadline', 'brief', 'budget', 'target'], 'Remember'],
-  ['RV2', '"Unless we reduce the budget, the plan will not be approved." What does this mean?', ['The plan will be approved only if we reduce the budget', 'The plan is already approved', 'We will reduce the budget after approval', 'The budget is not important'], 'Understand'],
+  ['RV2', '"Unless the client replies by Friday, we will not print the boxes." What does this mean?', ['We will print the boxes only if the client replies by Friday', 'We have already printed the boxes', 'We will print the boxes after Friday anyway', 'The client does not need any boxes'], 'Understand'],
   ['RV2', 'Why is the passive used in "The samples were sent on 3 May"?', ['The action is more important than who did it', 'The sender is the main topic', 'It describes a future plan', 'It makes the sentence less formal'], 'Understand'],
   ['RV2', 'Complete: "Sales ___ a peak of 4,100 bottles in May."', ['reached', 'rose by', 'fell from', 'increased'], 'Apply'],
   ['RV2', 'Complete the reply: "We ___ your email yesterday, and we are checking your order now."', ['received', 'have received', 'receive', 'are receiving'], 'Apply'],
 
-  ['FX', 'Which phrase is used for classifying: "Our stakeholders ___ two groups."', ['are divided into', 'are dividing at', 'divide in', 'is divided'], 'Remember'],
-  ['FX', 'Which modal shows a rule or strong obligation?', ['must', 'might', 'could', 'would'], 'Remember'],
+  ['FX', 'Which phrase is used for classifying: "Our staff ___ three teams."', ['are divided into', 'are dividing at', 'divide in', 'is divided'], 'Remember'],
+  ['FX', 'Which sentence shows that something is NOT necessary?', ["You don't have to wear a tie.", "You mustn't wear a tie.", 'You must wear a tie.', 'You have to wear a tie.'], 'Remember'],
   ['FX', 'In "Customers who buy online get free delivery", what does "who buy online" do?', ['It tells us which customers we mean', 'It adds extra, unnecessary information', 'It shows a future plan', 'It compares two groups'], 'Understand'],
   ['FX', 'Which sentence is a polite suggestion for improving an advert?', ['"It might be better to show older customers too."', '"Your advert is wrong."', '"Remove it now."', '"Nobody will buy this."'], 'Understand'],
-  ['FX', 'Complete: "This is ___ gift box in our range."', ['the most popular', 'more popular', 'most popular than', 'the popularest'], 'Apply'],
+  ['FX', 'Complete: "Cold brew is ___ drink on our summer menu."', ['the most refreshing', 'more refreshing', 'most refreshing than', 'the refreshingest'], 'Apply'],
   ['FX', 'Which order is correct for a reply to a complaint?', ['Thank and apologise, explain, offer a solution, close politely', 'Offer a solution, close, apologise, explain', 'Close, explain, thank, offer a solution', 'Explain, close, apologise, thank'], 'Analyze'],
 ];
 
