@@ -286,6 +286,17 @@ const H = {
     const { score, maxScore } = S.gradeAttempt(s, x, p.answers);
     const at = { id: newId('AT'), assessmentId: x.id, studentId: a.id, startedAt: p.startedAt, submittedAt: S.now(s).toISOString(), answers: p.answers, score, maxScore, status: 'graded' };
     s.attempts.push(at);
+    if (x.parts) {
+      // Multi-part exam: the attempt is final only once the lecturer has marked the writing and speaking tasks.
+      const b = S.examBreakdown(s, x, at);
+      const mcq = b.parts.filter(q => !q.tasks);
+      Object.assign(at, b.pending ? { status: 'pending_marking', score: null, maxScore: 100 } : { score: b.total, maxScore: 100 });
+      const right = mcq.reduce((t, q) => t + q.got, 0), of = mcq.reduce((t, q) => t + q.max, 0);
+      notify(s, S.instructorsOfSection(s, a.sectionId), b.pending ? 'Exam waiting for marking' : 'Submission graded', `${a.name} submitted ${x.title}: ${right}/${of} on the auto-checked parts${b.pending ? `, ${b.pending} task(s) to mark` : ''}.`, '#/instructor/marking', eventId);
+      notify(s, [a.id], 'Exam submitted', `${x.title}: ${right}/${of} on listening, reading and language. ${b.pending ? 'Your final mark appears after your lecturer marks writing and speaking.' : `Final mark ${S.round1(b.total / 10).toFixed(1)}/10.`}`, `#/student/result/${at.id}`, eventId);
+      if (!b.pending) checkAtRisk(s);
+      return { result: at.id, audit: [`Submitted ${x.title}: ${right}/${of} auto-checked${b.pending ? ', awaiting marking' : ''}`, 'attempt', at.id], toast: `Submitted — ${right}/${of} on the auto-checked parts` };
+    }
     const ten = S.round1((score / maxScore) * 10);
     notify(s, S.instructorsOfSection(s, a.sectionId), 'Submission auto-graded', `${a.name} scored ${ten.toFixed(1)}/10 on ${x.title}.`, '#/instructor/gradebook', eventId);
     notify(s, [a.id], 'Result available', `${x.title}: ${score}/${maxScore} correct (${ten.toFixed(1)}/10).`, `#/student/result/${at.id}`, eventId);
@@ -728,6 +739,11 @@ const H = {
   WORKBOOK_ANSWERED(s, a, p) {
     const e = S.exerciseById(s, p.exerciseId) || fail('Exercise not found');
     if (!S.releasedUnits(s, a.sectionId).includes(e.unitId)) fail('This unit has not started yet');
+    if (e.caseId?.startsWith('EXAM:')) {
+      const x = S.assessmentById(s, e.caseId.slice(5));
+      if (S.assessmentStatus(s, x) !== 'open') fail('This exam is not open');
+      if (S.attemptsOf(s, a.id, x.id).length) fail('You have already submitted this exam');
+    }
     let ans = S.answerOf(s, a.id, e.id);
     const t = S.now(s).toISOString();
     if (e.type === 'written') {
@@ -755,6 +771,20 @@ const H = {
     if (!(score >= 0 && score <= 4)) fail('Choose a score from 0 to 4');
     Object.assign(ans, { score, status: 'graded', feedback: p.feedback?.trim() || null, gradedBy: a.id });
     const e = S.exerciseById(s, ans.exerciseId);
+    if (e.caseId?.startsWith('EXAM:')) {
+      // Last marked task of a multi-part exam: the attempt gets its final weighted mark and counts in the course grade.
+      const x = S.assessmentById(s, e.caseId.slice(5));
+      const at = S.attemptsOf(s, stu.id, x.id).find(t => t.status === 'pending_marking');
+      if (at) {
+        const b = S.examBreakdown(s, x, at);
+        if (!b.pending) {
+          Object.assign(at, { status: 'graded', score: b.total, maxScore: 100 });
+          notify(s, [stu.id], 'Exam marked', `${x.title}: ${S.round1(b.total / 10).toFixed(1)}/10.`, `#/student/result/${at.id}`, eventId);
+          checkAtRisk(s);
+        }
+      }
+      return { audit: [`Marked ${stu.name}'s exam task (${e.title}): ${score}/4`, 'answer', ans.id], toast: `Saved — ${score}/4` };
+    }
     notify(s, [stu.id], e.speak ? 'Spoken answer marked' : 'Written answer marked', `${e.title}: ${score}/4${ans.feedback ? ` — "${ans.feedback}"` : ''}`, e.caseId ? `#/student/case/${e.caseId}` : `#/student/workbook/${e.unitId}`, eventId);
     return { audit: [`Marked ${stu.name}'s answer (${e.title}): ${score}/4`, 'answer', ans.id], toast: `Saved — ${score}/4` };
   },
